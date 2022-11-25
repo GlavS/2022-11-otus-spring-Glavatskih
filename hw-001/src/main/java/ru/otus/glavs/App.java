@@ -1,13 +1,14 @@
 package ru.otus.glavs;
 
-/**
- * Hello world!
- *
- */
-public class App 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.otus.glavs.service.QuizService;
+
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("spring-context.xml");
+        QuizService quizService = context.getBean(QuizService.class);
+        quizService.displayAll();
     }
 }
