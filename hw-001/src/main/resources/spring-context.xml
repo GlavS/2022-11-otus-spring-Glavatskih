@@ -6,5 +6,10 @@
 <bean id="csvReader" class="ru.otus.glavs.dao.CsvReader">
     <property name="quizCsvFileName" value="quiz.csv"/>
 </bean>
-
+<bean id="quizDao" class="ru.otus.glavs.dao.QuizDaoCsvImpl">
+    <constructor-arg name="reader" ref="csvReader"/>
+</bean>
+<bean id="quizService" class="ru.otus.glavs.service.QuizService">
+    <constructor-arg name="dao" ref="quizDao"/>
+</bean>
 </beans>
