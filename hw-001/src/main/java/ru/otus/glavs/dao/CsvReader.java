@@ -12,17 +12,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 @SuppressWarnings("unused")
 public class CsvReader {
-    private String quizCsvFileName; // property, hardcoded in spring-context.xml
-
     private static final int ID = 0;
     private static final int QUESTION = 1;
     private static final int ANSWER1 = 2;
     private static final int ANSWER2 = 3;
     private static final int ANSWER3 = 4;
+    private String quizCsvFileName; // property, hardcoded in spring-context.xml
 
-    public List<Quiz> readAllRows(){
+    public List<Quiz> readAllRows() {
         List<Quiz> result = new ArrayList<>();
         ClassPathResource resource = new ClassPathResource(quizCsvFileName); //get Quiz resource
         //We are to use jackson-dataformat-csv library to parse Quiz resource
@@ -47,8 +47,7 @@ public class CsvReader {
                         row.get(ANSWER3));
                 result.add(quiz);
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return result;

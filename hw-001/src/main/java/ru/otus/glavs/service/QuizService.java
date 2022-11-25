@@ -4,6 +4,7 @@ import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
 
 import java.util.List;
+
 @SuppressWarnings("unused")
 public class QuizService {
     private final QuizDao dao;
@@ -12,7 +13,7 @@ public class QuizService {
         this.dao = dao;
     }
 
-    public void displayAll(){
+    public void displayAll() {
         List<Quiz> quizList = dao.getAll();
         for (Quiz quiz :
                 quizList) {
