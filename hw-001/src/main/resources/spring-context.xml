@@ -3,11 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="csvReader" class="ru.otus.glavs.dao.CsvReader">
-        <property name="quizCsvFileName" value="quiz.csv"/>
-    </bean>
+
     <bean name="quizDao" class="ru.otus.glavs.dao.QuizDaoCsvImpl">
-        <constructor-arg name="reader" ref="csvReader"/>
+        <constructor-arg name="parser" ref="parser"/>
     </bean>
     <bean name="quizService" class="ru.otus.glavs.service.QuizService">
         <constructor-arg name="dao" ref="quizDao"/>
@@ -15,7 +13,7 @@
     <bean name="loader" class="ru.otus.glavs.dao.loader.TextFileLoader">
         <property name="csvFileName" value="quiz.csv"/>
     </bean>
-    <bean name="parser" class="ru.otus.glavs.dao.parser.CsvParser">
-        <constructor-arg name="loader" ref="loader"/>
+    <bean name="parser" class="ru.otus.glavs.dao.parser.CsvFileParser">
+        <property name="loader" ref="loader"/>
     </bean>
 </beans>
