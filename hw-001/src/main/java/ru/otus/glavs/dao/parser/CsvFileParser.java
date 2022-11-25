@@ -1,5 +1,8 @@
 package ru.otus.glavs.dao.parser;
 
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import ru.otus.glavs.dao.loader.Loader;
 import ru.otus.glavs.domain.Quiz;
 
@@ -7,11 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-
-public class CsvFileParser implements Parser{
+public class CsvFileParser implements Parser {
     private static final int ID = 0;
     private static final int QUESTION = 1;
     private static final int ANSWER1 = 2;
@@ -28,12 +27,11 @@ public class CsvFileParser implements Parser{
                 .withColumnSeparator(';');
 
 
-        try {
-            MappingIterator<List<String>> iterator = mapper
-                    .readerForListOf(String.class)
-                    .with(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
-                    .with(schema)
-                    .readValues(loader.getRowData());
+        try (MappingIterator<List<String>> iterator = mapper
+                .readerForListOf(String.class)
+                .with(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
+                .with(schema)
+                .readValues(loader.getRowData())) {
             while (iterator.hasNextValue()) {
                 List<String> row = iterator.nextValue();
                 Quiz quiz = new Quiz(
@@ -47,6 +45,7 @@ public class CsvFileParser implements Parser{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         return result;
     }

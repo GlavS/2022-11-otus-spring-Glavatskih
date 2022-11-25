@@ -7,7 +7,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class QuizDaoCsvImpl implements QuizDao {
-    private Parser parser;
+    private final Parser parser;
 
     public QuizDaoCsvImpl(Parser parser) {
         this.parser = parser;
