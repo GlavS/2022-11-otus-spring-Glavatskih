@@ -22,10 +22,12 @@ public class CsvFileParser implements Parser {
     @Override
     public List<Quiz> parse() {
         List<Quiz> result = new ArrayList<>();
+//We are to use jackson-dataformat-csv library to parse Quiz resource
+//https://github.com/FasterXML/jackson-dataformats-text/tree/master/csv
+//https://cowtowncoder.medium.com/reading-csv-with-jackson-c4e74a15ddc1
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = CsvSchema.emptySchema()
                 .withColumnSeparator(';');
-
 
         try (MappingIterator<List<String>> iterator = mapper
                 .readerForListOf(String.class)
