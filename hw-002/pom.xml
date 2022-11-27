@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.glavs</groupId>
-    <artifactId>hw-001</artifactId>
+    <artifactId>hw-002</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>hw-001</name>
-    <description>Homework Lesson 01</description>
+    <name>hw-002</name>
+    <description>Homework Lesson 02</description>
 
 
     <properties>
