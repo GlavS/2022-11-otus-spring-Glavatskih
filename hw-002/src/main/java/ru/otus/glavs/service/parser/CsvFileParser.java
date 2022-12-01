@@ -20,6 +20,10 @@ public class CsvFileParser implements Parser {
 
     private Loader loader;
 
+    public CsvFileParser(Loader loader) {
+        this.loader = loader;
+    }
+
     @Override
     public List<Quiz> parse() {
         List<Quiz> result = new ArrayList<>();
@@ -54,7 +58,5 @@ public class CsvFileParser implements Parser {
         return result;
     }
 
-    public void setLoader(Loader loader) {
-        this.loader = loader;
-    }
+
 }
