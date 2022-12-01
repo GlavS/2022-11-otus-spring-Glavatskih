@@ -1,6 +1,5 @@
 package ru.otus.glavs.domain;
 
-@SuppressWarnings("unused")
 public class Quiz {
     private final int id;
     private final String question;

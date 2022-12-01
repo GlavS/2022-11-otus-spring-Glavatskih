@@ -5,16 +5,15 @@ import ru.otus.glavs.domain.Quiz;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class QuizDaoCsvImpl implements QuizDao {
-    private final Parser parser;
+    private final Parser csvParser;
 
     public QuizDaoCsvImpl(Parser parser) {
-        this.parser = parser;
+        this.csvParser = parser;
     }
 
     @Override
     public List<Quiz> getAll() {
-        return parser.parse();
+        return csvParser.parse();
     }
 }

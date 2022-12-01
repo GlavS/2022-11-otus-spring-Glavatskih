@@ -5,7 +5,6 @@ import ru.otus.glavs.domain.Quiz;
 
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class QuizService {
     private final QuizDao dao;
 
