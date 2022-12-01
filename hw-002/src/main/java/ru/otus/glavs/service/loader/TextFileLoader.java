@@ -1,4 +1,4 @@
-package ru.otus.glavs.dao.loader;
+package ru.otus.glavs.service.loader;
 
 import org.springframework.core.io.ClassPathResource;
 

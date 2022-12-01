@@ -1,9 +1,9 @@
-package ru.otus.glavs.dao.parser;
+package ru.otus.glavs.service.parser;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import ru.otus.glavs.dao.loader.Loader;
+import ru.otus.glavs.service.loader.Loader;
 import ru.otus.glavs.domain.Quiz;
 
 import java.io.IOException;

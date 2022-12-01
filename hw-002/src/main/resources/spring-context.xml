@@ -10,10 +10,10 @@
     <bean name="quizService" class="ru.otus.glavs.service.QuizService">
         <constructor-arg name="dao" ref="quizDao"/>
     </bean>
-    <bean name="loader" class="ru.otus.glavs.dao.loader.TextFileLoader">
+    <bean name="loader" class="ru.otus.glavs.service.loader.TextFileLoader">
         <property name="csvFileName" value="quiz.csv"/>
     </bean>
-    <bean name="parser" class="ru.otus.glavs.dao.parser.CsvFileParser">
+    <bean name="parser" class="ru.otus.glavs.service.parser.CsvFileParser">
         <property name="loader" ref="loader"/>
     </bean>
 </beans>

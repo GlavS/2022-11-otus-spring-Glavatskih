@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.otus.glavs.dao.parser.Parser;
+import ru.otus.glavs.service.parser.Parser;
 import ru.otus.glavs.domain.Quiz;
 
 import java.util.ArrayList;

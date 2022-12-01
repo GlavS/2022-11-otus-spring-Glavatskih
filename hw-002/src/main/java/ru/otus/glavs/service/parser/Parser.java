@@ -1,4 +1,4 @@
-package ru.otus.glavs.dao.parser;
+package ru.otus.glavs.service.parser;
 
 import ru.otus.glavs.domain.Quiz;
 
