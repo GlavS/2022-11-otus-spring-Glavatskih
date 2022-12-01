@@ -16,4 +16,6 @@
     <bean name="parser" class="ru.otus.glavs.service.parser.CsvFileParser">
         <constructor-arg name="loader" ref="loader"/>
     </bean>
+    <bean name="consoleHelper" class="ru.otus.glavs.service.helper.ConsoleHelper"/>
+
 </beans>
