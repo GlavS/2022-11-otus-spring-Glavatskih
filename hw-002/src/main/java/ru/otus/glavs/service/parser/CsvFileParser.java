@@ -16,6 +16,7 @@ public class CsvFileParser implements Parser {
     private static final int ANSWER1 = 2;
     private static final int ANSWER2 = 3;
     private static final int ANSWER3 = 4;
+    private static final int CORRECT_ANSWER = 5;
 
     private Loader loader;
 
@@ -41,7 +42,8 @@ public class CsvFileParser implements Parser {
                         row.get(QUESTION),
                         row.get(ANSWER1),
                         row.get(ANSWER2),
-                        row.get(ANSWER3));
+                        row.get(ANSWER3),
+                        Integer.parseInt(row.get(CORRECT_ANSWER)));
                 result.add(quiz);
             }
         } catch (IOException e) {
