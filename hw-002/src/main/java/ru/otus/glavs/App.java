@@ -1,6 +1,9 @@
 package ru.otus.glavs;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.otus.glavs.dao.QuizDao;
+import ru.otus.glavs.dao.QuizDaoCsvImpl;
+import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.service.QuizService;
 
 public class App {
