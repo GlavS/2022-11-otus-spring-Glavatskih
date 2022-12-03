@@ -1,13 +1,16 @@
 package ru.otus.glavs;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.glavs.service.QuizServiceImpl;
+import ru.otus.glavs.service.ExamService;
 
 public class App {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
-        QuizServiceImpl quizService = context.getBean(QuizServiceImpl.class);
-        quizService.displayAllQuestions();
+//        QuizServiceImpl quizService = context.getBean(QuizServiceImpl.class);
+//        quizService.displayAllQuestions();
+
+        ExamService exam = context.getBean(ExamService.class);
+        exam.examine();
 
 //        ConsoleHelper ch = context.getBean(ConsoleHelper.class);
 //        String input = ch.readString();

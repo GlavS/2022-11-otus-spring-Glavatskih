@@ -23,7 +23,7 @@ public class ExamServiceQuizImpl implements ExamService {
 
     @Override
     public void examine() {
-        Map<Integer, Boolean> answerList = new HashMap<>();
+        Map<Integer, Answer> answerList = new HashMap<>();
 
         ch.writeMessage("Starting our exam...");
         Student student = studentService.register();
@@ -45,15 +45,24 @@ public class ExamServiceQuizImpl implements ExamService {
                 answer = ch.readInt();
             }
             boolean isCorrect = (answer == question.getCorrectAnswer());
-            answerList.put(answer, isCorrect);
+            answerList.put(question.getId(), new Answer(answer, isCorrect));
         }
 
         ch.writeMessage("Exam results review:");
-        int correctAnswerCount = (int) answerList.values().stream().filter(isCorrect -> isCorrect).count();
+        int correctAnswerCount = (int) answerList.values().stream().filter(ans -> ans.isCorrect).count();
         boolean isPassed = (correctAnswerCount > 3);
         String examResult = isPassed? "Exam is passed" : "Exam is not passed";
         ch.writeMessage(examResult);
-        ch.write(String.format("You correctly answered %d questions of 5", correctAnswerCount));
+        ch.write(String.format("%s %s correctly answered %d questions of 5", student.getName(), student.getSurname(), correctAnswerCount));
+        ch.writeMessage(System.lineSeparator());
+    }
+    private static class Answer{
+        int variant;
+        boolean isCorrect;
 
+        public Answer(int variant, boolean isCorrect) {
+            this.variant = variant;
+            this.isCorrect = isCorrect;
+        }
     }
 }

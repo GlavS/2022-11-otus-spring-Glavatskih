@@ -18,5 +18,18 @@
         <constructor-arg name="loader" ref="loader"/>
     </bean>
     <bean name="consoleHelper" class="ru.otus.glavs.service.helper.ConsoleHelper"/>
+    <bean name="examService" class="ru.otus.glavs.service.ExamServiceQuizImpl">
+        <constructor-arg name="ch" ref="consoleHelper"/>
+        <constructor-arg name="quizService" ref="quizService"/>
+        <constructor-arg name="studentService" ref="studentService"/>
+
+    </bean>
+    <bean name="studentService" class="ru.otus.glavs.service.StudentServiceImpl">
+        <constructor-arg name="dao" ref="studentDao"/>
+        <constructor-arg name="ch" ref="consoleHelper"/>
+    </bean>
+    <bean name="studentDao" class="ru.otus.glavs.dao.StudentDaoImpl">
+
+    </bean>
 
 </beans>

@@ -10,4 +10,16 @@ public class Student {
         this.name = name;
         this.surname = surname;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
 }
