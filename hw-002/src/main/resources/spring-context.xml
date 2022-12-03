@@ -7,7 +7,7 @@
     <bean name="quizDao" class="ru.otus.glavs.dao.QuizDaoCsvImpl">
         <constructor-arg name="parser" ref="parser"/>
     </bean>
-    <bean name="quizService" class="ru.otus.glavs.service.QuizService">
+    <bean name="quizService" class="ru.otus.glavs.service.QuizServiceImpl">
         <constructor-arg name="dao" ref="quizDao"/>
     </bean>
     <bean name="loader" class="ru.otus.glavs.service.loader.TextFileLoader">
