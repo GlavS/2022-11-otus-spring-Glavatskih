@@ -23,4 +23,7 @@ public class QuizService {
             System.out.println();
         }
     }
+    public List<Quiz> getQuiz(){
+        return dao.getAll();
+    }
 }

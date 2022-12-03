@@ -33,4 +33,14 @@ public class ConsoleHelper {
     public  void writeMessage(String message) {
         System.out.println(message);
     }
+
+    public String readStringWithPrompt(String prompt){
+        writeMessage(prompt);
+        return readString();
+    }
+
+    public int readIntWithPrompt(String prompt){
+        writeMessage(prompt);
+        return readInt();
+    }
 }
