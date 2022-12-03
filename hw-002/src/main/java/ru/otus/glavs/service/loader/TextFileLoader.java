@@ -9,6 +9,10 @@ import java.io.InputStreamReader;
 public class TextFileLoader implements Loader {
     private String csvFileName;
 
+    public TextFileLoader(String csvFileName) {
+        this.csvFileName = csvFileName;
+    }
+
     @Override
     public String getRowData() {
         StringBuilder sb = new StringBuilder();
@@ -22,9 +26,5 @@ public class TextFileLoader implements Loader {
             e.printStackTrace();
         }
         return sb.toString();
-    }
-
-    public void setCsvFileName(String csvFileName) {
-        this.csvFileName = csvFileName;
     }
 }

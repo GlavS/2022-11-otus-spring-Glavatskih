@@ -11,7 +11,7 @@
         <constructor-arg name="dao" ref="quizDao"/>
     </bean>
     <bean name="loader" class="ru.otus.glavs.service.loader.TextFileLoader">
-        <property name="csvFileName" value="quiz.csv"/>
+        <constructor-arg name="csvFileName" value="quiz.csv"/>
     </bean>
     <bean name="parser" class="ru.otus.glavs.service.parser.CsvFileParser">
         <constructor-arg name="loader" ref="loader"/>
