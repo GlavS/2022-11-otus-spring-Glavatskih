@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+//Утилитный класс. Может быть, сделать все методы статическими?
+
 public class ConsoleHelper {
     private  final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -32,6 +34,9 @@ public class ConsoleHelper {
 
     public  void writeMessage(String message) {
         System.out.println(message);
+    }
+    public  void write(String string){ //вывод без символа новой строки
+        System.out.print(string);
     }
 
     public String readStringWithPrompt(String prompt){

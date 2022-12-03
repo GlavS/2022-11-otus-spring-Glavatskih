@@ -5,6 +5,7 @@ import ru.otus.glavs.domain.Quiz;
 import java.util.List;
 
 public interface QuizService {
-    void displayAll();
+    void displayAllQuestions();
+    void displayQuestion(Quiz question);
     List<Quiz> getQuestionList();
 }

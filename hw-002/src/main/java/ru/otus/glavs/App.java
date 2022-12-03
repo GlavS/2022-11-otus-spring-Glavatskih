@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
         QuizServiceImpl quizService = context.getBean(QuizServiceImpl.class);
-        quizService.displayAll();
+        quizService.displayAllQuestions();
 
 //        ConsoleHelper ch = context.getBean(ConsoleHelper.class);
 //        String input = ch.readString();
