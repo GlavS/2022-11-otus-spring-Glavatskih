@@ -1,15 +1,19 @@
 package ru.otus.glavs.service.loader;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+@Service
+@PropertySource("classpath:application.properties")
 public class TextFileLoader implements Loader {
     private String csvFileName;
 
-    public TextFileLoader(String csvFileName) {
+    public TextFileLoader(@Value("${quiz.filename}") String csvFileName) {
         this.csvFileName = csvFileName;
     }
 

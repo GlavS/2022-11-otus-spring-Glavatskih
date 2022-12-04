@@ -1,7 +1,8 @@
 package ru.otus.glavs.dao;
 
+import org.springframework.stereotype.Component;
 import ru.otus.glavs.domain.Student;
-
+@Component
 public class StudentDaoImpl implements StudentDao{
     @Override
     public Student registerNew(String name, String surname) {

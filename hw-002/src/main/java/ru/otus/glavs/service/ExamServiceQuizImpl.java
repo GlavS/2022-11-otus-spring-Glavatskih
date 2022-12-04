@@ -1,5 +1,6 @@
 package ru.otus.glavs.service;
 
+import org.springframework.stereotype.Service;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.domain.Student;
 import ru.otus.glavs.service.helper.ConsoleHelper;
@@ -7,7 +8,7 @@ import ru.otus.glavs.service.helper.ConsoleHelper;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
+@Service
 public class ExamServiceQuizImpl implements ExamService {
 
     private final QuizService quizService;

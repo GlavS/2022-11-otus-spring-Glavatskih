@@ -3,13 +3,14 @@ package ru.otus.glavs.service.parser;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.springframework.stereotype.Service;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.service.loader.Loader;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class CsvFileParser implements Parser {
     private static final int ID = 0;
     private static final int QUESTION = 1;

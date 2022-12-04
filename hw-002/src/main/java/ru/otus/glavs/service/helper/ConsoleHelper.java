@@ -1,11 +1,13 @@
 package ru.otus.glavs.service.helper;
 
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 //Утилитный класс. Может быть, сделать все методы статическими?
-
+@Service
 public class ConsoleHelper {
     private  final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

@@ -1,11 +1,12 @@
 package ru.otus.glavs.dao;
 
+import org.springframework.stereotype.Component;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.service.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class QuizDaoCsvImpl implements QuizDao {
     private final Parser csvParser;
 
