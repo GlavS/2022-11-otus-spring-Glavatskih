@@ -36,4 +36,9 @@ public class QuizServiceImpl implements QuizService{
     public List<Quiz> getQuestionList(){
         return dao.getAll();
     }
+
+    @Override
+    public Quiz getQuestionById(int id) {
+        return dao.getById(id);
+    }
 }

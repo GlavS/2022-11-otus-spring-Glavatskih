@@ -54,6 +54,32 @@ public class ExamServiceQuizImpl implements ExamService {
         }
         return answerMap;
     }
+    private void printMistakes(Map<Integer, Answer> answerMap){
+        ch.writeMessage("Incorrect answers:");
+        for (Map.Entry<Integer, Answer> entry :
+                answerMap.entrySet()) {
+            if(!entry.getValue().isCorrect){
+                int questionNumber = entry.getKey();
+                Quiz question = quizService.getQuestionById(questionNumber);
+                String questionText = question.getQuestion();
+                String givenAnswer = getAnswerByNumber(question, entry.getValue().variant);
+                String correctAnswer = getAnswerByNumber(question, question.getCorrectAnswer());
+                ch.write(String.format("Answer on question %d: \"%s\" was %s, but correct answer is %s%n",
+                        questionNumber, questionText, givenAnswer, correctAnswer));
+            }
+        }
+    }
+    private String getAnswerByNumber(Quiz question, int number){
+        if(number == 1){
+            return question.getAnswer1();
+        } else if (number == 2) {
+            return question.getAnswer2();
+        } else if (number == 3) {
+            return question.getAnswer3();
+        } else {
+            return "No such answer";
+        }
+    }
 
     private void printExamResults(Student student, Map<Integer, Answer> answerMap) {
         ch.writeMessage("Exam results review:");
@@ -61,8 +87,11 @@ public class ExamServiceQuizImpl implements ExamService {
         boolean isPassed = (correctAnswerCount > 3);
         String examResult = isPassed ? "Exam is passed" : "Exam is not passed";
         ch.writeMessage(examResult);
-        ch.write(String.format("%s %s correctly answered %d questions of 5", student.getName(), student.getSurname(), correctAnswerCount));
+        ch.write(String.format("Student %s %s correctly answered %d questions of 5", student.getName(), student.getSurname(), correctAnswerCount));
         ch.writeMessage(System.lineSeparator());
+        if(correctAnswerCount < 5) {
+            printMistakes(answerMap);
+        }
     }
 
     private static final class Answer {

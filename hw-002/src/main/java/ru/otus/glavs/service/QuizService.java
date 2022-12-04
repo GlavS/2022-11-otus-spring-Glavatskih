@@ -8,4 +8,5 @@ public interface QuizService {
     void displayAllQuestions();
     void displayQuestion(Quiz question);
     List<Quiz> getQuestionList();
+    Quiz getQuestionById(int id);
 }
