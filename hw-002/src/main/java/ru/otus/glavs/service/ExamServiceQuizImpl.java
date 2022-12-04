@@ -17,7 +17,7 @@ public class ExamServiceQuizImpl implements ExamService {
     private final ConsoleHelper ch;
 
 
-    public ExamServiceQuizImpl(QuizServiceImpl quizService, StudentServiceImpl studentService, ConsoleHelper ch) {
+    public ExamServiceQuizImpl(QuizService quizService, StudentService studentService, ConsoleHelper ch) {
         this.quizService = quizService;
         this.studentService = studentService;
         this.ch = ch;
