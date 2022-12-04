@@ -12,7 +12,7 @@ public class ConsoleHelper {
     private  final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public  int readInt() {
-        int result = 0;
+        int result;
         try {
             result = Integer.parseInt(readString());
         } catch (NumberFormatException exception) {
@@ -23,7 +23,7 @@ public class ConsoleHelper {
     }
 
     public  String readString() {
-        String result = "";
+        String result;
         try {
             result = reader.readLine();
         } catch (IOException exception) {

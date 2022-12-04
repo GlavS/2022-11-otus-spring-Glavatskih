@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 @Service
 @PropertySource("classpath:application.properties")
 public class TextFileLoader implements Loader {
-    private String csvFileName;
+    private final String csvFileName;
 
     public TextFileLoader(@Value("${quiz.filename}") String csvFileName) {
         this.csvFileName = csvFileName;
