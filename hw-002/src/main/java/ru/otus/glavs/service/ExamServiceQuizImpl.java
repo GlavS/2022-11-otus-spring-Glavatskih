@@ -1,5 +1,6 @@
 package ru.otus.glavs.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.domain.Student;
@@ -15,6 +16,9 @@ public class ExamServiceQuizImpl implements ExamService {
     private final QuizService quizService;
     private final StudentService studentService;
     private final ConsoleHelper ch;
+    @Value("${quiz.minCorrectAnswers}")
+    private int minCorrectAnswersCount; // количество правильных ответов, достаточное для прохождения теста
+
 
 
     public ExamServiceQuizImpl(QuizService quizService, StudentService studentService, ConsoleHelper ch) {
@@ -73,9 +77,10 @@ public class ExamServiceQuizImpl implements ExamService {
 
 
     private void printExamResults(Student student, Map<Integer, Answer> answerMap) {
+        ch.writeMessage("==========================================" + System.lineSeparator());
         ch.writeMessage("Exam results review:");
         int correctAnswerCount = (int) answerMap.values().stream().filter(ans -> ans.isCorrect).count();
-        boolean isPassed = (correctAnswerCount > 3);
+        boolean isPassed = (correctAnswerCount >= minCorrectAnswersCount);
         String examResult = isPassed ? "Exam is passed" : "Exam is not passed";
         ch.writeMessage(examResult);
         ch.write(String.format("Student %s %s correctly answered %d questions of 5", student.getName(), student.getSurname(), correctAnswerCount));
