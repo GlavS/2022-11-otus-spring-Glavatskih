@@ -10,6 +10,7 @@ import ru.otus.glavs.service.loader.Loader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class CsvFileParser implements Parser {
     private static final int ID = 0;
@@ -19,7 +20,7 @@ public class CsvFileParser implements Parser {
     private static final int ANSWER3 = 4;
     private static final int CORRECT_ANSWER = 5;
 
-    private Loader loader;
+    private final Loader loader;
 
     public CsvFileParser(Loader loader) {
         this.loader = loader;

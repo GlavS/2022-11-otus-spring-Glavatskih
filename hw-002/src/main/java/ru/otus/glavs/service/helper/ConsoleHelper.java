@@ -9,9 +9,9 @@ import java.io.InputStreamReader;
 //Утилитный класс. Может быть, сделать все методы статическими?
 @Service
 public class ConsoleHelper {
-    private  final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public  int readInt() {
+    public int readInt() {
         int result;
         try {
             result = Integer.parseInt(readString());
@@ -22,7 +22,7 @@ public class ConsoleHelper {
         return result;
     }
 
-    public  String readString() {
+    public String readString() {
         String result;
         try {
             result = reader.readLine();
@@ -34,19 +34,20 @@ public class ConsoleHelper {
         return result;
     }
 
-    public  void writeMessage(String message) {
+    public void writeMessage(String message) {
         System.out.println(message);
     }
-    public  void write(String string){ //вывод без символа новой строки
+
+    public void write(String string) { //вывод без символа новой строки
         System.out.print(string);
     }
 
-    public String readStringWithPrompt(String prompt){
+    public String readStringWithPrompt(String prompt) {
         writeMessage(prompt);
         return readString();
     }
 
-    public int readIntWithPrompt(String prompt){
+    public int readIntWithPrompt(String prompt) {
         writeMessage(prompt);
         return readInt();
     }

@@ -8,6 +8,7 @@ import ru.otus.glavs.service.helper.ConsoleHelper;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 @Service
 public class ExamServiceQuizImpl implements ExamService {
 
@@ -44,22 +45,21 @@ public class ExamServiceQuizImpl implements ExamService {
         for (Quiz question :
                 questionList) {
             quizService.displayQuestion(question);
-            ch.writeMessage("Please specify your answer(1, 2 or 3):");
-            int answer = ch.readInt();
+            int answer = ch.readIntWithPrompt("Please specify your answer(1, 2 or 3):");
             while (answer < 1 || answer > 3) {
-                ch.writeMessage("Incorrect answer number, please retry (1, 2 or 3):");
-                answer = ch.readInt();
+                answer = ch.readIntWithPrompt("Incorrect answer number, please retry (1, 2 or 3):");
             }
             boolean isCorrect = (answer == question.getCorrectAnswer());
             answerMap.put(question.getId(), new Answer(answer, isCorrect));
         }
         return answerMap;
     }
-    private void printMistakes(Map<Integer, Answer> answerMap){
+
+    private void printMistakes(Map<Integer, Answer> answerMap) {
         ch.writeMessage("Incorrect answers:");
         for (Map.Entry<Integer, Answer> entry :
                 answerMap.entrySet()) {
-            if(!entry.getValue().isCorrect){
+            if (!entry.getValue().isCorrect) {
                 int questionNumber = entry.getKey();
                 Quiz question = quizService.getQuestionById(questionNumber);
                 String questionText = question.getQuestion();
@@ -80,7 +80,7 @@ public class ExamServiceQuizImpl implements ExamService {
         ch.writeMessage(examResult);
         ch.write(String.format("Student %s %s correctly answered %d questions of 5", student.getName(), student.getSurname(), correctAnswerCount));
         ch.writeMessage(System.lineSeparator());
-        if(correctAnswerCount < 5) {
+        if (correctAnswerCount < 5) {
             printMistakes(answerMap);
         }
     }

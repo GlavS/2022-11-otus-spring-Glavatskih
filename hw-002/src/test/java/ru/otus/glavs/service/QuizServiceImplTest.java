@@ -1,5 +1,6 @@
 package ru.otus.glavs.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.glavs.dao.QuizDao;
@@ -16,22 +17,25 @@ import static org.mockito.Mockito.when;
 @DisplayName("QuizServiceImpl class")
 class QuizServiceImplTest {
 
-    QuizDao dao = mock(QuizDao.class);
+    private final QuizDao dao = mock(QuizDao.class);
 
-    ConsoleHelper ch = mock(ConsoleHelper.class);
+    private final ConsoleHelper ch = mock(ConsoleHelper.class);
+    private QuizService quizService;
 
+    @BeforeEach
+    void init() {
+        quizService = new QuizServiceImpl(dao, ch);
+    }
 
     @Test
     @DisplayName("Constructor is working correctly")
     void displayQuestionCorrectlyCreatedByConstructor() {
-        QuizService quizService = new QuizServiceImpl(dao, ch);
         assertThat(quizService).isInstanceOf(QuizServiceImpl.class);
     }
 
     @Test
     @DisplayName("getQuestionList method returns List<Quiz>")
-    void getQuestionList() {
-        QuizService quizService = new QuizServiceImpl(dao, ch);
+    void getQuestionListTest() {
         List<Quiz> inputList = new ArrayList<>();
         inputList.add(new Quiz(1, "Q", "A1", "A2", "A3", 1));
 

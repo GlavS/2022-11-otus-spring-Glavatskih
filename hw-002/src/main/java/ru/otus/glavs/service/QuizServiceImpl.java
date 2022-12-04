@@ -6,8 +6,9 @@ import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.service.helper.ConsoleHelper;
 
 import java.util.List;
+
 @Service
-public class QuizServiceImpl implements QuizService{
+public class QuizServiceImpl implements QuizService {
     private final QuizDao dao;
     private final ConsoleHelper ch;
 
@@ -15,6 +16,7 @@ public class QuizServiceImpl implements QuizService{
         this.dao = dao;
         this.ch = ch;
     }
+
     @Override
     public void displayAllQuestions() {
         List<Quiz> quizList = dao.getAll();
@@ -34,7 +36,7 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public List<Quiz> getQuestionList(){
+    public List<Quiz> getQuestionList() {
         return dao.getAll();
     }
 
@@ -42,8 +44,9 @@ public class QuizServiceImpl implements QuizService{
     public Quiz getQuestionById(int id) {
         return dao.getById(id);
     }
-    public String getAnswerByNumber(Quiz quiz, int number){
-        if(number == 1){
+
+    public String getAnswerByNumber(Quiz quiz, int number) {
+        if (number == 1) {
             return quiz.getAnswer1();
         } else if (number == 2) {
             return quiz.getAnswer2();
