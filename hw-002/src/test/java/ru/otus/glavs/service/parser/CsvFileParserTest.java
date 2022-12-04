@@ -13,16 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("CsvFileParser class")
 class CsvFileParserTest {
-    String filename;
-    Loader loader;
-    Parser fileParser;
-    List<Quiz> quizList;
+    private List<Quiz> quizList;
 
     @BeforeEach
     void init() {
-        filename = "testquiz.csv";
-        loader = new TextFileLoader(filename);
-        fileParser = new CsvFileParser(loader);
+        String filename = "testquiz.csv";
+        Loader loader = new TextFileLoader(filename);
+        Parser fileParser = new CsvFileParser(loader);
         quizList = fileParser.parse();
     }
 

@@ -63,24 +63,14 @@ public class ExamServiceQuizImpl implements ExamService {
                 int questionNumber = entry.getKey();
                 Quiz question = quizService.getQuestionById(questionNumber);
                 String questionText = question.getQuestion();
-                String givenAnswer = getAnswerByNumber(question, entry.getValue().variant);
-                String correctAnswer = getAnswerByNumber(question, question.getCorrectAnswer());
+                String givenAnswer = quizService.getAnswerByNumber(question, entry.getValue().variant);
+                String correctAnswer = quizService.getAnswerByNumber(question, question.getCorrectAnswer());
                 ch.write(String.format("Answer on question %d: \"%s\" was %s, but correct answer is %s%n",
                         questionNumber, questionText, givenAnswer, correctAnswer));
             }
         }
     }
-    private String getAnswerByNumber(Quiz question, int number){
-        if(number == 1){
-            return question.getAnswer1();
-        } else if (number == 2) {
-            return question.getAnswer2();
-        } else if (number == 3) {
-            return question.getAnswer3();
-        } else {
-            return "No such answer";
-        }
-    }
+
 
     private void printExamResults(Student student, Map<Integer, Answer> answerMap) {
         ch.writeMessage("Exam results review:");

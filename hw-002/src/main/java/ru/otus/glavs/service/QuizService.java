@@ -9,4 +9,5 @@ public interface QuizService {
     void displayQuestion(Quiz question);
     List<Quiz> getQuestionList();
     Quiz getQuestionById(int id);
+    String getAnswerByNumber(Quiz quiz, int number);
 }

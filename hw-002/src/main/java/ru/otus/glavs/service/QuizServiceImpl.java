@@ -42,4 +42,15 @@ public class QuizServiceImpl implements QuizService{
     public Quiz getQuestionById(int id) {
         return dao.getById(id);
     }
+    public String getAnswerByNumber(Quiz quiz, int number){
+        if(number == 1){
+            return quiz.getAnswer1();
+        } else if (number == 2) {
+            return quiz.getAnswer2();
+        } else if (number == 3) {
+            return quiz.getAnswer3();
+        } else {
+            return "No such answer";
+        }
+    }
 }
