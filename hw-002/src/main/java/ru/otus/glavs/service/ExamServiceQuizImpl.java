@@ -16,8 +16,16 @@ public class ExamServiceQuizImpl implements ExamService {
     private final QuizService quizService;
     private final StudentService studentService;
     private final ConsoleHelper ch;
+
+    private static final String GREETING_MESSAGE =
+            "Starting our exam...\n" +
+                    "==========================================\n" +
+                    "Examination rules: read question and pick one of three answers\n" +
+                    "by typing 1, 2 or 3\n" +
+                    System.lineSeparator();
+
     @Value("${quiz.minCorrectAnswers}")
-    private int minCorrectAnswersCount; // количество правильных ответов, достаточное для прохождения теста
+    private int minCorrectAnswersCount; // количество правильных ответов, минимально достаточное для прохождения теста
 
 
     public ExamServiceQuizImpl(QuizService quizService, StudentService studentService, ConsoleHelper ch) {
@@ -29,20 +37,13 @@ public class ExamServiceQuizImpl implements ExamService {
     @Override
     public void examine() {
         Student student = studentService.register();
-        printGreeting();
-        Map<Integer, Answer> answerMap = makeAnswerMap();
+        ch.writeMessage(GREETING_MESSAGE);
+        Map<Integer, Answer> answerMap = collectAnswers();
         printExamResults(student, answerMap);
     }
 
-    private void printGreeting() {
-        ch.writeMessage("Starting our exam...");
-        ch.writeMessage("==========================================");
-        ch.writeMessage("Examination rules: read question and pick one of three answers");
-        ch.writeMessage("by typing 1, 2 or 3");
-        ch.writeMessage(System.lineSeparator());
-    }
 
-    private Map<Integer, Answer> makeAnswerMap() {
+    private Map<Integer, Answer> collectAnswers() {
         Map<Integer, Answer> answerMap = new TreeMap<>();
         List<Quiz> questionList = quizService.getQuestionList();
         for (Quiz question :
