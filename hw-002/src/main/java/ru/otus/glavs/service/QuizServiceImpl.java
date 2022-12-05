@@ -3,16 +3,16 @@ package ru.otus.glavs.service;
 import org.springframework.stereotype.Service;
 import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import java.util.List;
 
 @Service
 public class QuizServiceImpl implements QuizService {
     private final QuizDao dao;
-    private final ConsoleHelper ch;
+    private final ConsoleHelperImpl ch;
 
-    public QuizServiceImpl(QuizDao dao, ConsoleHelper ch) {
+    public QuizServiceImpl(QuizDao dao, ConsoleHelperImpl ch) {
         this.dao = dao;
         this.ch = ch;
     }

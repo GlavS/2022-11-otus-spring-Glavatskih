@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 import ru.otus.glavs.dao.StudentDao;
 import ru.otus.glavs.dao.StudentDaoImpl;
 import ru.otus.glavs.domain.Student;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -16,7 +15,7 @@ import static org.mockito.Mockito.when;
 @DisplayName("StudentServiceImpl class")
 class StudentServiceImplTest {
     private final StudentDao dao = mock(StudentDaoImpl.class);
-    private final ConsoleHelper ch = mock(ConsoleHelper.class);
+    private final ConsoleHelperImpl ch = mock(ConsoleHelperImpl.class);
 
     @Test
     @DisplayName("register() method should return Student object instance")

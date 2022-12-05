@@ -3,9 +3,8 @@ package ru.otus.glavs.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.glavs.domain.Student;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -14,7 +13,7 @@ class ExamServiceQuizImplTest {
 
     private final QuizService quizService = mock(QuizService.class);
     private final StudentService studentService = mock(StudentService.class);
-    private final ConsoleHelper ch = mock(ConsoleHelper.class);
+    private final ConsoleHelperImpl ch = mock(ConsoleHelperImpl.class);
     @Test
     @DisplayName("examine method should invoke helpers")
     void examineTest() {

@@ -3,14 +3,14 @@ package ru.otus.glavs.service;
 import org.springframework.stereotype.Service;
 import ru.otus.glavs.dao.StudentDao;
 import ru.otus.glavs.domain.Student;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentDao dao;
-    private final ConsoleHelper ch;
+    private final ConsoleHelperImpl ch;
 
-    public StudentServiceImpl(StudentDao dao, ConsoleHelper ch) {
+    public StudentServiceImpl(StudentDao dao, ConsoleHelperImpl ch) {
         this.dao = dao;
         this.ch = ch;
     }

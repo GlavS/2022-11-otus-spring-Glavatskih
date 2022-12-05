@@ -20,7 +20,6 @@ public class ExamServiceQuizImpl implements ExamService {
     private int minCorrectAnswersCount; // количество правильных ответов, достаточное для прохождения теста
 
 
-
     public ExamServiceQuizImpl(QuizService quizService, StudentService studentService, ConsoleHelper ch) {
         this.quizService = quizService;
         this.studentService = studentService;

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ class QuizServiceImplTest {
 
     private final QuizDao dao = mock(QuizDao.class);
 
-    private final ConsoleHelper ch = mock(ConsoleHelper.class);
+    private final ConsoleHelperImpl ch = mock(ConsoleHelperImpl.class);
     private QuizService quizService;
 
     @BeforeEach

@@ -17,7 +17,7 @@
     <bean name="parser" class="ru.otus.glavs.service.parser.CsvFileParser">
         <constructor-arg name="loader" ref="loader"/>
     </bean>
-    <bean name="consoleHelper" class="ru.otus.glavs.service.helper.ConsoleHelper"/>
+    <bean name="consoleHelper" class="ru.otus.glavs.service.helper.ConsoleHelperImpl"/>
     <bean name="examService" class="ru.otus.glavs.service.ExamServiceQuizImpl">
         <constructor-arg name="ch" ref="consoleHelper"/>
         <constructor-arg name="quizService" ref="quizService"/>
