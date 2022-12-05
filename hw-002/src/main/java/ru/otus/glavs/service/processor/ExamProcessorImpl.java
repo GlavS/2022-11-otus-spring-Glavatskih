@@ -36,6 +36,4 @@ public class ExamProcessorImpl implements ExamProcessor {
         }
         return answerMap;
     }
-
-
 }

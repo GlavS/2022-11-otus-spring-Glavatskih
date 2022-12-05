@@ -5,6 +5,5 @@ import ru.otus.glavs.domain.Student;
 import java.util.Map;
 
 public interface ExamAnalyzer {
-    void printMistakes();
-    void printExamResults(Student student);
+    void printExamResults(Student student, Map<Integer, Answer> answerMap);
 }
