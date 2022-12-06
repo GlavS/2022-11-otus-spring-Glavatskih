@@ -28,12 +28,16 @@ public class ExamProcessorImpl implements ExamProcessor {
                 questionList) {
             quizService.displayQuestion(question);
             int answer = ch.readIntWithPrompt("Please specify your answer(1, 2 or 3):");
-            while (answer < 1 || answer > 3) {
+            while (isNotValid(answer)) {
                 answer = ch.readIntWithPrompt("Incorrect answer number, please retry (1, 2 or 3):");
             }
             boolean isCorrect = (answer == question.getCorrectAnswer());
             answerMap.put(question.getId(), new Answer(answer, isCorrect));
         }
         return answerMap;
+    }
+
+    private boolean isNotValid(int answer){
+        return (answer < 1 || answer > 3);
     }
 }
