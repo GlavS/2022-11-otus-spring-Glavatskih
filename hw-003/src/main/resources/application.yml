@@ -1,0 +1,3 @@
+quiz:
+  filename: "quizEN.csv"
+  minCorrectAnswers: 4

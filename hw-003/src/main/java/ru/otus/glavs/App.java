@@ -1,13 +1,14 @@
 package ru.otus.glavs;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import ru.otus.glavs.service.ExamService;
 
-@ComponentScan(basePackages = "ru.otus.glavs")
+@SpringBootApplication
 public class App {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(App.class);
+        ConfigurableApplicationContext context = SpringApplication.run(App.class);
         ExamService exam = context.getBean(ExamService.class);
         exam.examine();
     }

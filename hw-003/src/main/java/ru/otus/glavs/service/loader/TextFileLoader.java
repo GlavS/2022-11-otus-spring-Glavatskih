@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Service
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 public class TextFileLoader implements Loader {
     private final String csvFileName;
 
