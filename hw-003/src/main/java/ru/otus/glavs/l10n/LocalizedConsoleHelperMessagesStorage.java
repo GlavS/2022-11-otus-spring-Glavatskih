@@ -10,6 +10,7 @@ import java.util.Locale;
 public class LocalizedConsoleHelperMessagesStorage {
     private final String readIntMessage;
     private final String readStringMessage;
+
     public LocalizedConsoleHelperMessagesStorage(Application props, MessageSource locMessage) {
         Locale locale = props.getLocale();
         this.readIntMessage = locMessage.getMessage("consolehelper.readint.message", null, locale);

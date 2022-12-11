@@ -11,12 +11,11 @@ import java.io.InputStreamReader;
 @Service
 public class ConsoleHelperImpl implements ConsoleHelper {
     private final LocalizedConsoleHelperMessagesStorage storage;
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public ConsoleHelperImpl(LocalizedConsoleHelperMessagesStorage storage) {
         this.storage = storage;
     }
-
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     @Override
     public int readInt() {
