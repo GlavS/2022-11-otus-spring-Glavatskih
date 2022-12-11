@@ -1,42 +1,46 @@
-package ru.otus.glavs.dao;
-
-import org.springframework.core.io.ClassPathResource;
-import ru.otus.glavs.domain.Quiz;
+package ru.otus.glavs.service.parser;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvParser;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import org.springframework.stereotype.Service;
+import ru.otus.glavs.domain.Quiz;
+import ru.otus.glavs.service.loader.Loader;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class CsvReader {
+@Service
+public class CsvFileParser implements Parser {
     private static final int ID = 0;
     private static final int QUESTION = 1;
     private static final int ANSWER1 = 2;
     private static final int ANSWER2 = 3;
     private static final int ANSWER3 = 4;
-    private String quizCsvFileName; // property, hardcoded in spring-context.xml
+    private static final int CORRECT_ANSWER = 5;
 
-    public List<Quiz> readAllRows() {
+    private final Loader loader;
+
+    public CsvFileParser(Loader loader) {
+        this.loader = loader;
+    }
+
+    @Override
+    public List<Quiz> parse() {
         List<Quiz> result = new ArrayList<>();
-        ClassPathResource resource = new ClassPathResource(quizCsvFileName); //get Quiz resource
-        //We are to use jackson-dataformat-csv library to parse Quiz resource
-        //https://github.com/FasterXML/jackson-dataformats-text/tree/master/csv
+//We are to use jackson-dataformat-csv library to parse Quiz resource
+//https://github.com/FasterXML/jackson-dataformats-text/tree/master/csv
+//https://cowtowncoder.medium.com/reading-csv-with-jackson-c4e74a15ddc1
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = CsvSchema.emptySchema()
                 .withColumnSeparator(';');
 
-        try (InputStream is = resource.getInputStream()) {
-            MappingIterator<List<String>> iterator = mapper
-                    .readerForListOf(String.class)
-                    .with(CsvParser.Feature.WRAP_AS_ARRAY)
-                    .with(schema)
-                    .readValues(is);
+        try (MappingIterator<List<String>> iterator = mapper
+                .readerForListOf(String.class)
+                .with(com.fasterxml.jackson.dataformat.csv.CsvParser.Feature.WRAP_AS_ARRAY)
+                .with(schema)
+                .readValues(loader.getRowData())) {
             while (iterator.hasNextValue()) {
                 List<String> row = iterator.nextValue();
                 Quiz quiz = new Quiz(
@@ -44,16 +48,17 @@ public class CsvReader {
                         row.get(QUESTION),
                         row.get(ANSWER1),
                         row.get(ANSWER2),
-                        row.get(ANSWER3));
+                        row.get(ANSWER3),
+                        Integer.parseInt(row.get(CORRECT_ANSWER)));
                 result.add(quiz);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return result;
     }
 
-    public void setQuizCsvFileName(String quizCsvFileName) { //property setter
-        this.quizCsvFileName = quizCsvFileName;
-    }
+
 }

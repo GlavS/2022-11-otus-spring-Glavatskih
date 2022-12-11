@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.otus.glavs.dao.parser.Parser;
 import ru.otus.glavs.domain.Quiz;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class QuizDaoImplTest {
     @Mock
-    CsvReader readerMock;
+    Parser parserMock;
 
     @Test
     @DisplayName("getAll method should return List<Quiz>")
@@ -26,10 +27,10 @@ class QuizDaoImplTest {
         List<Quiz> testList = new ArrayList<>();
         testList.add(new Quiz(1, "Q", "A1", "A2", "A3"));
         testList.add(new Quiz(2, "Q2", "A4", "A5", "A6"));
-        assertNotNull(readerMock);
-        when(readerMock.readAllRows()).thenReturn(testList);
+        assertNotNull(parserMock);
+        when(parserMock.parse()).thenReturn(testList);
 
-        QuizDao dao = new QuizDaoCsvImpl(readerMock);
+        QuizDao dao = new QuizDaoCsvImpl(parserMock);
 
         assertAll(
                 () -> assertThat(dao.getAll()).isInstanceOf(List.class),
