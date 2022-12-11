@@ -1,7 +1,6 @@
 application:
-  filename: "quizEN.csv"
   min-correct-answers: 4
-  locale: "en"
+  locale: "ru_RU"
 
 spring:
   messages:

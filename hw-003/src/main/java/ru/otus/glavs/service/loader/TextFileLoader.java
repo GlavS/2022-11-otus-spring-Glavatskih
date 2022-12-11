@@ -1,6 +1,7 @@
 package ru.otus.glavs.service.loader;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ import java.io.InputStreamReader;
 public class TextFileLoader implements Loader {
     private final String csvFileName;
 
-    public TextFileLoader(Application props) {
-        this.csvFileName = props.getFilename();
+    public TextFileLoader(Application props, MessageSource locMessage) {
+
+        this.csvFileName = locMessage.getMessage("filename", null, props.getLocale());
     }
 
     @Override

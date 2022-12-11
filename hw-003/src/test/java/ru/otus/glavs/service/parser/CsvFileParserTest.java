@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.MessageSource;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.service.loader.Loader;
@@ -21,11 +22,13 @@ class CsvFileParserTest {
     private List<Quiz> quizList;
     @Mock
     private Application props;
+    @Mock
+    private MessageSource locMessage;
 
     @BeforeEach
     void init() {
         String filename = "testquiz.csv";
-        Loader loader = new TextFileLoader(props);
+        Loader loader = new TextFileLoader(props, locMessage);
         Parser fileParser = new CsvFileParser(loader);
         quizList = fileParser.parse();
     }
