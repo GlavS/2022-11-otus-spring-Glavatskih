@@ -3,7 +3,11 @@ package ru.otus.glavs.service.parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.domain.Quiz;
+import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.service.loader.Loader;
 import ru.otus.glavs.service.loader.TextFileLoader;
 
@@ -12,13 +16,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("CsvFileParser class")
+@ExtendWith(MockitoExtension.class)
 class CsvFileParserTest {
     private List<Quiz> quizList;
+    @Mock
+    private Application props;
 
     @BeforeEach
     void init() {
         String filename = "testquiz.csv";
-        Loader loader = new TextFileLoader(filename);
+        Loader loader = new TextFileLoader(props);
         Parser fileParser = new CsvFileParser(loader);
         quizList = fileParser.parse();
     }

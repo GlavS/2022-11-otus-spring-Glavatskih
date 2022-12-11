@@ -1,9 +1,9 @@
 package ru.otus.glavs.service.processor;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.domain.Student;
+import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.service.QuizService;
 import ru.otus.glavs.service.helper.ConsoleHelper;
 
@@ -15,13 +15,12 @@ public class ExamAnalyzerImpl implements ExamAnalyzer {
 
     private final QuizService quizService;
 
-    @Value("${application.minCorrectAnswers}")
-    private int minCorrectAnswersCount; // количество правильных ответов, минимально достаточное для прохождения теста
+    private final int minCorrectAnswersCount; // количество правильных ответов, минимально достаточное для прохождения теста
 
-    public ExamAnalyzerImpl(ConsoleHelper ch, QuizService quizService) {
+    public ExamAnalyzerImpl(ConsoleHelper ch, QuizService quizService, Application props) {
         this.ch = ch;
-
         this.quizService = quizService;
+        this.minCorrectAnswersCount = props.getMinCorrectAnswers();
     }
 
 
