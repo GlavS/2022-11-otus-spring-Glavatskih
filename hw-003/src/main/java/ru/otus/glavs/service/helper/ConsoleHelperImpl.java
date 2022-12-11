@@ -1,6 +1,7 @@
 package ru.otus.glavs.service.helper;
 
 import org.springframework.stereotype.Service;
+import ru.otus.glavs.l10n.LocalizedConsoleHelperMessagesStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,12 @@ import java.io.InputStreamReader;
 
 @Service
 public class ConsoleHelperImpl implements ConsoleHelper {
+    private final LocalizedConsoleHelperMessagesStorage storage;
+
+    public ConsoleHelperImpl(LocalizedConsoleHelperMessagesStorage storage) {
+        this.storage = storage;
+    }
+
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     @Override
@@ -17,7 +24,7 @@ public class ConsoleHelperImpl implements ConsoleHelper {
         try {
             result = Integer.parseInt(readString());
         } catch (NumberFormatException exception) {
-            writeMessage("Error while enter number, please retry");
+            writeMessage(storage.getReadIntMessage());
             return readInt();
         }
         return result;
@@ -29,7 +36,7 @@ public class ConsoleHelperImpl implements ConsoleHelper {
         try {
             result = reader.readLine();
         } catch (IOException exception) {
-            writeMessage("Error while enter text, please retry");
+            writeMessage(storage.getReadStringMessage());
             return readString();
         }
 

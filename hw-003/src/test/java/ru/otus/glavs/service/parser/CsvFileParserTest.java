@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
 import ru.otus.glavs.domain.Quiz;
+import ru.otus.glavs.l10n.LocalizedFilenameStorage;
 import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.service.loader.Loader;
 import ru.otus.glavs.service.loader.TextFileLoader;
@@ -21,14 +22,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CsvFileParserTest {
     private List<Quiz> quizList;
     @Mock
-    private Application props;
-    @Mock
-    private MessageSource locMessage;
-
+    private LocalizedFilenameStorage storage;
     @BeforeEach
     void init() {
         String filename = "testquiz.csv";
-        Loader loader = new TextFileLoader(props, locMessage);
+        Loader loader = new TextFileLoader(storage);
         Parser fileParser = new CsvFileParser(loader);
         quizList = fileParser.parse();
     }

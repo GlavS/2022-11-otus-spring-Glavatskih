@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
+import ru.otus.glavs.l10n.LocalizedFilenameStorage;
 import ru.otus.glavs.properties.Application;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,15 +15,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class TextFileLoaderTest {
     @Mock
-    private Application props;
-    @Mock
-    private MessageSource locMessage;
+    private LocalizedFilenameStorage storage;
     @Test
     @DisplayName("getRowData method should correctly read resource file")
     void getRowDataTest() {
         String filename = "testquiz.csv";
 
-        TextFileLoader loader = new TextFileLoader(props, locMessage);
+        TextFileLoader loader = new TextFileLoader(storage);
         String rowData = loader.getRowData();
 
         assertThat(rowData).hasSize(34)
