@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 public class TextFileLoader implements Loader {
     private final String csvFileName;
 
-    public TextFileLoader(@Value("${quiz.filename}") String csvFileName) {
+    public TextFileLoader(@Value("${application.filename}") String csvFileName) {
         this.csvFileName = csvFileName;
     }
 

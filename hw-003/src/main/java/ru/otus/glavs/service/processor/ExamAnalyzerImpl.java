@@ -15,7 +15,7 @@ public class ExamAnalyzerImpl implements ExamAnalyzer {
 
     private final QuizService quizService;
 
-    @Value("${quiz.minCorrectAnswers}")
+    @Value("${application.minCorrectAnswers}")
     private int minCorrectAnswersCount; // количество правильных ответов, минимально достаточное для прохождения теста
 
     public ExamAnalyzerImpl(ConsoleHelper ch, QuizService quizService) {
