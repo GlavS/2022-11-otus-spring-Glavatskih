@@ -1,6 +1,6 @@
 application:
   filename: "quizEN.csv"
-  minCorrectAnswers: 4
+  min-correct-answers: 4
   locale: "en"
 
 spring:
