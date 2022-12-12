@@ -8,11 +8,10 @@ import java.util.Locale;
 
 @Component
 public class LocalizedExamAnalyzerMessagesStorage {
-    private final Application props;
     private final MessageSource locMessage;
     Locale locale;
+
     public LocalizedExamAnalyzerMessagesStorage(Application props, MessageSource locMessage) {
-        this.props = props;
         this.locMessage = locMessage;
         this.locale = props.getLocale();
     }

@@ -8,20 +8,19 @@ import java.util.Locale;
 
 @Component
 public class LocalizedConsoleHelperMessagesStorage {
-    private final String readIntMessage;
-    private final String readStringMessage;
+    private final MessageSource locMessage;
+    private final Locale locale;
 
     public LocalizedConsoleHelperMessagesStorage(Application props, MessageSource locMessage) {
-        Locale locale = props.getLocale();
-        this.readIntMessage = locMessage.getMessage("consolehelper.readint.message", null, locale);
-        this.readStringMessage = locMessage.getMessage("consolehelper.readstring.message", null, locale);
+        this.locMessage = locMessage;
+        this.locale = props.getLocale();
     }
 
     public String getReadIntMessage() {
-        return readIntMessage;
+        return locMessage.getMessage("consolehelper.readint.message", null, locale);
     }
 
     public String getReadStringMessage() {
-        return readStringMessage;
+        return locMessage.getMessage("consolehelper.readstring.message", null, locale);
     }
 }
