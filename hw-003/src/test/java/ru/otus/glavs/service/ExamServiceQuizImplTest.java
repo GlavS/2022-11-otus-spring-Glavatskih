@@ -9,9 +9,7 @@ import ru.otus.glavs.domain.Student;
 import ru.otus.glavs.l10n.LocalizedExamServiceGreetingStorage;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 import ru.otus.glavs.service.processor.ExamAnalyzer;
-import ru.otus.glavs.service.processor.ExamAnalyzerImpl;
 import ru.otus.glavs.service.processor.ExamProcessor;
-import ru.otus.glavs.service.processor.ExamProcessorImpl;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -30,6 +28,7 @@ class ExamServiceQuizImplTest {
     private ConsoleHelperImpl ch;
     @Mock
     private LocalizedExamServiceGreetingStorage storage;
+
     @Test
     @DisplayName("examine method should invoke helpers")
     void examineTest() {

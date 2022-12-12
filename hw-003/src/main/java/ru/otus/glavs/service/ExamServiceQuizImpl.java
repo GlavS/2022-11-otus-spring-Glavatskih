@@ -19,13 +19,6 @@ public class ExamServiceQuizImpl implements ExamService {
     private final ConsoleHelper ch;
     private final LocalizedExamServiceGreetingStorage storage;
 
-    private static final String GREETING_MESSAGE =
-            "Starting our exam...\n" +
-                    "==========================================\n" +
-                    "Examination rules: read question and pick one of three answers\n" +
-                    "by typing 1, 2 or 3\n" +
-                    System.lineSeparator();
-
 
     public ExamServiceQuizImpl(ExamProcessor examProcessor,
                                ExamAnalyzer examAnalyzer,

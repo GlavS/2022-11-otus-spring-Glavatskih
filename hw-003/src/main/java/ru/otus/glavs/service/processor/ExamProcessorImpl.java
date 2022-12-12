@@ -40,7 +40,7 @@ public class ExamProcessorImpl implements ExamProcessor {
         return answerMap;
     }
 
-    private boolean isNotValid(int answer){
+    private boolean isNotValid(int answer) {
         return (answer < 1 || answer > 3);
     }
 }

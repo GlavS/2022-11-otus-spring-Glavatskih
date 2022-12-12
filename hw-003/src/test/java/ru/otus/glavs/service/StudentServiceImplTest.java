@@ -6,14 +6,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.dao.StudentDao;
-import ru.otus.glavs.dao.StudentDaoImpl;
 import ru.otus.glavs.domain.Student;
 import ru.otus.glavs.l10n.LocalizedStudentServiceMessageStorage;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @DisplayName("StudentServiceImpl class")
