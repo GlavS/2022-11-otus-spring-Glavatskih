@@ -2,7 +2,11 @@ package ru.otus.glavs.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.domain.Student;
+import ru.otus.glavs.l10n.LocalizedExamServiceGreetingStorage;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 import ru.otus.glavs.service.processor.ExamAnalyzer;
 import ru.otus.glavs.service.processor.ExamAnalyzerImpl;
@@ -13,17 +17,25 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @DisplayName("ExamServiceQuizImpl class")
+@ExtendWith(MockitoExtension.class)
 class ExamServiceQuizImplTest {
-    private final ExamProcessor examProcessor = mock(ExamProcessorImpl.class);
-    private final ExamAnalyzer examAnalyzer = mock(ExamAnalyzerImpl.class);
+    @Mock
+    private ExamProcessor examProcessor;
+    @Mock
+    private ExamAnalyzer examAnalyzer;
+    @Mock
 
-    private final StudentService studentService = mock(StudentService.class);
-    private final ConsoleHelperImpl ch = mock(ConsoleHelperImpl.class);
+    private StudentService studentService;
+    @Mock
+    private ConsoleHelperImpl ch;
+    @Mock
+    private LocalizedExamServiceGreetingStorage storage;
     @Test
     @DisplayName("examine method should invoke helpers")
     void examineTest() {
-        ExamService exam = new ExamServiceQuizImpl(examProcessor, examAnalyzer, studentService, ch);
+        ExamService exam = new ExamServiceQuizImpl(examProcessor, examAnalyzer, studentService, ch, storage);
         when(studentService.register()).thenReturn(new Student(1, "A", "B"));
+        when(storage.getExamServiceGreeting()).thenReturn("Greeting message");
         exam.examine();
 
         verify(studentService, atLeast(1)).register();
