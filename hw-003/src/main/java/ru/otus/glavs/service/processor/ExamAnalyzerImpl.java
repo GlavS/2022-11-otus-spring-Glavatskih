@@ -53,8 +53,9 @@ public class ExamAnalyzerImpl implements ExamAnalyzer {
                 String questionText = question.getQuestion();
                 String givenAnswer = quizService.getAnswerByNumber(question, answerEntry.getValue().getVariant());
                 String correctAnswer = quizService.getAnswerByNumber(question, question.getCorrectAnswer());
-                ch.write(String.format(storage.getPrintMistakesResult(), questionNumber,
-                        questionText, givenAnswer, correctAnswer));
+                String resultMistake = String.format(storage.getPrintMistakesResult(), questionNumber,
+                        questionText, givenAnswer, correctAnswer);
+                ch.write(resultMistake);
             }
         }
     }
