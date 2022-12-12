@@ -5,12 +5,13 @@ import ru.otus.glavs.l10n.LocalizedConsoleHelperMessagesStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 @Service
 public class ConsoleHelperImpl implements ConsoleHelper {
     private final LocalizedConsoleHelperMessagesStorage storage;
-    private final BufferedReader reader = new BufferedReader(System.console().reader());
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public ConsoleHelperImpl(LocalizedConsoleHelperMessagesStorage storage) {
         this.storage = storage;
