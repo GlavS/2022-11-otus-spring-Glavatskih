@@ -3,28 +3,34 @@ package ru.otus.glavs.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
+import ru.otus.glavs.l10n.LocalizedQuizServiceMessagesStorage;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @DisplayName("QuizServiceImpl class")
+@ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
-
-    private final QuizDao dao = mock(QuizDao.class);
-
-    private final ConsoleHelperImpl ch = mock(ConsoleHelperImpl.class);
+    @Mock
+    private QuizDao dao;
+    @Mock
+    private ConsoleHelperImpl ch;
+    @Mock
+    private LocalizedQuizServiceMessagesStorage storage;
     private QuizService quizService;
 
     @BeforeEach
     void init() {
-        quizService = new QuizServiceImpl(dao, ch);
+        quizService = new QuizServiceImpl(dao, ch, storage);
     }
 
     @Test
