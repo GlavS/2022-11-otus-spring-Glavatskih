@@ -1,8 +1,9 @@
 package ru.otus.glavs.l10n;
 
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 import ru.otus.glavs.properties.Application;
-
+@Component
 public class LocalizedExamAnalyzerMessagesStorage extends LocalizedMessagesStorage {
 
     public LocalizedExamAnalyzerMessagesStorage(Application props, MessageSource locMessage) {
