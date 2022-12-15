@@ -1,0 +1,8 @@
+application:
+  min-correct-answers: 4
+  locale: "ru_RU"
+
+spring:
+  messages:
+    encoding: "UTF-8"
+    basename: "l10n/appmessages"
