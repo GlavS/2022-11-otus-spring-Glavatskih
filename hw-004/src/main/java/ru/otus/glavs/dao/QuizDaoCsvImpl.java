@@ -23,6 +23,9 @@ public class QuizDaoCsvImpl implements QuizDao {
     public Quiz getById(int id) {
         List<Quiz> quizList;
         quizList = getAll();
-        return quizList.stream().filter((quiz) -> quiz.getId() == id).findFirst().orElse(null);
+        return quizList.stream()
+                .filter((quiz) -> quiz.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 }

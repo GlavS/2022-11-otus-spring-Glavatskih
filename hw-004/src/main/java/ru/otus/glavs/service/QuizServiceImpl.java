@@ -52,6 +52,7 @@ public class QuizServiceImpl implements QuizService {
         return dao.getById(id);
     }
 
+    @Override
     public String getAnswerByNumber(Quiz quiz, int number) {
         if (number == 1) {
             return quiz.getAnswer1();
