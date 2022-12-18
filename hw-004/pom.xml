@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus.glavs</groupId>
-    <artifactId>hw-003</artifactId>
+    <artifactId>hw-004</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>hw-003</name>
+    <name>hw-004</name>
     <description>Homework 3 (Lesson Spring Boot)</description>
 
 
