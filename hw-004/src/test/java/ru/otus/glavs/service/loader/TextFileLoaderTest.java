@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.otus.glavs.l10n.LocalizedFilenameStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TextFileLoaderTest {
     @Mock
-    private LocalizedFilenameStorage storage;
+    private LocalizedMessages storage;
 
     @Test
     @DisplayName("getRowData method should correctly read resource file")
@@ -22,7 +22,7 @@ class TextFileLoaderTest {
         String testcontent = "1;Q1;A1;A2;A3;2\n" +
                 "2;Q2;A1;A2;A3;3" + System.lineSeparator();
         String filename = "testquiz.csv";
-        when(storage.getFilename()).thenReturn(filename);
+        when(storage.getText("filename")).thenReturn(filename);
 
         TextFileLoader loader = new TextFileLoader(storage);
         String rowData = loader.getRowData();

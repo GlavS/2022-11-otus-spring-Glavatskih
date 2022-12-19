@@ -7,13 +7,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.l10n.LocalizedFilenameStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.loader.Loader;
 import ru.otus.glavs.service.loader.TextFileLoader;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @DisplayName("CsvFileParser class")
@@ -21,12 +22,12 @@ import static org.mockito.Mockito.when;
 class CsvFileParserTest {
     private List<Quiz> quizList;
     @Mock
-    private LocalizedFilenameStorage storage;
+    private LocalizedMessages storage;
 
     @BeforeEach
     void init() {
         String filename = "testquiz.csv";
-        when(storage.getFilename()).thenReturn(filename);
+        when(storage.getText(anyString())).thenReturn(filename);
         Loader loader = new TextFileLoader(storage);
         Parser fileParser = new CsvFileParser(loader);
         quizList = fileParser.parse();

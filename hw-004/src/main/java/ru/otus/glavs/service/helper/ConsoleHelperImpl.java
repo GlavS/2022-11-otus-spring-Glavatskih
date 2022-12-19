@@ -1,7 +1,7 @@
 package ru.otus.glavs.service.helper;
 
 import org.springframework.stereotype.Service;
-import ru.otus.glavs.l10n.LocalizedConsoleHelperMessagesStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,10 +10,10 @@ import java.io.InputStreamReader;
 
 @Service
 public class ConsoleHelperImpl implements ConsoleHelper {
-    private final LocalizedConsoleHelperMessagesStorage storage;
+    private final LocalizedMessages storage;
     private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public ConsoleHelperImpl(LocalizedConsoleHelperMessagesStorage storage) {
+    public ConsoleHelperImpl(LocalizedMessages storage) {
         this.storage = storage;
     }
 
@@ -23,7 +23,7 @@ public class ConsoleHelperImpl implements ConsoleHelper {
         try {
             result = Integer.parseInt(readString());
         } catch (NumberFormatException exception) {
-            writeMessage(storage.getReadIntMessage());
+            writeMessage(storage.getText("consolehelper.readint.message"));
             return readInt();
         }
         return result;
@@ -35,7 +35,7 @@ public class ConsoleHelperImpl implements ConsoleHelper {
         try {
             result = reader.readLine();
         } catch (IOException exception) {
-            writeMessage(storage.getReadStringMessage());
+            writeMessage(storage.getText("consolehelper.readstring.message"));
             return readString();
         }
 
