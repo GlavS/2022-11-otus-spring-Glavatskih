@@ -2,7 +2,7 @@ package ru.otus.glavs.service.processor;
 
 import org.springframework.stereotype.Component;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.l10n.LocalizedExamProcessorMessagesStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.QuizService;
 import ru.otus.glavs.service.helper.ConsoleHelper;
 
@@ -15,9 +15,9 @@ public class ExamProcessorImpl implements ExamProcessor {
 
     private final ConsoleHelper ch;
     private final QuizService quizService;
-    private final LocalizedExamProcessorMessagesStorage storage;
+    private final LocalizedMessages storage;
 
-    public ExamProcessorImpl(ConsoleHelper ch, QuizService quizService, LocalizedExamProcessorMessagesStorage storage) {
+    public ExamProcessorImpl(ConsoleHelper ch, QuizService quizService, LocalizedMessages storage) {
         this.ch = ch;
         this.quizService = quizService;
         this.storage = storage;
@@ -30,9 +30,9 @@ public class ExamProcessorImpl implements ExamProcessor {
         for (Quiz question :
                 questionList) {
             quizService.displayQuestion(question);
-            int answer = ch.readIntWithPrompt(storage.getCollectAnswersPrompt());
+            int answer = ch.readIntWithPrompt(storage.getText("examprocessor.collectanswers.prompt"));
             while (isNotValid(answer)) {
-                answer = ch.readIntWithPrompt(storage.getCollectAnswersInvalid());
+                answer = ch.readIntWithPrompt(storage.getText("examprocessor.collectanswers.invalid"));
             }
             boolean isCorrect = (answer == question.getCorrectAnswer());
             answerMap.put(question.getId(), new Answer(answer, isCorrect));
