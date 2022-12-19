@@ -35,6 +35,8 @@ public class QuizServiceImpl implements QuizService {
         //TODO storage.get* methods
         ch.write(String.format(storage.getText("quizservice.display.question"), question.getId(), question.getQuestion()));
 
+        
+
         String variant = storage.getText("quizservice.display.variant");
         ch.write(String.format(variant, 1, question.getAnswer1()));
         ch.write(String.format(variant, 2, question.getAnswer2()));
