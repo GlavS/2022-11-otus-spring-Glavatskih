@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.domain.Student;
-import ru.otus.glavs.l10n.LocalizedExamServiceGreetingStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 import ru.otus.glavs.service.processor.ExamAnalyzer;
 import ru.otus.glavs.service.processor.ExamProcessor;
@@ -27,14 +27,14 @@ class ExamServiceQuizImplTest {
     @Mock
     private ConsoleHelperImpl ch;
     @Mock
-    private LocalizedExamServiceGreetingStorage storage;
+    private LocalizedMessages storage;
 
     @Test
     @DisplayName("examine method should invoke helpers")
     void examineTest() {
         ExamService exam = new ExamServiceQuizImpl(examProcessor, examAnalyzer, studentService, ch, storage);
         when(studentService.register()).thenReturn(new Student(1, "A", "B"));
-        when(storage.getExamServiceGreeting()).thenReturn("Greeting message");
+        when(storage.getText(anyString())).thenReturn("Greeting message");
         exam.examine();
 
         verify(studentService, atLeast(1)).register();

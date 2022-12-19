@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.l10n.LocalizedQuizServiceMessagesStorage;
+import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.helper.ConsoleHelperImpl;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ class QuizServiceImplTest {
     @Mock
     private ConsoleHelperImpl ch;
     @Mock
-    private LocalizedQuizServiceMessagesStorage storage;
+    private LocalizedMessages storage;
     private QuizService quizService;
 
     @BeforeEach
