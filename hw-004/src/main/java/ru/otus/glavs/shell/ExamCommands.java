@@ -7,18 +7,24 @@ import org.springframework.shell.jline.PromptProvider;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
+import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.ExamService;
+import ru.otus.glavs.service.helper.ConsoleHelper;
 
 import java.util.Scanner;
 
 @ShellComponent
 public class ExamCommands implements Exam, PromptProvider {
     private final ExamService examService;
+    private final ConsoleHelper ch;
+    private final LocalizedMessages storage;
     private boolean registered;
     private String licenseNumber;
 
-    public ExamCommands(ExamService examService) {
+    public ExamCommands(ExamService examService, ConsoleHelper ch, LocalizedMessages storage) {
         this.examService = examService;
+        this.ch = ch;
+        this.storage = storage;
         this.registered = false;
     }
 
@@ -33,14 +39,14 @@ public class ExamCommands implements Exam, PromptProvider {
     @ShellMethod("Register student for exam")
     public void register() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter your exam license number (seven digits): ");
+        ch.writeMessage(storage.getText("examcommands.register.prompt"));
         String license = scanner.nextLine();
         while (!license.matches("^\\d{7}$")) {
-            System.out.println("Incorrect license, please retry (seven digits): ");
+            ch.writeMessage(storage.getText("examcommands.register.incorrect"));
             license = scanner.nextLine();
         }
-        System.out.println("Registration accepted. Your license is: " + license);
-        System.out.println("You can proceed for examination. Please use <exam> command.");
+        ch.writeMessage(storage.getText("examcommands.register.accepted") + license);
+        ch.writeMessage(storage.getText("examcommands.register.proceed"));
         this.licenseNumber = license;
         this.registered = true;
     }
@@ -48,9 +54,7 @@ public class ExamCommands implements Exam, PromptProvider {
     private Availability registrationCheck() {
         return registered ?
                 Availability.available() :
-                Availability.unavailable("you are not registered." +
-                        System.lineSeparator() +
-                        "\t*** Use <register> command for registration ***");
+                Availability.unavailable(storage.getText("examcommands.availability.check"));
     }
 
     @Override
