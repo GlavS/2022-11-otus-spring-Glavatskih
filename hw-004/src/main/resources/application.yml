@@ -1,6 +1,6 @@
 application:
   min-correct-answers: 4
-  locale: "en"
+  locale: "ru_RU"
   csv-file:
     rus-filename: "quizRU.csv"
     en-filename: "quizEN.csv"

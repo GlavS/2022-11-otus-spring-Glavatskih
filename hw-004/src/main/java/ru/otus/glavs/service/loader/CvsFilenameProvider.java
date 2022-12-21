@@ -16,7 +16,7 @@ public class CvsFilenameProvider implements FilenameProvider{
 
     @Override
     public String getFilename() {
-        if(application.getLocale().getLanguage().equals("ru_RU")){
+        if(application.getLocale().getLanguage().equals("ru")){
             return csvFile.getRusFilename();
         } else {
             return csvFile.getEnFilename();
