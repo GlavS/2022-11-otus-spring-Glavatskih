@@ -2,7 +2,6 @@ package ru.otus.glavs.service.loader;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import ru.otus.glavs.l10n.LocalizedMessages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +11,8 @@ import java.io.InputStreamReader;
 public class TextFileLoader implements Loader {
     private final String csvFileName;
 
-    public TextFileLoader(LocalizedMessages storage) {
-        this.csvFileName = storage.getText("filename");
+    public TextFileLoader(FilenameProvider filenameProvider) {
+        this.csvFileName = filenameProvider.getFilename();
     }
 
     @Override
