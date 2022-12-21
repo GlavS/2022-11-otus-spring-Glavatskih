@@ -32,10 +32,9 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void displayQuestion(Quiz question) {
-        //TODO storage.get* methods
-        ch.write(String.format(storage.getText("quizservice.display.question"), question.getId(), question.getQuestion()));
-
-        
+        ch.write(String.format(storage.getText("quizservice.display.question"),
+                question.getId(),
+                question.getQuestion()));
 
         String variant = storage.getText("quizservice.display.variant");
         ch.write(String.format(variant, 1, question.getAnswer1()));
