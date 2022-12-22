@@ -1,9 +1,9 @@
 application:
   min-correct-answers: 4
-  locale: "en"
+  locale: "ru_RU"
   csv-files:
-    [ru_RU]: "quizRU.csv"
-    [en]: "quizEN.csv"
+    ru_RU: "quizRU.csv"
+    en: "quizEN.csv"
 
 
 spring:

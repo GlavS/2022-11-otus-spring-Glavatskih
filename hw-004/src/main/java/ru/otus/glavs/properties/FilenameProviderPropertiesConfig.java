@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 import java.util.Map;
+
 @Component
 public class FilenameProviderPropertiesConfig implements FilenameProviderProperties {
     private final Application appProps;

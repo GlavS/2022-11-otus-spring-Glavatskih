@@ -2,9 +2,7 @@ package ru.otus.glavs.l10n;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
-import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.properties.LocaleProperties;
-
 
 import java.util.Locale;
 
