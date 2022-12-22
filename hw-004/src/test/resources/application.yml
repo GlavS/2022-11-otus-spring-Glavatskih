@@ -1,0 +1,15 @@
+application:
+  min-correct-answers: 4
+  locale: "ru_RU"
+  csv-files:
+    ru_RU: "TESTquizRU.csv"
+    en: "TESTquizEN.csv"
+
+
+spring:
+  messages:
+    encoding: "UTF-8"
+    basename: "l10n/appmessages"
+  shell:
+    interactive:
+      enabled: false
