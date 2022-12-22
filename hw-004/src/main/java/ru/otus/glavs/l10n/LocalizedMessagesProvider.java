@@ -7,17 +7,17 @@ import ru.otus.glavs.properties.Application;
 import java.util.Locale;
 
 @Component
-public class LocalizedMessagesStorage implements LocalizedMessages {
+public class LocalizedMessagesProvider implements LocalizedMessages {
     protected final MessageSource locMessage;
     protected final Locale locale;
 
-    public LocalizedMessagesStorage(Application props, MessageSource locMessage) {
+    public LocalizedMessagesProvider(Application props, MessageSource locMessage) {
         this.locMessage = locMessage;
         this.locale = props.getLocale();
     }
 
     @Override
-    public String getText(String propCode) {
+    public String getTextMessage(String propCode) {
         return locMessage.getMessage(propCode, null, locale);
     }
 }

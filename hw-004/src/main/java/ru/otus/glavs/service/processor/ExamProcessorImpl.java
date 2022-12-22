@@ -2,9 +2,8 @@ package ru.otus.glavs.service.processor;
 
 import org.springframework.stereotype.Component;
 import ru.otus.glavs.domain.Quiz;
-import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.QuizService;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.ioservice.LocalizedIOService;
 
 import java.util.List;
 import java.util.Map;
@@ -13,14 +12,12 @@ import java.util.TreeMap;
 @Component
 public class ExamProcessorImpl implements ExamProcessor {
 
-    private final ConsoleHelper ch;
+    private final LocalizedIOService ioService;
     private final QuizService quizService;
-    private final LocalizedMessages storage;
 
-    public ExamProcessorImpl(ConsoleHelper ch, QuizService quizService, LocalizedMessages storage) {
-        this.ch = ch;
+    public ExamProcessorImpl(LocalizedIOService ioService, QuizService quizService) {
+        this.ioService = ioService;
         this.quizService = quizService;
-        this.storage = storage;
     }
 
     @Override
@@ -30,9 +27,9 @@ public class ExamProcessorImpl implements ExamProcessor {
         for (Quiz question :
                 questionList) {
             quizService.displayQuestion(question);
-            int answer = ch.readIntWithPrompt(storage.getText("examprocessor.collectanswers.prompt"));
+            int answer = ioService.readIntWithPrompt("examprocessor.collectanswers.prompt");
             while (isNotValid(answer)) {
-                answer = ch.readIntWithPrompt(storage.getText("examprocessor.collectanswers.invalid"));
+                answer = ioService.readIntWithPrompt("examprocessor.collectanswers.invalid");
             }
             boolean isCorrect = (answer == question.getCorrectAnswer());
             answerMap.put(question.getId(), new Answer(answer, isCorrect));

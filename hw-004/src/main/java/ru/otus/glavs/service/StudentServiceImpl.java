@@ -3,26 +3,23 @@ package ru.otus.glavs.service;
 import org.springframework.stereotype.Service;
 import ru.otus.glavs.dao.StudentDao;
 import ru.otus.glavs.domain.Student;
-import ru.otus.glavs.l10n.LocalizedMessages;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.ioservice.LocalizedIOService;
 
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentDao dao;
-    private final ConsoleHelper ch;
-    private final LocalizedMessages storage;
+    private final LocalizedIOService ioService;
 
-    public StudentServiceImpl(StudentDao dao, ConsoleHelper ch, LocalizedMessages storage) {
+    public StudentServiceImpl(StudentDao dao, LocalizedIOService ioService) {
         this.dao = dao;
-        this.ch = ch;
-        this.storage = storage;
+        this.ioService = ioService;
     }
 
     @Override
     public Student register() {
         // при обращении к реальной БД здесь будет логика регистрации на экзамен
-        String name = ch.readStringWithPrompt(storage.getText("studentservice.register.firstname.prompt"));
-        String surname = ch.readStringWithPrompt(storage.getText("studentservice.register.lastname.prompt"));
+        String name = ioService.readStringWithPrompt("studentservice.register.firstname.prompt");
+        String surname = ioService.readStringWithPrompt("studentservice.register.lastname.prompt");
         return dao.registerNew(name, surname);
     }
 }

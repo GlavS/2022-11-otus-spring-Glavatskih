@@ -9,19 +9,19 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.ExamService;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.ioservice.IOService;
 
 import java.util.Scanner;
 
 @ShellComponent
 public class ExamCommands implements Exam, PromptProvider {
     private final ExamService examService;
-    private final ConsoleHelper ch;
+    private final IOService ch;
     private final LocalizedMessages storage;
     private boolean registered;
     private String licenseNumber;
 
-    public ExamCommands(ExamService examService, ConsoleHelper ch, LocalizedMessages storage) {
+    public ExamCommands(ExamService examService, IOService ch, LocalizedMessages storage) {
         this.examService = examService;
         this.ch = ch;
         this.storage = storage;
@@ -39,14 +39,14 @@ public class ExamCommands implements Exam, PromptProvider {
     @ShellMethod("Register student for exam")
     public void register() {
         Scanner scanner = new Scanner(System.in);
-        ch.writeMessage(storage.getText("examcommands.register.prompt"));
+        ch.writeln(storage.getTextMessage("examcommands.register.prompt"));
         String license = scanner.nextLine();
         while (!license.matches("^\\d{7}$")) {
-            ch.writeMessage(storage.getText("examcommands.register.incorrect"));
+            ch.writeln(storage.getTextMessage("examcommands.register.incorrect"));
             license = scanner.nextLine();
         }
-        ch.writeMessage(storage.getText("examcommands.register.accepted") + license);
-        ch.writeMessage(storage.getText("examcommands.register.proceed"));
+        ch.writeln(storage.getTextMessage("examcommands.register.accepted") + license);
+        ch.writeln(storage.getTextMessage("examcommands.register.proceed"));
         this.licenseNumber = license;
         this.registered = true;
     }
@@ -54,7 +54,7 @@ public class ExamCommands implements Exam, PromptProvider {
     private Availability registrationCheck() {
         return registered ?
                 Availability.available() :
-                Availability.unavailable(storage.getText("examcommands.availability.check"));
+                Availability.unavailable(storage.getTextMessage("examcommands.availability.check"));
     }
 
     @Override

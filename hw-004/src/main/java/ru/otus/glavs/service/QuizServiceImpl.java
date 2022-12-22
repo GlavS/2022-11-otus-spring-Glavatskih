@@ -4,17 +4,17 @@ import org.springframework.stereotype.Service;
 import ru.otus.glavs.dao.QuizDao;
 import ru.otus.glavs.domain.Quiz;
 import ru.otus.glavs.l10n.LocalizedMessages;
-import ru.otus.glavs.service.helper.ConsoleHelper;
+import ru.otus.glavs.service.ioservice.IOService;
 
 import java.util.List;
 
 @Service
 public class QuizServiceImpl implements QuizService {
     private final QuizDao dao;
-    private final ConsoleHelper ch;
+    private final IOService ch;
     private final LocalizedMessages storage;
 
-    public QuizServiceImpl(QuizDao dao, ConsoleHelper ch,
+    public QuizServiceImpl(QuizDao dao, IOService ch,
                            LocalizedMessages storage) {
         this.dao = dao;
         this.ch = ch;
@@ -32,11 +32,11 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void displayQuestion(Quiz question) {
-        ch.write(String.format(storage.getText("quizservice.display.question"),
+        ch.write(String.format(storage.getTextMessage("quizservice.display.question"),
                 question.getId(),
                 question.getQuestion()));
 
-        String variant = storage.getText("quizservice.display.variant");
+        String variant = storage.getTextMessage("quizservice.display.variant");
         ch.write(String.format(variant, 1, question.getAnswer1()));
         ch.write(String.format(variant, 2, question.getAnswer2()));
         ch.write(String.format(variant, 3, question.getAnswer3()));
@@ -62,7 +62,7 @@ public class QuizServiceImpl implements QuizService {
         } else if (number == 3) {
             return quiz.getAnswer3();
         } else {
-            return storage.getText("quizservice.answerbynumber.error");
+            return storage.getTextMessage("quizservice.answerbynumber.error");
         }
     }
 }
