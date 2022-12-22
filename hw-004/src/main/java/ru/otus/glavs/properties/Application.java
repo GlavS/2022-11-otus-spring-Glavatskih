@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Locale;
 
 @ConfigurationProperties(prefix = "application")
-public class Application implements ApplicationLocale{
+public class Application implements ApplicationLocale {
     private int minCorrectAnswers;
     private Locale locale;
 

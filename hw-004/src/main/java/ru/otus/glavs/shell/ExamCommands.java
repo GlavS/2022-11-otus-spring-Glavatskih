@@ -16,15 +16,15 @@ import java.util.Scanner;
 @ShellComponent
 public class ExamCommands implements Exam, PromptProvider {
     private final ExamService examService;
-    private final IOService ch;
-    private final LocalizedMessages storage;
+    private final IOService ioService;
+    private final LocalizedMessages messagesProvider;
     private boolean registered;
     private String licenseNumber;
 
-    public ExamCommands(ExamService examService, IOService ch, LocalizedMessages storage) {
+    public ExamCommands(ExamService examService, IOService ioService, LocalizedMessages provider) {
         this.examService = examService;
-        this.ch = ch;
-        this.storage = storage;
+        this.ioService = ioService;
+        this.messagesProvider = provider;
         this.registered = false;
     }
 
@@ -39,14 +39,14 @@ public class ExamCommands implements Exam, PromptProvider {
     @ShellMethod("Register student for exam")
     public void register() {
         Scanner scanner = new Scanner(System.in);
-        ch.writeln(storage.getTextMessage("examcommands.register.prompt"));
+        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.prompt"));
         String license = scanner.nextLine();
         while (!license.matches("^\\d{7}$")) {
-            ch.writeln(storage.getTextMessage("examcommands.register.incorrect"));
+            ioService.writeln(messagesProvider.getTextMessage("examcommands.register.incorrect"));
             license = scanner.nextLine();
         }
-        ch.writeln(storage.getTextMessage("examcommands.register.accepted") + license);
-        ch.writeln(storage.getTextMessage("examcommands.register.proceed"));
+        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.accepted") + license);
+        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.proceed"));
         this.licenseNumber = license;
         this.registered = true;
     }
@@ -54,7 +54,7 @@ public class ExamCommands implements Exam, PromptProvider {
     private Availability registrationCheck() {
         return registered ?
                 Availability.available() :
-                Availability.unavailable(storage.getTextMessage("examcommands.availability.check"));
+                Availability.unavailable(messagesProvider.getTextMessage("examcommands.availability.check"));
     }
 
     @Override

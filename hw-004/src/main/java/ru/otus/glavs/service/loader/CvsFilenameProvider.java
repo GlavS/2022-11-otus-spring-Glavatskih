@@ -6,10 +6,10 @@ import ru.otus.glavs.properties.CsvFile;
 
 @Component
 public class CvsFilenameProvider implements FilenameProvider {
-    private final ApplicationLocale applicationLocale;
-    private final CsvFile csvFile;
     private static final String LANG_RUSSIAN = "ru";
     private static final String LANG_ENGLISH = "en";
+    private final ApplicationLocale applicationLocale;
+    private final CsvFile csvFile;
 
     public CvsFilenameProvider(ApplicationLocale applicationLocale, CsvFile csvFile) {
         this.applicationLocale = applicationLocale;
