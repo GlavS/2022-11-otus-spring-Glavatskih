@@ -35,7 +35,7 @@ public class ExamServiceQuizImpl implements ExamService {
     @Override
     public void examine() {
         Student student = studentService.register();
-        ch.writeMessage(storage.getText("examservicequiz.greeting"));
+        ch.writeMessage(storage.getText("examservicequiz.greeting") + System.lineSeparator());
         Map<Integer, Answer> answerMap = examProcessor.collectAnswers();
         examAnalyzer.printExamResults(student, answerMap);
     }

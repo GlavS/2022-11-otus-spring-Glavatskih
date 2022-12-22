@@ -4,6 +4,7 @@ application:
   csv-file:
     rus-filename: "quizRU.csv"
     en-filename: "quizEN.csv"
+    default-filename: "quizEN.csv"
 
 spring:
   messages:

@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Locale;
 
 @ConfigurationProperties(prefix = "application")
-public class Application {
+public class Application implements ApplicationLocale{
     private int minCorrectAnswers;
     private Locale locale;
 
@@ -17,6 +17,7 @@ public class Application {
         this.minCorrectAnswers = minCorrectAnswers;
     }
 
+    @Override
     public Locale getLocale() {
         return locale;
     }

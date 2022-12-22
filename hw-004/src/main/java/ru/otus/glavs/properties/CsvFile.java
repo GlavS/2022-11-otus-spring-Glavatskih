@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CsvFile {
     private String rusFilename;
     private String enFilename;
+    private String defaultFilename;
 
     public String getRusFilename() {
         return rusFilename;
@@ -22,5 +23,13 @@ public class CsvFile {
 
     public void setEnFilename(String enFilename) {
         this.enFilename = enFilename;
+    }
+
+    public String getDefaultFilename() {
+        return defaultFilename;
+    }
+
+    public void setDefaultFilename(String defaultFilename) {
+        this.defaultFilename = defaultFilename;
     }
 }
