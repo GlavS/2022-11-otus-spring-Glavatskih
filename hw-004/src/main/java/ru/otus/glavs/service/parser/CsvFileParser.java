@@ -53,7 +53,7 @@ public class CsvFileParser implements Parser {
                 result.add(quiz);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CsvFileParserException("Error parsing .csv file: ", e);
         }
 
 

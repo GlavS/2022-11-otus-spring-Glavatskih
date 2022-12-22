@@ -25,7 +25,7 @@ public class TextFileLoader implements Loader {
                 sb.append(System.lineSeparator());
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error reading resource text file", e);
+            throw new TextFileLoaderException("Error reading resource text file", e);
         }
         return sb.toString();
     }
