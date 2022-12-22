@@ -1,13 +1,12 @@
 application:
   min-correct-answers: 4
-  locale: "ru_RU"
-  csv-file:
-    rus-filename: "quizRU.csv"
-    en-filename: "quizEN.csv"
-    default-filename: "quizEN.csv"
+  locale: "en"
+  csv-files:
+    [ru_RU]: "quizRU.csv"
+    [en]: "quizEN.csv"
+
 
 spring:
   messages:
     encoding: "UTF-8"
     basename: "l10n/appmessages"
-
