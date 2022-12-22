@@ -11,3 +11,8 @@ mvn clean package
 cd target
 java -Dfile.encoding=UTF-8 -jar hw-004-1.0-SNAPSHOT.jar
 ````
+Использование shell:
+````
+register - для регистрации номера зачетной книжки
+exam - для проведения экзамена
+````
