@@ -11,14 +11,14 @@ import java.util.List;
 @Service
 public class QuizServiceImpl implements QuizService {
     private final QuizDao dao;
-    private final IOService ch;
-    private final LocalizedMessages storage;
+    private final IOService ioService;
+    private final LocalizedMessages messagesProvider;
 
-    public QuizServiceImpl(QuizDao dao, IOService ch,
-                           LocalizedMessages storage) {
+    public QuizServiceImpl(QuizDao dao, IOService ioService,
+                           LocalizedMessages provider) {
         this.dao = dao;
-        this.ch = ch;
-        this.storage = storage;
+        this.ioService = ioService;
+        this.messagesProvider = provider;
     }
 
     @Override
@@ -32,15 +32,15 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void displayQuestion(Quiz question) {
-        ch.write(String.format(storage.getTextMessage("quizservice.display.question"),
+        ioService.write(String.format(messagesProvider.getTextMessage("quizservice.display.question"),
                 question.getId(),
                 question.getQuestion()));
 
-        String variant = storage.getTextMessage("quizservice.display.variant");
-        ch.write(String.format(variant, 1, question.getAnswer1()));
-        ch.write(String.format(variant, 2, question.getAnswer2()));
-        ch.write(String.format(variant, 3, question.getAnswer3()));
-        ch.write(System.lineSeparator());
+        String variant = messagesProvider.getTextMessage("quizservice.display.variant");
+        ioService.write(String.format(variant, 1, question.getAnswer1()));
+        ioService.write(String.format(variant, 2, question.getAnswer2()));
+        ioService.write(String.format(variant, 3, question.getAnswer3()));
+        ioService.write(System.lineSeparator());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class QuizServiceImpl implements QuizService {
         } else if (number == 3) {
             return quiz.getAnswer3();
         } else {
-            return storage.getTextMessage("quizservice.answerbynumber.error");
+            return messagesProvider.getTextMessage("quizservice.answerbynumber.error");
         }
     }
 }

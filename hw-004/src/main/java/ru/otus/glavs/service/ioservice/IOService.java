@@ -7,7 +7,7 @@ public interface IOService {
 
     void writeln(String message);
 
-    void write(String string);
+    void write(String string); //TODO: добавить е ))))))))
 
 
 }

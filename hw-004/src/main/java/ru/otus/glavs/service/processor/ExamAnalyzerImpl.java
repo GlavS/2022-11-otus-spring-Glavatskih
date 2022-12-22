@@ -12,44 +12,44 @@ import java.util.Map;
 
 @Component
 public class ExamAnalyzerImpl implements ExamAnalyzer {
-    private final IOService ch;
+    private final IOService ioService;
 
     private final QuizService quizService;
 
     private final int minCorrectAnswersCount; // количество правильных ответов, минимально достаточное для прохождения теста
-    private final LocalizedMessages storage;
+    private final LocalizedMessages messagesProvider;
 
-    public ExamAnalyzerImpl(IOService ch, QuizService quizService,
-                            Application props, LocalizedMessages storage) {
-        this.ch = ch;
+    public ExamAnalyzerImpl(IOService ioService, QuizService quizService,
+                            Application props, LocalizedMessages provider) {
+        this.ioService = ioService;
         this.quizService = quizService;
         this.minCorrectAnswersCount = props.getMinCorrectAnswers();
-        this.storage = storage;
+        this.messagesProvider = provider;
     }
 
 
     @Override
     public void printExamResults(Student student, Map<Integer, Answer> answerMap) {
-        ch.writeln("==========================================" + System.lineSeparator());
-        ch.writeln(storage.getTextMessage("examanalyzer.printresults.caption"));
+        ioService.writeln("==========================================" + System.lineSeparator());
+        ioService.writeln(messagesProvider.getTextMessage("examanalyzer.printresults.caption"));
         int correctAnswerCount = (int) answerMap.values().stream().filter(Answer::isCorrect).count();
         boolean isPassed = (correctAnswerCount >= minCorrectAnswersCount);
         String examResult = isPassed
-                ? storage.getTextMessage("examanalyzer.printresults.exampassed")
-                : storage.getTextMessage("examanalyzer.printresults.examnotpassed");
-        ch.writeln(examResult);
-        ch.write(String.format(storage.getTextMessage("examanalyzer.printresults.results"),
+                ? messagesProvider.getTextMessage("examanalyzer.printresults.exampassed")
+                : messagesProvider.getTextMessage("examanalyzer.printresults.examnotpassed");
+        ioService.writeln(examResult);
+        ioService.write(String.format(messagesProvider.getTextMessage("examanalyzer.printresults.results"),
                 student.getName(),
                 student.getSurname(),
                 correctAnswerCount));
-        ch.writeln(System.lineSeparator());
+        ioService.writeln(System.lineSeparator());
         if (correctAnswerCount < 5) {
             printMistakes(answerMap);
         }
     }
 
     private void printMistakes(Map<Integer, Answer> answerMap) {
-        ch.writeln(storage.getTextMessage("examanalyzer.printmistakess.caption"));
+        ioService.writeln(messagesProvider.getTextMessage("examanalyzer.printmistakess.caption"));
         for (Map.Entry<Integer, Answer> answerEntry :
                 answerMap.entrySet()) {
             if (!answerEntry.getValue().isCorrect()) {
@@ -58,9 +58,9 @@ public class ExamAnalyzerImpl implements ExamAnalyzer {
                 String questionText = question.getQuestion();
                 String givenAnswer = quizService.getAnswerByNumber(question, answerEntry.getValue().getVariant());
                 String correctAnswer = quizService.getAnswerByNumber(question, question.getCorrectAnswer());
-                String resultMistake = String.format(storage.getTextMessage("examanalyzer.printmistakess.result"), questionNumber,
+                String resultMistake = String.format(messagesProvider.getTextMessage("examanalyzer.printmistakess.result"), questionNumber,
                         questionText, givenAnswer, correctAnswer);
-                ch.write(resultMistake);
+                ioService.write(resultMistake);
             }
         }
     }

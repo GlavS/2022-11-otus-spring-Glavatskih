@@ -16,26 +16,26 @@ public class ExamServiceQuizImpl implements ExamService {
     private final ExamProcessor examProcessor;
     private final ExamAnalyzer examAnalyzer;
     private final StudentService studentService;
-    private final IOService ch;
-    private final LocalizedMessages storage;
+    private final IOService ioService;
+    private final LocalizedMessages messagesProvider;
 
 
     public ExamServiceQuizImpl(ExamProcessor examProcessor,
                                ExamAnalyzer examAnalyzer,
                                StudentService studentService,
-                               IOService ch,
-                               LocalizedMessages storage) {
+                               IOService ioService,
+                               LocalizedMessages provider) {
         this.examProcessor = examProcessor;
         this.examAnalyzer = examAnalyzer;
         this.studentService = studentService;
-        this.ch = ch;
-        this.storage = storage;
+        this.ioService = ioService;
+        this.messagesProvider = provider;
     }
 
     @Override
     public void examine() {
         Student student = studentService.register();
-        ch.writeln(storage.getTextMessage("examservicequiz.greeting") + System.lineSeparator());
+        ioService.writeln(messagesProvider.getTextMessage("examservicequiz.greeting") + System.lineSeparator());
         Map<Integer, Answer> answerMap = examProcessor.collectAnswers();
         examAnalyzer.printExamResults(student, answerMap);
     }

@@ -1,12 +1,11 @@
 package ru.otus.glavs.service.loader;
 
 import org.springframework.stereotype.Component;
-import ru.otus.glavs.properties.Application;
 import ru.otus.glavs.properties.ApplicationLocale;
 import ru.otus.glavs.properties.CsvFile;
 
 @Component
-public class CvsFilenameProvider implements FilenameProvider{
+public class CvsFilenameProvider implements FilenameProvider {
     private final ApplicationLocale applicationLocale;
     private final CsvFile csvFile;
     private static final String LANG_RUSSIAN = "ru";
@@ -20,7 +19,7 @@ public class CvsFilenameProvider implements FilenameProvider{
     @Override
     public String getFilename() {
         String currentLanguage = applicationLocale.getLocale().getLanguage();
-        switch(currentLanguage){
+        switch (currentLanguage) {
             case LANG_RUSSIAN:
                 return csvFile.getRusFilename();
             case LANG_ENGLISH:
