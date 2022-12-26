@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import ru.otus.glavs.properties.FilenameProviderProperties;
 
 import java.util.HashMap;
@@ -21,7 +22,6 @@ import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-@ComponentScan({"ru.otus.glavs.service.loader", "ru.otus.glavs.properties"})
 @DisplayName("В классе CsvFilenameProvider")
 class CsvFilenameProviderTest {
 
@@ -29,8 +29,6 @@ class CsvFilenameProviderTest {
     private CsvFilenameProvider csvFilenameProvider;
     @MockBean
     private FilenameProviderProperties filenameProps;
-    @MockBean
-    private Loader txtFileLoader;
 
     private final Map<String, String> localizedCsvFiles = new HashMap<>();
 
@@ -56,5 +54,10 @@ class CsvFilenameProviderTest {
                 Arguments.of(new Locale("en"), "EnFile.csv"),
                 Arguments.of(new Locale("ru", "RU"), "RuFile.csv")
         );
+    }
+    @Configuration
+    @ComponentScan({"ru.otus.glavs.service.loader", "ru.otus.glavs.properties"})
+    public static class NestedConf{
+
     }
 }
