@@ -9,16 +9,16 @@ import java.io.InputStreamReader;
 
 @Service
 public class TextFileLoader implements Loader {
-    private final String csvFileName;
+    private final FilenameProvider filenameProvider;
 
     public TextFileLoader(FilenameProvider filenameProvider) {
-        this.csvFileName = filenameProvider.getFilename();
+        this.filenameProvider = filenameProvider;
     }
 
     @Override
     public String getRowData() {
         StringBuilder sb = new StringBuilder();
-        ClassPathResource resource = new ClassPathResource(csvFileName);
+        ClassPathResource resource = new ClassPathResource(filenameProvider.getFilename());
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
             while (reader.ready()) {
                 sb.append(reader.readLine());
