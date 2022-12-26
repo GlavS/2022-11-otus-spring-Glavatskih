@@ -12,22 +12,27 @@ import ru.otus.glavs.l10n.LocaleNotSupportedException;
 import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.ExamService;
 import ru.otus.glavs.service.ioservice.IOService;
+import ru.otus.glavs.service.ioservice.LocalizedIOService;
 
 import java.util.Locale;
-import java.util.Scanner;
 
 @ShellComponent
 public class ExamCommands implements Exam, PromptProvider {
     private final ExamService examService;
     private final IOService ioService;
+    private final LocalizedIOService localizedIOService;
     private final LocalizedMessages messagesProvider;
     private boolean registered;
     private String licenseNumber;
 
 
-    public ExamCommands(ExamService examService, IOService ioService, LocalizedMessages provider) {
+    public ExamCommands(ExamService examService,
+                        IOService ioService,
+                        LocalizedIOService localizedIOService,
+                        LocalizedMessages provider) {
         this.examService = examService;
         this.ioService = ioService;
+        this.localizedIOService = localizedIOService;
         this.messagesProvider = provider;
         this.registered = false;
     }
@@ -42,15 +47,14 @@ public class ExamCommands implements Exam, PromptProvider {
     @Override
     @ShellMethod("Register student for exam")
     public void register() {
-        Scanner scanner = new Scanner(System.in);
-        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.prompt"));
-        String license = scanner.nextLine();
+        String license;
+        license = localizedIOService.readStringWithPrompt("examcommands.register.prompt");
         while (!license.matches("^\\d{7}$")) {
-            ioService.writeln(messagesProvider.getTextMessage("examcommands.register.incorrect"));
-            license = scanner.nextLine();
+            license = localizedIOService.readStringWithPrompt("examcommands.register.incorrect");
         }
-        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.accepted") + license);
-        ioService.writeln(messagesProvider.getTextMessage("examcommands.register.proceed"));
+        localizedIOService.writeMessage("examcommands.register.accepted");
+        ioService.writeln(" " + license);
+        localizedIOService.writeMessage("examcommands.register.proceed");
         this.licenseNumber = license;
         this.registered = true;
     }

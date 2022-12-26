@@ -24,4 +24,9 @@ public class LocalizedMessagesIOService implements LocalizedIOService {
         ioService.writeln(messagesProvider.getTextMessage(propCode));
         return ioService.readInt();
     }
+
+    @Override
+    public void writeMessage(String propCode) {
+        ioService.writeln(messagesProvider.getTextMessage(propCode));
+    }
 }
