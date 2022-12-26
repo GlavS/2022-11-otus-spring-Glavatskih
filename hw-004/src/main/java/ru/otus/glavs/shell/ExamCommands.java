@@ -7,10 +7,12 @@ import org.springframework.shell.jline.PromptProvider;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
+import org.springframework.shell.standard.ShellOption;
 import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.ExamService;
 import ru.otus.glavs.service.ioservice.IOService;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 @ShellComponent
@@ -20,6 +22,7 @@ public class ExamCommands implements Exam, PromptProvider {
     private final LocalizedMessages messagesProvider;
     private boolean registered;
     private String licenseNumber;
+
 
     public ExamCommands(ExamService examService, IOService ioService, LocalizedMessages provider) {
         this.examService = examService;
@@ -49,6 +52,12 @@ public class ExamCommands implements Exam, PromptProvider {
         ioService.writeln(messagesProvider.getTextMessage("examcommands.register.proceed"));
         this.licenseNumber = license;
         this.registered = true;
+    }
+
+    @ShellMethod("Set language. Usage: language language_code [country_code]")
+    public void language(@ShellOption(help = "Language code, e.g. \"en\" or \"ru\" ") String language,
+                         @ShellOption(help = "Country code, e.g. \"RU\". Don't use for English!", defaultValue = "") String country) {
+        this.messagesProvider.changeDefaultLocale(new Locale(language, country));
     }
 
     private Availability registrationCheck() {
