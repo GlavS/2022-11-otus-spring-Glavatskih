@@ -1,7 +1,6 @@
 package ru.otus.glavs.properties;
 
 import org.springframework.stereotype.Component;
-import ru.otus.glavs.l10n.LocalizedMessages;
 
 import java.util.Locale;
 import java.util.Map;
@@ -9,16 +8,16 @@ import java.util.Map;
 @Component
 public class FilenameProviderPropertiesConfig implements FilenameProviderProperties {
     private final Application appProps;
-    private final LocalizedMessages messagesProvider;
+    private final LocaleProperties locProps;
 
-    public FilenameProviderPropertiesConfig(Application appProps, LocalizedMessages messagesProvider) {
+    public FilenameProviderPropertiesConfig(Application appProps, LocaleProperties locProps) {
         this.appProps = appProps;
-        this.messagesProvider = messagesProvider;
+        this.locProps = locProps;
     }
 
     @Override
     public Locale getLocale() {
-        return messagesProvider.getLocale();
+        return locProps.getLocale();
     }
 
     @Override

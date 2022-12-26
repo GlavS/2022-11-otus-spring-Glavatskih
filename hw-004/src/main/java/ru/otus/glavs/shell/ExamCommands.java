@@ -8,8 +8,9 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.glavs.l10n.LocaleNotSupportedException;
+import ru.otus.glavs.properties.LocaleNotSupportedException;
 import ru.otus.glavs.l10n.LocalizedMessages;
+import ru.otus.glavs.properties.LocaleProperties;
 import ru.otus.glavs.service.ExamService;
 import ru.otus.glavs.service.ioservice.IOService;
 import ru.otus.glavs.service.ioservice.LocalizedIOService;
@@ -22,6 +23,7 @@ public class ExamCommands implements Exam, PromptProvider {
     private final IOService ioService;
     private final LocalizedIOService localizedIOService;
     private final LocalizedMessages messagesProvider;
+    private final LocaleProperties locProps;
     private boolean registered;
     private String licenseNumber;
 
@@ -29,12 +31,14 @@ public class ExamCommands implements Exam, PromptProvider {
     public ExamCommands(ExamService examService,
                         IOService ioService,
                         LocalizedIOService localizedIOService,
-                        LocalizedMessages provider) {
+                        LocalizedMessages provider,
+                        LocaleProperties locProps) {
         this.examService = examService;
         this.ioService = ioService;
         this.localizedIOService = localizedIOService;
         this.messagesProvider = provider;
         this.registered = false;
+        this.locProps = locProps;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ExamCommands implements Exam, PromptProvider {
     public void language(@ShellOption(help = "Language code, e.g. \"en\" or \"ru\" ") String language,
                          @ShellOption(help = "Country code, e.g. \"RU\". Don't use for English!", defaultValue = "") String country) {
         try {
-            this.messagesProvider.changeDefaultLocale(new Locale(language, country));
+            this.locProps.changeDefaultLocale(new Locale(language, country));
         } catch (LocaleNotSupportedException e) {
             throw new RuntimeException("Error during locale change: " + e.getMessage(), e);
         }
