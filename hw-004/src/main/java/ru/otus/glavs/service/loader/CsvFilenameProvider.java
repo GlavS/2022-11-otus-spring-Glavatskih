@@ -6,11 +6,11 @@ import ru.otus.glavs.properties.FilenameProviderProperties;
 import java.util.Map;
 
 @Component
-public class CvsFilenameProvider implements FilenameProvider {
+public class CsvFilenameProvider implements FilenameProvider {
 
     private final FilenameProviderProperties filenameProps;
 
-    public CvsFilenameProvider(FilenameProviderProperties filenameProps) {
+    public CsvFilenameProvider(FilenameProviderProperties filenameProps) {
         this.filenameProps = filenameProps;
     }
 
