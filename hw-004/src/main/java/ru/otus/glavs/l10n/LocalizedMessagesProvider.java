@@ -32,4 +32,8 @@ public class LocalizedMessagesProvider implements LocalizedMessages {
         }
             this.locale = locale;
     }
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
 }

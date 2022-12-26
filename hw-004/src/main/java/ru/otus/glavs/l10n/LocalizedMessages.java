@@ -5,4 +5,5 @@ import java.util.Locale;
 public interface LocalizedMessages {
     String getTextMessage(String propCode);
     void changeDefaultLocale(Locale locale) throws LocaleNotSupportedException;
+    Locale getLocale();
 }
