@@ -7,6 +7,8 @@ application:
 
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   messages:
     encoding: "UTF-8"
     basename: "l10n/appmessages"
