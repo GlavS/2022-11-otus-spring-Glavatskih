@@ -8,6 +8,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.standard.ShellOption;
+import ru.otus.glavs.l10n.LocaleNotSupportedException;
 import ru.otus.glavs.l10n.LocalizedMessages;
 import ru.otus.glavs.service.ExamService;
 import ru.otus.glavs.service.ioservice.IOService;
@@ -57,7 +58,11 @@ public class ExamCommands implements Exam, PromptProvider {
     @ShellMethod("Set language. Usage: language language_code [country_code]")
     public void language(@ShellOption(help = "Language code, e.g. \"en\" or \"ru\" ") String language,
                          @ShellOption(help = "Country code, e.g. \"RU\". Don't use for English!", defaultValue = "") String country) {
-        this.messagesProvider.changeDefaultLocale(new Locale(language, country));
+        try {
+            this.messagesProvider.changeDefaultLocale(new Locale(language, country));
+        } catch (LocaleNotSupportedException e) {
+            throw new RuntimeException("Error during locale change: " + e.getMessage(), e);
+        }
     }
 
     private Availability registrationCheck() {
