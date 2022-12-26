@@ -10,7 +10,6 @@ import ru.otus.glavs.domain.Student;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.from;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @SpringBootTest
 @DisplayName("В классе StudentDaoImpl")
@@ -32,7 +31,7 @@ class StudentDaoImplTest {
     }
 
     @Test
-    void registerNewMethodReturnedObjectShouldWorkCorrectly(){
+    void registerNewMethodReturnedObjectShouldWorkCorrectly() {
         assertThat(dao.registerNew("Ivan", "Petrov"))
                 .returns("Ivan", from(Student::getName))
                 .returns("Petrov", from(Student::getSurname));
