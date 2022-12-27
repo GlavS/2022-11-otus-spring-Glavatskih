@@ -23,7 +23,7 @@ public class LocalePropertiesConfig implements LocaleProperties {
     @Override
     public void changeDefaultLocale(Locale locale) throws LocaleNotSupportedException {
         Map<String, String> csvFiles = appProps.getCsvFiles();
-        if(!csvFiles.containsKey(locale.toString())){
+        if (!csvFiles.containsKey(locale.toString())) {
             throw new LocaleNotSupportedException("Locale " + locale + " is not supported");
         }
         this.locale = locale;

@@ -24,17 +24,17 @@ class StudentDaoImplTest {
         assertThat(dao.registerNew("Ivan", "Petrov")).isInstanceOf(Student.class);
     }
 
-    @Configuration
-    @Import(StudentDaoImpl.class)
-    public static class NestedConfig {
-
-    }
-
     @Test
     void registerNewMethodReturnedObjectShouldWorkCorrectly() {
         assertThat(dao.registerNew("Ivan", "Petrov"))
                 .returns("Ivan", from(Student::getName))
                 .returns("Petrov", from(Student::getSurname));
+
     }
 
+    @Configuration
+    @Import(StudentDaoImpl.class)
+    public static class NestedConfig {
+
+    }
 }

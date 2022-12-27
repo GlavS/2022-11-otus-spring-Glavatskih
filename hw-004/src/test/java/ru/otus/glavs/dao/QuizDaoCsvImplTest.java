@@ -46,9 +46,10 @@ class QuizDaoCsvImplTest {
     void getByIdShouldReturnQuizObject() {
         assertThat(dao.getById(1)).usingRecursiveComparison().isEqualTo(quizList.get(1));
     }
+
     @Configuration
     @ComponentScan({"ru.otus.glavs.dao", "ru.otus.glavs.service.parser"})
-    public static class NestedConf{
+    public static class NestedConf {
 
     }
 }

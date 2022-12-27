@@ -55,9 +55,10 @@ class CsvFilenameProviderTest {
                 Arguments.of(new Locale("ru", "RU"), "RuFile.csv")
         );
     }
+
     @Configuration
     @ComponentScan({"ru.otus.glavs.service.loader", "ru.otus.glavs.properties"})
-    public static class NestedConf{
+    public static class NestedConf {
 
     }
 }
