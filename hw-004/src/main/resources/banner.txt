@@ -1,0 +1,14 @@
+                 __________
+                / ___  ___ \
+               / / ${AnsiColor.1}@${AnsiColor.DEFAULT} \/ ${AnsiColor.1}@${AnsiColor.DEFAULT} \ \
+               \ \___/\___/ /${AnsiColor.1}/${AnsiColor.DEFAULT}
+${AnsiColor.22}::Spring Boot::${AnsiColor.DEFAULT} \____\/____/${AnsiColor.1}||${AnsiColor.DEFAULT}
+${AnsiColor.70}   (v2.7.6)${AnsiColor.DEFAULT}     /     ${AnsiColor.1}/\\\\\//${AnsiColor.DEFAULT}
+               |     ${AnsiColor.1}|\\\\\\${AnsiColor.DEFAULT}
+                \      ${AnsiColor.1}\\\\\\${AnsiColor.DEFAULT}
+ ________   __    \______/${AnsiColor.1}\\\\${AnsiColor.DEFAULT}
+ \_____  \_/  |_ ___||_||_____
+  /   |   \   __\  |  \/  ___/
+ /    |    \  | |  |  /\___ \
+ \_______  /__| |____//____  >
+         \/                \/
