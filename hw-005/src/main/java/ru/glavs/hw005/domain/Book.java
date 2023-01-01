@@ -1,4 +1,4 @@
-package domain;
+package ru.glavs.hw005.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

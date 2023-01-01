@@ -13,7 +13,7 @@ public class Hw005Application{
 
 	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(Hw005Application.class, args);
-		Console.main();
+		//Console.main();
 	}
 
 }
