@@ -10,6 +10,7 @@ import ru.glavs.hw005.domain.Genre;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -26,9 +27,32 @@ public class BookDaoImpl implements BookDao {
 
         String sql = "SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
                 "FROM BOOKS b INNER JOIN GENRES g ON b.GENRE_ID = g.ID";
-        return jdbc.getJdbcOperations().query(sql, new BookRowMapper(authorDao));
+        return jdbc.query(sql, new BookRowMapper(authorDao));
     }
 
+    @Override
+    public Book getById(int id) {
+        String sql ="SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
+                "FROM BOOKS b INNER JOIN GENRES g ON b.GENRE_ID = g.ID\n" +
+                "WHERE b.ID = :ID";
+        Map<String, Integer> params= Map.of("ID", id);
+        return jdbc.queryForObject(sql, params, new BookRowMapper(authorDao));
+    }
+
+    @Override
+    public void insertNew(Book book) {
+
+    }
+
+    @Override
+    public void update(int id) {
+
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
 
     private static class BookRowMapper implements RowMapper<Book> {
         private final AuthorDao authorDao;
