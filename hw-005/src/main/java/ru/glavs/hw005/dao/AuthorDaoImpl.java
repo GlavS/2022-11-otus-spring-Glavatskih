@@ -7,6 +7,7 @@ import ru.glavs.hw005.domain.Author;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -21,6 +22,11 @@ public class AuthorDaoImpl implements AuthorDao {
     public Author getById(int id) {
         Map<String, Integer> param = Map.of("id", id);
         return jdbc.queryForObject("SELECT id, name, surname, initials FROM AUTHORS WHERE id = :id", param, new AuthorRowMapper());
+    }
+
+    @Override
+    public List<Author> getAll() {
+        return jdbc.query("SELECT id, name, surname, initials FROM AUTHORS", new AuthorRowMapper());
     }
 
     private static class AuthorRowMapper implements RowMapper<Author> {

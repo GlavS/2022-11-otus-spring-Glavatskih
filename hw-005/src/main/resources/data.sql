@@ -1,4 +1,4 @@
-INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, NAME)
+INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE)
 VALUES (1, 2, 'Я, робот'),
        (1, 2, 'Основания'),
        (2, 2, 'Почти как люди'),
@@ -9,7 +9,7 @@ VALUES (1, 2, 'Я, робот'),
        (4, 4, 'Идиот'),
        (4, 4, 'История села Степанчиково'),
        (5, 4, 'Вишневый сад');
-INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, NAME)
+INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE)
 VALUES (2, 2, 'Заповедник гоблинов'),
        (6, 3, 'Малыш и Карлсон'),
        (6, 3, 'Пеппи Длинныйчулок'),
@@ -20,7 +20,7 @@ VALUES (2, 2, 'Заповедник гоблинов'),
        (8, 1, 'Торговый дом Гердлстон'),
        (8, 2, 'Марракотова бездна'),
        (9, 5, 'Мертвая зона');
-INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, NAME)
+INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE)
 VALUES (9, 5, 'Сияние'),
        (10, 6, 'Петр Первый'),
        (11, 7, 'Франциск Ассизский'),

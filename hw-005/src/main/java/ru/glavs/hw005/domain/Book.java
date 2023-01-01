@@ -9,5 +9,5 @@ public class Book {
     private final int id;
     private final Author author;
     private final Genre genre;
-    private final String name;
+    private final String title;
 }

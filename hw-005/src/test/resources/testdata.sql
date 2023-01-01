@@ -1,4 +1,4 @@
-INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, NAME)
+INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE)
 VALUES (1, 1, 'Книга1'),
        (1, 1, 'Книга2'),
        (2, 1, 'Книга3'),
