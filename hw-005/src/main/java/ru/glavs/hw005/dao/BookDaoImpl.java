@@ -1,7 +1,11 @@
 package ru.glavs.hw005.dao;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
@@ -11,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Objects.isNull;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -24,7 +30,6 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> getAll() {
-
         String sql = "SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
                 "FROM BOOKS b INNER JOIN GENRES g ON b.GENRE_ID = g.ID";
         return jdbc.query(sql, new BookRowMapper(authorDao));
@@ -32,16 +37,23 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getById(int id) {
-        String sql ="SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
+        String sql = "SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
                 "FROM BOOKS b INNER JOIN GENRES g ON b.GENRE_ID = g.ID\n" +
                 "WHERE b.ID = :ID";
-        Map<String, Integer> params= Map.of("ID", id);
+        Map<String, Integer> params = Map.of("ID", id);
         return jdbc.queryForObject(sql, params, new BookRowMapper(authorDao));
     }
 
     @Override
-    public void insertNew(Book book) {
-
+    public int insertNew(Book book) {
+        String sql = "INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE) VALUES ( :AUTHOR_ID, :GENRE_ID, :TITLE )";
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("AUTHOR_ID", book.getAuthor().getId())
+                .addValue("GENRE_ID", book.getGenre().getId())
+                .addValue("TITLE", book.getTitle());
+        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+        jdbc.update(sql, params, generatedKeyHolder);
+        return isNull(generatedKeyHolder.getKey()) ? 0 : (int) generatedKeyHolder.getKey();
     }
 
     @Override
