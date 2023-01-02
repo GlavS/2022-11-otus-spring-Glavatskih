@@ -23,6 +23,7 @@ public class BookDaoImpl implements BookDao {
     private final NamedParameterJdbcOperations jdbc;
     private final AuthorDao authorDao;
 
+
     public BookDaoImpl(NamedParameterJdbcOperations jdbc, AuthorDao authorDao) {
         this.jdbc = jdbc;
         this.authorDao = authorDao;
@@ -47,22 +48,30 @@ public class BookDaoImpl implements BookDao {
     @Override
     public int insertNew(Book book) {
         String sql = "INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE) VALUES ( :AUTHOR_ID, :GENRE_ID, :TITLE )";
+
+
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("AUTHOR_ID", book.getAuthor().getId())
                 .addValue("GENRE_ID", book.getGenre().getId())
                 .addValue("TITLE", book.getTitle());
+
+
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbc.update(sql, params, generatedKeyHolder);
         return isNull(generatedKeyHolder.getKey()) ? 0 : (int) generatedKeyHolder.getKey();
     }
 
     @Override
-    public void update(int id) {
+    public void update(Book book) {
+        Author author =  book.getAuthor();
+        Genre genre = book.getGenre();
+        String sql = "UPDATE BOOKS SET TITLE = 'Old title'\n" +
+                "WHERE ID = 31;";
 
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Book book) {
 
     }
 

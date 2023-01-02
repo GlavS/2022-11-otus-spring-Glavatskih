@@ -29,6 +29,21 @@ public class AuthorDaoImpl implements AuthorDao {
         return jdbc.query("SELECT id, name, surname, initials FROM AUTHORS", new AuthorRowMapper());
     }
 
+    @Override
+    public int count() {
+        return 0;
+    }
+
+    @Override
+    public int insertNew(Author author) {
+        return 0;
+    }
+
+    @Override
+    public void delete(Author author) {
+
+    }
+
     private static class AuthorRowMapper implements RowMapper<Author> {
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {

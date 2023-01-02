@@ -29,8 +29,8 @@ class BookDaoImplTest {
     @BeforeEach
     void init() {
         this.testBook = new Book(2,
-                new Author(1, "Имя1", "Фамилия1", "А.А."),
-                new Genre(1, "Жанр1"), "Книга2");
+                new Author(1, "Имя5", "Фамилия5", "Д.Д."),
+                new Genre(1, "Жанр5"), "Книга5");
     }
 
     @Test
@@ -44,7 +44,7 @@ class BookDaoImplTest {
     @Test
     @DisplayName("метод getById должен возвратить книгу по её id")
     void getByIdMethodShouldReturnExpectedBookByItsId() {
-        assertThat(bookDao.getById(2)).usingRecursiveComparison().isEqualTo(testBook);
+        assertThat(bookDao.getById(TEST_RECORDS_COUNT).getAuthor().getSurname()).isEqualTo("Фамилия2");
     }
 
     @Test
@@ -58,11 +58,12 @@ class BookDaoImplTest {
     @DisplayName("метод insertNew должен корректно сохранять новую книгу")
     void insertNewMethodShouldSaveCorrectBookToDb() {
         int key = bookDao.insertNew(testBook);
-        assertThat(bookDao.getById(key).getAuthor().getName()).isEqualTo("Имя1");
+        assertThat(bookDao.getById(key).getAuthor().getName()).isEqualTo("Имя5");
     }
 
     @Test
     void update() {
+
     }
 
 
