@@ -63,11 +63,12 @@ class BookDaoImplTest {
 
     @Test
     void update() {
-
+        assertThat(1 == 1).isFalse();
     }
 
 
     @Test
     void delete() {
+        assertThat(1 == 1).isFalse();
     }
 }
