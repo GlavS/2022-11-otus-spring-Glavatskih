@@ -7,7 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.glavs.hw005.domain.Genre;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,8 +39,11 @@ class GenreDaoImplTest {
 
     @Test
     void getAll() {
-        assertThat(genreDao.getAll().get(EXPECTED_GENRE_ID)).usingRecursiveComparison().isEqualTo(expectedGenre);
-        assertThat(genreDao.getAll().size()).isEqualTo(GENRE_TESTDB_COUNT);
+        SoftAssertions getAllBundle = new SoftAssertions();
+        getAllBundle.assertThat(genreDao.getAll()).isInstanceOf(List.class);
+        getAllBundle.assertThat(genreDao.getAll().get(0)).isInstanceOf(Genre.class);
+        getAllBundle.assertThat(genreDao.getAll().size()).isEqualTo(GENRE_TESTDB_COUNT);
+        getAllBundle.assertAll();
     }
 
     @Test
@@ -47,10 +53,11 @@ class GenreDaoImplTest {
 
     @Test
     void insertNew() {
+        int key = genreDao.insertNew(newGenre);
         SoftAssertions insertBundle = new SoftAssertions();
-        insertBundle.assertThat(genreDao.insertNew(newGenre)).isEqualTo(NEW_GENRE_ID);
-        insertBundle.assertThat(genreDao.getById(NEW_GENRE_ID)).isInstanceOf(Genre.class);
-        insertBundle.assertThat(genreDao.getById(NEW_GENRE_ID).getGenre()).isEqualTo("Жанр3");
+        insertBundle.assertThat(key).isEqualTo(NEW_GENRE_ID);
+        insertBundle.assertThat(genreDao.getById(key)).isInstanceOf(Genre.class);
+        insertBundle.assertThat(genreDao.getById(key).getGenre()).isEqualTo("Жанр3");
         insertBundle.assertAll();
     }
 
@@ -58,8 +65,8 @@ class GenreDaoImplTest {
     void delete() {
         genreDao.delete(expectedGenre);
         SoftAssertions deleteBundle = new SoftAssertions();
-        deleteBundle.assertThat(genreDao.getById(EXPECTED_GENRE_ID)).isNull();
-        deleteBundle.assertThat(genreDao.count()).isEqualTo(GENRE_TESTDB_COUNT -1);
+        deleteBundle.assertThatThrownBy(() -> genreDao.getById(EXPECTED_GENRE_ID)).isInstanceOf(EmptyResultDataAccessException.class);
+        deleteBundle.assertThat(genreDao.count()).isEqualTo(GENRE_TESTDB_COUNT - 1);
         deleteBundle.assertAll();
     }
 }
