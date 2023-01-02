@@ -30,4 +30,16 @@ class AuthorDaoImplTest {
         assertThat(authorDao.getAll().size()).isEqualTo(2);
         assertThat(authorDao.getAll().get(1)).isInstanceOf(Author.class);
     }
+
+    @Test
+    void count() {
+    }
+
+    @Test
+    void insertNew() {
+    }
+
+    @Test
+    void delete() {
+    }
 }

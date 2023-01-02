@@ -1,9 +1,10 @@
 package ru.glavs.hw005.dao;
 
+import org.springframework.stereotype.Repository;
 import ru.glavs.hw005.domain.Genre;
 
 import java.util.List;
-
+@Repository
 public class GenreDaoImpl implements GenreDao{
     @Override
     public Genre getById(int id) {
