@@ -21,10 +21,10 @@ import static org.springframework.test.annotation.DirtiesContext.MethodMode.BEFO
 @DisplayName("В классе BookDaoImpl")
 class BookDaoImplTest {
 
+    private static final int TEST_RECORDS_COUNT = 4;
     @Autowired
     private BookDaoImpl bookDao;
     private Book testBook;
-    private static final int TEST_RECORDS_COUNT = 4;
 
     @BeforeEach
     void init() {

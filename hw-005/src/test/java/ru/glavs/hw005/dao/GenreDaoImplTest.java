@@ -33,12 +33,14 @@ class GenreDaoImplTest {
     }
 
     @Test
-    void getById() {
+    @DisplayName("метод getById должен возвращать объект Genre по его id")
+    void getByIdShouldReturnCorrectGenreById() {
         assertThat(genreDao.getById(EXPECTED_GENRE_ID)).usingRecursiveComparison().isEqualTo(expectedGenre);
     }
 
     @Test
-    void getAll() {
+    @DisplayName("метод getAll должен возвращать список всех жанров")
+    void getAllShouldReturnExpectedGenreList() {
         SoftAssertions getAllBundle = new SoftAssertions();
         getAllBundle.assertThat(genreDao.getAll()).isInstanceOf(List.class);
         getAllBundle.assertThat(genreDao.getAll().get(0)).isInstanceOf(Genre.class);
@@ -47,12 +49,14 @@ class GenreDaoImplTest {
     }
 
     @Test
-    void count() {
+    @DisplayName("метод count должен вернуть количество жанров, сохраненных в БД")
+    void countMethodShouldReturnCorrectNumberOfStoredGenres() {
         assertThat(genreDao.count()).isEqualTo(GENRE_TESTDB_COUNT);
     }
 
     @Test
-    void insertNew() {
+    @DisplayName("метод insertNew должен сохранять в БД новый жанр")
+    void insertNewMethodShouldSaveNewGenreObjectToDatabase() {
         int key = genreDao.insertNew(newGenre);
         SoftAssertions insertBundle = new SoftAssertions();
         insertBundle.assertThat(key).isEqualTo(NEW_GENRE_ID);
@@ -62,7 +66,8 @@ class GenreDaoImplTest {
     }
 
     @Test
-    void delete() {
+    @DisplayName("метод delete должен удалять выбранный жанр из БД")
+    void deleteMethodShouldCorrectlyDeleteGenreFromDatabase() {
         genreDao.delete(expectedGenre);
         SoftAssertions deleteBundle = new SoftAssertions();
         deleteBundle.assertThatThrownBy(() -> genreDao.getById(EXPECTED_GENRE_ID)).isInstanceOf(EmptyResultDataAccessException.class);
