@@ -22,11 +22,13 @@ import static java.util.Objects.isNull;
 public class BookDaoImpl implements BookDao {
     private final NamedParameterJdbcOperations jdbc;
     private final AuthorDao authorDao;
+    private final GenreDao genreDao;
 
 
-    public BookDaoImpl(NamedParameterJdbcOperations jdbc, AuthorDao authorDao) {
+    public BookDaoImpl(NamedParameterJdbcOperations jdbc, AuthorDao authorDao, GenreDao genreDao) {
         this.jdbc = jdbc;
         this.authorDao = authorDao;
+        this.genreDao = genreDao;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class BookDaoImpl implements BookDao {
         String sql = "SELECT b.ID, AUTHOR_ID, GENRE_ID, TITLE, GENRE\n" +
                 "FROM BOOKS b INNER JOIN GENRES g ON b.GENRE_ID = g.ID";
         return jdbc.query(sql, new BookRowMapper(authorDao));
+        //
     }
 
     @Override
@@ -48,14 +51,10 @@ public class BookDaoImpl implements BookDao {
     @Override
     public int insertNew(Book book) {
         String sql = "INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE) VALUES ( :AUTHOR_ID, :GENRE_ID, :TITLE )";
-
-
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("AUTHOR_ID", book.getAuthor().getId())
                 .addValue("GENRE_ID", book.getGenre().getId())
                 .addValue("TITLE", book.getTitle());
-
-
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbc.update(sql, params, generatedKeyHolder);
         return isNull(generatedKeyHolder.getKey()) ? 0 : (int) generatedKeyHolder.getKey();
@@ -63,17 +62,38 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public void update(Book book) {
-        Author author =  book.getAuthor();
-        Genre genre = book.getGenre();
-        String sql = "UPDATE BOOKS SET TITLE = 'Old title'\n" +
-                "WHERE ID = 31;";
+        Map<String, Object> params = Map.of(
+                "ID", book.getId(),
+                "AUTHOR_ID", book.getAuthor().getId(),
+                "GENRE_ID", book.getGenre().getId(),
+                "TITLE", book.getTitle()
+                );
 
+        String sql = "UPDATE BOOKS " +
+                "SET AUTHOR_ID = :AUTHOR_ID, " +
+                "GENRE_ID = :GENRE_ID, " +
+                "TITLE = :TITLE " +
+                "WHERE ID = :ID";
+        jdbc.update(sql, params);
     }
 
     @Override
     public void delete(Book book) {
-
+        Map<String, Integer> param = Map.of("ID", book.getId());
+        jdbc.update("DELETE FROM BOOKS WHERE ID = :ID", param);
     }
+
+    @Override
+    public int count() {
+        Integer result = jdbc
+                .getJdbcOperations()
+                .queryForObject("SELECT COUNT(*) FROM BOOKS", Integer.class);
+        return isNull(result)? 0 : result;
+    }
+
+
+
+
 
     private static class BookRowMapper implements RowMapper<Book> {
         private final AuthorDao authorDao;

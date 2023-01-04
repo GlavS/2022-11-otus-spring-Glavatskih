@@ -10,4 +10,5 @@ public interface BookDao {
     int insertNew(Book book);
     void update(Book book);
     void delete(Book book);
+    int count();
 }
