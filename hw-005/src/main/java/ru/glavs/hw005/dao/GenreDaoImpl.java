@@ -11,14 +11,13 @@ import ru.glavs.hw005.domain.Genre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Objects.isNull;
 
 @Repository
-public class GenreDaoImpl implements GenreDao{
+public class GenreDaoImpl implements GenreDao {
     private final NamedParameterJdbcOperations jdbc;
 
     public GenreDaoImpl(NamedParameterJdbcOperations jdbc) {
@@ -39,7 +38,7 @@ public class GenreDaoImpl implements GenreDao{
 
     @Override
     public int count() {
-        Integer result =  jdbc.getJdbcOperations()
+        Integer result = jdbc.getJdbcOperations()
                 .queryForObject("SELECT COUNT(*) FROM GENRES", Integer.class);
         return isNull(result) ? 0 : result;
     }
@@ -53,7 +52,7 @@ public class GenreDaoImpl implements GenreDao{
         String sql = "INSERT INTO GENRES(GENRE) VALUES(:GENRE)";
         jdbc.update(sql, param, keyHolder);
         Integer generatedKey = (Integer) keyHolder.getKey();
-        return isNull(generatedKey)? 0 : generatedKey;
+        return isNull(generatedKey) ? 0 : generatedKey;
     }
 
     @Override
@@ -62,7 +61,8 @@ public class GenreDaoImpl implements GenreDao{
         Map<String, Integer> param = Map.of("ID", genre.getId());
         jdbc.update(sql, param);
     }
-    private static class GenreRowMapper implements RowMapper<Genre>{
+
+    private static class GenreRowMapper implements RowMapper<Genre> {
         @Override
         public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Genre(rs.getInt("ID"), rs.getString("GENRE"));
