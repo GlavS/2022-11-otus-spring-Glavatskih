@@ -23,9 +23,10 @@ public class BookDisplayService implements DisplayService<Book> {
     }
 
     @Override
-    public void displayItem(Book item) {
+    public void displayItem(int id) {
+        Book book = bookDao.getById(id);
         printHeader();
-        printBook(item);
+        printBook(book);
         printFooter();
     }
 

@@ -5,7 +5,9 @@ spring:
     init:
       mode: always
       data-locations: testdata.sql
-#  spring:
-#    shell:
-#      interactive:
-#        enabled: false
+  shell:
+    interactive:
+      enabled: false
+    command:
+      script:
+        enabled: false

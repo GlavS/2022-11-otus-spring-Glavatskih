@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DisplayService <T>{
     void displayList(List<T> list);
-    void displayItem(T item);
+    void displayItem(int id);
     void displayAll();
 }
