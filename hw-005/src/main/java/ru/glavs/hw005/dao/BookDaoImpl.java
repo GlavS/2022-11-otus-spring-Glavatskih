@@ -1,5 +1,6 @@
 package ru.glavs.hw005.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -46,8 +48,14 @@ public class BookDaoImpl implements BookDao {
         for (Book tempBook : tempBookList) {
             resultList.add(new Book(
                     tempBook.getId(),
-                    authorList.stream().filter(author -> author.getId() == tempBook.getAuthor().getId()).findFirst().orElse(null),
-                    genreList.stream().filter(genre -> genre.getId() == tempBook.getId()).findFirst().orElse(null),
+                    authorList.stream()
+                            .filter(author -> author.getId() == tempBook.getAuthor().getId())
+                            .findFirst()
+                            .orElseThrow(() -> new EmptyResultDataAccessException("No book author found", 1)),
+                    genreList.stream()
+                            .filter(genre -> genre.getId() == tempBook.getGenre().getId())
+                            .findFirst()
+                            .orElseThrow(() -> new EmptyResultDataAccessException("No book genre found", 1)),
                     tempBook.getTitle()
             ));
         }
@@ -60,9 +68,13 @@ public class BookDaoImpl implements BookDao {
         Map<String, Integer> param = Map.of("ID", id);
         Book tempBook = jdbc.queryForObject(sql, param, new BookRowMapper());
         assert tempBook != null;
-        Author author = authorDao.getById(tempBook.getAuthor().getId());
-        Genre genre = genreDao.getById(tempBook.getGenre().getId());
-        return new Book(tempBook.getId(), author, genre, tempBook.getTitle());
+        Optional<Author> optionalAuthor = Optional.of(authorDao.getById(tempBook.getAuthor().getId()));
+        Optional<Genre> optionalGenre = Optional.of(genreDao.getById(tempBook.getGenre().getId()));
+
+        return new Book(tempBook.getId(),
+                optionalAuthor.orElseThrow(() -> new EmptyResultDataAccessException("No book author found", 1)),
+                optionalGenre.orElseThrow(() -> new EmptyResultDataAccessException("No book genre found", 1)),
+                tempBook.getTitle());
     }
 
     @Override
