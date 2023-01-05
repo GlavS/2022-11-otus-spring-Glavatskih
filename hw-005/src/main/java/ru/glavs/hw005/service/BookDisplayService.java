@@ -24,7 +24,9 @@ public class BookDisplayService implements DisplayService<Book> {
 
     @Override
     public void displayItem(Book item) {
-
+        printHeader();
+        printBook(item);
+        printFooter();
     }
 
     @Override
@@ -34,12 +36,24 @@ public class BookDisplayService implements DisplayService<Book> {
     }
 
     private void printBookList(List<Book> books) {
-        for (Book book : books) {
-            ioService.printf("Author: %s%s, title: %s, genre: %s%n",
-                    book.getAuthor().getInitials(),
-                    book.getAuthor().getSurname(),
-                    book.getTitle(),
-                    book.getGenre().getGenre());
-        }
+        printHeader();
+        books.forEach(this::printBook);
+        printFooter();
+    }
+    private void printHeader(){
+        ioService.println("----------------------------------------------------------------------------------------");
+        ioService.printf("|%-5s| %-20s| %-40s| %-15s|%n"," ID ", "     АВТОР", "          ЗАГЛАВИЕ", "   ЖАНР");
+        ioService.println("----------------------------------------------------------------------------------------");
+    }
+    private void printFooter(){
+        ioService.println("----------------------------------------------------------------------------------------");
+    }
+    private void printBook(Book book){
+        ioService.printf("|%4d | %-5s%-15s| %-40s| %-15s|%n",
+                book.getId(),
+                book.getAuthor().getInitials(),
+                book.getAuthor().getSurname(),
+                book.getTitle(),
+                book.getGenre().getGenre());
     }
 }
