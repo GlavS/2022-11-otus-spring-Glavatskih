@@ -37,6 +37,12 @@ public class StreamIOService implements IOService {
         return readInt();
     }
 
+    @Override
+    public String readStringWithPrompt(String prompt) {
+        println(prompt);
+        return readString();
+    }
+
     private int readInt() {
         int result;
         try {

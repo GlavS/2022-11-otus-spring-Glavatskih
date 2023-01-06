@@ -107,8 +107,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void delete(Book book) {
-        Map<String, Integer> param = Map.of("ID", book.getId());
+    public void delete(int id) {
+        Map<String, Integer> param = Map.of("ID", id);
         jdbc.update("DELETE FROM BOOKS WHERE ID = :ID", param);
     }
 

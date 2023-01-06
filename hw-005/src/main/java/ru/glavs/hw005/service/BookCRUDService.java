@@ -16,8 +16,15 @@ public class BookCRUDService {
     }
     public void delete(){
         int id = ioService.readIntWithPrompt("Please enter book id:");
-        Book book = bookDao.getById(id);
-        bookDao.delete(book);
+        //TODO: display book to delete, implement "are you sure"
+        //Book book = bookDao.getById(id);
+        bookDao.delete(id);
         ioService.println("Book deleted: " + id);
+    }
+    public void create(){
+        //TODO: create in CRUD
+    }
+    public void update(){
+        //TODO: update in CRUD
     }
 }

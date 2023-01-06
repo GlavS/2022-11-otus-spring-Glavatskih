@@ -9,6 +9,6 @@ public interface BookDao {
     Book getById(int id);
     int insertNew(Book book);
     void update(Book book);
-    void delete(Book book);
+    void delete(int id);
     int count();
 }

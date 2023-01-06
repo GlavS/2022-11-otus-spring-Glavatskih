@@ -78,13 +78,11 @@ class BookDaoImplTest {
     @Test
     @DisplayName("метод delete должен удалять выбранную книгу из БД")
     void deleteMethodShouldDeleteCorrectBookFromDatabase() {
-        Book forDelete = new Book(1,
-                new Author(1, "Имя1", "Фамилия1", "A.A."),
-                new Genre(1, "Жанр1"), "Книга1");
-        bookDao.delete(forDelete);
+        int idForDelete = 1;
+        bookDao.delete(idForDelete);
         SoftAssertions bookBundle = new SoftAssertions();
         bookBundle
-                .assertThatThrownBy(() -> bookDao.getById(1)).isInstanceOf(EmptyResultDataAccessException.class);
+                .assertThatThrownBy(() -> bookDao.getById(idForDelete)).isInstanceOf(EmptyResultDataAccessException.class);
         bookBundle
                 .assertThat(bookDao.count()).isEqualTo(TEST_BOOKS_COUNT - 1);
         bookBundle.assertAll();
