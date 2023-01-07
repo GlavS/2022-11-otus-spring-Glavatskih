@@ -4,34 +4,20 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.io.IOService;
 
-import java.util.List;
-
 @Service
 public class BookDisplayService extends AbstractTableFormat<Book> implements DisplayService<Book> {
-    private static final String DELIMITER = "----------------------------------------------------------------------------------------";
-    private static final String HEADER_FORMAT_STRING = "|%-5s| %-20s| %-40s| %-15s|%n";
-    private static final Object[] FORMAT_ARGS = new Object[]{" ID ", "     АВТОР", "          ЗАГЛАВИЕ", "   ЖАНР"};
+    private static final String ITEM_FORMAT_STRING = "|%-5d| %-5s%-15s| %-40s| %-15s|%n";
 
     public BookDisplayService(IOService ioService) {
         super(ioService);
-    }
-
-    public void printOne(Book item) {
-        displayHeader(DELIMITER, HEADER_FORMAT_STRING, FORMAT_ARGS);
-        displayItem(item);
-        displayFooter(DELIMITER);
-    }
-
-
-    public void printList(List<Book> books) {
-        displayHeader(DELIMITER, HEADER_FORMAT_STRING, FORMAT_ARGS);
-        books.forEach(this::displayItem);
-        displayFooter(DELIMITER);
+        super.delimiter = "----------------------------------------------------------------------------------------";
+        super.formatString = "|%-5s| %-20s| %-40s| %-15s|%n";
+        super.formatArgs = new Object[]{" ID ", "     АВТОР", "          ЗАГЛАВИЕ", "   ЖАНР"};
     }
 
     @Override
     protected void displayItem(Book book) {
-        ioService.printf("|%-5d| %-5s%-15s| %-40s| %-15s|%n",
+        ioService.printf(ITEM_FORMAT_STRING,
                 book.getId(),
                 book.getAuthor().getInitials(),
                 book.getAuthor().getSurname(),

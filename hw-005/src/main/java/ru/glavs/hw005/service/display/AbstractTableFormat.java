@@ -3,10 +3,12 @@ package ru.glavs.hw005.service.display;
 
 import ru.glavs.hw005.io.IOService;
 
-public abstract class AbstractTableFormat<T> {
-    //    protected  String delimiter;
-//    protected  String formatString;
-//    protected  Object[] formatArgs;
+import java.util.List;
+
+public abstract class AbstractTableFormat<T> implements DisplayService<T> {
+    protected String delimiter;
+    protected String formatString;
+    protected Object[] formatArgs;
     protected IOService ioService;
 
     public AbstractTableFormat(IOService ioService) {
@@ -15,13 +17,27 @@ public abstract class AbstractTableFormat<T> {
 
     protected abstract void displayItem(T item);
 
-    protected void displayHeader(String delimiter, String formatString, Object[] formatArgs) {
+    protected void displayHeader() {
         ioService.println(delimiter);
         ioService.printf(formatString, formatArgs);
         ioService.println(delimiter);
     }
 
-    protected void displayFooter(String delimiter) {
+    protected void displayFooter() {
         ioService.println(delimiter);
+    }
+
+    @Override
+    public void printOne(T item) {
+        displayHeader();
+        displayItem(item);
+        displayFooter();
+    }
+
+    @Override
+    public void printList(List<T> itemList) {
+        displayHeader();
+        itemList.forEach(this::displayItem);
+        displayFooter();
     }
 }
