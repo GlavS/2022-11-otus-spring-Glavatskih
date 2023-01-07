@@ -11,6 +11,7 @@ import ru.glavs.hw005.service.display.BookDisplayService;
 import java.util.List;
 
 @SpringBootTest
+@DisplayName("NOT IMPLEMENTED!!")
 class BookDisplayServiceTest {
 
     @Autowired
