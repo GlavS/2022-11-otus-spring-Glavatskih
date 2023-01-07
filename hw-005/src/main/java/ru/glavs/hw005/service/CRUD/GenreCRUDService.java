@@ -33,7 +33,10 @@ public class GenreCRUDService {
     public Genre create() {
         String genreName = ioService.readStringWithPrompt("Please enter genre:");
         int id = genreDao.insertNew(genreName);
-        return new Genre(id, genreName);
+        Genre result = new Genre(id, genreName);
+        genreDisplayService.printOne(result);
+        ioService.println("New genre created");
+        return result;
     }
 
     public Genre getById(int id) {

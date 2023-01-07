@@ -60,7 +60,10 @@ public class BookCRUDService {
         }
         String title = ioService.readStringWithPrompt("Please enter title:");
         int id = bookDao.insertNew(author, genre, title);
-        return new Book(id, author, genre, title);
+        Book result = new Book(id, author, genre, title);
+        bookDisplayService.printOne(result);
+        ioService.println("New book written to DB");
+        return result;
     }
 
 
@@ -75,8 +78,42 @@ public class BookCRUDService {
     }
 
     public void update() {
-
-        //TODO: update in CRUD
+        Author author = null;
+        Genre genre = null;
+        String title = "";
+        bookDisplayService.printList(bookDao.getAll());
+        int id = ioService.readIntWithPrompt("Please enter ID of the book you wish to edit:");
+        Book updatingBook = bookDao.getById(id);
+        bookDisplayService.printOne(updatingBook);
+        ioService.println("This book will be updated.");
+        String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");
+        if (!surname.equals("")){
+            List<Author> supposedAuthorList = authorService.searchBySurname(surname);
+            if ((author = getAuthor(supposedAuthorList)) == null) {
+                ioService.println("Book creation aborted");
+                return;
+            }
+        } else {
+            author = updatingBook.getAuthor();
+        }
+        String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
+        if(!genreName.equals("")){
+            List<Genre> supposedGenreList = genreService.searchByGenre(genreName);
+            if ((genre = getGenre(supposedGenreList)) == null) {
+                ioService.println("Book creation aborted");
+                return;
+            }
+        } else {
+            genre = updatingBook.getGenre();
+        }
+        title = ioService.readStringWithPrompt("Please enter new title, or ENTER to skip:");
+        if(title.equals("")){
+           title = updatingBook.getTitle();
+        }
+            Book toUpdate = new Book(id, author, genre, title);
+            bookDao.update(toUpdate);
+            bookDisplayService.printOne(toUpdate);
+            ioService.println("Book updated.");
     }
 
     private boolean yes() {
@@ -109,9 +146,9 @@ public class BookCRUDService {
                     2. Pick one from existing list, enter 'p'
                     3. Cancel book creation, enter 'quit'
                     """);
-            if(answer.equalsIgnoreCase("c")){
+            if(answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")){
                 return genreService.create();
-            } else if(answer.equalsIgnoreCase("p")){
+            } else if(answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")){
                 int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
                 return genreService.getById(id);
             } else {
@@ -119,6 +156,7 @@ public class BookCRUDService {
                 return null;
             }
         } else {
+            genreService.printList(genreList);
             int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
             return genreService.getById(id);
         }

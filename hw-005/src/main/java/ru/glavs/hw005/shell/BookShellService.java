@@ -40,4 +40,8 @@ public class BookShellService {
     public void create(){
         bookCrud.create();
     }
+    @ShellMethod("Update book")
+    public void update(){
+        bookCrud.update();
+    }
 }

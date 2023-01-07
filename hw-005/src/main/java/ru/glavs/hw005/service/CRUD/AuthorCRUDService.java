@@ -25,7 +25,10 @@ public class AuthorCRUDService {
         String name = ioService.readStringWithPrompt("Please enter name: ");
         String initials = ioService.readStringWithPrompt("Please enter initials: ");
         int id = authorDao.insertNew(name, surname, initials);
-        return new Author(id, name, surname, initials);
+        Author result = new Author(id, name, surname, initials);
+        authorDisplayService.printOne(result);
+        ioService.println("New author written to DB");
+        return result;
     }
     public List<Author> searchBySurname(String surname){
         return authorDao.searchBySurname(surname);
