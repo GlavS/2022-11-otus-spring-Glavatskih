@@ -1,6 +1,5 @@
 package ru.glavs.hw005.dao;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -67,18 +66,16 @@ public class BookDaoImpl implements BookDao {
     public Book getById(int id) {
         String sql = "SELECT ID, AUTHOR_ID, GENRE_ID, TITLE FROM BOOKS WHERE ID = :ID";
         Map<String, Integer> param = Map.of("ID", id);
-        try {
-            Book tempBook = jdbc.queryForObject(sql, param, new BookRowMapper());
-            assert tempBook != null;
-            Optional<Author> optionalAuthor = Optional.of(authorDao.getById(tempBook.getAuthor().getId()));
-            Optional<Genre> optionalGenre = Optional.of(genreDao.getById(tempBook.getGenre().getId()));
-            return new Book(tempBook.getId(),
-                    optionalAuthor.orElseThrow(() -> new EmptyResultDataAccessException("No book author found", 1)),
-                    optionalGenre.orElseThrow(() -> new EmptyResultDataAccessException("No book genre found", 1)),
-                    tempBook.getTitle());
-        } catch (DataAccessException e) {
-            throw new RuntimeException("Could not get book by id: " + e.getMessage(), e);
-        }
+
+        Book tempBook = jdbc.queryForObject(sql, param, new BookRowMapper());
+        assert tempBook != null;
+        Optional<Author> optionalAuthor = Optional.of(authorDao.getById(tempBook.getAuthor().getId()));
+        Optional<Genre> optionalGenre = Optional.of(genreDao.getById(tempBook.getGenre().getId()));
+        return new Book(tempBook.getId(),
+                optionalAuthor.orElseThrow(() -> new EmptyResultDataAccessException("No book author found", 1)),
+                optionalGenre.orElseThrow(() -> new EmptyResultDataAccessException("No book genre found", 1)),
+                tempBook.getTitle());
+
     }
 
     @Override

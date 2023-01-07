@@ -54,13 +54,13 @@ class BookDaoImplTest {
     @DisplayName("метод insertNew должен вернуть корректный сгенерированный keyHolder key")
     @DirtiesContext(methodMode = BEFORE_METHOD)
     void insertNewMethodShouldReturnCorrectGeneratedKey() {
-        assertThat(bookDao.insertNew(newBook)).isEqualTo(TEST_BOOKS_COUNT + 1);
+        assertThat(bookDao.insertNew(newBook.getAuthor(), newBook.getGenre(), newBook.getTitle())).isEqualTo(TEST_BOOKS_COUNT + 1);
     }
 
     @Test
     @DisplayName("метод insertNew должен корректно сохранять новую книгу")
     void insertNewMethodShouldSaveCorrectBookToDb() {
-        int key = bookDao.insertNew(newBook);
+        int key = bookDao.insertNew(newBook.getAuthor(), newBook.getGenre(), newBook.getTitle());
         assertThat(bookDao.getById(key).getTitle()).isEqualTo("Книга5");
     }
 
