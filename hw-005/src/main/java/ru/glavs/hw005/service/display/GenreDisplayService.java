@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 
 @Service
-public class GenreDisplayService extends AbstractTableFormat<Genre> implements DisplayService<Genre> {
+public class GenreDisplayService extends AbstractDisplayService<Genre> implements DisplayService<Genre> {
     private static final String ITEM_FORMAT_STRING = "|%-5d| %-30s|%n";
 
     public GenreDisplayService(IOService ioService) {

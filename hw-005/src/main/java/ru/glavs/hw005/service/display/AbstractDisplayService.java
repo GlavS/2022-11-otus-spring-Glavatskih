@@ -5,13 +5,13 @@ import ru.glavs.hw005.io.IOService;
 
 import java.util.List;
 
-public abstract class AbstractTableFormat<T> implements DisplayService<T> {
+public abstract class AbstractDisplayService<T> implements DisplayService<T> {
     protected String delimiter;
     protected String formatString;
     protected Object[] formatArgs;
     protected IOService ioService;
 
-    public AbstractTableFormat(IOService ioService) {
+    public AbstractDisplayService(IOService ioService) {
         this.ioService = ioService;
     }
 

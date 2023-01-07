@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.io.IOService;
 
 @Service
-public class AuthorDisplayService extends AbstractTableFormat<Author> implements DisplayService<Author> {
+public class AuthorDisplayService extends AbstractDisplayService<Author> implements DisplayService<Author> {
 
     private static final String ITEM_FORMAT_STRING = "|%-5d| %-30s| %-15s| %-5s|%n";
 
