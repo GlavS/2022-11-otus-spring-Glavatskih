@@ -1,4 +1,4 @@
-package ru.glavs.hw005.ioservice;
+package ru.glavs.hw005.io;
 
 public interface IOService {
     void print(String message);

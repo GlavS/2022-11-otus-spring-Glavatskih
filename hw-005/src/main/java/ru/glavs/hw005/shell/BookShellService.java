@@ -4,30 +4,28 @@ import org.h2.tools.Console;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.glavs.hw005.domain.Book;
-import ru.glavs.hw005.service.BookCRUDService;
-import ru.glavs.hw005.service.DisplayService;
+import ru.glavs.hw005.service.CRUD.BookCRUDService;
 
 import java.sql.SQLException;
 
 @ShellComponent("Book commands")
-public class BookShellService implements BookShell {
-    private final DisplayService<Book> bookDisplayService;
-    private final BookCRUDService crud;
+public class BookShellService {
 
-    public BookShellService(DisplayService<Book> bookDisplayService, BookCRUDService crud) {
-        this.bookDisplayService = bookDisplayService;
-        this.crud = crud;
+    private final BookCRUDService bookCrud;
+
+    public BookShellService(BookCRUDService bookCrud) {
+        this.bookCrud = bookCrud;
     }
 
     @ShellMethod("List all books")
     public void list() {
-        bookDisplayService.displayAll();
+        bookCrud.readAll();
     }
 
     @ShellMethod("Show one book")
     public void show(@ShellOption(help = "Usage: show [id]") int id) {
-        bookDisplayService.displayItem(id);
+        //TODO: подумать, как.
+        bookCrud.readBook(id);
     }
 
     @ShellMethod("Show H2 console")
@@ -39,9 +37,12 @@ public class BookShellService implements BookShell {
         }
     }
 
-    @ShellMethod("Delete book")
-    public void delete() {
-        crud.delete();
+    @ShellMethod("Delete book, usage: delete [id]")
+    public void delete(@ShellOption int id) {
+        bookCrud.delete(id);
     }
-
+    @ShellMethod("Create new book")
+    public void create(){
+        bookCrud.create();
+    }
 }

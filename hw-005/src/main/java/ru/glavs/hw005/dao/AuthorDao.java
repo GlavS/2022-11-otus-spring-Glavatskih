@@ -9,6 +9,7 @@ public interface AuthorDao {
 
     List<Author> getAll();
     int count();
-    int insertNew(Author author);
+    int insertNew(String name, String surname, String initials);
     void delete(Author author);
+    List<Author> searchBySurname(String surname);
 }

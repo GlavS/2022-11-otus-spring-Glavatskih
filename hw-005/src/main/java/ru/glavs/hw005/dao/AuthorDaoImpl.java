@@ -44,12 +44,12 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public int insertNew(Author author) {
+    public int insertNew(String name, String surname, String initials) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("NAME", author.getName())
-                .addValue("SURNAME", author.getSurname())
-                .addValue("INITIALS", author.getInitials());
+                .addValue("NAME", name)
+                .addValue("SURNAME", surname)
+                .addValue("INITIALS", initials);
         jdbc.update("INSERT INTO AUTHORS(NAME, SURNAME, INITIALS) VALUES(:NAME, :SURNAME, :INITIALS)",
                 params, keyHolder);
         Integer key = (Integer) keyHolder.getKey();
@@ -60,6 +60,14 @@ public class AuthorDaoImpl implements AuthorDao {
     public void delete(Author author) {
         Map<String, Integer> param = Map.of("ID", author.getId());
         jdbc.update("DELETE FROM AUTHORS WHERE ID = :ID", param);
+    }
+
+    @Override
+    public List<Author> searchBySurname(String surname) {
+        String sql = "SELECT ID, NAME, SURNAME, INITIALS FROM AUTHORS\n" +
+                "WHERE SURNAME LIKE :SURNAME_SEARCH ";
+        Map<String, String> param = Map.of("SURNAME_SEARCH", "%" + surname.trim() + "%");
+        return jdbc.query(sql, param, new AuthorRowMapper());
     }
 
     private static class AuthorRowMapper implements RowMapper<Author> {

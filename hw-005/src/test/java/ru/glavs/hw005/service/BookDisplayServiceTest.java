@@ -3,17 +3,9 @@ package ru.glavs.hw005.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import ru.glavs.hw005.dao.BookDao;
 import ru.glavs.hw005.dao.BookDaoImpl;
-import ru.glavs.hw005.domain.Book;
-import ru.glavs.hw005.ioservice.StreamIOService;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import ru.glavs.hw005.service.display.BookDisplayService;
 
 @SpringBootTest
 class BookDisplayServiceTest {

@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
 import ru.glavs.hw005.domain.Author;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @JdbcTest
@@ -50,7 +52,7 @@ class AuthorDaoImplTest {
     @Test
     @DisplayName("метод insertNew должен сохранять в БД нового автора")
     void insertNewMethodShouldSaveNewAuthorToDatabase() {
-        int key = authorDao.insertNew(new Author(3, "Имя3", "Фамилия3", "В.В."));
+        int key = authorDao.insertNew( "Имя3", "Фамилия3", "В.В.");
         SoftAssertions insertBundle = new SoftAssertions();
         insertBundle.assertThat(key).isEqualTo(TEST_AUTHORS_COUNT + 1);
         insertBundle.assertThat(authorDao.getById(key)).isInstanceOf(Author.class);
@@ -66,5 +68,11 @@ class AuthorDaoImplTest {
         deleteBundle.assertThatThrownBy(() -> authorDao.getById(1)).isInstanceOf(EmptyResultDataAccessException.class);
         deleteBundle.assertThat(authorDao.count()).isEqualTo(TEST_AUTHORS_COUNT - 1);
         deleteBundle.assertAll();
+    }
+
+    @Test
+    @DisplayName("search by surname IMPLEMENT!!!")
+    void searchBySurnameMethodShouldReturnExpectedAuthorList(){
+        List<Author> authorList = authorDao.searchBySurname("Фа");
     }
 }

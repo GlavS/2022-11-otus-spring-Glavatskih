@@ -1,38 +1,33 @@
-package ru.glavs.hw005.service;
+package ru.glavs.hw005.service.display;
 
 import org.springframework.stereotype.Service;
-import ru.glavs.hw005.dao.BookDao;
 import ru.glavs.hw005.domain.Book;
-import ru.glavs.hw005.ioservice.IOService;
+import ru.glavs.hw005.io.IOService;
 
 import java.util.List;
 
 @Service
-public class BookDisplayService implements DisplayService<Book> {
-    private final BookDao bookDao;
+public class BookDisplayService {
     private final IOService ioService;
 
-    public BookDisplayService(BookDao bookDao, IOService ioService) {
-        this.bookDao = bookDao;
+    public BookDisplayService(IOService ioService) {
         this.ioService = ioService;
     }
 
-    @Override
+
     public void displayList(List<Book> list) {
         printBookList(list);
     }
 
-    @Override
-    public void displayItem(int id) {
-        Book book = bookDao.getById(id);
+
+    public void displayBook(Book book) {
         printHeader();
         printBook(book);
         printFooter();
     }
 
-    @Override
-    public void displayAll() {
-        List<Book> books = bookDao.getAll();
+
+    public void displayAll(List<Book> books) {
         printBookList(books);
     }
 
@@ -41,15 +36,18 @@ public class BookDisplayService implements DisplayService<Book> {
         books.forEach(this::printBook);
         printFooter();
     }
-    private void printHeader(){
+
+    private void printHeader() {
         ioService.println("----------------------------------------------------------------------------------------");
-        ioService.printf("|%-5s| %-20s| %-40s| %-15s|%n"," ID ", "     АВТОР", "          ЗАГЛАВИЕ", "   ЖАНР");
-        ioService.println("----------------------------------------------------------------------------------------");
-    }
-    private void printFooter(){
+        ioService.printf("|%-5s| %-20s| %-40s| %-15s|%n", " ID ", "     АВТОР", "          ЗАГЛАВИЕ", "   ЖАНР");
         ioService.println("----------------------------------------------------------------------------------------");
     }
-    private void printBook(Book book){
+
+    private void printFooter() {
+        ioService.println("----------------------------------------------------------------------------------------");
+    }
+
+    private void printBook(Book book) {
         ioService.printf("|%4d | %-5s%-15s| %-40s| %-15s|%n",
                 book.getId(),
                 book.getAuthor().getInitials(),

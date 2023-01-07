@@ -1,4 +1,4 @@
-package ru.glavs.hw005.ioservice;
+package ru.glavs.hw005.io;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
