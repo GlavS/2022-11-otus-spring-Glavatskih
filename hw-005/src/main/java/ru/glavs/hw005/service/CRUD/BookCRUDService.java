@@ -78,9 +78,9 @@ public class BookCRUDService {
     }
 
     public void update() {
-        Author author = null;
-        Genre genre = null;
-        String title = "";
+        Author author;
+        Genre genre;
+        String title;
         bookDisplayService.printList(bookDao.getAll());
         int id = ioService.readIntWithPrompt("Please enter ID of the book you wish to edit:");
         Book updatingBook = bookDao.getById(id);
@@ -140,12 +140,12 @@ public class BookCRUDService {
     private Genre getGenre(List<Genre> genreList) {
         if (genreList.size() == 0) {
             genreService.printAll();
-            String answer = ioService.readStringWithPrompt("""
-                    You entered non-existing genre. You may want:
-                    1. Create new genre, enter 'c'
-                    2. Pick one from existing list, enter 'p'
-                    3. Cancel book creation, enter 'quit'
-                    """);
+            String answer = ioService.readStringWithPrompt(
+                    "You entered non-existing genre. You may want:" + System.lineSeparator() +
+                    "1. Create new genre, enter 'c'" + System.lineSeparator() +
+                    "2. Pick one from existing list, enter 'p'" + System.lineSeparator() +
+                    "3. Cancel book creation, enter 'quit'"
+                    );
             if (answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")) {
                 return genreService.create();
             } else if (answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")) {

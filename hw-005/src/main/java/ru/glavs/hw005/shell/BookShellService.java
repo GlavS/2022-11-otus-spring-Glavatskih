@@ -1,6 +1,7 @@
 package ru.glavs.hw005.shell;
 
 import org.h2.tools.Console;
+import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -9,6 +10,7 @@ import ru.glavs.hw005.service.CRUD.BookCRUDService;
 import java.sql.SQLException;
 
 @ShellComponent("Book commands")
+@ShellCommandGroup("Book CRUD")
 public class BookShellService {
     private final BookCRUDService bookCrud;
 
