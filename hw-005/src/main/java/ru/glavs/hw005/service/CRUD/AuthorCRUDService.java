@@ -20,7 +20,7 @@ public class AuthorCRUDService {
         this.authorDisplayService = authorDisplayService;
     }
 
-    public Author create(){
+    public Author create() {
         String surname = ioService.readStringWithPrompt("Please enter surname: ");
         String name = ioService.readStringWithPrompt("Please enter name: ");
         String initials = ioService.readStringWithPrompt("Please enter initials: ");
@@ -30,10 +30,12 @@ public class AuthorCRUDService {
         ioService.println("New author written to DB");
         return result;
     }
-    public List<Author> searchBySurname(String surname){
+
+    public List<Author> searchBySurname(String surname) {
         return authorDao.searchBySurname(surname);
     }
-    public void printList(List<Author> authorList){
+
+    public void printList(List<Author> authorList) {
         authorDisplayService.printList(authorList);
     }
 

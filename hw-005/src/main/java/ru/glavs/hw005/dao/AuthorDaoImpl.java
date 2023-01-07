@@ -57,8 +57,8 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void delete(Author author) {
-        Map<String, Integer> param = Map.of("ID", author.getId());
+    public void delete(int id) {
+        Map<String, Integer> param = Map.of("ID", id);
         jdbc.update("DELETE FROM AUTHORS WHERE ID = :ID", param);
     }
 

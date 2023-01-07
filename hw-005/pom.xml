@@ -26,7 +26,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -72,7 +71,7 @@
             <!--			Исправление проблемы с кодировками в тестах-->
         </plugins>
     </build>
-<!--    SPRING BOOT 3!!-->
+    <!--    SPRING BOOT 3!!-->
     <repositories>
         <repository>
             <id>spring-milestones</id>

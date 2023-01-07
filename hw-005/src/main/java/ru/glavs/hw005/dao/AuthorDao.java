@@ -10,6 +10,6 @@ public interface AuthorDao {
     List<Author> getAll();
     int count();
     int insertNew(String name, String surname, String initials);
-    void delete(Author author);
+    void delete(int id);
     List<Author> searchBySurname(String surname);
 }

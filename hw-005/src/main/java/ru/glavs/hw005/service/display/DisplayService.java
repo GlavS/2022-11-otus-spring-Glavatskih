@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface DisplayService<T> {
     void printOne(T item);
+
     void printList(List<T> itemList);
 }

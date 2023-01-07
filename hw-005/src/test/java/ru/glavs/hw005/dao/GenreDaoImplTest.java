@@ -68,7 +68,7 @@ class GenreDaoImplTest {
     @Test
     @DisplayName("метод delete должен удалять выбранный жанр из БД")
     void deleteMethodShouldCorrectlyDeleteGenreFromDatabase() {
-        genreDao.delete(expectedGenre);
+        genreDao.delete(expectedGenre.getId());
         SoftAssertions deleteBundle = new SoftAssertions();
         deleteBundle.assertThatThrownBy(() -> genreDao.getById(EXPECTED_GENRE_ID)).isInstanceOf(EmptyResultDataAccessException.class);
         deleteBundle.assertThat(genreDao.count()).isEqualTo(GENRE_TESTDB_COUNT - 1);

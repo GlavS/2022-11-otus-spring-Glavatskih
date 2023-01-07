@@ -19,14 +19,16 @@ public class GenreCRUDService {
         this.genreDisplayService = genreDisplayService;
         this.ioService = ioService;
     }
-    public void printList(List<Genre> genreList){
+
+    public void printList(List<Genre> genreList) {
         genreDisplayService.printList(genreList);
     }
 
     public List<Genre> searchByGenre(String genreName) {
         return genreDao.searchByGenre(genreName);
     }
-    public void printAll(){
+
+    public void printAll() {
         genreDisplayService.printList(genreDao.getAll());
     }
 

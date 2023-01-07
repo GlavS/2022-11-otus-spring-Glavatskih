@@ -17,11 +17,6 @@ public class StreamIOService implements IOService {
     }
 
     @Override
-    public void print(String message) {
-        out.print(message);
-    }
-
-    @Override
     public void println(String message) {
         out.println(message);
     }

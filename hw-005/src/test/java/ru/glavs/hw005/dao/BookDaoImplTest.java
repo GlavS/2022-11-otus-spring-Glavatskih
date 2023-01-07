@@ -68,7 +68,7 @@ class BookDaoImplTest {
     @DisplayName("метод update должен обновлять указанную книгу")
     void updateMethodShouldCorrectlyUpdateExpectedBook() {
         Book updatedBook = new Book(
-                1, new Author(2, "Имя2", "Фамилия2","Б.Б."),
+                1, new Author(2, "Имя2", "Фамилия2", "Б.Б."),
                 new Genre(2, "Жанр2"), "Новое название");
         bookDao.update(updatedBook);
         assertThat(bookDao.getById(1).getTitle()).isEqualTo("Новое название");
@@ -90,7 +90,7 @@ class BookDaoImplTest {
 
     @Test
     @DisplayName("метод count должен вернуть общее количество книг")
-    void countMethodShouldReturnNumberOfBooksInDb(){
+    void countMethodShouldReturnNumberOfBooksInDb() {
         assertThat(bookDao.count()).isEqualTo(TEST_BOOKS_COUNT);
     }
 }

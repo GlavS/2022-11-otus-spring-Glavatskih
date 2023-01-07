@@ -56,9 +56,9 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public void delete(Genre genre) {
+    public void delete(int id) {
         String sql = "DELETE FROM GENRES WHERE ID = :ID";
-        Map<String, Integer> param = Map.of("ID", genre.getId());
+        Map<String, Integer> param = Map.of("ID", id);
         jdbc.update(sql, param);
     }
 

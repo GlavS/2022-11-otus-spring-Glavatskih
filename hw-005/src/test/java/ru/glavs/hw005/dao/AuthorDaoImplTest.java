@@ -24,10 +24,11 @@ class AuthorDaoImplTest {
     private Author expectedAuthor;
     @Autowired
     private AuthorDaoImpl authorDao;
+
     @BeforeEach
-    void init(){
-         this.newAuthor = new Author(3, "Имя3", "Фамилия3", "В.В.");
-         this.expectedAuthor = new Author(1, "Имя1", "Фамилия1", "А.А.");
+    void init() {
+        this.newAuthor = new Author(3, "Имя3", "Фамилия3", "В.В.");
+        this.expectedAuthor = new Author(1, "Имя1", "Фамилия1", "А.А.");
     }
 
     @Test
@@ -52,7 +53,7 @@ class AuthorDaoImplTest {
     @Test
     @DisplayName("метод insertNew должен сохранять в БД нового автора")
     void insertNewMethodShouldSaveNewAuthorToDatabase() {
-        int key = authorDao.insertNew( "Имя3", "Фамилия3", "В.В.");
+        int key = authorDao.insertNew("Имя3", "Фамилия3", "В.В.");
         SoftAssertions insertBundle = new SoftAssertions();
         insertBundle.assertThat(key).isEqualTo(TEST_AUTHORS_COUNT + 1);
         insertBundle.assertThat(authorDao.getById(key)).isInstanceOf(Author.class);
@@ -63,7 +64,7 @@ class AuthorDaoImplTest {
     @Test
     @DisplayName("метод delete должен удалять выбранного автора из БД")
     void deleteMethodShouldCorrectlyDeleteAuthorFromDb() {
-        authorDao.delete(expectedAuthor);
+        authorDao.delete(expectedAuthor.getId());
         SoftAssertions deleteBundle = new SoftAssertions();
         deleteBundle.assertThatThrownBy(() -> authorDao.getById(1)).isInstanceOf(EmptyResultDataAccessException.class);
         deleteBundle.assertThat(authorDao.count()).isEqualTo(TEST_AUTHORS_COUNT - 1);
@@ -72,7 +73,7 @@ class AuthorDaoImplTest {
 
     @Test
     @DisplayName("search by surname IMPLEMENT!!!")
-    void searchBySurnameMethodShouldReturnExpectedAuthorList(){
+    void searchBySurnameMethodShouldReturnExpectedAuthorList() {
         List<Author> authorList = authorDao.searchBySurname("Фа");
     }
 }

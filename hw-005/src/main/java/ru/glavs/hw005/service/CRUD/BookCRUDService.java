@@ -87,7 +87,7 @@ public class BookCRUDService {
         bookDisplayService.printOne(updatingBook);
         ioService.println("This book will be updated.");
         String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");
-        if (!surname.equals("")){
+        if (!surname.equals("")) {
             List<Author> supposedAuthorList = authorService.searchBySurname(surname);
             if ((author = getAuthor(supposedAuthorList)) == null) {
                 ioService.println("Book creation aborted");
@@ -97,7 +97,7 @@ public class BookCRUDService {
             author = updatingBook.getAuthor();
         }
         String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
-        if(!genreName.equals("")){
+        if (!genreName.equals("")) {
             List<Genre> supposedGenreList = genreService.searchByGenre(genreName);
             if ((genre = getGenre(supposedGenreList)) == null) {
                 ioService.println("Book creation aborted");
@@ -107,13 +107,13 @@ public class BookCRUDService {
             genre = updatingBook.getGenre();
         }
         title = ioService.readStringWithPrompt("Please enter new title, or ENTER to skip:");
-        if(title.equals("")){
-           title = updatingBook.getTitle();
+        if (title.equals("")) {
+            title = updatingBook.getTitle();
         }
-            Book toUpdate = new Book(id, author, genre, title);
-            bookDao.update(toUpdate);
-            bookDisplayService.printOne(toUpdate);
-            ioService.println("Book updated.");
+        Book toUpdate = new Book(id, author, genre, title);
+        bookDao.update(toUpdate);
+        bookDisplayService.printOne(toUpdate);
+        ioService.println("Book updated.");
     }
 
     private boolean yes() {
@@ -146,9 +146,9 @@ public class BookCRUDService {
                     2. Pick one from existing list, enter 'p'
                     3. Cancel book creation, enter 'quit'
                     """);
-            if(answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")){
+            if (answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")) {
                 return genreService.create();
-            } else if(answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")){
+            } else if (answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")) {
                 int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
                 return genreService.getById(id);
             } else {

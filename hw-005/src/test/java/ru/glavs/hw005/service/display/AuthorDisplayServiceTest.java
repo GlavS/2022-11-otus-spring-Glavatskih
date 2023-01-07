@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.glavs.hw005.dao.AuthorDaoImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @DisplayName("NOT IMPLEMENTED!!")
 class AuthorDisplayServiceTest {
@@ -16,7 +15,8 @@ class AuthorDisplayServiceTest {
     private AuthorDaoImpl authorDao;
 
     @Test
-    @DisplayName("NOT IMPLEMENTED!!") //TODO:!!!!
+    @DisplayName("NOT IMPLEMENTED!!")
+        //TODO:!!!!
     void printOne() {
     }
 

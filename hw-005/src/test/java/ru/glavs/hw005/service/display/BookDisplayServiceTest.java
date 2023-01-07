@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.glavs.hw005.dao.BookDaoImpl;
 import ru.glavs.hw005.domain.Book;
-import ru.glavs.hw005.service.display.BookDisplayService;
 
 import java.util.List;
 
@@ -21,9 +20,10 @@ class BookDisplayServiceTest {
 
 
     @Test
-    @DisplayName("NOT IMPLEMENTED!!") //TODO:!!!!
+    @DisplayName("NOT IMPLEMENTED!!")
+        //TODO:!!!!
     void displayList() {
-        List<Book> bookList  = List.of(bookDao.getById(2), bookDao.getById(4));
+        List<Book> bookList = List.of(bookDao.getById(2), bookDao.getById(4));
         service.printList(bookList);
     }
 
@@ -36,6 +36,6 @@ class BookDisplayServiceTest {
     @DisplayName("NOT IMPLEMENTED!!")
     @Test
     void displayAll() {
-       service.printList(bookDao.getAll());
+        service.printList(bookDao.getAll());
     }
 }
