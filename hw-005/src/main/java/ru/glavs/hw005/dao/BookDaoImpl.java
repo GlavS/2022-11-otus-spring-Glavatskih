@@ -82,12 +82,12 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public int insertNew(Book book) {
+    public int insertNew(Author author, Genre genre, String title) {
         String sql = "INSERT INTO BOOKS (AUTHOR_ID, GENRE_ID, TITLE) VALUES ( :AUTHOR_ID, :GENRE_ID, :TITLE )";
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("AUTHOR_ID", book.getAuthor().getId())
-                .addValue("GENRE_ID", book.getGenre().getId())
-                .addValue("TITLE", book.getTitle());
+                .addValue("AUTHOR_ID", author.getId())
+                .addValue("GENRE_ID", genre.getId())
+                .addValue("TITLE", title);
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         jdbc.update(sql, params, generatedKeyHolder);
         return isNull(generatedKeyHolder.getKey()) ? 0 : (int) generatedKeyHolder.getKey();

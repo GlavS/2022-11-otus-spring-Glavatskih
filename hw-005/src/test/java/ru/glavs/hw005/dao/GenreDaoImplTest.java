@@ -57,7 +57,7 @@ class GenreDaoImplTest {
     @Test
     @DisplayName("метод insertNew должен сохранять в БД новый жанр")
     void insertNewMethodShouldSaveNewGenreObjectToDatabase() {
-        int key = genreDao.insertNew(newGenre);
+        int key = genreDao.insertNew("Жанр3");
         SoftAssertions insertBundle = new SoftAssertions();
         insertBundle.assertThat(key).isEqualTo(NEW_GENRE_ID);
         insertBundle.assertThat(genreDao.getById(key)).isInstanceOf(Genre.class);

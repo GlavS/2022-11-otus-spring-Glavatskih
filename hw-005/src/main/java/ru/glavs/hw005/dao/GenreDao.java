@@ -10,6 +10,8 @@ public interface GenreDao {
 
     List<Genre> getAll();
     int count();
-    int insertNew(Genre genre);
+    int insertNew(String genreName);
     void delete(Genre genre);
+
+    List<Genre> searchByGenre(String genreName);
 }

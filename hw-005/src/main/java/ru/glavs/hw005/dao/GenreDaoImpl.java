@@ -44,11 +44,11 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public int insertNew(Genre genre) {
+    public int insertNew(String genreName) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         SqlParameterSource param = new MapSqlParameterSource()
-                .addValue("GENRE", genre.getGenre());
+                .addValue("GENRE", genreName);
         String sql = "INSERT INTO GENRES(GENRE) VALUES(:GENRE)";
         jdbc.update(sql, param, keyHolder);
         Integer generatedKey = (Integer) keyHolder.getKey();
@@ -60,6 +60,14 @@ public class GenreDaoImpl implements GenreDao {
         String sql = "DELETE FROM GENRES WHERE ID = :ID";
         Map<String, Integer> param = Map.of("ID", genre.getId());
         jdbc.update(sql, param);
+    }
+
+    @Override
+    public List<Genre> searchByGenre(String genreName) {
+        String sql = "SELECT ID, GENRE FROM GENRES\n" +
+                "WHERE GENRE LIKE :GENRE_SEARCH ";
+        Map<String, String> param = Map.of("GENRE_SEARCH", "%" + genreName.trim() + "%");
+        return jdbc.query(sql, param, new GenreRowMapper());
     }
 
     private static class GenreRowMapper implements RowMapper<Genre> {
