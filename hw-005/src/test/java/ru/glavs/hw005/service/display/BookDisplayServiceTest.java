@@ -1,11 +1,14 @@
-package ru.glavs.hw005.service;
+package ru.glavs.hw005.service.display;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.glavs.hw005.dao.BookDaoImpl;
+import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.service.display.BookDisplayService;
+
+import java.util.List;
 
 @SpringBootTest
 class BookDisplayServiceTest {
@@ -19,7 +22,8 @@ class BookDisplayServiceTest {
     @Test
     @DisplayName("NOT IMPLEMENTED!!") //TODO:!!!!
     void displayList() {
-        //List<Book> bookList  = List.of(bookDao.getById(2), bookDao.getById(4));
+        List<Book> bookList  = List.of(bookDao.getById(2), bookDao.getById(4));
+        service.printList(bookList);
     }
 
     @DisplayName("NOT IMPLEMENTED!!")
@@ -31,6 +35,6 @@ class BookDisplayServiceTest {
     @DisplayName("NOT IMPLEMENTED!!")
     @Test
     void displayAll() {
-       // service.displayAll();
+       service.printList(bookDao.getAll());
     }
 }

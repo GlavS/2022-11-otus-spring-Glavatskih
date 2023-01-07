@@ -32,7 +32,7 @@ public class BookCRUDService {
     public void delete(int id) {
         ioService.println("This book will be deleted:");
         Book book = bookDao.getById(id);
-        bookDisplayService.displayBook(book);
+        bookDisplayService.printOne(book);
         if (yes()) {
             bookDao.delete(id);
             ioService.println("Book deleted: " + id);
@@ -46,7 +46,7 @@ public class BookCRUDService {
         List<Author> supposedAuthorList = authorService.searchBySurname(surname);
         if (supposedAuthorList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such author in database, do you want to create one (y/n)?");
-            if(answer.equalsIgnoreCase("y")){
+            if (answer.equalsIgnoreCase("y")) {
                 authorService.create();
             } else {
                 ioService.println("Author creation aborted");
@@ -65,12 +65,12 @@ public class BookCRUDService {
 
     public void readAll() {
         List<Book> bookList = bookDao.getAll();
-        bookDisplayService.displayAll(bookList);
+        bookDisplayService.printList(bookList);
     }
 
     public void readBook(int id) {
         Book book = bookDao.getById(id);
-        bookDisplayService.displayBook(book);
+        bookDisplayService.printOne(book);
     }
 
     public void update() {
