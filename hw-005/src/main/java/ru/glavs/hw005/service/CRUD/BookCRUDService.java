@@ -12,7 +12,7 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.util.List;
 
 @Service
-public class BookCRUDService {
+public class BookCRUDService implements BookCRUD{
     private final BookDao bookDao;
     private final AuthorCRUDService authorService;
     private final GenreCRUDService genreService;
@@ -31,6 +31,7 @@ public class BookCRUDService {
         this.bookDisplayService = bookDisplayService;
     }
 
+    @Override
     public void delete(int id) {
         ioService.println("This book will be deleted:");
         Book book = bookDao.getById(id);
@@ -42,19 +43,18 @@ public class BookCRUDService {
             ioService.println("Delete cancelled");
         }
     }
-
+    @Override
     public Book create() {
         String surname = ioService.readStringWithPrompt("Please enter author's surname:");
-        List<Author> supposedAuthorList = authorService.searchBySurname(surname);
-        Author author;
-        if ((author = getAuthor(supposedAuthorList)) == null) {
+        Author author = getAuthorBySurname(surname);
+        if (author == null) {
             ioService.println("Book creation aborted");
             return null;
         }
         String genreName = ioService.readStringWithPrompt("Please enter desired genre:");
-        List<Genre> supposedGenreList = genreService.searchByGenre(genreName);
-        Genre genre;
-        if ((genre = getGenre(supposedGenreList)) == null) {
+
+        Genre genre = getGenreByName(genreName);
+        if (genre  == null) {
             ioService.println("Book creation aborted");
             return null;
         }
@@ -66,54 +66,68 @@ public class BookCRUDService {
         return result;
     }
 
-
+    @Override
     public void readAll() {
         List<Book> bookList = bookDao.getAll();
         bookDisplayService.printList(bookList);
     }
-
+    @Override
     public void readBook(int id) {
         Book book = bookDao.getById(id);
         bookDisplayService.printOne(book);
     }
-
+    @Override
     public void update() {
-        Author author;
-        Genre genre;
-        String title;
-        bookDisplayService.printList(bookDao.getAll());
-        int id = ioService.readIntWithPrompt("Please enter ID of the book you wish to edit:");
-        Book updatingBook = bookDao.getById(id);
-        bookDisplayService.printOne(updatingBook);
-        ioService.println("This book will be updated.");
-        String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");
-        if (!surname.equals("")) {
-            List<Author> supposedAuthorList = authorService.searchBySurname(surname);
-            if ((author = getAuthor(supposedAuthorList)) == null) {
-                ioService.println("Book creation aborted");
-                return;
-            }
-        } else {
-            author = updatingBook.getAuthor();
+        Book updatingBook = getUpdatingBook();
+        Author author = getUpdatingAuthor(updatingBook);
+        if(author == null) {
+            return;
         }
-        String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
-        if (!genreName.equals("")) {
-            List<Genre> supposedGenreList = genreService.searchByGenre(genreName);
-            if ((genre = getGenre(supposedGenreList)) == null) {
-                ioService.println("Book creation aborted");
-                return;
-            }
-        } else {
-            genre = updatingBook.getGenre();
+        Genre genre  = getUpdatingGenre(updatingBook);
+        if(genre == null){
+            return;
         }
-        title = ioService.readStringWithPrompt("Please enter new title, or ENTER to skip:");
-        if (title.equals("")) {
-            title = updatingBook.getTitle();
-        }
-        Book toUpdate = new Book(id, author, genre, title);
+        String title  = getUpdatingTitle(updatingBook);
+        Book toUpdate = new Book(updatingBook.getId(), author, genre, title);
         bookDao.update(toUpdate);
         bookDisplayService.printOne(toUpdate);
         ioService.println("Book updated.");
+    }
+
+    private String getUpdatingTitle(Book updatingBook) {
+        String title = ioService.readStringWithPrompt("Please enter new title, or ENTER to skip:");
+        if (title.equals("")) {
+            title = updatingBook.getTitle();
+        }
+        return title;
+    }
+
+    private Genre getUpdatingGenre(Book updatingBook) {
+        Genre result;
+        String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
+        if (!genreName.equals("")) {
+            if ((result = getGenreByName(genreName)) == null) {
+                ioService.println("Genre creation aborted");
+                return null;
+            }
+        } else {
+            result = updatingBook.getGenre();
+        }
+        return result;
+    }
+
+    private Author getUpdatingAuthor(Book updatingBook) {
+        Author result;
+        String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");
+        if (!surname.equals("")) {
+            if ((result = getAuthorBySurname(surname)) == null) {
+                ioService.println("Author creation aborted");
+                return null;
+            }
+        } else {
+            result = updatingBook.getAuthor();
+        }
+        return result;
     }
 
     private boolean yes() {
@@ -121,8 +135,9 @@ public class BookCRUDService {
         return answer.equalsIgnoreCase("y");
     }
 
-    private Author getAuthor(List<Author> authorList) {
-        if (authorList.size() == 0) {
+    private Author getAuthorBySurname(String surname) {
+        List<Author> supposedAuthorList = authorService.searchBySurname(surname);
+        if (supposedAuthorList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such author in database, do you want to create one (y/n)?");
             if (answer.equalsIgnoreCase("y")) {
                 return authorService.create();
@@ -131,14 +146,15 @@ public class BookCRUDService {
                 return null;
             }
         } else {
-            authorService.printList(authorList);
+            authorService.printList(supposedAuthorList);
             int id = ioService.readIntWithPrompt("Please indicate author's ID:");
             return authorService.getById(id);
         }
     }
 
-    private Genre getGenre(List<Genre> genreList) {
-        if (genreList.size() == 0) {
+    private Genre getGenreByName(String genreName) {
+        List<Genre> supposedGenreList = genreService.searchByGenre(genreName);
+        if (supposedGenreList.size() == 0) {
             genreService.printAll();
             String answer = ioService.readStringWithPrompt(
                     "You entered non-existing genre. You may want:" + System.lineSeparator() +
@@ -156,9 +172,18 @@ public class BookCRUDService {
                 return null;
             }
         } else {
-            genreService.printList(genreList);
+            genreService.printList(supposedGenreList);
             int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
             return genreService.getById(id);
         }
     }
+    private Book getUpdatingBook(){
+        bookDisplayService.printList(bookDao.getAll());
+        int id = ioService.readIntWithPrompt("Please enter ID of the book you wish to edit:");
+        Book result = bookDao.getById(id);
+        bookDisplayService.printOne(result);
+        ioService.println("This book will be updated.");
+        return result;
+    }
+
 }
