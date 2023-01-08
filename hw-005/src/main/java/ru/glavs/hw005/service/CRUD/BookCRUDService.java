@@ -87,7 +87,7 @@ public class BookCRUDService implements BookCRUD {
         if (author == null) {
             return;
         }
-        Genre genre = genreService.getUpdatingGenre(updatingBook);
+        Genre genre = genreService.getGenreForUpdate(updatingBook);
         if (genre == null) {
             return;
         }

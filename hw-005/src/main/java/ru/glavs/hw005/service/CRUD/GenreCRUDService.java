@@ -72,7 +72,7 @@ public class GenreCRUDService {
         }
     }
 
-    public Genre getUpdatingGenre(Book updatingBook) {
+    public Genre getGenreForUpdate(Book bookForUpdate) {
         Genre result;
         String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
         if (!genreName.equals("")) {
@@ -81,7 +81,7 @@ public class GenreCRUDService {
                 return null;
             }
         } else {
-            result = updatingBook.getGenre();
+            result = bookForUpdate.getGenre();
         }
         return result;
     }
