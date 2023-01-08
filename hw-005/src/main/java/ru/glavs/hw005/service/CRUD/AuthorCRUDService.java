@@ -3,6 +3,7 @@ package ru.glavs.hw005.service.CRUD;
 import org.springframework.stereotype.Service;
 import ru.glavs.hw005.dao.AuthorDao;
 import ru.glavs.hw005.domain.Author;
+import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.display.DisplayService;
 
@@ -41,5 +42,36 @@ public class AuthorCRUDService {
 
     public Author getById(int id) {
         return authorDao.getById(id);
+    }
+
+    public Author getAuthorBySurname(String surname) {
+        List<Author> supposedAuthorList = searchBySurname(surname);
+        if (supposedAuthorList.size() == 0) {
+            String answer = ioService.readStringWithPrompt("No such author in database, do you want to create one (y/n)?");
+            if (answer.equalsIgnoreCase("y")) {
+                return create();
+            } else {
+                ioService.println("Author creation aborted");
+                return null;
+            }
+        } else {
+            printList(supposedAuthorList);
+            int id = ioService.readIntWithPrompt("Please indicate author's ID:");
+            return getById(id);
+        }
+    }
+
+    public Author getAuthorForUpdate(Book bookForUpdate) {
+        Author result;
+        String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");
+        if (!surname.equals("")) {
+            if ((result = getAuthorBySurname(surname)) == null) {
+                ioService.println("Author creation aborted");
+                return null;
+            }
+        } else {
+            result = bookForUpdate.getAuthor();
+        }
+        return result;
     }
 }

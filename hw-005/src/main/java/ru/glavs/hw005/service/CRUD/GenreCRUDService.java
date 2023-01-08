@@ -2,6 +2,7 @@ package ru.glavs.hw005.service.CRUD;
 
 import org.springframework.stereotype.Service;
 import ru.glavs.hw005.dao.GenreDao;
+import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.display.DisplayService;
@@ -43,5 +44,45 @@ public class GenreCRUDService {
 
     public Genre getById(int id) {
         return genreDao.getById(id);
+    }
+
+    public Genre getGenreByName(String genreName) {
+        List<Genre> supposedGenreList = searchByGenre(genreName);
+        if (supposedGenreList.size() == 0) {
+            printAll();
+            String answer = ioService.readStringWithPrompt(
+                    "You entered non-existing genre. You may want:" + System.lineSeparator() +
+                    "1. Create new genre, enter 'c'" + System.lineSeparator() +
+                    "2. Pick one from existing list, enter 'p'" + System.lineSeparator() +
+                    "3. Cancel book creation, enter 'quit'"
+                    );
+            if (answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")) {
+                return create();
+            } else if (answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")) {
+                int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
+                return getById(id);
+            } else {
+                ioService.println("Genre creation aborted");
+                return null;
+            }
+        } else {
+            printList(supposedGenreList);
+            int id = ioService.readIntWithPrompt("Please indicate genre's ID:");
+            return getById(id);
+        }
+    }
+
+    public Genre getUpdatingGenre(Book updatingBook) {
+        Genre result;
+        String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
+        if (!genreName.equals("")) {
+            if ((result = getGenreByName(genreName)) == null) {
+                ioService.println("Genre creation aborted");
+                return null;
+            }
+        } else {
+            result = updatingBook.getGenre();
+        }
+        return result;
     }
 }
