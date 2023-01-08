@@ -1,6 +1,5 @@
 package ru.glavs.hw005.service.CRUD;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ class BookCRUDServiceTest {
     private GenreCRUDService genreOps;
     @MockBean
     private StreamIOService ioService;
-    @Autowired
+    @MockBean
     private BookDisplayService bookDisplayService;
     @Autowired
     private BookCRUDService bookCRUDService;
@@ -41,13 +40,6 @@ class BookCRUDServiceTest {
                     new Author(2, "Имя2", "Фамилия2", "Б.Б."),
                     new Genre(2, "Жанр2"), "Книга1"));
 
-
-    @BeforeEach
-    void init() {
-
-    }
-
-
     @Test
     @DisplayName("метод delete должен вызывать соответствующий метод DAO по решению пользователя")
     void deleteMethodShouldInvokeCorrespondingDAOMethodByUserDecision() {
@@ -55,9 +47,8 @@ class BookCRUDServiceTest {
         when(ioService.readStringWithPrompt(anyString())).thenReturn("y");
         bookCRUDService.delete(1);
         verify(bookDao, times(1)).delete(1);
-
-
     }
+
     @Test
     @DisplayName("метод delete НЕ должен вызывать соответствующий метод DAO по решению пользователя")
     void deleteMethodShouldNotInvokeCorrespondingDAOMethodByUserDecision() {
@@ -72,7 +63,11 @@ class BookCRUDServiceTest {
     }
 
     @Test
-    void readAll() {
+    @DisplayName("метод readAll должен вызывать методы bookDisplayService и DAO")
+    void readAllShouldInvokeCorrectMethodsOfDisplayServiceAndDAO() {
+        bookCRUDService.readAll();
+        verify(bookDao, times(1)).getAll();
+        verify(bookDisplayService).printList(anyList());
     }
 
     @Test
