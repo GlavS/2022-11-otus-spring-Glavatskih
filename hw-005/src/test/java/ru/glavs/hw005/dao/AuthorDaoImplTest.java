@@ -72,8 +72,12 @@ class AuthorDaoImplTest {
     }
 
     @Test
-    @DisplayName("search by surname IMPLEMENT!!!")
+    @DisplayName("метод searchBySurname должен вернуть список совпадений")
     void searchBySurnameMethodShouldReturnExpectedAuthorList() {
         List<Author> authorList = authorDao.searchBySurname("Фа");
+        SoftAssertions searchBundle = new SoftAssertions();
+        searchBundle.assertThat(authorList.size()).isEqualTo(2);
+        searchBundle.assertThat(authorList.get(0).getSurname()).isEqualTo("Фамилия1");
+        searchBundle.assertAll();
     }
 }
