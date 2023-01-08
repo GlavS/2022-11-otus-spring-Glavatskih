@@ -1,7 +1,5 @@
 package ru.glavs.hw005.service.display;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import ru.glavs.hw005.dao.AuthorDao;
-import ru.glavs.hw005.dao.AuthorDaoImpl;
 import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.io.StreamIOService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -57,9 +49,10 @@ class AuthorDisplayServiceTest {
         service.displayItem(testList.get(0));
         verify(ioService, times(1)).printf(anyString(), any());
     }
+
     @Configuration
     @ComponentScan({"ru.glavs.hw005.service.display", "ru.glavs.hw005.io"})
-    static class TestConfig{
+    static class TestConfig {
 
     }
 }
