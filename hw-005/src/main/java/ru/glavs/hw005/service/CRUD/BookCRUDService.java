@@ -14,19 +14,19 @@ import java.util.List;
 @Service
 public class BookCRUDService implements BookCRUD {
     private final BookDao bookDao;
-    private final AuthorCRUDService authorService;
-    private final GenreCRUDService genreService;
+    private final AuthorRelationOperations authorOps;
+    private final GenreRelationOperations genreOps;
     private final IOService ioService;
     private final DisplayService<Book> bookDisplayService;
 
     public BookCRUDService(BookDao bookDao,
-                           AuthorCRUDService authorService,
-                           GenreCRUDService genreService,
+                           AuthorRelationOperations authorOps,
+                           GenreRelationOperations genreOps,
                            IOService ioService,
                            BookDisplayService bookDisplayService) {
         this.bookDao = bookDao;
-        this.authorService = authorService;
-        this.genreService = genreService;
+        this.authorOps = authorOps;
+        this.genreOps = genreOps;
         this.ioService = ioService;
         this.bookDisplayService = bookDisplayService;
     }
@@ -47,14 +47,14 @@ public class BookCRUDService implements BookCRUD {
     @Override
     public Book create() {
         String surname = ioService.readStringWithPrompt("Please enter author's surname:");
-        Author author = authorService.getAuthorBySurname(surname);
+        Author author = authorOps.getAuthorBySurname(surname);
         if (author == null) {
             ioService.println("Book creation aborted");
             return null;
         }
 
         String genreName = ioService.readStringWithPrompt("Please enter desired genre:");
-        Genre genre = genreService.getGenreByName(genreName);
+        Genre genre = genreOps.getGenreByName(genreName);
         if (genre == null) {
             ioService.println("Book creation aborted");
             return null;
@@ -83,11 +83,11 @@ public class BookCRUDService implements BookCRUD {
     @Override
     public void update() {
         Book updatingBook = getUpdatingBook();
-        Author author = authorService.getAuthorForUpdate(updatingBook);
+        Author author = authorOps.getAuthorForUpdate(updatingBook);
         if (author == null) {
             return;
         }
-        Genre genre = genreService.getGenreForUpdate(updatingBook);
+        Genre genre = genreOps.getGenreForUpdate(updatingBook);
         if (genre == null) {
             return;
         }

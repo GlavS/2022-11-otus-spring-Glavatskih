@@ -18,18 +18,18 @@ public class BookShellService {
         this.bookCrud = bookCrud;
     }
 
-    @ShellMethod("List all books")
+    @ShellMethod("List all books.")
     public void list() {
         bookCrud.readAll();
     }
 
-    @ShellMethod("Show one book")
+    @ShellMethod("Show one book. Usage: show [id]")
     public void show(@ShellOption(help = "Usage: show [id]") int id) {
         //TODO: подумать, как.
         bookCrud.readBook(id);
     }
 
-    @ShellMethod("Show H2 console")
+    @ShellMethod("Show H2 console.")
     public void console() {
         try {
             Console.main();
@@ -38,17 +38,17 @@ public class BookShellService {
         }
     }
 
-    @ShellMethod("Delete book, usage: delete [id]")
+    @ShellMethod("Delete book. Usage: delete [id]")
     public void delete(@ShellOption int id) {
         bookCrud.delete(id);
     }
 
-    @ShellMethod("Create new book")
+    @ShellMethod("Create new book.")
     public void create() {
         bookCrud.create();
     }
 
-    @ShellMethod("Update book")
+    @ShellMethod("Update book.")
     public void update() {
         bookCrud.update();
     }

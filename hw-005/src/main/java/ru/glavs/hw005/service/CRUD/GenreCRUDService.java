@@ -10,7 +10,7 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.util.List;
 
 @Service
-public class GenreCRUDService implements GenreRelationOperations {
+public class GenreCRUDService implements GenreCRUD, GenreRelationOperations {
     private final GenreDao genreDao;
     private final DisplayService<Genre> genreDisplayService;
     private final IOService ioService;
@@ -21,18 +21,19 @@ public class GenreCRUDService implements GenreRelationOperations {
         this.ioService = ioService;
     }
 
+    @Override
     public void printList(List<Genre> genreList) {
         genreDisplayService.printList(genreList);
     }
-
+    @Override
     public List<Genre> searchByGenre(String genreName) {
         return genreDao.searchByGenre(genreName);
     }
-
+    @Override
     public void printAll() {
         genreDisplayService.printList(genreDao.getAll());
     }
-
+    @Override
     public Genre create() {
         String genreName = ioService.readStringWithPrompt("Please enter genre:");
         int id = genreDao.insertNew(genreName);
@@ -41,7 +42,7 @@ public class GenreCRUDService implements GenreRelationOperations {
         ioService.println("New genre created");
         return result;
     }
-
+    @Override
     public Genre getById(int id) {
         return genreDao.getById(id);
     }

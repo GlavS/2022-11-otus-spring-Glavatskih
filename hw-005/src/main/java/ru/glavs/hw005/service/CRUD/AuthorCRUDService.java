@@ -10,7 +10,7 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.util.List;
 
 @Service
-public class AuthorCRUDService implements AuthorRelationOperations {
+public class AuthorCRUDService implements AuthorCRUD, AuthorRelationOperations {
     private final AuthorDao authorDao;
     private final IOService ioService;
     private final DisplayService<Author> authorDisplayService;
@@ -21,6 +21,7 @@ public class AuthorCRUDService implements AuthorRelationOperations {
         this.authorDisplayService = authorDisplayService;
     }
 
+    @Override
     public Author create() {
         String surname = ioService.readStringWithPrompt("Please enter surname: ");
         String name = ioService.readStringWithPrompt("Please enter name: ");
@@ -31,15 +32,21 @@ public class AuthorCRUDService implements AuthorRelationOperations {
         ioService.println("New author written to DB");
         return result;
     }
-
+    @Override
     public List<Author> searchBySurname(String surname) {
         return authorDao.searchBySurname(surname);
     }
-
+    @Override
     public void printList(List<Author> authorList) {
         authorDisplayService.printList(authorList);
     }
 
+    @Override
+    public void printAll() {
+        authorDisplayService.printList(authorDao.getAll());
+    }
+
+    @Override
     public Author getById(int id) {
         return authorDao.getById(id);
     }
