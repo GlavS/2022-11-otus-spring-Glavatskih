@@ -10,7 +10,7 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.util.List;
 
 @Service
-public class AuthorCRUDService {
+public class AuthorCRUDService implements AuthorRelationOperations {
     private final AuthorDao authorDao;
     private final IOService ioService;
     private final DisplayService<Author> authorDisplayService;
@@ -44,6 +44,7 @@ public class AuthorCRUDService {
         return authorDao.getById(id);
     }
 
+    @Override
     public Author getAuthorBySurname(String surname) {
         List<Author> supposedAuthorList = searchBySurname(surname);
         if (supposedAuthorList.size() == 0) {
@@ -61,6 +62,7 @@ public class AuthorCRUDService {
         }
     }
 
+    @Override
     public Author getAuthorForUpdate(Book bookForUpdate) {
         Author result;
         String surname = ioService.readStringWithPrompt("Please enter new author's surname, or ENTER to skip:");

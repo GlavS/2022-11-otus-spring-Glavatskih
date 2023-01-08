@@ -10,7 +10,7 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.util.List;
 
 @Service
-public class GenreCRUDService {
+public class GenreCRUDService implements GenreRelationOperations {
     private final GenreDao genreDao;
     private final DisplayService<Genre> genreDisplayService;
     private final IOService ioService;
@@ -46,16 +46,17 @@ public class GenreCRUDService {
         return genreDao.getById(id);
     }
 
+    @Override
     public Genre getGenreByName(String genreName) {
         List<Genre> supposedGenreList = searchByGenre(genreName);
         if (supposedGenreList.size() == 0) {
             printAll();
             String answer = ioService.readStringWithPrompt(
                     "You entered non-existing genre. You may want:" + System.lineSeparator() +
-                    "1. Create new genre, enter 'c'" + System.lineSeparator() +
-                    "2. Pick one from existing list, enter 'p'" + System.lineSeparator() +
-                    "3. Cancel book creation, enter 'quit'"
-                    );
+                            "1. Create new genre, enter 'c'" + System.lineSeparator() +
+                            "2. Pick one from existing list, enter 'p'" + System.lineSeparator() +
+                            "3. Cancel book creation, enter 'quit'"
+            );
             if (answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("с")) {
                 return create();
             } else if (answer.equalsIgnoreCase("p") || answer.equalsIgnoreCase("з")) {
@@ -72,6 +73,7 @@ public class GenreCRUDService {
         }
     }
 
+    @Override
     public Genre getGenreForUpdate(Book bookForUpdate) {
         Genre result;
         String genreName = ioService.readStringWithPrompt("Please enter new genre, or ENTER to skip:");
