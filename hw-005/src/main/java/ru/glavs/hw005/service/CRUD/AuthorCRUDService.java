@@ -42,11 +42,6 @@ public class AuthorCRUDService implements AuthorCRUD, AuthorRelationOperations {
     }
 
     @Override
-    public void printAll() {
-        authorDisplayService.printList(authorDao.getAll());
-    }
-
-    @Override
     public Author getById(int id) {
         return authorDao.getById(id);
     }

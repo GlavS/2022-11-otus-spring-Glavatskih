@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
-import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Genre;
 
 import java.util.List;
@@ -63,6 +62,7 @@ class GenreDaoImplTest {
         insertBundle.assertThat(key).isEqualTo(NEW_GENRE_ID);
         insertBundle.assertThat(genreDao.getById(key)).isInstanceOf(Genre.class);
         insertBundle.assertThat(genreDao.getById(key).getGenre()).isEqualTo("Жанр3");
+        insertBundle.assertThat(genreDao.getById(key)).usingRecursiveComparison().isEqualTo(newGenre);
         insertBundle.assertAll();
     }
 
@@ -75,9 +75,10 @@ class GenreDaoImplTest {
         deleteBundle.assertThat(genreDao.count()).isEqualTo(GENRE_TESTDB_COUNT - 1);
         deleteBundle.assertAll();
     }
+
     @Test
     @DisplayName("метод searchByGenre должен вернуть список совпадений")
-    void searchByGenreMethodShouldReturnExpectedGenreList(){
+    void searchByGenreMethodShouldReturnExpectedGenreList() {
         List<Genre> genreList = genreDao.searchByGenre("Жа");
         SoftAssertions searchBundle = new SoftAssertions();
         searchBundle.assertThat(genreList.size()).isEqualTo(2);

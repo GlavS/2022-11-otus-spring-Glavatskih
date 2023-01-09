@@ -8,7 +8,6 @@ public interface AuthorCRUD {
     Author create();
     List<Author> searchBySurname(String surname);
     void printList(List<Author> authorList);
-    void printAll();
     Author getById(int id);
 
 }

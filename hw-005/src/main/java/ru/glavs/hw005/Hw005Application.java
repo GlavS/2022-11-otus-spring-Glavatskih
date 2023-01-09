@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Hw005Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Hw005Application.class, args);
+        SpringApplication.run(Hw005Application.class);
     }
 
 }

@@ -58,6 +58,7 @@ class AuthorDaoImplTest {
         insertBundle.assertThat(key).isEqualTo(TEST_AUTHORS_COUNT + 1);
         insertBundle.assertThat(authorDao.getById(key)).isInstanceOf(Author.class);
         insertBundle.assertThat(authorDao.getById(key).getSurname()).isEqualTo("Фамилия3");
+        insertBundle.assertThat(authorDao.getById(key)).usingRecursiveComparison().isEqualTo(newAuthor);
         insertBundle.assertAll();
     }
 
