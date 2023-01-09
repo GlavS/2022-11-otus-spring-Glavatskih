@@ -14,6 +14,7 @@ import ru.glavs.hw005.service.display.BookDisplayService;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -21,18 +22,20 @@ import static org.mockito.Mockito.*;
 @DisplayName("В классе BookCRUDService")
 class BookCRUDServiceTest {
 
-    @Autowired
+    @MockBean
     private AuthorCRUDService authorOps;
-    @Autowired
+    @MockBean
     private GenreCRUDService genreOps;
     @MockBean
     private StreamIOService ioService;
     @MockBean
     private BookDisplayService bookDisplayService;
-    @Autowired
-    private BookCRUDService bookCRUDService;
     @MockBean
     private BookDaoImpl bookDao;
+
+    @Autowired
+    private BookCRUDService bookCRUDService;
+
     private final List<Book> testBookList = List.of(new Book(1,
                     new Author(1, "Имя1", "Фамилия1", "А.А."),
                     new Genre(1, "Жанр1"), "Книга1"),
@@ -59,7 +62,20 @@ class BookCRUDServiceTest {
     }
 
     @Test
-    void create() {
+    @DisplayName("метод create должен корректно создать и вернуть книгу, выведя ее на экран")
+    void createMethodShouldCreateAndDisplayNewBook() {
+        Author newAuthor = testBookList.get(0).getAuthor();
+        Genre newGenre = testBookList.get(0).getGenre();
+
+        when(authorOps.getAuthorBySurname(any())).thenReturn(newAuthor);
+        when(genreOps.getGenreByName(any())).thenReturn(newGenre);
+        when(ioService.readStringWithPrompt("Please enter title:")).thenReturn("Книга1");
+        when(bookDao.insertNew(any(Author.class), any(Genre.class), anyString())).thenReturn(1);
+
+        Book createdBook = bookCRUDService.create();
+
+        assertThat(createdBook).usingRecursiveComparison().isEqualTo(testBookList.get(0));
+        verify(bookDisplayService).printOne(any(Book.class));
     }
 
     @Test
@@ -71,10 +87,28 @@ class BookCRUDServiceTest {
     }
 
     @Test
-    void readBook() {
+    @DisplayName("метод readBook должен достать из БД книгу и вывести ее на экран")
+    void readBookMethodShouldGetAndDisplayBook() {
+        int id = 1;
+        Book book = testBookList.get(0);
+        when(bookDao.getById(id)).thenReturn(book);
+        bookCRUDService.readBook(id);
+        verify(bookDao).getById(id);
+        verify(bookDisplayService).printOne(book);
     }
 
     @Test
-    void update() {
+    @DisplayName("метод update должен обновить книгу и вывести ее на экран")
+    void updateMethodShouldCorrectlyUpdateAndDisplayBook() {
+        Book updatingBook = testBookList.get(0);
+        when(bookDao.getById(anyInt())).thenReturn(updatingBook);
+        when(authorOps.getAuthorForUpdate(any())).thenReturn(updatingBook.getAuthor());
+        when(genreOps.getGenreForUpdate(any())).thenReturn(updatingBook.getGenre());
+        when(ioService.readStringWithPrompt("Please enter new title, or ENTER to skip:")).thenReturn("NewTitle");
+
+        bookCRUDService.update();
+        verify(bookDao).update(any());
+        verify(bookDisplayService, atLeast(2)).printOne(any());
+
     }
 }
