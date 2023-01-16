@@ -6,3 +6,11 @@ spring:
       mode: always
       schema-locations: schema.sql
       data-locations: data.sql
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+logging:
+  level:
+    ROOT: ERROR
