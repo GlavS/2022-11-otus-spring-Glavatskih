@@ -8,7 +8,7 @@ public interface AuthorDao {
     Author getById(int id);
 
     List<Author> getAll();
-    Long count();
+    long count();
     Author save(Author author);
     void delete(int id);
     List<Author> searchBySurname(String surname);

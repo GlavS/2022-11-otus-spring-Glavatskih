@@ -32,7 +32,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public Long count() {
+    public long count() {
         TypedQuery<Long> query = em.createQuery(
                 "select count(*) from Author a",
                 Long.class
