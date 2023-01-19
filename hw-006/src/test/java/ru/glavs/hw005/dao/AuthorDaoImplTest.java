@@ -45,7 +45,7 @@ class AuthorDaoImplTest {
     @Test
     @DisplayName("должен посчитать количество всех авторов")
     void countMethodShouldReturnAuthorsQuantity() {
-        Long count = dao.count();
+        long count = dao.count();
         assertThat(count).isEqualTo(ALL_AUTHORS_NUMBER);
     }
 
