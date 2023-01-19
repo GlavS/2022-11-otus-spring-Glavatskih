@@ -5,16 +5,16 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.glavs.hw005.service.CRUD.BookCRUDService;
+import ru.glavs.hw005.service.CRUD.BookCRUD;
 
 import java.sql.SQLException;
 
 @ShellComponent("Book commands")
 @ShellCommandGroup("Book CRUD")
 public class BookShellService {
-    private final BookCRUDService bookCrud;
+    private final BookCRUD bookCrud;
 
-    public BookShellService(BookCRUDService bookCrud) {
+    public BookShellService(BookCRUD bookCrud) {
         this.bookCrud = bookCrud;
     }
 
