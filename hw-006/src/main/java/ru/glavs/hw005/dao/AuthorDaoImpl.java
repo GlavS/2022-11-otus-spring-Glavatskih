@@ -5,9 +5,9 @@ import ru.glavs.hw005.domain.Author;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
     @PersistenceContext
@@ -24,7 +24,11 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<Author> getAll() {
-        return null;
+        TypedQuery<Author> query = em.createQuery(
+                "select a from Author a",
+                Author.class
+        );
+        return query.getResultList();
     }
 
     @Override
@@ -37,17 +41,27 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public int insertNew(String name, String surname, String initials) {
-        return 0;
+    public Author save(Author author) {
+        if(author.getId() == 0){
+            em.persist(author);
+            return author;
+        }
+        return em.merge(author);
     }
 
     @Override
     public void delete(int id) {
-
+        Author forDelete = getById(id);
+        em.remove(forDelete);
     }
 
     @Override
     public List<Author> searchBySurname(String surname) {
-        return null;
+        TypedQuery<Author> query = em.createQuery(
+                "select a from Author a where a.surname = :surname",
+                Author.class
+        );
+        query.setParameter("surname", surname);
+        return query.getResultList();
     }
 }

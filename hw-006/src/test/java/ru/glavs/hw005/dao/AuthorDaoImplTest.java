@@ -7,10 +7,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Author;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+
 @DataJpaTest
 @Import(AuthorDaoImpl.class)
 @DisplayName("Класс AuthorDao")
@@ -19,10 +19,14 @@ class AuthorDaoImplTest {
     private static final long ALL_AUTHORS_NUMBER = 2;
     private static final int FIRST_AUTHOR_ID = 1;
     private static final Author FIRST_AUTHOR = new Author(1, "Имя1", "Фамилия1", "А.А.");
-    @Autowired
-    private EntityManager em;
+    private static final Author SECOND_AUTHOR = new Author(2, "Имя2", "Фамилия2", "Б.Б.");
+    private static final Author NEW_AUTHOR = new Author(0, "Имя3", "Фамилия3", "В.В.");
+    private static final Author THIRD_AUTHOR = new Author(3, "Имя3", "Фамилия3", "В.В.");
+    private static final List<Author> AUTHOR_LIST = List.of(FIRST_AUTHOR, SECOND_AUTHOR);
+    private static final String SECOND_AUTHOR_SURNAME = "Фамилия2";
     @Autowired
     private AuthorDaoImpl dao;
+
 
     @Test
     @DisplayName("должен возвращать автора по его id")
@@ -32,7 +36,10 @@ class AuthorDaoImplTest {
     }
 
     @Test
-    void getAll() {
+    @DisplayName("должен возвращать список всех авторов")
+    void getAllMethodShouldReturnCorrectAuthorsList() {
+        List<Author> authorList = dao.getAll();
+        assertThat(authorList).usingRecursiveComparison().isEqualTo(AUTHOR_LIST);
     }
 
     @Test
@@ -43,14 +50,25 @@ class AuthorDaoImplTest {
     }
 
     @Test
-    void insertNew() {
+    @DisplayName("должен добавлять в БД нового автора")
+    void saveMethodShouldAddNewAuthorToDatabase() {
+        dao.save(NEW_AUTHOR);
+        List<Author> currentAuthorList = dao.getAll();
+        assertThat(currentAuthorList).hasSize(3).containsExactlyInAnyOrder(FIRST_AUTHOR, SECOND_AUTHOR, THIRD_AUTHOR);
     }
 
     @Test
-    void delete() {
+    @DisplayName("должен удалять автора с указанным id")
+    void deleteShouldDeleteAuthorByHisID() {
+        dao.delete(FIRST_AUTHOR_ID);
+        List<Author> afterDeleteList = dao.getAll();
+        assertThat(afterDeleteList).usingRecursiveComparison().isEqualTo(List.of(SECOND_AUTHOR));
     }
 
     @Test
-    void searchBySurname() {
+    @DisplayName("должен искать и возвращать список авторов по фамилии")
+    void searchBySurnameShouldFindAuthorByHisSurname() {
+        List<Author> authorList = dao.searchBySurname(SECOND_AUTHOR_SURNAME);
+        assertThat(authorList).usingRecursiveComparison().isEqualTo(List.of(SECOND_AUTHOR));
     }
 }
