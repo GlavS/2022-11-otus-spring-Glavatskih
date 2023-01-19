@@ -19,11 +19,11 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     private int id;
-    @Column(name = "author", nullable = false, length = 40)
+    //@Column(name = "author", nullable = false, length = 40)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id")
     private Author author;
-    @Column(name = "genre", nullable = false, length = 30)
+    //@Column(name = "genre", nullable = false, length = 30)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "genre_id")
     private Genre genre;

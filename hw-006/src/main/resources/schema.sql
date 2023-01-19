@@ -12,12 +12,6 @@ CREATE TABLE books
     CONSTRAINT pk_books PRIMARY KEY (book_id)
 );
 
-ALTER TABLE books
-    ADD CONSTRAINT FK_BOOKS_ON_AUTHOR FOREIGN KEY (author) REFERENCES authors (author_id);
-
-ALTER TABLE books
-    ADD CONSTRAINT FK_BOOKS_ON_GENRE FOREIGN KEY (genre) REFERENCES genres (genre_id);
-
 CREATE TABLE authors
 (
     author_id INT AUTO_INCREMENT NOT NULL,
@@ -26,15 +20,13 @@ CREATE TABLE authors
     initials  VARCHAR(4),
     CONSTRAINT pk_authors PRIMARY KEY (author_id)
 );
+
 CREATE TABLE genres
 (
     genre_id INT AUTO_INCREMENT NOT NULL,
     genre    VARCHAR(30)        NOT NULL,
     CONSTRAINT pk_genres PRIMARY KEY (genre_id)
 );
-
-ALTER TABLE genres
-    ADD CONSTRAINT uc_genres_genre UNIQUE (genre);
 
 CREATE TABLE comments
 (
@@ -45,6 +37,14 @@ CREATE TABLE comments
     comments    INT,
     CONSTRAINT pk_comments PRIMARY KEY (comment_id)
 );
+
+ALTER TABLE books
+    ADD CONSTRAINT FK_BOOKS_ON_AUTHOR FOREIGN KEY (author) REFERENCES authors (author_id);
+
+ALTER TABLE books
+    ADD CONSTRAINT FK_BOOKS_ON_GENRE FOREIGN KEY (genre) REFERENCES genres (genre_id);
+ALTER TABLE genres
+    ADD CONSTRAINT uc_genres_genre UNIQUE (genre);
 
 ALTER TABLE comments
     ADD CONSTRAINT FK_COMMENTS_ON_COMMENTS FOREIGN KEY (comments) REFERENCES books (book_id) ON DELETE CASCADE ;
