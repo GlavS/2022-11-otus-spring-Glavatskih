@@ -1,12 +1,37 @@
 package ru.glavs.hw005.domain;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 
-@Data
-@RequiredArgsConstructor
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Table(name = "genres")
 public class Genre {
-    private final int id;
-    private final String genre;
+    @Id
+    @Column(name = "genre_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "genre", unique = true, nullable = false, length = 30)
+    private String genre;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Genre genre = (Genre) o;
+        return id > 0 && Objects.equals(id, genre.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
