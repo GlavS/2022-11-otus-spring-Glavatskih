@@ -43,6 +43,9 @@ ALTER TABLE books
 ALTER TABLE books
     ADD CONSTRAINT FK_BOOKS_ON_GENRE FOREIGN KEY (genre) REFERENCES genres (genre_id) ON DELETE CASCADE ;
 
+CREATE UNIQUE INDEX uq_authors
+    ON AUTHORS(name, surname, initials);
+
 ALTER TABLE genres
     ADD CONSTRAINT uc_genres_genre UNIQUE (genre);
 
