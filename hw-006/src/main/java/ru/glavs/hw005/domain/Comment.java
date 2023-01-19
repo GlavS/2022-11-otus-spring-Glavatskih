@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@Table(name = "genres")
+@Table(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
