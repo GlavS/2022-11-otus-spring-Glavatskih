@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
     @PersistenceContext
-    private EntityManager em;
+    private final EntityManager em;
 
     public AuthorDaoImpl(EntityManager em) {
         this.em = em;
@@ -34,7 +34,7 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public long count() {
         TypedQuery<Long> query = em.createQuery(
-                "select count(*) from Author a",
+                "select count(a) from Author a",
                 Long.class
         );
         return query.getSingleResult();
