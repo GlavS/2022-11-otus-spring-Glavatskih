@@ -14,5 +14,5 @@ VALUES (1, 1, 'Книга1'),
        (2, 2, 'Книга4');
 
 INSERT INTO COMMENTS ("TEXT", AUTHOR_NICK, "DATE", BOOK_ID)
-VALUES ('Comment1, comment1 comment1 comment1 comment1.', 'commentator1', '2023-01-19 00:00:00', 1),
-       ('Comment2, comment2 comment2 comment2 comment2.', 'commentator2', '2023-01-19 00:00:00', 1);
+VALUES ('Comment1, comment1 comment1 comment1 comment1.', 'commentator1', '2023-01-19', 1),
+       ('Comment2, comment2 comment2 comment2 comment2.', 'commentator2', '2023-01-17', 1);
