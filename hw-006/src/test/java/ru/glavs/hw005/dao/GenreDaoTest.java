@@ -67,7 +67,7 @@ class GenreDaoTest {
     @Test
     @DisplayName("должен искать и возвращать жанр по его названию")
     void searchByGenreShouldFindGenreByItsName() {
-        Genre genreList = dao.searchByGenre(SECOND_GENRE_GENRE);
-        assertThat(genreList).usingRecursiveComparison().isEqualTo(List.of(SECOND_GENRE));
+        Genre genre = dao.searchByGenre(SECOND_GENRE_GENRE);
+        assertThat(genre).usingRecursiveComparison().isEqualTo(SECOND_GENRE);
     }
 }
