@@ -1,10 +1,12 @@
 package ru.glavs.hw005.dao;
 
+import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.stereotype.Repository;
 import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -21,10 +23,14 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> getAll() {
+        EntityGraph<?> entityGraph = em.getEntityGraph("book-graph");
         TypedQuery<Book> query = em.createQuery(
                 "select b from Book b",
                 Book.class
         );
+        query.setHint(
+                EntityGraphType.FETCH.getKey(),
+                entityGraph);
         return query.getResultList();
     }
 
