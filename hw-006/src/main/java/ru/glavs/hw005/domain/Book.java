@@ -2,6 +2,8 @@ package ru.glavs.hw005.domain;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +16,11 @@ import java.util.Objects;
 @Setter
 @ToString
 @Table(name = "books")
+@NamedEntityGraph(name = "book-graph", attributeNodes = {
+        @NamedAttributeNode("author"),
+        @NamedAttributeNode("genre"),
+        @NamedAttributeNode("title")
+})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +37,7 @@ public class Book {
     @Column(name = "book_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "book_id")
+    @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<Comment> comments;
 
