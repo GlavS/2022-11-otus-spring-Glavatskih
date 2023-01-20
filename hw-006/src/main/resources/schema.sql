@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS BOOKS CASCADE ;
-DROP TABLE IF EXISTS GENRES CASCADE ;
-DROP TABLE IF EXISTS AUTHORS CASCADE ;
-DROP TABLE IF EXISTS COMMENTS CASCADE ;
+DROP TABLE IF EXISTS books CASCADE ;
+DROP TABLE IF EXISTS genres CASCADE ;
+DROP TABLE IF EXISTS authors CASCADE ;
+DROP TABLE IF EXISTS comments CASCADE ;
 
 CREATE TABLE books
 (
@@ -33,7 +33,7 @@ CREATE TABLE comments
     comment_id  INT AUTO_INCREMENT NOT NULL,
     text        VARCHAR(10000)     NOT NULL,
     author_nick VARCHAR(30),
-    date        TIMESTAMP,
+    date        DATE,
     book_id    INT,
     CONSTRAINT pk_comments PRIMARY KEY (comment_id)
 );
@@ -49,7 +49,7 @@ ALTER TABLE comments
         REFERENCES books (book_id) ON DELETE CASCADE;
 
 CREATE UNIQUE INDEX uq_authors
-    ON AUTHORS(name, surname, initials);
+    ON authors (name, surname, initials);
 
 ALTER TABLE genres
     ADD CONSTRAINT uc_genres_genre UNIQUE (genre);
