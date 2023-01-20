@@ -7,7 +7,9 @@ import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
+
 @Repository
 public class BookDaoImpl implements BookDao {
     @PersistenceContext
@@ -19,7 +21,11 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        return null;
+        TypedQuery<Book> query = em.createQuery(
+                "select b from Book b",
+                Book.class
+        );
+        return query.getResultList();
     }
 
     @Override
