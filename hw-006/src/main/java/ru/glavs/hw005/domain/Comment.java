@@ -24,6 +24,7 @@ public class Comment {
     @Column(name = "author_nick", length = 30)
     String authorNick;
     @Column(name = "date")
+    @Temporal(TemporalType.DATE)
     Date date;
 
     @Override
