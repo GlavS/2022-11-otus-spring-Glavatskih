@@ -66,6 +66,37 @@ class BookDaoImplTest {
     }
 
     @Test
+    @DisplayName("находить книгу или список книг по части названия")
+    void findByTitlePatternMethodShouldReturnExpectedBookList() {
+        List<Book> foundBooks = dao.findByTitlePattern("Книга");
+        assertThat(foundBooks)
+                .hasSize(4)
+                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
+        foundBooks = dao.findByTitlePattern("Книга4");
+        assertThat(foundBooks)
+                .hasSize(1)
+                .containsExactlyInAnyOrder(FOURTH_BOOK);
+    }
+
+    @Test
+    @DisplayName("возвращать список книг указанного автора")
+    void findByAuthorMethodShouldReturnExpectedBookList() {
+        List<Book> foundBooks = dao.findByAuthor(FIRST_AUTHOR);
+        assertThat(foundBooks)
+                .hasSize(2)
+                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK);
+    }
+
+    @Test
+    @DisplayName("возвращать список книг указанного жанра")
+    void findByGenreMethodShouldReturnExpectedBookList() {
+        List<Book> foundBooks = dao.findByGenre(FIRST_GENRE);
+        assertThat(foundBooks)
+                .hasSize(3)
+                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK);
+    }
+
+    @Test
     @DisplayName("сохранять в БД новую книгу")
     void saveMethodShouldSaveNewBookToDatabase() {
         dao.save(NEW_BOOK);
@@ -77,7 +108,7 @@ class BookDaoImplTest {
 
     @Test
     @DisplayName("удалять книгу с указанным id")
-    void delete() {
+    void deleteMethodShouldDeleteBookByItsID() {
         dao.delete(FIRST_BOOK_INDEX);
         List<Book> bookList = dao.getAll();
         assertThat(bookList).hasSize(3).containsExactlyInAnyOrder(SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);

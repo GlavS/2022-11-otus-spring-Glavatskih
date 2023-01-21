@@ -38,17 +38,32 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findByTitlePattern(String titlePattern) {
-        return null;
+        TypedQuery<Book> query = em.createQuery(
+                "select b from Book b where b.title like :pattern",
+                Book.class
+        );
+        query.setParameter("pattern", "%" + titlePattern + "%");
+        return query.getResultList();
     }
 
     @Override
     public List<Book> findByAuthor(Author author) {
-        return null;
+        TypedQuery<Book> query = em.createQuery(
+                "select b from Book b where b.author = :author",
+                Book.class
+        );
+        query.setParameter("author", author);
+        return query.getResultList();
     }
 
     @Override
     public List<Book> findByGenre(Genre genre) {
-        return null;
+        TypedQuery<Book> query = em.createQuery(
+                "select b from Book b where b.genre = :genre",
+                Book.class
+        );
+        query.setParameter("genre", genre);
+        return query.getResultList();
     }
 
     @Override
