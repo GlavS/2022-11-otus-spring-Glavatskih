@@ -13,7 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @Import({CommentDaoImpl.class, BookDaoImpl.class})
@@ -48,7 +49,6 @@ class CommentDaoImplTest {
     }
 
 
-
     @Test
     void save() {
         dao.save(NEW_COMMENT);
@@ -56,8 +56,9 @@ class CommentDaoImplTest {
                 .isNotNull()
                 .usingRecursiveComparison().isEqualTo(NEW_COMMENT);
     }
+
     @Test
-    void getById(){
+    void getById() {
         Comment comment = dao.getById(FIRST_COMMENT_ID);
         assertThat(comment).usingRecursiveComparison().isEqualTo(FIRST_COMMENT);
 
