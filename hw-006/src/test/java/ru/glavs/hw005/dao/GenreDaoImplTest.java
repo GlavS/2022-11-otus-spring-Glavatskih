@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @Import(GenreDaoImpl.class)
-class GenreDaoTest {
+class GenreDaoImplTest {
 
     private static final long ALL_GENRES_NUMBER = 2;
     private static final int FIRST_GENRE_ID = 1;
