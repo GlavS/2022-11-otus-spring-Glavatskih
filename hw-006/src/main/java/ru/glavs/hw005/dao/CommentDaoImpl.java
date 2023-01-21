@@ -17,6 +17,11 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public Comment getById(int id) {
+        return null;
+    }
+
+    @Override
     public Comment save(Comment comment) {
         return null;
     }
