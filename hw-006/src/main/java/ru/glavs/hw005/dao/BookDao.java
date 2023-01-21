@@ -8,9 +8,18 @@ import java.util.List;
 
 public interface BookDao {
     List<Book> getAll();
+
     Book getById(int id);
-    int insertNew(Author author, Genre genre, String title);
-    void update(Book book);
+
+    List<Book> findByTitlePattern(String titlePattern);
+
+    List<Book> findByAuthor(Author author);
+
+    List<Book> findByGenre(Genre genre);
+
+    Book save(Book book);
+
     void delete(int id);
-    int count();
+
+    long count();
 }

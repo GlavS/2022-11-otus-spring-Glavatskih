@@ -6,10 +6,7 @@ import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 @Repository
@@ -36,26 +33,48 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getById(int id) {
+        return em.find(Book.class, id);
+    }
+
+    @Override
+    public List<Book> findByTitlePattern(String titlePattern) {
         return null;
     }
 
     @Override
-    public int insertNew(Author author, Genre genre, String title) {
-        return 0;
+    public List<Book> findByAuthor(Author author) {
+        return null;
     }
 
     @Override
-    public void update(Book book) {
+    public List<Book> findByGenre(Genre genre) {
+        return null;
+    }
 
+    @Override
+    public Book save(Book book) {
+        if (book.getId() == 0) {
+            em.persist(book);
+            return book;
+        }
+        return em.merge(book);
     }
 
     @Override
     public void delete(int id) {
-
+        Query query = em.createQuery(
+                "delete from Book b where b.id = :id"
+        );
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 
     @Override
-    public int count() {
-        return 0;
+    public long count() {
+        TypedQuery<Long> query = em.createQuery(
+                "select count(b) from Book b",
+                Long.class);
+        return query.getSingleResult();
     }
+
 }
