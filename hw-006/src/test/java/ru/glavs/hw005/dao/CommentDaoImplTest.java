@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Comment;
 
+import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,8 +23,6 @@ class CommentDaoImplTest {
 
     @Autowired
     private CommentDaoImpl dao;
-    @Autowired
-    private BookDaoImpl bookDao; //TODO: убрать!!
     private static final Date FIRST_COMMENT_DATE;
     private static final Date SECOND_COMMENT_DATE;
     private static final Comment FIRST_COMMENT;
@@ -53,7 +52,7 @@ class CommentDaoImplTest {
     @Test
     void save() {
         dao.save(NEW_COMMENT);
-        assertThat(dao.getById(NEW_COMMENT.getId()))
+        assertThat(dao.getById(3))
                 .isNotNull()
                 .usingRecursiveComparison().isEqualTo(NEW_COMMENT);
     }
@@ -66,13 +65,9 @@ class CommentDaoImplTest {
 
     @Test
     void delete() {
+        Comment comment = dao.getById(FIRST_COMMENT_ID);
+        assertThat(comment).isNotNull();
         dao.delete(FIRST_COMMENT_ID);
-        assertThat(dao.getById(FIRST_COMMENT_ID)).isNull();
-    }
-
-    @Test
-    void getCommentsForBook() {
-        List<Comment> commentList = dao.getCommentsForBook(bookDao.getById(1)); //TODO:низззззя!!!!
-        assertThat(commentList).usingRecursiveComparison().isEqualTo(COMMENT_LIST);
+        assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoResultException.class);
     }
 }
