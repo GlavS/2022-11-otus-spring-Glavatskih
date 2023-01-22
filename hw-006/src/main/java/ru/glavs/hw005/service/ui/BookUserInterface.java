@@ -8,7 +8,6 @@ import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.display.AbstractDisplayService;
-import ru.glavs.hw005.service.display.DisplayService;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class BookUserInterface {
         this.authorDisplayService = authorDisplayService;
     }
 
-    Book BIGMETHOD() {
+    public Book BIGMETHOD() {
         String title = ioService.readStringWithPrompt("Enter title");
         String surname = ioService.readStringWithPrompt("Please, enter author's surname");
         Author author = new Author();
@@ -49,10 +48,16 @@ public class BookUserInterface {
             author = authorList.get(0);
         }
 
+        String genreName = ioService.readStringWithPrompt("Please enter genre");
+        Genre genre = genreDao.searchByGenre(genreName);
+        if (genre.getId() == 0) {
+            String answer = ioService.readStringWithPrompt("No such genre in database. Do you want to create one? (y/n): ");
+            if (answer.equalsIgnoreCase("n")) return null;
+            genre.setGenre(ioService.readStringWithPrompt("Please enter genre: "));
+            genre = genreDao.save(genre);
+        }
 
-
-
-        return new Book();
+        return new Book(0, author, genre, title, null);
     }
 
 }
