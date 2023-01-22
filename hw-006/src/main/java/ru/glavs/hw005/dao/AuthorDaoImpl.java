@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
@@ -19,7 +20,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author getById(int id) {
-        return em.find(Author.class, id);
+        return Optional.ofNullable(em.find(Author.class, id)).orElseThrow();
     }
 
     @Override
@@ -51,8 +52,9 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void delete(int id) {
-        Author forDelete = getById(id);
-        em.remove(forDelete);
+        Optional<Author> optionalAuthor = Optional.ofNullable(em.find(Author.class, id));
+        Author authorToDelete = optionalAuthor.orElseThrow();
+        em.remove(authorToDelete);
     }
 
     @Override

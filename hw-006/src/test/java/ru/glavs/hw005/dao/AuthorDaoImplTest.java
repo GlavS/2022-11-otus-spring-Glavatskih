@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Author;
 
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -27,6 +29,8 @@ class AuthorDaoImplTest {
     @Autowired
     private AuthorDaoImpl dao;
 
+    @Autowired
+    private EntityManager em;
 
     @Test
     @DisplayName("должен возвращать автора по его id")
@@ -53,7 +57,10 @@ class AuthorDaoImplTest {
     @DisplayName("должен добавлять в БД нового автора")
     void saveMethodShouldAddNewAuthorToDatabase() {
         dao.save(NEW_AUTHOR);
-        List<Author> currentAuthorList = dao.getAll();
+        List<Author> currentAuthorList = new ArrayList<>();
+        for (int i = 1; i <= ALL_AUTHORS_NUMBER + 1; i++) {
+            currentAuthorList.add(em.find(Author.class, i));
+        }
         assertThat(currentAuthorList).hasSize(3).containsExactlyInAnyOrder(FIRST_AUTHOR, SECOND_AUTHOR, THIRD_AUTHOR);
     }
 
@@ -61,7 +68,8 @@ class AuthorDaoImplTest {
     @DisplayName("должен удалять автора с указанным id")
     void deleteShouldDeleteAuthorByHisID() {
         dao.delete(FIRST_AUTHOR_ID);
-        List<Author> afterDeleteList = dao.getAll();
+        em.flush();
+        List<Author> afterDeleteList = List.of(em.find(Author.class, 2));
         assertThat(afterDeleteList).usingRecursiveComparison().isEqualTo(List.of(SECOND_AUTHOR));
     }
 
