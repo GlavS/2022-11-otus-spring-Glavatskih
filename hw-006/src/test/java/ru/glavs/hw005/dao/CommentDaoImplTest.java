@@ -7,11 +7,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Comment;
 
-import javax.persistence.NoResultException;
+import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,8 +23,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class CommentDaoImplTest {
 
 
-    @Autowired
-    private CommentDaoImpl dao;
     private static final Date FIRST_COMMENT_DATE;
     private static final Date SECOND_COMMENT_DATE;
     private static final Comment FIRST_COMMENT;
@@ -31,7 +30,6 @@ class CommentDaoImplTest {
     private static final Comment SECOND_COMMENT;
     private static final Comment NEW_COMMENT;
     private static final List<Comment> COMMENT_LIST;
-
     private static final Date THIRD_COMMENT_DATE;
 
     static {
@@ -48,27 +46,36 @@ class CommentDaoImplTest {
         }
     }
 
+    @Autowired
+    private CommentDaoImpl dao;
+
+    @Autowired
+    private EntityManager em;
 
     @Test
-    void save() {
+    @DisplayName("сохранять новый комментарий")
+    void saveMethodShouldSaveCommentToDatabase() {
         dao.save(NEW_COMMENT);
-        assertThat(dao.getById(3))
+        em.flush();
+        Comment comment3 = em.find(Comment.class, 3);
+        assertThat(comment3)
                 .isNotNull()
                 .usingRecursiveComparison().isEqualTo(NEW_COMMENT);
     }
 
     @Test
-    void getById() {
+    @DisplayName("возвращать комментарий по его id")
+    void getByIdMethodShouldReturnCommentByItsID() {
         Comment comment = dao.getById(FIRST_COMMENT_ID);
         assertThat(comment).usingRecursiveComparison().isEqualTo(FIRST_COMMENT);
 
     }
 
     @Test
-    void delete() {
-        Comment comment = dao.getById(FIRST_COMMENT_ID);
-        assertThat(comment).isNotNull();
+    @DisplayName("удалять комментарий по его id")
+    void deleteMethodShouldDeleteCommentByItsID() {
         dao.delete(FIRST_COMMENT_ID);
-        assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoResultException.class);
+        em.flush();
+        assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoSuchElementException.class);
     }
 }

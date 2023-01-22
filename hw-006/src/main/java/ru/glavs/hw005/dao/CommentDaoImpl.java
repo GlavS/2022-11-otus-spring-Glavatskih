@@ -5,8 +5,7 @@ import ru.glavs.hw005.domain.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -19,12 +18,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Comment getById(int id) {
-        TypedQuery<Comment> query = em.createQuery(
-                "select c from Comment c where c.id = :id",
-                Comment.class
-        );
-        query.setParameter("id", id);
-        return query.getSingleResult();
+        return Optional.ofNullable(em.find(Comment.class, id)).orElseThrow();
     }
 
     @Override
@@ -38,10 +32,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void delete(int id) {
-        Query query = em.createQuery(
-                "delete from Comment c where c.id = :id"
-        );
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Comment commentToDelete = Optional.ofNullable(em.find(Comment.class, id)).orElseThrow();
+        em.remove(commentToDelete);
     }
 }
