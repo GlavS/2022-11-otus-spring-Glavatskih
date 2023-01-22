@@ -34,13 +34,11 @@ public class Book {
     private Genre genre;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "book_id")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "book_id")
     @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<Comment> comments;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -8,6 +8,7 @@ import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -77,11 +78,9 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public void delete(int id) {
-        Query query = em.createQuery(
-                "delete from Book b where b.id = :id"
-        );
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Optional<Book> optionalBook  = Optional.ofNullable(em.find(Book.class, id));
+        Book bookToDelete = optionalBook.orElseThrow();
+        em.remove(bookToDelete);
     }
 
     @Override

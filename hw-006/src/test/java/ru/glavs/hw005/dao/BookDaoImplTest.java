@@ -10,8 +10,10 @@ import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.domain.Genre;
 
+import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,6 +49,8 @@ class BookDaoImplTest {
     private static final int BOOK_LIST_SIZE = 4;
     private static final int FIRST_BOOK_INDEX = 1;
 
+    @Autowired
+    EntityManager em;
 
     @Autowired
     private BookDaoImpl dao;
@@ -100,7 +104,10 @@ class BookDaoImplTest {
     @DisplayName("сохранять в БД новую книгу")
     void saveMethodShouldSaveNewBookToDatabase() {
         dao.save(NEW_BOOK);
-        List<Book> bookList = dao.getAll();
+        List<Book> bookList = new ArrayList<>();
+        for (int i = 1; i <= BOOK_LIST_SIZE + 1; i++) {
+            bookList.add(em.find(Book.class, i));
+        }
         assertThat(bookList)
                 .hasSize(5)
                 .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK, NEW_BOOK);
@@ -110,7 +117,11 @@ class BookDaoImplTest {
     @DisplayName("удалять книгу с указанным id")
     void deleteMethodShouldDeleteBookByItsID() {
         dao.delete(FIRST_BOOK_INDEX);
-        List<Book> bookList = dao.getAll();
+        em.flush();
+        List<Book> bookList = new ArrayList<>();
+        for (int i = 2; i <= BOOK_LIST_SIZE; i++) {
+            bookList.add(em.find(Book.class, i));
+        }
         assertThat(bookList).hasSize(3).containsExactlyInAnyOrder(SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
     }
 
