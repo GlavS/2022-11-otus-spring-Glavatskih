@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -64,6 +65,12 @@ public class GenreDaoImpl implements GenreDao {
                 Genre.class
         );
         query.setParameter("genreName", genreName);
-        return query.getSingleResult();
+        Genre result;
+        try {
+            result = query.getSingleResult();
+        } catch (NoResultException e) {
+            return new Genre();
+        }
+        return result;
     }
 }
