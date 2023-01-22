@@ -4,21 +4,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.dao.BookDao;
 import ru.glavs.hw005.domain.Book;
+import ru.glavs.hw005.service.ui.BookUserInterface;
 
 import java.util.List;
 
 @Service
 public class BookCRUDImpl implements BookCRUD {
     private final BookDao dao;
+    private final BookUserInterface bookUi;
 
-    public BookCRUDImpl(BookDao dao) {
+    public BookCRUDImpl(BookDao dao, BookUserInterface bookUi) {
         this.dao = dao;
+        this.bookUi = bookUi;
     }
 
+    @Transactional
     @Override
-    public Book create() {
+    public void create() {
 
-        return null;
+        dao.save(bookUi.BIGMETHOD());//TODO:!!
+
     }
 
     @Transactional(readOnly = true)

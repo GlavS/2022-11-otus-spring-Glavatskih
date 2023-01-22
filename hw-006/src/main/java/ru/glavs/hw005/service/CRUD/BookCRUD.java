@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Book;
 import java.util.List;
 
 public interface BookCRUD {
-    Book create();
+    void create();
     List<Book> readAll();
     Book readBook(int id);
     void update();

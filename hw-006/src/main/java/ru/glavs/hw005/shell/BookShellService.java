@@ -51,6 +51,7 @@ public class BookShellService {
     @ShellMethod("Create new book.")
     public void create() {
         bookCrud.create();
+        ioService.println("Book created");
     }
 
     @ShellMethod("Update book.")
