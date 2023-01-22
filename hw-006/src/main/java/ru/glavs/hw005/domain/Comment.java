@@ -18,14 +18,14 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    int id;
+    private int id;
     @Column(name = "text", nullable = false, length = 10_000)
-    String text;
+    private String text;
     @Column(name = "author_nick", length = 30)
-    String authorNick;
+    private String authorNick;
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
-    Date date;
+    private Date date;
 
     @Override
     public boolean equals(Object o) {
