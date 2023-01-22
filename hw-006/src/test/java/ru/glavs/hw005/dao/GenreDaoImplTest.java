@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Genre;
 
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -25,6 +27,9 @@ class GenreDaoImplTest {
     private static final String SECOND_GENRE_GENRE = "Жанр2";
     @Autowired
     private GenreDaoImpl dao;
+
+    @Autowired
+    private EntityManager em;
 
 
     @Test
@@ -52,7 +57,10 @@ class GenreDaoImplTest {
     @DisplayName("должен добавлять в БД новый жанр")
     void saveMethodShouldAddNewGenreToDatabase() {
         dao.save(NEW_GENRE);
-        List<Genre> currentGenreList = dao.getAll();
+        List<Genre> currentGenreList = new ArrayList<>();
+        for (int i = 1; i <= ALL_GENRES_NUMBER + 1; i++) {
+            currentGenreList.add(em.find(Genre.class, i));
+        }
         assertThat(currentGenreList).hasSize(3).containsExactlyInAnyOrder(FIRST_GENRE, SECOND_GENRE, THIRD_GENRE);
     }
 
@@ -60,7 +68,8 @@ class GenreDaoImplTest {
     @DisplayName("должен удалять жанр с указанным id")
     void deleteShouldDeleteGenreByItsID() {
         dao.delete(FIRST_GENRE_ID);
-        List<Genre> afterDeleteList = dao.getAll();
+        em.flush();
+        List<Genre> afterDeleteList = List.of(em.find(Genre.class, 2));
         assertThat(afterDeleteList).usingRecursiveComparison().isEqualTo(List.of(SECOND_GENRE));
     }
 

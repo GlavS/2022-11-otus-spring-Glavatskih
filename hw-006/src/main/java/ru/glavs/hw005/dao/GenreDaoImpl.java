@@ -1,6 +1,7 @@
 package ru.glavs.hw005.dao;
 
 import org.springframework.stereotype.Repository;
+import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class GenreDaoImpl implements GenreDao {
@@ -20,7 +22,7 @@ public class GenreDaoImpl implements GenreDao {
 
     @Override
     public Genre getById(int id) {
-        return em.find(Genre.class, id);
+        return Optional.ofNullable(em.find(Genre.class, id)).orElseThrow();
     }
 
     @Override
@@ -52,11 +54,9 @@ public class GenreDaoImpl implements GenreDao {
 
     @Override
     public void delete(int id) {
-        Query query = em.createQuery(
-                "delete from Genre g where g.id = :id"
-        );
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Optional<Genre> optionalGenre = Optional.ofNullable(em.find(Genre.class, id));
+        Genre genreToDelete = optionalGenre.orElseThrow();
+        em.remove(genreToDelete);
     }
 
     @Override
