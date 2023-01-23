@@ -13,6 +13,7 @@ import java.util.Locale;
 public class CommentDisplayService extends AbstractDisplayService<Comment> implements DisplayService<Comment> {
 
     private static final String ITEM_FORMAT_STRING = "| %-4d| %-50s| %-15s| %-12s|%n";
+    private static final String LIST_ITEM_FORMAT_STRING = "| %-4s| %-50s| %-15s| %-12s|%n";//TODO:rename
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
     public CommentDisplayService(IOService ioService) {
@@ -23,13 +24,27 @@ public class CommentDisplayService extends AbstractDisplayService<Comment> imple
     }
 
     @Override
-    protected void displayItem(Comment comment) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        ioService.printf(ITEM_FORMAT_STRING,
-                comment.getId(),
-                comment.getText(),
-                comment.getAuthorNick(),
-                format.format(comment.getDate()));
+    protected void displayItem(Comment comment) {//TODO:refactor, everything shift to the right
+        SimpleDateFormat commentDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        List<String> commentText = textFormatter(comment.getText());
+
+        if(commentText.size() == 1) {
+            ioService.printf(ITEM_FORMAT_STRING,
+                    comment.getId(),
+                    comment.getText(),
+                    comment.getAuthorNick(),
+                    commentDateFormat.format(comment.getDate()));
+        } else {
+            ioService.printf(ITEM_FORMAT_STRING,
+                    comment.getId(),
+                    commentText.get(0),
+                    comment.getAuthorNick(),
+                    commentDateFormat.format(comment.getDate()));
+            for (int i = 1; i < commentText.size(); i++) {
+                ioService.printf(LIST_ITEM_FORMAT_STRING,
+                        "", commentText.get(i), "", "");
+            }
+        }
     }
     private List<String> textFormatter(String comment){
 
@@ -43,9 +58,13 @@ public class CommentDisplayService extends AbstractDisplayService<Comment> imple
             if (currentWidth > COMMENT_COLUMN_WIDTH) {
                 result.add(sb.toString());
                 sb.setLength(0);
-                currentWidth = 0;
+                currentWidth = word.length() + 1;
             }
             sb.append(word).append(" ");
+
+        }
+        if(sb.length() > 0) {
+            result.add(sb.toString());
         }
         return result;
     }

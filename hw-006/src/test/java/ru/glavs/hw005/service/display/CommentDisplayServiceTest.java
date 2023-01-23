@@ -40,10 +40,15 @@ class CommentDisplayServiceTest {
 
     @Test
     void displayItem() {
-        System.out.println(FIRST_COMMENT);
-        service.displayItem(FIRST_COMMENT);
-        System.out.println();
-        service.printOne(FIRST_COMMENT);//TODO: run this
+        String longComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                "Mauris id nulla porta, vehicula velit non, porttitor sapien. Proin lobortis" +
+                " magna vel vestibulum blandit. Suspendisse gravida tincidunt vestibulum. " +
+                "Morbi vestibulum finibus libero non pharetra. Aliquam tellus odio, auctor ac " +
+                "leo ut, semper venenatis ligula. Nunc id. ";
+//        System.out.println(FIRST_COMMENT);
+//        service.displayItem(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
+//        System.out.println();
+        service.printOne(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
 
     }
 
