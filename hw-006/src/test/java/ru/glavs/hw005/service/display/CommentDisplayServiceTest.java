@@ -45,11 +45,13 @@ class CommentDisplayServiceTest {
                 " magna vel vestibulum blandit. Suspendisse gravida tincidunt vestibulum. " +
                 "Morbi vestibulum finibus libero non pharetra. Aliquam tellus odio, auctor ac " +
                 "leo ut, semper venenatis ligula. Nunc id. ";
+        List<Comment> commentList = List.of(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE), new Comment(5, longComment, "Nack", FIRST_COMMENT_DATE));
 //        System.out.println(FIRST_COMMENT);
 //        service.displayItem(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
 //        System.out.println();
         service.printOne(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
-
+        System.out.println();
+        service.printList(commentList);
     }
 
 }

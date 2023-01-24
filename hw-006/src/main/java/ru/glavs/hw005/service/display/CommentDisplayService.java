@@ -12,14 +12,14 @@ import java.util.Locale;
 @Service
 public class CommentDisplayService extends AbstractDisplayService<Comment> implements DisplayService<Comment> {
 
-    private static final String ITEM_FORMAT_STRING = "| %-4d| %-50s| %-15s| %-12s|%n";
-    private static final String LIST_ITEM_FORMAT_STRING = "| %-4s| %-50s| %-15s| %-12s|%n";//TODO:rename
+    private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-15s| %-12s|%n";
+    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-15s| %-12s|%n";//TODO:rename
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
     public CommentDisplayService(IOService ioService) {
         super(ioService);
-        super.delimiter = "------------------------------------------------------------------------------------------";
-        super.formatString = "|%5s| %-50s| %-15s| %-12s|%n";
+        super.delimiter = "     ------------------------------------------------------------------------------------------";
+        super.formatString = "     | %-4s| %-50s| %-15s| %-12s|%n";
         super.formatArgs = new Object[]{" ID ", "        КОММЕНТАРИЙ", "    НИК ", "   ДАТА"};
     }
 
@@ -28,7 +28,7 @@ public class CommentDisplayService extends AbstractDisplayService<Comment> imple
         SimpleDateFormat commentDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         List<String> commentText = textFormatter(comment.getText());
 
-        if(commentText.size() == 1) {
+        if (commentText.size() == 1) {
             ioService.printf(ITEM_FORMAT_STRING,
                     comment.getId(),
                     comment.getText(),
@@ -46,7 +46,8 @@ public class CommentDisplayService extends AbstractDisplayService<Comment> imple
             }
         }
     }
-    private List<String> textFormatter(String comment){
+
+    private List<String> textFormatter(String comment) {
 
         List<String> splittedComment = List.of(comment.split(" "));
         List<String> result = new ArrayList<>();
@@ -63,7 +64,7 @@ public class CommentDisplayService extends AbstractDisplayService<Comment> imple
             sb.append(word).append(" ");
 
         }
-        if(sb.length() > 0) {
+        if (sb.length() > 0) {
             result.add(sb.toString());
         }
         return result;
