@@ -1,6 +1,8 @@
 package ru.glavs.hw005.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -8,8 +10,6 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -26,6 +26,20 @@ public class Comment {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    @JoinColumn(name = "book_id")
+    @ManyToOne
+    private Book book;
+
+    public Comment(String text, String authorNick, Date date, Book book) {
+        this.text = text;
+        this.authorNick = authorNick;
+        this.date = date;
+        this.book = book;
+    }
+
+    public Comment() {
+    }
 
     @Override
     public boolean equals(Object o) {

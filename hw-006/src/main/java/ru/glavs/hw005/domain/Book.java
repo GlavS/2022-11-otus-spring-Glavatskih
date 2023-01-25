@@ -1,6 +1,8 @@
 package ru.glavs.hw005.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -10,8 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -39,6 +39,16 @@ public class Book {
     @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<Comment> comments;
+
+    public Book(Author author, Genre genre, String title) {
+        this.author = author;
+        this.genre = genre;
+        this.title = title;
+    }
+
+    public Book() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -57,7 +57,7 @@ public class BookUserInterface {
             genre = genreDao.save(genre);
         }
 
-        return new Book(0, author, genre, title, null);
+        return new Book(author, genre, title);
     }
 
 }
