@@ -28,26 +28,27 @@ class BookDaoImplTest {
     private static final Genre SECOND_GENRE = new Genre(2, "Жанр2");
     private static final List<Comment> COMMENT_LIST;
 
+
+    private static final Book FIRST_BOOK = new Book(FIRST_AUTHOR, FIRST_GENRE, "Книга1");
+    private static final Book SECOND_BOOK = new Book(FIRST_AUTHOR, FIRST_GENRE, "Книга2");
+    private static final Book THIRD_BOOK = new Book(SECOND_AUTHOR, FIRST_GENRE, "Книга3");
+    private static final Book FOURTH_BOOK = new Book(SECOND_AUTHOR, SECOND_GENRE, "Книга4");
+    private static final Book NEW_BOOK = new Book(SECOND_AUTHOR, SECOND_GENRE, "Новая книга");
+
+    private static final List<Book> BOOK_LIST = List.of(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
+    private static final int BOOK_LIST_SIZE = 4;
+    private static final int FIRST_BOOK_INDEX = 1;
+
     static {
         try {
             COMMENT_LIST = List.of(
-                    new Comment(1, "Comment1, comment1 comment1 comment1 comment1.", "commentator1", new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-19")),
-                    new Comment(2, "Comment2, comment2 comment2 comment2 comment2.", "commentator2", new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-17"))
+                    new Comment("Comment1, comment1 comment1 comment1 comment1.", "commentator1", new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-19"), FIRST_BOOK),
+                    new Comment("Comment2, comment2 comment2 comment2 comment2.", "commentator2", new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-17"), FIRST_BOOK)
             );
         } catch (ParseException e) {
             throw new RuntimeException("Date parse error: " + e.getMessage(), e);
         }
     }
-
-    private static final Book FIRST_BOOK = new Book(1, FIRST_AUTHOR, FIRST_GENRE, "Книга1", COMMENT_LIST);
-    private static final Book SECOND_BOOK = new Book(2, FIRST_AUTHOR, FIRST_GENRE, "Книга2", List.of());
-    private static final Book THIRD_BOOK = new Book(3, SECOND_AUTHOR, FIRST_GENRE, "Книга3", List.of());
-    private static final Book FOURTH_BOOK = new Book(4, SECOND_AUTHOR, SECOND_GENRE, "Книга4", List.of());
-    private static final Book NEW_BOOK = new Book(5, SECOND_AUTHOR, SECOND_GENRE, "Новая книга", List.of());
-
-    private static final List<Book> BOOK_LIST = List.of(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
-    private static final int BOOK_LIST_SIZE = 4;
-    private static final int FIRST_BOOK_INDEX = 1;
 
     @Autowired
     EntityManager em;

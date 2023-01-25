@@ -3,7 +3,10 @@ package ru.glavs.hw005.service.display;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.glavs.hw005.domain.Author;
+import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
+import ru.glavs.hw005.domain.Genre;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +15,10 @@ import java.util.List;
 
 @SpringBootTest
 class CommentDisplayServiceTest {
+
+    private static final Author FIRST_AUTHOR = new Author(1, "Имя1", "Фамилия1", "А.А.");
+    private static final Genre FIRST_GENRE = new Genre(1, "Жанр1");
+    private static final Book FIRST_BOOK = new Book(FIRST_AUTHOR, FIRST_GENRE, "Книга1");
     private static final Date FIRST_COMMENT_DATE;
     private static final Date SECOND_COMMENT_DATE;
     private static final Comment FIRST_COMMENT;
@@ -26,9 +33,9 @@ class CommentDisplayServiceTest {
             FIRST_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-19");
             SECOND_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-17");
             THIRD_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-21");
-            FIRST_COMMENT = new Comment(1, "Comment1, comment1 comment1 comment1 comment1.", "commentator1", FIRST_COMMENT_DATE);
-            SECOND_COMMENT = new Comment(2, "Comment2, comment2 comment2 comment2 comment2.", "commentator2", SECOND_COMMENT_DATE);
-            NEW_COMMENT = new Comment(3, "Comment3, comment3 comment3 comment3 comment3.", "commentator3", THIRD_COMMENT_DATE);
+            FIRST_COMMENT = new Comment("Comment1, comment1 comment1 comment1 comment1.", "commentator1", FIRST_COMMENT_DATE, FIRST_BOOK);
+            SECOND_COMMENT = new Comment("Comment2, comment2 comment2 comment2 comment2.", "commentator2", SECOND_COMMENT_DATE, FIRST_BOOK);
+            NEW_COMMENT = new Comment("Comment3, comment3 comment3 comment3 comment3.", "commentator3", THIRD_COMMENT_DATE, FIRST_BOOK);
             COMMENT_LIST = List.of(FIRST_COMMENT, SECOND_COMMENT);
         } catch (ParseException e) {
             throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
@@ -45,11 +52,11 @@ class CommentDisplayServiceTest {
                 " magna vel vestibulum blandit. Suspendisse gravida tincidunt vestibulum. " +
                 "Morbi vestibulum finibus libero non pharetra. Aliquam tellus odio, auctor ac " +
                 "leo ut, semper venenatis ligula. Nunc id. ";
-        List<Comment> commentList = List.of(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE), new Comment(5, longComment, "Nack", FIRST_COMMENT_DATE));
+        List<Comment> commentList = List.of(new Comment(longComment, "Nuck", FIRST_COMMENT_DATE, FIRST_BOOK), new Comment(longComment, "Nack", FIRST_COMMENT_DATE, FIRST_BOOK));
 //        System.out.println(FIRST_COMMENT);
 //        service.displayItem(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
 //        System.out.println();
-        service.printOne(new Comment(4, longComment, "Nuck", FIRST_COMMENT_DATE));
+        service.printOne(new Comment(longComment, "Nuck", FIRST_COMMENT_DATE, FIRST_BOOK));
         System.out.println();
         service.printList(commentList);
     }

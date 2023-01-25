@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.glavs.hw005.domain.Author;
+import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
+import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.EntityManager;
 import java.text.ParseException;
@@ -22,7 +25,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Класс CommentDaoImpl должен")
 class CommentDaoImplTest {
 
-
+    private static final Author FIRST_AUTHOR = new Author(1, "Имя1", "Фамилия1", "А.А.");
+    private static final Genre FIRST_GENRE = new Genre(1, "Жанр1");
+    private static final Book FIRST_BOOK = new Book(FIRST_AUTHOR, FIRST_GENRE, "Книга1");
     private static final Date FIRST_COMMENT_DATE;
     private static final Date SECOND_COMMENT_DATE;
     private static final Comment FIRST_COMMENT;
@@ -37,9 +42,9 @@ class CommentDaoImplTest {
             FIRST_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-19");
             SECOND_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-17");
             THIRD_COMMENT_DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2023-01-21");
-            FIRST_COMMENT = new Comment(1, "Comment1, comment1 comment1 comment1 comment1.", "commentator1", FIRST_COMMENT_DATE);
-            SECOND_COMMENT = new Comment(2, "Comment2, comment2 comment2 comment2 comment2.", "commentator2", SECOND_COMMENT_DATE);
-            NEW_COMMENT = new Comment(3, "Comment3, comment3 comment3 comment3 comment3.", "commentator3", THIRD_COMMENT_DATE);
+            FIRST_COMMENT = new Comment("Comment1, comment1 comment1 comment1 comment1.", "commentator1", FIRST_COMMENT_DATE, FIRST_BOOK);
+            SECOND_COMMENT = new Comment("Comment2, comment2 comment2 comment2 comment2.", "commentator2", SECOND_COMMENT_DATE, FIRST_BOOK);
+            NEW_COMMENT = new Comment("Comment3, comment3 comment3 comment3 comment3.", "commentator3", THIRD_COMMENT_DATE, FIRST_BOOK);
             COMMENT_LIST = List.of(FIRST_COMMENT, SECOND_COMMENT);
         } catch (ParseException e) {
             throw new RuntimeException("Error parsing date: " + e.getMessage(), e);
