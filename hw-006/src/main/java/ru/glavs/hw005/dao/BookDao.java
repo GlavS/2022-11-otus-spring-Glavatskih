@@ -22,4 +22,6 @@ public interface BookDao {
     void delete(int id);
 
     long count();
+
+    List<Book> getAllWithCommentsOnly();
 }

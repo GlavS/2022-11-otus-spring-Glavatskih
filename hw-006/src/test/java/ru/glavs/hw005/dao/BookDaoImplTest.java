@@ -108,4 +108,11 @@ class BookDaoImplTest {
         long count = dao.count();
         assertThat(count).isEqualTo(BOOK_LIST_SIZE);
     }
+
+    @Test
+    @DisplayName("вернуть список книг с непустыми комментариями")
+    void getAllWithCommentsOnlyShouldReturnExpectedBookList() {
+        List<Book> bookList = dao.getAllWithCommentsOnly();
+        assertThat(bookList.size()).isEqualTo(1);
+    }
 }

@@ -25,7 +25,6 @@ public class BookCRUDImpl implements BookCRUD {
         dao.save(bookUi.BIGMETHOD());//TODO:!!
 
     }
-
     @Transactional(readOnly = true)
     @Override
     public List<Book> readAll() {

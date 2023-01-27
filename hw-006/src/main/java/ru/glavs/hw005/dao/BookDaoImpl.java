@@ -90,5 +90,15 @@ public class BookDaoImpl implements BookDao {
                 Long.class);
         return query.getSingleResult();
     }
+    @Override
+    public List<Book> getAllWithCommentsOnly(){
+        EntityGraph<?> entityGraph = em.getEntityGraph("book-graph");
+        TypedQuery<Book> query = em.createQuery(
+          "select b from Book b where b.comments is not empty",
+          Book.class
+        );
+        query.setHint(EntityGraphType.FETCH.getKey(), entityGraph);
+        return query.getResultList();
+    }
 
 }
