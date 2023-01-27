@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Author;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @Import(AuthorDaoImpl.class)
@@ -65,9 +67,9 @@ class AuthorDaoImplTest {
     @DisplayName("должен удалять автора с указанным id")
     void deleteShouldDeleteAuthorByHisID() {
         dao.delete(FIRST_AUTHOR_ID);
-        em.flush();
         assertThat(em.find(Author.class, 2).getSurname()).isEqualTo("Фамилия2");
         assertThat(em.find(Author.class, 1)).isNull();
+        assertThatThrownBy(()-> em.flush()).isInstanceOf(PersistenceException.class);
     }
 
     @Test

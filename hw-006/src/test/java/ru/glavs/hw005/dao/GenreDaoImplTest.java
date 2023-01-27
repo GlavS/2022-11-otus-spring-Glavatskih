@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Import;
 import ru.glavs.hw005.domain.Genre;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @Import(GenreDaoImpl.class)
@@ -70,8 +72,8 @@ class GenreDaoImplTest {
     void deleteShouldDeleteGenreByItsID() {
         assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNotNull();
         dao.delete(FIRST_GENRE_ID);
-        em.flush();
         assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNull();
+        assertThatThrownBy(() -> em.flush()).isInstanceOf(PersistenceException.class);
     }
 
     @Test

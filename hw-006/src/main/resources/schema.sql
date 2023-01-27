@@ -40,13 +40,13 @@ CREATE TABLE comments
 
 ALTER TABLE books
     ADD CONSTRAINT FK_BOOKS_ON_AUTHOR FOREIGN KEY (author)
-        REFERENCES authors (author_id)ON DELETE CASCADE;
+        REFERENCES authors (author_id);
 ALTER TABLE books
     ADD CONSTRAINT FK_BOOKS_ON_GENRE FOREIGN KEY (genre)
-        REFERENCES genres (genre_id) ON DELETE CASCADE;
+        REFERENCES genres (genre_id);
 ALTER TABLE comments
     ADD CONSTRAINT FK_COMMENTS_ON_BOOK FOREIGN KEY (book_id)
-        REFERENCES books (book_id) ON DELETE CASCADE;
+        REFERENCES books (book_id);
 
 CREATE UNIQUE INDEX uq_authors
     ON authors (name, surname, initials);
