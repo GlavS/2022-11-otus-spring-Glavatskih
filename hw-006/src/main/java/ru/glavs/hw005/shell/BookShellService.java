@@ -6,6 +6,7 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
@@ -23,6 +24,7 @@ public class BookShellService {
     private final IOService ioService;
 
     @ShellMethod("List all books.")
+    @Transactional(readOnly = true)
     public void list() {
         List<Book> bookList = bookCrud.readAll();
         bookDisplayService.printList(bookList);
