@@ -22,7 +22,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Override
     public void create() {
 
-        dao.save(bookUi.BIGSAVEMETHOD());//TODO:!!
+        dao.save(bookUi.save());//TODO:!!
 
     }
     @Transactional(readOnly = true)
@@ -41,7 +41,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Override
     public void update(int id) {
         Book bookToUpdate = dao.getById(id);
-        Book updatedBook = bookUi.BIGUPDATEMETHOD(bookToUpdate);
+        Book updatedBook = bookUi.update(bookToUpdate);
         dao.save(updatedBook);
     }
 
