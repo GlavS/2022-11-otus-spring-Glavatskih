@@ -1,16 +1,18 @@
 package ru.glavs.hw005.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @Table(name = "authors")
 public class Author {
@@ -24,6 +26,12 @@ public class Author {
     private String surname;
     @Column(name = "initials", length = 4)
     private String initials;
+
+    public Author(String name, String surname, String initials) {
+        this.name = name;
+        this.surname = surname;
+        this.initials = initials;
+    }
 
     @Override
     public boolean equals(Object o) {

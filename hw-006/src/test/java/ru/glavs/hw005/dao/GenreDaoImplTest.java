@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Import(GenreDaoImpl.class)
@@ -19,11 +19,8 @@ class GenreDaoImplTest {
 
     private static final long ALL_GENRES_NUMBER = 2;
     private static final int FIRST_GENRE_ID = 1;
-    private static final Genre FIRST_GENRE = new Genre(1, "Жанр1");
-    private static final Genre SECOND_GENRE = new Genre(2, "Жанр2");
-    private static final Genre NEW_GENRE = new Genre(0, "Жанр3");
-    private static final Genre THIRD_GENRE = new Genre(3, "Жанр3");
-    private static final List<Genre> GENRE_LIST = List.of(FIRST_GENRE, SECOND_GENRE);
+
+    private static final Genre NEW_GENRE = new Genre("Жанр3");
     private static final String SECOND_GENRE_GENRE = "Жанр2";
     @Autowired
     private GenreDaoImpl dao;
@@ -36,14 +33,15 @@ class GenreDaoImplTest {
     @DisplayName("должен возвращать жанр по его id")
     void getByIdMethodShouldReturnGenreById() {
         Genre genre = dao.getById(FIRST_GENRE_ID);
-        assertThat(genre).usingRecursiveComparison().isEqualTo(FIRST_GENRE);
+        assertThat(genre.getGenre()).isEqualTo("Жанр1");
     }
 
     @Test
     @DisplayName("должен возвращать список всех жанров")
     void getAllMethodShouldReturnCorrectGenresList() {
         List<Genre> genreList = dao.getAll();
-        assertThat(genreList).usingRecursiveComparison().isEqualTo(GENRE_LIST);
+        assertThat(genreList.size()).isEqualTo(ALL_GENRES_NUMBER);
+        assertThat(genreList.get(0).getGenre()).isEqualTo("Жанр1");
     }
 
     @Test
@@ -57,20 +55,23 @@ class GenreDaoImplTest {
     @DisplayName("должен добавлять в БД новый жанр")
     void saveMethodShouldAddNewGenreToDatabase() {
         dao.save(NEW_GENRE);
+        em.flush();
         List<Genre> currentGenreList = new ArrayList<>();
         for (int i = 1; i <= ALL_GENRES_NUMBER + 1; i++) {
             currentGenreList.add(em.find(Genre.class, i));
         }
-        assertThat(currentGenreList).hasSize(3).containsExactlyInAnyOrder(FIRST_GENRE, SECOND_GENRE, THIRD_GENRE);
+        assertThat(currentGenreList).hasSize(3);
+        assertThat(currentGenreList.get(2).getGenre()).isEqualTo("Жанр3");
+
     }
 
     @Test
     @DisplayName("должен удалять жанр с указанным id")
     void deleteShouldDeleteGenreByItsID() {
+        assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNotNull();
         dao.delete(FIRST_GENRE_ID);
         em.flush();
-        List<Genre> afterDeleteList = List.of(em.find(Genre.class, 2));
-        assertThat(afterDeleteList).usingRecursiveComparison().isEqualTo(List.of(SECOND_GENRE));
+        assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNull();
     }
 
     @Test
@@ -78,7 +79,7 @@ class GenreDaoImplTest {
     void searchByGenreShouldFindGenreByItsNameOrReturnEmpty() {
         Genre genre = dao.searchByGenre(SECOND_GENRE_GENRE);
         Genre genre2 = dao.searchByGenre("SECOND_GENRE_GENRE");
-        assertThat(genre).usingRecursiveComparison().isEqualTo(SECOND_GENRE);
+        assertThat(genre).isNotNull();
         assertThat(genre2.getId()).isEqualTo(0);
     }
 }

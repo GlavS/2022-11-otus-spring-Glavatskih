@@ -16,8 +16,8 @@ import java.util.List;
 @SpringBootTest
 class CommentDisplayServiceTest {
 
-    private static final Author FIRST_AUTHOR = new Author(1, "Имя1", "Фамилия1", "А.А.");
-    private static final Genre FIRST_GENRE = new Genre(1, "Жанр1");
+    private static final Author FIRST_AUTHOR = new Author("Имя1", "Фамилия1", "А.А.");
+    private static final Genre FIRST_GENRE = new Genre("Жанр1");
     private static final Book FIRST_BOOK = new Book(FIRST_AUTHOR, FIRST_GENRE, "Книга1");
     private static final Date FIRST_COMMENT_DATE;
     private static final Date SECOND_COMMENT_DATE;

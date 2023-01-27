@@ -1,6 +1,7 @@
 package ru.glavs.hw005.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @Table(name = "comments")
 public class Comment {
@@ -38,8 +40,6 @@ public class Comment {
         this.book = book;
     }
 
-    public Comment() {
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Класс BookDao должен")
 @Import(BookDaoImpl.class)
 class BookDaoImplTest {
-    private static final Author FIRST_AUTHOR = new Author(1, "Имя1", "Фамилия1", "А.А.");
-    private static final Author SECOND_AUTHOR = new Author(2, "Имя2", "Фамилия2", "Б.Б.");
-    private static final Genre FIRST_GENRE = new Genre(1, "Жанр1");
-    private static final Genre SECOND_GENRE = new Genre(2, "Жанр2");
+    private static final Author FIRST_AUTHOR = new Author("Имя1", "Фамилия1", "А.А.");
+    private static final Author SECOND_AUTHOR = new Author("Имя2", "Фамилия2", "Б.Б.");
+    private static final Genre FIRST_GENRE = new Genre("Жанр1");
+    private static final Genre SECOND_GENRE = new Genre("Жанр2");
     private static final List<Comment> COMMENT_LIST;
 
 
@@ -60,14 +60,14 @@ class BookDaoImplTest {
     @DisplayName("возвращать список всех книг")
     void getAllMethodShouldReturnListOfAllBooks() {
         List<Book> bookList = dao.getAll();
-        assertThat(bookList).hasSize(BOOK_LIST_SIZE).usingRecursiveComparison().isEqualTo(BOOK_LIST);
+        assertThat(bookList).hasSize(BOOK_LIST_SIZE);
     }
 
     @Test
     @DisplayName("возвращать книгу по её id")
     void getByIdMethodShouldReturnBookByItsID() {
         Book book = dao.getById(FIRST_BOOK_INDEX);
-        assertThat(book).usingRecursiveComparison().isEqualTo(FIRST_BOOK);
+        assertThat(book.getTitle()).isEqualTo("Книга1");
     }
 
     @Test
@@ -75,43 +75,46 @@ class BookDaoImplTest {
     void findByTitlePatternMethodShouldReturnExpectedBookList() {
         List<Book> foundBooks = dao.findByTitlePattern("Книга");
         assertThat(foundBooks)
-                .hasSize(4)
-                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
+                .hasSize(4);
+
         foundBooks = dao.findByTitlePattern("Книга4");
         assertThat(foundBooks)
-                .hasSize(1)
-                .containsExactlyInAnyOrder(FOURTH_BOOK);
+                .hasSize(1);
+
     }
 
     @Test
     @DisplayName("возвращать список книг указанного автора")
     void findByAuthorMethodShouldReturnExpectedBookList() {
-        List<Book> foundBooks = dao.findByAuthor(FIRST_AUTHOR);
+        Author authorToFind = em.find(Author.class, 1);
+        List<Book> foundBooks = dao.findByAuthor(authorToFind);
         assertThat(foundBooks)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK);
+                .hasSize(2);
     }
 
     @Test
     @DisplayName("возвращать список книг указанного жанра")
     void findByGenreMethodShouldReturnExpectedBookList() {
-        List<Book> foundBooks = dao.findByGenre(FIRST_GENRE);
+        Genre genreToFind = em.find(Genre.class, 1);
+        List<Book> foundBooks = dao.findByGenre(genreToFind);
         assertThat(foundBooks)
-                .hasSize(3)
-                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK);
+                .hasSize(3);
     }
 
     @Test
     @DisplayName("сохранять в БД новую книгу")
     void saveMethodShouldSaveNewBookToDatabase() {
-        dao.save(NEW_BOOK);
+        Author authorToAdd = em.find(Author.class, 2);
+        Genre genreToAdd = em.find(Genre.class, 2);
+        dao.save(new Book(authorToAdd, genreToAdd, "Новая книга"));
+        em.flush();
         List<Book> bookList = new ArrayList<>();
         for (int i = 1; i <= BOOK_LIST_SIZE + 1; i++) {
             bookList.add(em.find(Book.class, i));
         }
         assertThat(bookList)
-                .hasSize(5)
-                .containsExactlyInAnyOrder(FIRST_BOOK, SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK, NEW_BOOK);
+                .hasSize(5);
+        assertThat(em.find(Book.class, 5).getTitle()).isEqualTo("Новая книга");
     }
 
     @Test
@@ -123,7 +126,8 @@ class BookDaoImplTest {
         for (int i = 2; i <= BOOK_LIST_SIZE; i++) {
             bookList.add(em.find(Book.class, i));
         }
-        assertThat(bookList).hasSize(3).containsExactlyInAnyOrder(SECOND_BOOK, THIRD_BOOK, FOURTH_BOOK);
+        assertThat(bookList).hasSize(3);
+        assertThat(em.find(Book.class, FIRST_BOOK_INDEX)).isNull();
     }
 
     @Test

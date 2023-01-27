@@ -1,6 +1,7 @@
 package ru.glavs.hw005.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @Table(name = "books")
 @NamedEntityGraph(name = "book-graph", attributeNodes = {
@@ -46,8 +48,6 @@ public class Book {
         this.title = title;
     }
 
-    public Book() {
-    }
 
     @Override
     public boolean equals(Object o) {

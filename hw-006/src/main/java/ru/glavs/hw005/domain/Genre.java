@@ -1,6 +1,9 @@
 package ru.glavs.hw005.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -8,10 +11,9 @@ import java.util.Objects;
 
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @Table(name = "genres")
 public class Genre {
@@ -21,6 +23,10 @@ public class Genre {
     private int id;
     @Column(name = "genre", unique = true, nullable = false, length = 30)
     private String genre;
+
+    public Genre(String genre) {
+        this.genre = genre;
+    }
 
     @Override
     public boolean equals(Object o) {
