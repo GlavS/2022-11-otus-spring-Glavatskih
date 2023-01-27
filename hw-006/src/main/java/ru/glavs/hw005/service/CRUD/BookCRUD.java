@@ -7,7 +7,9 @@ import java.util.List;
 public interface BookCRUD {
     void create();
     List<Book> readAll();
+    List<Book> readAllWithCommentsOnly();
     Book readBook(int id);
-    void update();
+    void update(int id);
     void delete(int id);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.domain.Book;
+import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
 import ru.glavs.hw005.service.display.DisplayService;
@@ -21,14 +22,24 @@ import java.util.List;
 public class BookShellService {
     private final BookCRUD bookCrud;
     private final DisplayService<Book> bookDisplayService;
+    private final DisplayService<Comment> commentDisplayService;
     private final IOService ioService;
 
     @ShellMethod("List all books.")
     @Transactional(readOnly = true)
-    public void list() {
-        List<Book> bookList = bookCrud.readAll();
-        bookDisplayService.printList(bookList);
+    public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
+        if (withCommentsOnly.equals("c")) {
+            List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();
+            for (Book b : bookListWithComments) {
+                bookDisplayService.printOne(b);
+                commentDisplayService.printList(b.getComments());
+            }
+        } else {
+            List<Book> bookList = bookCrud.readAll();
+            bookDisplayService.printList(bookList);
+        }
     }
+
 
     @ShellMethod("Show one book. Usage: show [id]")
     public void show(@ShellOption(help = "Usage: show [id]") int id) {
@@ -58,6 +69,7 @@ public class BookShellService {
 
     @ShellMethod("Update book.")
     public void update() {
-        bookCrud.update();
+        int id = ioService.readIntWithPrompt("Please enter id of book to update: ");
+        bookCrud.update(id);
     }
 }
