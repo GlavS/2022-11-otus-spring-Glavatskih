@@ -60,17 +60,17 @@ public class BookUserInterface {
         return new Book(author, genre, title);
     }
 
-    public Book BIGUPDATEMETHOD(Book book){
+    public Book BIGUPDATEMETHOD(Book book) {
         //TODO:Implement
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
-        if(title.equals("")){
+        if (title.equals("")) {
             title = book.getTitle();
         }
 
 
         String authorSurname = ioService.readStringWithPrompt("Please enter new author's surname, or enter to skip: ");
         Author author = new Author();
-        if(!authorSurname.equals("")){
+        if (!authorSurname.equals("")) {
             List<Author> authorList = authorDao.searchBySurname(authorSurname);
             if (authorList.size() == 0) {
                 String answer = ioService.readStringWithPrompt("No such author in database. Do you want to create one? (y/n): ");
@@ -92,20 +92,22 @@ public class BookUserInterface {
 
         String genreName = ioService.readStringWithPrompt("Please, enter genre or enter to skip: ");
         Genre genre = new Genre();
-        if(!genreName.equals("")){
+        if (!genreName.equals("")) {
             genre = genreDao.searchByGenre(genreName);
             if (genre.getId() == 0) {
                 String answer = ioService.readStringWithPrompt("No such genre in database. Do you want to create one? (y/n): ");
-                if (answer.equalsIgnoreCase("y")){
-                genre.setGenre(ioService.readStringWithPrompt("Please enter genre: "));
-                genre = genreDao.save(genre);
-                } else {
-                    genre = book.getGenre();
+                if (answer.equalsIgnoreCase("y")) {
+                    genre.setGenre(ioService.readStringWithPrompt("Please enter genre: "));
+                    genre = genreDao.save(genre);
                 }
             }
+        } else {
+            genre = book.getGenre();
         }
-        return new Book(author, genre, title);
-
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setGenre(genre);
+        return book;
     }
 
 }

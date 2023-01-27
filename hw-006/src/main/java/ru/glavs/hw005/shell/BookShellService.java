@@ -16,8 +16,8 @@ import ru.glavs.hw005.service.display.DisplayService;
 import java.sql.SQLException;
 import java.util.List;
 
-@ShellComponent("Book commands")
-@ShellCommandGroup("Book CRUD")
+@ShellComponent
+@ShellCommandGroup("01. Book CRUD")
 @AllArgsConstructor
 public class BookShellService {
     private final BookCRUD bookCrud;
@@ -25,7 +25,7 @@ public class BookShellService {
     private final DisplayService<Comment> commentDisplayService;
     private final IOService ioService;
 
-    @ShellMethod("List all books.")
+    @ShellMethod("List all books (with comments only - with \"c\" option).")
     @Transactional(readOnly = true)
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
         if (withCommentsOnly.equals("c")) {
