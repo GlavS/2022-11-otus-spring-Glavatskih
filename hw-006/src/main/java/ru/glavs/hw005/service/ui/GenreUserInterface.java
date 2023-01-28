@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.GenreCRUD;
-import ru.glavs.hw005.service.display.AbstractDisplayService;
+import ru.glavs.hw005.service.view.AbstractViewService;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
 public class GenreUserInterface {
     private final GenreCRUD genreCRUDService;
     private final IOService ioService;
-    private final AbstractDisplayService<Genre> displayService;
+    private final AbstractViewService<Genre> displayService;
 
-    public GenreUserInterface(GenreCRUD genreCRUDService, IOService ioService, AbstractDisplayService<Genre> displayService) {
+    public GenreUserInterface(GenreCRUD genreCRUDService, IOService ioService, AbstractViewService<Genre> displayService) {
         this.genreCRUDService = genreCRUDService;
         this.ioService = ioService;
         this.displayService = displayService;

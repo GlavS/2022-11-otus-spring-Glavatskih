@@ -1,4 +1,4 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @SpringBootTest
-class BookDisplayServiceTest {
+class BookViewServiceTest {
     @Autowired
-    AbstractDisplayService<Book> service;
+    AbstractViewService<Book> service;
     @Autowired
     EntityManager em;
     @Autowired

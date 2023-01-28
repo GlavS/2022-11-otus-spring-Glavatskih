@@ -1,4 +1,4 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Comment;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Locale;
 
 @Service
-public class CommentDisplayService extends AbstractDisplayService<Comment> implements DisplayService<Comment> {
+public class CommentViewService extends AbstractViewService<Comment> implements ViewService<Comment> {
 
     private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-15s| %-12s|%n";
     private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-15s| %-12s|%n";//TODO:rename
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
-    public CommentDisplayService(IOService ioService) {
+    public CommentViewService(IOService ioService) {
         super(ioService);
         super.delimiter = "     ------------------------------------------------------------------------------------------";
         super.formatString = "     | %-4s| %-50s| %-15s| %-12s|%n";

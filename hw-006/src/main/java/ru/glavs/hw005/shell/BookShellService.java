@@ -6,12 +6,11 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
-import ru.glavs.hw005.service.display.DisplayService;
+import ru.glavs.hw005.service.view.ViewService;
 import ru.glavs.hw005.service.ui.BookUserInterface;
 
 import java.sql.SQLException;
@@ -22,31 +21,29 @@ import java.util.List;
 @AllArgsConstructor
 public class BookShellService {
     private final BookCRUD bookCrud;
-    private final DisplayService<Book> bookDisplayService;
-    private final DisplayService<Comment> commentDisplayService;
+    private final ViewService<Book> bookViewService;
+    private final ViewService<Comment> commentViewService;
     private final IOService ioService;
     private final BookUserInterface bookUI;
 
-///////////////////////////////////////////////////////////////////////////
-    @ShellMethod("List all books (with comments only - with \"c\" option).") //TODO:test and check
+    @ShellMethod("List all books (with comments only - with \"c\" option).")
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
         if (withCommentsOnly.equals("c")) {
             List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();
             for (Book b : bookListWithComments) {
-                bookDisplayService.printOne(b);
-                commentDisplayService.printList(b.getComments());
+                bookViewService.printOne(b);
+                commentViewService.printList(b.getComments());
             }
         } else {
             List<Book> bookList = bookCrud.readAll();
-            bookDisplayService.printList(bookList);
+            bookViewService.printList(bookList);
         }
     }
-////////////////////////////////////////////////////////////////
 
     @ShellMethod("Show one book. Usage: show [id]")
     public void show(@ShellOption(help = "Usage: show [id]") long id) {
         Book bookToPrint = bookCrud.readBook(id);
-        bookDisplayService.printOne(bookToPrint);
+        bookViewService.printOne(bookToPrint);
     }
 
     @ShellMethod("Show H2 console.")
@@ -75,6 +72,8 @@ public class BookShellService {
     public void update() {
         long id = ioService.readIntWithPrompt("Please enter id of book to update: ");
         Book book = bookCrud.readBook(id);
+        bookViewService.printOne(book);
+        ioService.printf("This book will be updated");
         Book bookToUpdate = bookUI.update(book);
         bookCrud.save(bookToUpdate);
     }
