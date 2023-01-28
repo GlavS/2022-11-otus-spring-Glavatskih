@@ -5,6 +5,6 @@ import ru.glavs.hw005.domain.Comment;
 
 public interface CommentCRUD {
     void delete(Comment comment);
-    void addCommentFor(Book book, Comment comment);
+    Comment save(Comment comment);
 
 }

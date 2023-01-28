@@ -38,6 +38,11 @@ public class StreamIOService implements IOService {
         return readString();
     }
 
+    @Override
+    public String readStringNoPrompt() {
+        return readString();
+    }
+
     private int readInt() {
         int result;
         try {

@@ -21,8 +21,7 @@ public class CommentCRUDImpl implements CommentCRUD {
 
     @Override
     @Transactional
-    public void addCommentFor(Book book, Comment comment) {
-        comment.setBook(book);
-        dao.save(comment);
+    public Comment save(Comment comment) {
+       return dao.save(comment);
     }
 }

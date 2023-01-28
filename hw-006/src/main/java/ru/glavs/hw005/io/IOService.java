@@ -8,4 +8,5 @@ public interface IOService {
     int readIntWithPrompt(String prompt);
 
     String readStringWithPrompt(String prompt);
+    String readStringNoPrompt();
 }
