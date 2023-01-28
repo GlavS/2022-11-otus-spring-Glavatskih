@@ -12,6 +12,7 @@ import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
 import ru.glavs.hw005.service.display.DisplayService;
+import ru.glavs.hw005.service.ui.BookUserInterface;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,9 +25,10 @@ public class BookShellService {
     private final DisplayService<Book> bookDisplayService;
     private final DisplayService<Comment> commentDisplayService;
     private final IOService ioService;
+    private final BookUserInterface bookUI;
 
-    @ShellMethod("List all books (with comments only - with \"c\" option).")
-    @Transactional(readOnly = true) //TODO:remove
+///////////////////////////////////////////////////////////////////////////
+    @ShellMethod("List all books (with comments only - with \"c\" option).") //TODO:test and check
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
         if (withCommentsOnly.equals("c")) {
             List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();
@@ -39,11 +41,12 @@ public class BookShellService {
             bookDisplayService.printList(bookList);
         }
     }
-
+////////////////////////////////////////////////////////////////
 
     @ShellMethod("Show one book. Usage: show [id]")
     public void show(@ShellOption(help = "Usage: show [id]") int id) {
-        bookDisplayService.printOne(bookCrud.readBook(id));
+        Book bookToPrint = bookCrud.readBook(id);
+        bookDisplayService.printOne(bookToPrint);
     }
 
     @ShellMethod("Show H2 console.")
@@ -63,13 +66,15 @@ public class BookShellService {
 
     @ShellMethod("Create new book.")
     public void create() {
-        bookCrud.create();
+        Book bookToCreate = bookUI.create();
+        bookCrud.save(bookToCreate);
         ioService.println("Book created");
     }
 
     @ShellMethod("Update book.")
     public void update() {
         int id = ioService.readIntWithPrompt("Please enter id of book to update: ");
-        bookCrud.update(id);
+        Book bookToUpdate = bookUI.update(id);
+        bookCrud.save(bookToUpdate);
     }
 }

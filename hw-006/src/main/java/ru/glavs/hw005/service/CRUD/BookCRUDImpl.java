@@ -20,15 +20,13 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Transactional
     @Override
-    public void create() {
-
-        dao.save(bookUi.save());//TODO:!!
-
+    public void save(Book book) {
+        dao.save(book);
     }
     @Transactional(readOnly = true)
     @Override
     public List<Book> readAll() {
-        return dao.getAll();
+        return dao.getAll();//TODO: Lazy fields?
     }
 
     @Transactional(readOnly = true)
@@ -39,16 +37,9 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Transactional
     @Override
-    public void update(int id) {
-        Book bookToUpdate = dao.getById(id);
-        Book updatedBook = bookUi.update(bookToUpdate);
-        dao.save(updatedBook);
-    }
-
-    @Transactional
-    @Override
     public void delete(int id) {
-        dao.delete(id);
+        Book bookToDelete = dao.getById(id);
+        dao.delete(bookToDelete);
     }
 
     @Override
