@@ -13,7 +13,7 @@ public interface AuthorDao {
 
     Author save(Author author);
 
-    void delete(int id);
+    void delete(Author author);
 
     List<Author> searchBySurname(String surname);
 }

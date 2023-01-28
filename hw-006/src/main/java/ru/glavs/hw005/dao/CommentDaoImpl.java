@@ -31,8 +31,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public void delete(int id) {
-        Comment commentToDelete = Optional.ofNullable(em.find(Comment.class, id)).orElseThrow();
+    public void delete(Comment commentToDelete) {
         em.remove(commentToDelete);
     }
 }

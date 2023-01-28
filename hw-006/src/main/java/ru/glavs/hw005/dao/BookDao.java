@@ -19,7 +19,7 @@ public interface BookDao {
 
     Book save(Book book);
 
-    void delete(int id);
+    void delete(Book book);
 
     long count();
 

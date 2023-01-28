@@ -52,9 +52,7 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public void delete(int id) {
-        Optional<Genre> optionalGenre = Optional.ofNullable(em.find(Genre.class, id));
-        Genre genreToDelete = optionalGenre.orElseThrow();
+    public void delete(Genre genreToDelete) {
         em.remove(genreToDelete);
     }
 

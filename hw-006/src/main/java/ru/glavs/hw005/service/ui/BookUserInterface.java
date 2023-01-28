@@ -47,6 +47,4 @@ public class BookUserInterface {
         book.setGenre(genre);
         return book;
     }
-
-
 }

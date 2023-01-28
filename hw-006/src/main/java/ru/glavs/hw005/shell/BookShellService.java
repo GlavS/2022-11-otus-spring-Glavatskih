@@ -26,7 +26,7 @@ public class BookShellService {
     private final IOService ioService;
 
     @ShellMethod("List all books (with comments only - with \"c\" option).")
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) //TODO:remove
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
         if (withCommentsOnly.equals("c")) {
             List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();

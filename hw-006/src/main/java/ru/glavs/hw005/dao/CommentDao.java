@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Comment;
 public interface CommentDao {
     Comment save(Comment comment);
 
-    void delete(int id);
+    void delete(Comment comment);
 
     Comment getById(int id);
 }

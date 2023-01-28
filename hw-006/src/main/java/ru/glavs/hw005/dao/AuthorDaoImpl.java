@@ -51,9 +51,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void delete(int id) {
-        Optional<Author> optionalAuthor = Optional.ofNullable(em.find(Author.class, id));
-        Author authorToDelete = optionalAuthor.orElseThrow();
+    public void delete(Author authorToDelete) {
         em.remove(authorToDelete);
     }
 

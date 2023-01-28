@@ -77,9 +77,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void delete(int id) {
-        Optional<Book> optionalBook  = Optional.ofNullable(em.find(Book.class, id));
-        Book bookToDelete = optionalBook.orElseThrow();
+    public void delete(Book bookToDelete) {
         em.remove(bookToDelete);
     }
 

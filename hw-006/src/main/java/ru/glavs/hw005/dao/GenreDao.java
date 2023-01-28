@@ -13,7 +13,7 @@ public interface GenreDao {
 
     Genre save(Genre genre);
 
-    void delete(int id);
+    void delete(Genre genre);
 
     Genre searchByGenre(String genreName);
 }
