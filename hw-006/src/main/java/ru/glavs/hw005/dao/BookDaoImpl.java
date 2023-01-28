@@ -23,7 +23,7 @@ public class BookDaoImpl implements BookDao {
     public List<Book> getAll() {
         EntityGraph<?> entityGraph = em.getEntityGraph("book-graph");
         TypedQuery<Book> query = em.createQuery(
-                "select b from Book b",
+                "select b from Book b order by b.id",
                 Book.class
         );
         query.setHint(

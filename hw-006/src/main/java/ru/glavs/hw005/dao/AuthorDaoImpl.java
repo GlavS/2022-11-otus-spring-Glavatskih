@@ -26,7 +26,7 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public List<Author> getAll() {
         TypedQuery<Author> query = em.createQuery(
-                "select a from Author a",
+                "select a from Author a order by a.id",
                 Author.class
         );
         return query.getResultList();
