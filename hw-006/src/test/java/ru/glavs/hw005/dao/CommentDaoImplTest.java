@@ -42,7 +42,7 @@ class CommentDaoImplTest {
     @Test
     @DisplayName("сохранять новый комментарий")
     void saveMethodShouldSaveCommentToDatabase() {
-        Book commentedBook = em.find(Book.class, 1);
+        Book commentedBook = em.find(Book.class, 1L);
         dao.save(new Comment(
                 "Comment3, comment3 comment3 comment3 comment3.",
                 "commentator3",
@@ -50,7 +50,7 @@ class CommentDaoImplTest {
                 commentedBook
         ));
         em.flush();
-        Comment comment3 = em.find(Comment.class, 3);
+        Comment comment3 = em.find(Comment.class, 3L);
         assertThat(comment3.getText()).isEqualTo(
                 "Comment3, comment3 comment3 comment3 comment3."
         );
@@ -65,9 +65,10 @@ class CommentDaoImplTest {
     }
 
     @Test
-    @DisplayName("удалять комментарий по его id")
-    void deleteMethodShouldDeleteCommentByItsID() {
-        dao.delete(FIRST_COMMENT_ID);
+    @DisplayName("удалять комментарий")
+    void deleteMethodShouldDeleteComment() {
+        Comment commentToDelete = em.find(Comment.class, 1L);
+        dao.delete(commentToDelete);
         em.flush();
         assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoSuchElementException.class);
     }
