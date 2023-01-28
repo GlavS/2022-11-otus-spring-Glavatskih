@@ -74,7 +74,8 @@ public class BookShellService {
     @ShellMethod("Update book.")
     public void update() {
         long id = ioService.readIntWithPrompt("Please enter id of book to update: ");
-        Book bookToUpdate = bookUI.update(id);
+        Book book = bookCrud.readBook(id);
+        Book bookToUpdate = bookUI.update(book);
         bookCrud.save(bookToUpdate);
     }
 }

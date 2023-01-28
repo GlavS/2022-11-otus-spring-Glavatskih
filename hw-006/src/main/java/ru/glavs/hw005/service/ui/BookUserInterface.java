@@ -5,23 +5,19 @@ import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
-import ru.glavs.hw005.service.CRUD.BookCRUD;
 
 @Service
 public class BookUserInterface {
     private final IOService ioService;
     private final AuthorUserInterface authorUI;
     private final GenreUserInterface genreUI;
-    private final BookCRUD bookCRUDService;
 
     public BookUserInterface(IOService ioService,
                              AuthorUserInterface authorUI,
-                             GenreUserInterface genreUI,
-                             BookCRUD bookCRUDService) {
+                             GenreUserInterface genreUI) {
         this.ioService = ioService;
         this.authorUI = authorUI;
         this.genreUI = genreUI;
-        this.bookCRUDService = bookCRUDService;
     }
 
     public Book create() {
@@ -36,8 +32,7 @@ public class BookUserInterface {
         return new Book(author, genre, title);
     }
 
-    public Book update(long id) {
-        Book book = bookCRUDService.readBook(id);
+    public Book update(Book book) {
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
         if (title.equals("")) {
             title = book.getTitle();
