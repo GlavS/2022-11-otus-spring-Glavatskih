@@ -4,18 +4,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.dao.BookDao;
 import ru.glavs.hw005.domain.Book;
-import ru.glavs.hw005.service.ui.BookUserInterface;
 
 import java.util.List;
 
 @Service
 public class BookCRUDImpl implements BookCRUD {
     private final BookDao dao;
-    private final BookUserInterface bookUi;
 
-    public BookCRUDImpl(BookDao dao, BookUserInterface bookUi) {
+    public BookCRUDImpl(BookDao dao) {
         this.dao = dao;
-        this.bookUi = bookUi;
     }
 
     @Transactional
@@ -23,16 +20,23 @@ public class BookCRUDImpl implements BookCRUD {
     public void save(Book book) {
         dao.save(book);
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<Book> readAll() {
-        return dao.getAll();//TODO: Lazy fields?
+        List<Book> bookList = dao.getAll();
+        for (Book b : bookList) {
+            b.getComments().size();
+        }
+        return bookList;
     }
 
     @Transactional(readOnly = true)
     @Override
     public Book readBook(long id) {
-        return dao.getById(id);
+        Book book = dao.getById(id);
+        book.getComments().size();
+        return book;
     }
 
     @Transactional
@@ -45,6 +49,10 @@ public class BookCRUDImpl implements BookCRUD {
     @Override
     @Transactional(readOnly = true)
     public List<Book> readAllWithCommentsOnly() {
-        return dao.getAllWithCommentsOnly();
+        List<Book> bookList = dao.getAllWithCommentsOnly();
+        for (Book b : bookList) {
+            b.getComments().size();
+        }
+        return bookList;
     }
 }
