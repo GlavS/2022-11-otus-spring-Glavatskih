@@ -13,7 +13,7 @@ import java.util.Locale;
 public class CommentViewService extends AbstractViewService<Comment> implements ViewService<Comment> {
 
     private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-15s| %-12s|%n";
-    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-15s| %-12s|%n";//TODO:rename
+    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-15s| %-12s|%n";
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
     public CommentViewService(IOService ioService) {
@@ -24,7 +24,7 @@ public class CommentViewService extends AbstractViewService<Comment> implements 
     }
 
     @Override
-    protected void displayItem(Comment comment) {//TODO:refactor, everything shift to the right
+    protected void displayItem(Comment comment) {
         SimpleDateFormat commentDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         List<String> commentText = textFormatter(comment.getText());
 
