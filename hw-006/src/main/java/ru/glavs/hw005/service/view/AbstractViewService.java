@@ -1,17 +1,17 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 
 import ru.glavs.hw005.io.IOService;
 
 import java.util.List;
 
-public abstract class AbstractDisplayService<T> implements DisplayService<T> {
+public abstract class AbstractViewService<T> implements ViewService<T> {
     protected String delimiter;
     protected String formatString;
     protected Object[] formatArgs;
     protected IOService ioService;
 
-    public AbstractDisplayService(IOService ioService) {
+    public AbstractViewService(IOService ioService) {
         this.ioService = ioService;
     }
 

@@ -1,8 +1,8 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import java.util.List;
 
-public interface DisplayService<T> {
+public interface ViewService<T> {
     void printOne(T item);
 
     void printList(List<T> itemList);

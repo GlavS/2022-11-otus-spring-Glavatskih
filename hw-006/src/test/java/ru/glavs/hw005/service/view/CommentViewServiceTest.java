@@ -1,4 +1,4 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
-class CommentDisplayServiceTest {
+class CommentViewServiceTest {
 
     private static final Author FIRST_AUTHOR = new Author("Имя1", "Фамилия1", "А.А.");
     private static final Genre FIRST_GENRE = new Genre("Жанр1");
@@ -43,7 +43,7 @@ class CommentDisplayServiceTest {
     }
 
     @Autowired
-    private AbstractDisplayService<Comment> service;
+    private AbstractViewService<Comment> service;
 
     @Test
     void displayItem() {

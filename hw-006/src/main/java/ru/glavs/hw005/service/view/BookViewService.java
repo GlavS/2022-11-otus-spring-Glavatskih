@@ -1,17 +1,15 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 
-import java.util.stream.Collectors;
-
 @Service
-public class BookDisplayService extends AbstractDisplayService<Book> implements DisplayService<Book> {
+public class BookViewService extends AbstractViewService<Book> implements ViewService<Book> {
     private static final String ITEM_FORMAT_STRING = "|%-5d| %-5s%-15s| %-40s| %-15s| %-30s|%n";
 
-    public BookDisplayService(IOService ioService) {
+    public BookViewService(IOService ioService) {
         super(ioService);
         super.delimiter = "------------------------------------------------------------------------------------------------------------------------";
         super.formatString = "|%-5s| %-20s| %-40s| %-15s| %-30s|%n";

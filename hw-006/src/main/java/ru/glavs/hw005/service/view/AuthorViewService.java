@@ -1,15 +1,15 @@
-package ru.glavs.hw005.service.display;
+package ru.glavs.hw005.service.view;
 
 import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.io.IOService;
 
 @Service
-public class AuthorDisplayService extends AbstractDisplayService<Author> implements DisplayService<Author> {
+public class AuthorViewService extends AbstractViewService<Author> implements ViewService<Author> {
 
     private static final String ITEM_FORMAT_STRING = "|%-5d| %-30s| %-15s| %-5s|%n";
 
-    public AuthorDisplayService(IOService ioService) {
+    public AuthorViewService(IOService ioService) {
         super(ioService);
         super.delimiter = "---------------------------------------------------------------";
         super.formatString = "|%5s| %-30s| %-15s| %-5s|%n";

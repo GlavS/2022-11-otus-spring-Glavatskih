@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.AuthorCRUD;
-import ru.glavs.hw005.service.display.AbstractDisplayService;
+import ru.glavs.hw005.service.view.AbstractViewService;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import java.util.List;
 public class AuthorUserInterface {
     private final AuthorCRUD authorCRUDService;
     private final IOService ioService;
-    private final AbstractDisplayService<Author> displayService;
+    private final AbstractViewService<Author> displayService;
 
     public AuthorUserInterface(AuthorCRUD authorCRUDService,
                                IOService ioService,
-                               AbstractDisplayService<Author> displayService) {
+                               AbstractViewService<Author> displayService) {
         this.authorCRUDService = authorCRUDService;
         this.ioService = ioService;
         this.displayService = displayService;
