@@ -17,7 +17,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Comment getById(int id) {
+    public Comment getById(long id) {
         return Optional.ofNullable(em.find(Comment.class, id)).orElseThrow();
     }
 

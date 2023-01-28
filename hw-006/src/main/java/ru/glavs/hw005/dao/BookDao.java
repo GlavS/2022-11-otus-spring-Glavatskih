@@ -9,7 +9,7 @@ import java.util.List;
 public interface BookDao {
     List<Book> getAll();
 
-    Book getById(int id);
+    Book getById(long id);
 
     List<Book> findByTitlePattern(String titlePattern);
 

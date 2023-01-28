@@ -31,13 +31,13 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Transactional(readOnly = true)
     @Override
-    public Book readBook(int id) {
+    public Book readBook(long id) {
         return dao.getById(id);
     }
 
     @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         Book bookToDelete = dao.getById(id);
         dao.delete(bookToDelete);
     }

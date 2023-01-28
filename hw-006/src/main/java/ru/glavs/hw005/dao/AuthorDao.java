@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Author;
 import java.util.List;
 
 public interface AuthorDao {
-    Author getById(int id);
+    Author getById(long id);
 
     List<Author> getAll();
 

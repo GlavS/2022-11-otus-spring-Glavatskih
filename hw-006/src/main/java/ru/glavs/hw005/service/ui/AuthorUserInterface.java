@@ -51,7 +51,7 @@ public class AuthorUserInterface {
 
     public Author pickAuthorFrom(List<Author> authorList) {
         displayService.printList(authorList);
-        int authorId = ioService.readIntWithPrompt("Please enter desired author id: ");
+        long authorId = ioService.readIntWithPrompt("Please enter desired author id: ");
         return dao.getById(authorId);
     }
 }

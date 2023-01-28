@@ -36,7 +36,7 @@ public class BookUserInterface {
         return new Book(author, genre, title);
     }
 
-    public Book update(int id) {
+    public Book update(long id) {
         Book book = bookCRUDService.readBook(id);
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
         if (title.equals("")) {

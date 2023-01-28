@@ -20,7 +20,7 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public Genre getById(int id) {
+    public Genre getById(long id) {
         return Optional.ofNullable(em.find(Genre.class, id)).orElseThrow();
     }
 

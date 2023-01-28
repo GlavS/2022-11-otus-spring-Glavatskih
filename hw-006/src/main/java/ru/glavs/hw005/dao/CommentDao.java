@@ -7,5 +7,5 @@ public interface CommentDao {
 
     void delete(Comment comment);
 
-    Comment getById(int id);
+    Comment getById(long id);
 }

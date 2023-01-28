@@ -11,7 +11,7 @@ public interface BookCRUD {
 
     List<Book> readAllWithCommentsOnly();
 
-    Book readBook(int id);
+    Book readBook(long id);
 
-    void delete(int id);
+    void delete(long id);
 }

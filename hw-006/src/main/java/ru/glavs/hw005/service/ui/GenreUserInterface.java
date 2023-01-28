@@ -42,7 +42,7 @@ public class GenreUserInterface {
 
     public Genre pickGenreFrom(List<Genre> genreList) {
         displayService.printList(genreList);
-        int genreId = ioService.readIntWithPrompt("Please enter desired genre id: ");
+        long genreId = ioService.readIntWithPrompt("Please enter desired genre id: ");
         return dao.getById(genreId);
     }
 

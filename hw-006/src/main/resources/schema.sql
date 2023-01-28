@@ -5,16 +5,16 @@ DROP TABLE IF EXISTS comments CASCADE ;
 
 CREATE TABLE books
 (
-    book_id INT AUTO_INCREMENT NOT NULL,
-    author  INT                NOT NULL,
-    genre   INT                NOT NULL,
+    book_id BIGINT AUTO_INCREMENT NOT NULL,
+    author  BIGINT                NOT NULL,
+    genre   BIGINT                NOT NULL,
     title   VARCHAR(255)       NOT NULL,
     CONSTRAINT pk_books PRIMARY KEY (book_id)
 );
 
 CREATE TABLE authors
 (
-    author_id INT AUTO_INCREMENT NOT NULL,
+    author_id BIGINT AUTO_INCREMENT NOT NULL,
     name      VARCHAR(30)        NOT NULL,
     surname   VARCHAR(30)        NOT NULL,
     initials  VARCHAR(4),
@@ -23,18 +23,18 @@ CREATE TABLE authors
 
 CREATE TABLE genres
 (
-    genre_id INT AUTO_INCREMENT NOT NULL,
+    genre_id BIGINT AUTO_INCREMENT NOT NULL,
     genre    VARCHAR(30)        NOT NULL,
     CONSTRAINT pk_genres PRIMARY KEY (genre_id)
 );
 
 CREATE TABLE comments
 (
-    comment_id  INT AUTO_INCREMENT NOT NULL,
+    comment_id  BIGINT AUTO_INCREMENT NOT NULL,
     text        VARCHAR(10000)     NOT NULL,
     author_nick VARCHAR(30),
     date        DATE,
-    book_id    INT,
+    book_id    BIGINT,
     CONSTRAINT pk_comments PRIMARY KEY (comment_id)
 );
 

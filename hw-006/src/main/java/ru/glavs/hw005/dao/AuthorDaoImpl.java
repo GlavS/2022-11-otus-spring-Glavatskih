@@ -19,7 +19,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public Author getById(int id) {
+    public Author getById(long id) {
         return Optional.ofNullable(em.find(Author.class, id)).orElseThrow();
     }
 

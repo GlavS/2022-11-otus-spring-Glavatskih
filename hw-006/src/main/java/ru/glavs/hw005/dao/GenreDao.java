@@ -5,7 +5,7 @@ import ru.glavs.hw005.domain.Genre;
 import java.util.List;
 
 public interface GenreDao {
-    Genre getById(int id);
+    Genre getById(long id);
 
     List<Genre> getAll();
 
