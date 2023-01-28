@@ -6,7 +6,6 @@ import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
@@ -27,8 +26,7 @@ public class BookShellService {
     private final IOService ioService;
     private final BookUserInterface bookUI;
 
-///////////////////////////////////////////////////////////////////////////
-    @ShellMethod("List all books (with comments only - with \"c\" option).") //TODO:test and check
+    @ShellMethod("List all books (with comments only - with \"c\" option).")
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {
         if (withCommentsOnly.equals("c")) {
             List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();
@@ -41,7 +39,6 @@ public class BookShellService {
             bookDisplayService.printList(bookList);
         }
     }
-////////////////////////////////////////////////////////////////
 
     @ShellMethod("Show one book. Usage: show [id]")
     public void show(@ShellOption(help = "Usage: show [id]") long id) {
@@ -75,6 +72,8 @@ public class BookShellService {
     public void update() {
         long id = ioService.readIntWithPrompt("Please enter id of book to update: ");
         Book book = bookCrud.readBook(id);
+        bookDisplayService.printOne(book);
+        ioService.printf("This book will be updated");
         Book bookToUpdate = bookUI.update(book);
         bookCrud.save(bookToUpdate);
     }
