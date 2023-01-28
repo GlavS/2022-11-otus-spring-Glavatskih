@@ -46,7 +46,7 @@ public class AuthorUserInterface {
         author.setSurname(ioService.readStringWithPrompt("Enter author's surname: "));
         author.setName(ioService.readStringWithPrompt("Enter author's name: "));
         author.setInitials(ioService.readStringWithPrompt("Enter initials: "));
-        return authorCRUDService.save(author);
+        return author;
     }
 
     public Author pickAuthorFrom(List<Author> authorList) {
