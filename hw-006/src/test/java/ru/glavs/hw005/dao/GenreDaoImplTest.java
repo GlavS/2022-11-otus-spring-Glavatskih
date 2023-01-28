@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class GenreDaoImplTest {
 
     private static final long ALL_GENRES_NUMBER = 2;
-    private static final int FIRST_GENRE_ID = 1;
+    private static final long FIRST_GENRE_ID = 1;
 
     private static final Genre NEW_GENRE = new Genre("Жанр3");
     private static final String SECOND_GENRE_GENRE = "Жанр2";
@@ -59,7 +59,7 @@ class GenreDaoImplTest {
         dao.save(NEW_GENRE);
         em.flush();
         List<Genre> currentGenreList = new ArrayList<>();
-        for (int i = 1; i <= ALL_GENRES_NUMBER + 1; i++) {
+        for (long i = 1; i <= ALL_GENRES_NUMBER + 1; i++) {
             currentGenreList.add(em.find(Genre.class, i));
         }
         assertThat(currentGenreList).hasSize(3);
@@ -68,10 +68,11 @@ class GenreDaoImplTest {
     }
 
     @Test
-    @DisplayName("должен удалять жанр с указанным id")
-    void deleteShouldDeleteGenreByItsID() {
+    @DisplayName("должен удалять жанр")
+    void deleteShouldDeleteGenre() {
+        Genre genreToDelete = em.find(Genre.class, 1L);
         assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNotNull();
-        dao.delete(FIRST_GENRE_ID);
+        dao.delete(genreToDelete);
         assertThat(em.find(Genre.class, FIRST_GENRE_ID)).isNull();
         assertThatThrownBy(() -> em.flush()).isInstanceOf(PersistenceException.class);
     }

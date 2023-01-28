@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class AuthorDaoImplTest {
 
     private static final long ALL_AUTHORS_NUMBER = 2;
-    private static final int FIRST_AUTHOR_ID = 1;
+    private static final long FIRST_AUTHOR_ID = 1;
     private static final Author NEW_AUTHOR = new Author("Имя3", "Фамилия3", "В.В.");
     private static final String SECOND_AUTHOR_SURNAME = "Фамилия2";
     @Autowired
@@ -56,7 +56,7 @@ class AuthorDaoImplTest {
     void saveMethodShouldAddNewAuthorToDatabase() {
         dao.save(NEW_AUTHOR);
         List<Author> currentAuthorList = new ArrayList<>();
-        for (int i = 1; i <= ALL_AUTHORS_NUMBER + 1; i++) {
+        for (long i = 1; i <= ALL_AUTHORS_NUMBER + 1; i++) {
             currentAuthorList.add(em.find(Author.class, i));
         }
         assertThat(currentAuthorList).hasSize(3);
@@ -64,11 +64,12 @@ class AuthorDaoImplTest {
     }
 
     @Test
-    @DisplayName("должен удалять автора с указанным id")
-    void deleteShouldDeleteAuthorByHisID() {
-        dao.delete(FIRST_AUTHOR_ID);
-        assertThat(em.find(Author.class, 2).getSurname()).isEqualTo("Фамилия2");
-        assertThat(em.find(Author.class, 1)).isNull();
+    @DisplayName("должен удалять автора")
+    void deleteShouldDeleteAuthor() {
+        Author authorToDelete = em.find(Author.class, 1L);
+        dao.delete(authorToDelete);
+        assertThat(em.find(Author.class, 2L).getSurname()).isEqualTo("Фамилия2");
+        assertThat(em.find(Author.class, 1L)).isNull();
         assertThatThrownBy(()-> em.flush()).isInstanceOf(PersistenceException.class);
     }
 
