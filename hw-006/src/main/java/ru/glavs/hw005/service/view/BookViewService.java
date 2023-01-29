@@ -5,9 +5,12 @@ import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 
+import java.util.List;
+
 @Service
 public class BookViewService extends AbstractViewService<Book> implements ViewService<Book> {
     private static final String ITEM_FORMAT_STRING = "|%-5d| %-5s%-15s| %-40s| %-15s| %-30s|%n";
+    private static final int STRIPPED_COMMENT_LENGTH = 25;
 
     public BookViewService(IOService ioService) {
         super(ioService);
@@ -18,24 +21,31 @@ public class BookViewService extends AbstractViewService<Book> implements ViewSe
 
     @Override
     protected void displayItem(Book book) {
-        StringBuilder comments = new StringBuilder();//TODO:Better refactor
-
-        for (Comment c : book.getComments()) {
-            if(c != null) {
-                comments.append(c.getText())
-                        .append(" ");
-            }
-        }
-        if(!comments.toString().equals("")) {
-            comments.setLength(25);
-            comments.append("...");
-        }
+        String comments = formatComments(book.getComments());
         ioService.printf(ITEM_FORMAT_STRING,
                 book.getId(),
                 book.getAuthor().getInitials(),
                 book.getAuthor().getSurname(),
                 book.getTitle(),
                 book.getGenre().getGenre(),
-                comments.toString());
+                comments);
+    }
+    private String formatComments(List<Comment> commentList){
+        StringBuilder comments = new StringBuilder();
+
+        for (Comment c : commentList) {
+            if (c != null) {
+                comments.append(c.getText())
+                        .append(" ");
+            }
+        }
+        if (comments.length() > 0 && comments.length() <= STRIPPED_COMMENT_LENGTH) {
+            int commentLength =  comments.length();
+            comments.append(" ".repeat(STRIPPED_COMMENT_LENGTH - commentLength));
+        } else if (comments.length() > STRIPPED_COMMENT_LENGTH) {
+            comments.setLength(STRIPPED_COMMENT_LENGTH);
+            comments.append("...");
+        }
+        return comments.toString();
     }
 }

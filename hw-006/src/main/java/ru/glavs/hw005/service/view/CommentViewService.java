@@ -12,23 +12,23 @@ import java.util.Locale;
 @Service
 public class CommentViewService extends AbstractViewService<Comment> implements ViewService<Comment> {
 
-    private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-15s| %-12s|%n";
-    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-15s| %-12s|%n";
+    private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-20s| %-12s|%n";
+    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-20s| %-12s|%n";
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
     public CommentViewService(IOService ioService) {
         super(ioService);
-        super.delimiter = "     ------------------------------------------------------------------------------------------";
-        super.formatString = "     | %-4s| %-50s| %-15s| %-12s|%n";
+        super.delimiter = "     -----------------------------------------------------------------------------------------------";
+        super.formatString = "     | %-4s| %-50s| %-20s| %-12s|%n";
         super.formatArgs = new Object[]{" ID ", "        КОММЕНТАРИЙ", "    НИК ", "   ДАТА"};
     }
 
     @Override
     protected void displayItem(Comment comment) {
         SimpleDateFormat commentDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        List<String> commentText = textFormatter(comment.getText());
+        List<String> formattedCommentText = formatCommentText(comment.getText());
 
-        if (commentText.size() == 1) {
+        if (formattedCommentText.size() == 1) {
             ioService.printf(ITEM_FORMAT_STRING,
                     comment.getId(),
                     comment.getText(),
@@ -37,17 +37,17 @@ public class CommentViewService extends AbstractViewService<Comment> implements 
         } else {
             ioService.printf(ITEM_FORMAT_STRING,
                     comment.getId(),
-                    commentText.get(0),
+                    formattedCommentText.get(0),
                     comment.getAuthorNick(),
                     commentDateFormat.format(comment.getDate()));
-            for (int i = 1; i < commentText.size(); i++) {
+            for (int i = 1; i < formattedCommentText.size(); i++) {
                 ioService.printf(LIST_ITEM_FORMAT_STRING,
-                        "", commentText.get(i), "", "");
+                        "", formattedCommentText.get(i), "", "");
             }
         }
     }
 
-    private List<String> textFormatter(String comment) {
+    private List<String> formatCommentText(String comment) {
 
         List<String> splittedComment = List.of(comment.split(" "));
         List<String> result = new ArrayList<>();
@@ -62,10 +62,14 @@ public class CommentViewService extends AbstractViewService<Comment> implements 
                 currentWidth = word.length() + 1;
             }
             sb.append(word).append(" ");
-
         }
         if (sb.length() > 0) {
             result.add(sb.toString());
+        }
+        if(result.size() == 1){
+            StringBuilder lineSb = new StringBuilder(result.get(0));
+            lineSb.append(" ".repeat(Math.max(0, COMMENT_COLUMN_WIDTH - lineSb.length())));
+            result.set(0, lineSb.toString());
         }
         return result;
     }

@@ -53,6 +53,7 @@ public class StreamIOService implements IOService {
         }
         return result;
     }
+
     private String readString() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String result;

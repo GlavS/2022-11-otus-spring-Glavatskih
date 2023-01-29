@@ -4,5 +4,6 @@ import ru.glavs.hw005.domain.Book;
 
 public interface CommentUI {
     void createCommentFor(Book book);
+
     void deleteComment();
 }

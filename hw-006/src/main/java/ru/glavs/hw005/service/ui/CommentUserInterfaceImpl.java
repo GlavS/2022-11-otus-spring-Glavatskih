@@ -10,7 +10,7 @@ import ru.glavs.hw005.service.view.AbstractViewService;
 import java.util.Date;
 
 @Service
-public class CommentUserInterfaceImpl implements CommentUI{
+public class CommentUserInterfaceImpl implements CommentUI {
     private final CommentCRUD commentCRUDService;
     private final IOService ioService;
     private final AbstractViewService<Comment> displayService;
@@ -37,12 +37,12 @@ public class CommentUserInterfaceImpl implements CommentUI{
         displayService.printOne(comment);
     }
 
-    public void deleteComment(){
+    public void deleteComment() {
         long commentId = ioService.readIntWithPrompt("Please enter comment id: ");
         Comment commentToDelete = commentCRUDService.findById(commentId);
         displayService.printOne(commentToDelete);
         String answer = ioService.readStringWithPrompt("This comment will be deleted. Are you sure(y/n)? ");
-        if(answer.equalsIgnoreCase("y")){
+        if (answer.equalsIgnoreCase("y")) {
             commentCRUDService.delete(commentToDelete);
         } else {
             ioService.println("Delete cancelled");

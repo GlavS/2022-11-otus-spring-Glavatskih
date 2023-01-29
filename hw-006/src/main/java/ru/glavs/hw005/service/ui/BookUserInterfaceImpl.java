@@ -7,7 +7,7 @@ import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 
 @Service
-public class BookUserInterfaceImpl implements BookUI{
+public class BookUserInterfaceImpl implements BookUI {
     private final IOService ioService;
     private final AuthorUI authorUI;
     private final GenreUI genreUI;

@@ -16,7 +16,6 @@ public class CommentCRUDImpl implements CommentCRUD {
     @Override
     @Transactional
     public void delete(Comment comment) {
-       // Comment commentToDelete = dao.save(comment);
         dao.delete(comment);
     }
 

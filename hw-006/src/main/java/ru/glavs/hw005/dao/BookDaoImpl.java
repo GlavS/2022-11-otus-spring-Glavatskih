@@ -6,9 +6,11 @@ import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Genre;
 
-import javax.persistence.*;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -88,12 +90,13 @@ public class BookDaoImpl implements BookDao {
                 Long.class);
         return query.getSingleResult();
     }
+
     @Override
-    public List<Book> getAllWithCommentsOnly(){
+    public List<Book> getAllWithCommentsOnly() {
         EntityGraph<?> entityGraph = em.getEntityGraph("book-graph");
         TypedQuery<Book> query = em.createQuery(
-          "select b from Book b where b.comments is not empty",
-          Book.class
+                "select b from Book b where b.comments is not empty",
+                Book.class
         );
         query.setHint(EntityGraphType.FETCH.getKey(), entityGraph);
         return query.getResultList();
