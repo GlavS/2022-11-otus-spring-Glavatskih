@@ -7,14 +7,14 @@ import ru.glavs.hw005.domain.Genre;
 import ru.glavs.hw005.io.IOService;
 
 @Service
-public class BookUserInterface {
+public class BookUserInterfaceImpl implements BookUI{
     private final IOService ioService;
-    private final AuthorUserInterface authorUI;
-    private final GenreUserInterface genreUI;
+    private final AuthorUI authorUI;
+    private final GenreUI genreUI;
 
-    public BookUserInterface(IOService ioService,
-                             AuthorUserInterface authorUI,
-                             GenreUserInterface genreUI) {
+    public BookUserInterfaceImpl(IOService ioService,
+                                 AuthorUI authorUI,
+                                 GenreUI genreUI) {
         this.ioService = ioService;
         this.authorUI = authorUI;
         this.genreUI = genreUI;
@@ -32,7 +32,7 @@ public class BookUserInterface {
         return new Book(author, genre, title);
     }
 
-    public Book update(Book book) { //TODO: error creating author during update
+    public Book update(Book book) {
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
         if (title.equals("")) {
             title = book.getTitle();
