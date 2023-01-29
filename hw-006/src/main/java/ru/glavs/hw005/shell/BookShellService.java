@@ -40,8 +40,9 @@ public class BookShellService {
         }
     }
 
-    @ShellMethod("Show one book. Usage: show [id]")
-    public void show(@ShellOption(help = "Usage: show [id]") long id) {
+    @ShellMethod("Show one book.")
+    public void show() {
+        long id = ioService.readIntWithPrompt("Please enter id of book to show: ");
         Book bookToPrint = bookCrud.readBook(id);
         bookViewService.printOne(bookToPrint);
     }
@@ -55,8 +56,9 @@ public class BookShellService {
         }
     }
 
-    @ShellMethod("Delete book. Usage: delete [id]")
-    public void delete(@ShellOption long id) {
+    @ShellMethod("Delete book.")
+    public void delete() {
+        long id = ioService.readIntWithPrompt("Please enter id of book to delete: ");
         bookCrud.delete(id);
         ioService.printf("Book %d deleted.%n", id);
     }

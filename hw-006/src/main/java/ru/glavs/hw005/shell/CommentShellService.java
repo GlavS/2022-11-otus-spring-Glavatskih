@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellOption;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
@@ -23,7 +22,8 @@ public class CommentShellService {
     private final IOService ioService;
 
     @ShellMethod("Add comment to book.")
-    void commentAdd(@ShellOption(help = "Usage: comment-add [bookId]") long id) {
+    void commentAdd() {
+        long id = ioService.readIntWithPrompt("Please enter id of book you want to comment: ");
         Book bookToComment = bookCRUDService.readBook(id);
         bookViewService.printOne(bookToComment);
         ioService.println("You are going to comment this book");
