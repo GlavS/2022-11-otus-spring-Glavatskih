@@ -27,13 +27,12 @@ public class CommentShellService {
         Book bookToComment = bookCRUDService.readBook(id);
         bookViewService.printOne(bookToComment);
         ioService.println("You are going to comment this book");
-        commentUI.create(bookToComment);
-
+        commentUI.createCommentFor(bookToComment);
     }
 
     @ShellMethod("Delete existing book comment.")
     void commentDelete() {
-        commentUI.delete();
+        commentUI.deleteComment();
     }
 
 }
