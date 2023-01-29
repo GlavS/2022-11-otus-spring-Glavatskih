@@ -10,20 +10,19 @@ import ru.glavs.hw005.service.view.AbstractViewService;
 import java.util.Date;
 
 @Service
-public class CommentUserInterface {
+public class CommentUserInterfaceImpl implements CommentUI{
     private final CommentCRUD commentCRUDService;
     private final IOService ioService;
     private final AbstractViewService<Comment> displayService;
 
-    public CommentUserInterface(CommentCRUD commentCRUDService,
-                                IOService ioService,
-                                AbstractViewService<Comment> displayService) {
+    public CommentUserInterfaceImpl(CommentCRUD commentCRUDService,
+                                    IOService ioService,
+                                    AbstractViewService<Comment> displayService) {
         this.commentCRUDService = commentCRUDService;
         this.ioService = ioService;
         this.displayService = displayService;
     }
 
-//TODO: implement UI with comments
 
     public void create(Book book) {
         String nickName = ioService.readStringWithPrompt("Please enter your nickname");

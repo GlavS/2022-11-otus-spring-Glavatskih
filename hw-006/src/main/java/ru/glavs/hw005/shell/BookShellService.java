@@ -10,8 +10,8 @@ import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.domain.Comment;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
+import ru.glavs.hw005.service.ui.BookUI;
 import ru.glavs.hw005.service.view.ViewService;
-import ru.glavs.hw005.service.ui.BookUserInterface;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +24,7 @@ public class BookShellService {
     private final ViewService<Book> bookViewService;
     private final ViewService<Comment> commentViewService;
     private final IOService ioService;
-    private final BookUserInterface bookUI;
+    private final BookUI bookUI;
 
     @ShellMethod("List all books (with comments only - with \"c\" option).")
     public void list(@ShellOption(help = "Usage: list [c]", defaultValue = "") String withCommentsOnly) {

@@ -28,7 +28,6 @@ public class Comment {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-
     @JoinColumn(name = "book_id")
     @ManyToOne
     private Book book;

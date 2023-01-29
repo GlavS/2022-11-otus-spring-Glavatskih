@@ -9,19 +9,20 @@ import ru.glavs.hw005.service.view.AbstractViewService;
 import java.util.List;
 
 @Service
-public class AuthorUserInterface {
+public class AuthorUserInterfaceImpl implements AuthorUI {
     private final AuthorCRUD authorCRUDService;
     private final IOService ioService;
     private final AbstractViewService<Author> displayService;
 
-    public AuthorUserInterface(AuthorCRUD authorCRUDService,
-                               IOService ioService,
-                               AbstractViewService<Author> displayService) {
+    public AuthorUserInterfaceImpl(AuthorCRUD authorCRUDService,
+                                   IOService ioService,
+                                   AbstractViewService<Author> displayService) {
         this.authorCRUDService = authorCRUDService;
         this.ioService = ioService;
         this.displayService = displayService;
     }
 
+    @Override
     public Author requestAuthor(String surname) {
         Author author;
         List<Author> searchResultList = authorCRUDService.searchBySurname(surname);
@@ -41,6 +42,7 @@ public class AuthorUserInterface {
         return author;
     }
 
+    @Override
     public Author createAuthor() {
         Author author = new Author();
         author.setSurname(ioService.readStringWithPrompt("Enter author's surname: "));
@@ -49,6 +51,7 @@ public class AuthorUserInterface {
         return author;
     }
 
+    @Override
     public Author pickAuthorFrom(List<Author> authorList) {
         displayService.printList(authorList);
         long authorId = ioService.readIntWithPrompt("Please enter desired author id: ");

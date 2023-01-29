@@ -8,7 +8,7 @@ import org.springframework.shell.standard.ShellOption;
 import ru.glavs.hw005.domain.Book;
 import ru.glavs.hw005.io.IOService;
 import ru.glavs.hw005.service.CRUD.BookCRUD;
-import ru.glavs.hw005.service.ui.CommentUserInterface;
+import ru.glavs.hw005.service.ui.CommentUI;
 import ru.glavs.hw005.service.view.AbstractViewService;
 
 @ShellComponent
@@ -18,7 +18,7 @@ public class CommentShellService {
 
     private final BookCRUD bookCRUDService;
     private final AbstractViewService<Book> bookViewService;
-    private final CommentUserInterface commentUI;
+    private final CommentUI commentUI;
 
     private final IOService ioService;
 
