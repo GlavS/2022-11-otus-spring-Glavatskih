@@ -78,7 +78,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public void delete(Book bookToDelete) {
-        em.remove(bookToDelete);
+        em.remove(em.contains(bookToDelete) ? bookToDelete : em.merge(bookToDelete));
     }
 
     @Override

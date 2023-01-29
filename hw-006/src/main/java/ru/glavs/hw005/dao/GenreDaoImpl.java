@@ -53,7 +53,7 @@ public class GenreDaoImpl implements GenreDao {
 
     @Override
     public void delete(Genre genreToDelete) {
-        em.remove(genreToDelete);
+        em.remove(em.contains(genreToDelete) ? genreToDelete : em.merge(genreToDelete));
     }
 
     @Override
