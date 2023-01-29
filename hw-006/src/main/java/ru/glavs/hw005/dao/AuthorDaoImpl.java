@@ -43,7 +43,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author save(Author author) {
-        if(author.getId() == 0){
+        if (author.getId() == 0) {
             em.persist(author);
             return author;
         }

@@ -9,7 +9,7 @@ import ru.glavs.hw005.service.view.AbstractViewService;
 import java.util.List;
 
 @Service
-public class GenreUserInterfaceImpl implements GenreUI{
+public class GenreUserInterfaceImpl implements GenreUI {
     private final GenreCRUD genreCRUDService;
     private final IOService ioService;
     private final AbstractViewService<Genre> displayService;

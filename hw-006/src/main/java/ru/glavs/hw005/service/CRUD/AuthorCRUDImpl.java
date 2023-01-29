@@ -20,16 +20,19 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     public List<Author> searchBySurname(String surname) {
         return dao.searchBySurname(surname);
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<Author> findAll() {
         return dao.getAll();
     }
+
     @Transactional
     @Override
     public Author save(Author author) {
         return dao.save(author);
     }
+
     @Transactional(readOnly = true)
     @Override
     public Author findById(long id) {
