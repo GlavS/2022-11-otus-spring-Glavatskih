@@ -32,7 +32,7 @@ public class BookUserInterface {
         return new Book(author, genre, title);
     }
 
-    public Book update(Book book) {
+    public Book update(Book book) { //TODO: error creating author during update
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
         if (title.equals("")) {
             title = book.getTitle();

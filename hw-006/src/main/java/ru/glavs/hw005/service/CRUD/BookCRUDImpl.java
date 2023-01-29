@@ -2,29 +2,43 @@ package ru.glavs.hw005.service.CRUD;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.glavs.hw005.dao.AuthorDao;
 import ru.glavs.hw005.dao.BookDao;
+import ru.glavs.hw005.dao.GenreDao;
+import ru.glavs.hw005.domain.Author;
 import ru.glavs.hw005.domain.Book;
+import ru.glavs.hw005.domain.Genre;
 
 import java.util.List;
 
 @Service
 public class BookCRUDImpl implements BookCRUD {
-    private final BookDao dao;
+    private final BookDao bookDao;
+    private final AuthorDao authorDao;
+    private final GenreDao genreDao;
 
-    public BookCRUDImpl(BookDao dao) {
-        this.dao = dao;
+    public BookCRUDImpl(BookDao bookDao,
+                        AuthorDao authorDao,
+                        GenreDao genreDao) {
+        this.bookDao = bookDao;
+        this.authorDao = authorDao;
+        this.genreDao = genreDao;
     }
 
     @Transactional
     @Override
     public void save(Book book) {
-        dao.save(book);
+        Author author = authorDao.save(book.getAuthor());
+        book.setAuthor(author);
+        Genre genre = genreDao.save(book.getGenre());
+        book.setGenre(genre);
+        bookDao.save(book);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Book> readAll() {
-        List<Book> bookList = dao.getAll();
+        List<Book> bookList = bookDao.getAll();
         for (Book b : bookList) {
             b.getComments().size();
         }
@@ -34,7 +48,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Transactional(readOnly = true)
     @Override
     public Book readBook(long id) {
-        Book book = dao.getById(id);
+        Book book = bookDao.getById(id);
         book.getComments().size();
         return book;
     }
@@ -42,14 +56,14 @@ public class BookCRUDImpl implements BookCRUD {
     @Transactional
     @Override
     public void delete(long id) {
-        Book bookToDelete = dao.getById(id);
-        dao.delete(bookToDelete);
+        Book bookToDelete = bookDao.getById(id);
+        bookDao.delete(bookToDelete);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Book> readAllWithCommentsOnly() {
-        List<Book> bookList = dao.getAllWithCommentsOnly();
+        List<Book> bookList = bookDao.getAllWithCommentsOnly();
         for (Book b : bookList) {
             b.getComments().size();
         }
