@@ -32,6 +32,6 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void delete(Comment commentToDelete) {
-        em.remove(commentToDelete);
+        em.remove(em.contains(commentToDelete) ? commentToDelete : em.merge(commentToDelete));
     }
 }

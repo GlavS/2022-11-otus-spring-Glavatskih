@@ -36,7 +36,7 @@ public class Book {
     private Genre genre;
     @Column(name = "title", nullable = false)
     private String title;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "book_id")
     @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude

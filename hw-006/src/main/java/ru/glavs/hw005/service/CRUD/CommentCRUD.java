@@ -7,4 +7,5 @@ public interface CommentCRUD {
     void delete(Comment comment);
     Comment save(Comment comment);
 
+    Comment findById(long commentId);
 }
