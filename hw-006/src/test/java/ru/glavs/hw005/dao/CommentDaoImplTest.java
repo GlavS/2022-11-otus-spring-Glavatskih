@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("Класс CommentDaoImpl должен")
 class CommentDaoImplTest {
 
-    private static final int FIRST_COMMENT_ID = 1;
+    private static final long FIRST_COMMENT_ID = 1;
     private static final Date THIRD_COMMENT_DATE;
 
     static {
@@ -67,7 +67,7 @@ class CommentDaoImplTest {
     @Test
     @DisplayName("удалять комментарий")
     void deleteMethodShouldDeleteComment() {
-        Comment commentToDelete = em.find(Comment.class, 1L);
+        Comment commentToDelete = em.find(Comment.class, FIRST_COMMENT_ID);
         dao.delete(commentToDelete);
         em.flush();
         assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoSuchElementException.class);
