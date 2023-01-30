@@ -3,7 +3,7 @@
 
 Сборка:
 ````
-mvn clean package
+mvn -Dmaven.test.skip=true clean package
 ````
 
 Запуск из командной строки:
@@ -17,12 +17,17 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 ````
 Использование shell:
 ````
-       console: Открыть консоль H2. Работает только если база данных установлена в системе.                                     
-       show: Вывести на экран одну книгу по её id.                          
-       update: Редактировать книгу.                                           
-       create: Создать и внести в базу данных новую книгу.                                       
-       list: Вывести все книги на экран.                                          
-       delete: Удалить книгу по её id.  
+       01. Book CRUD
+       console: Show H2 console.
+       show: Show one book.
+       update: Update book.
+       create: Create new book.
+       list: List all books (with comments only - with "c" option).
+       delete: Delete book.
+
+       02. Comment CRUD
+       comment-delete: Delete existing book comment.
+       comment-add: Add comment to book.
        
        Обратить внимание, что в терминалах Windows наболюдаются проблемы с вводом кириллицы.
 ````

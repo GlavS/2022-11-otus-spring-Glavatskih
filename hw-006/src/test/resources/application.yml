@@ -12,9 +12,6 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: validate
-#    properties:
-#      hibernate:
-#        format_sql: true
 
 
   shell:

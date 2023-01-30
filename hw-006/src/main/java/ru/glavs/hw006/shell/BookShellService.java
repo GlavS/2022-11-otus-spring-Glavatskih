@@ -75,7 +75,7 @@ public class BookShellService {
         long id = ioService.readIntWithPrompt("Please enter id of book to update: ");
         Book book = bookCrud.readBook(id);
         bookViewService.printOne(book);
-        ioService.printf("This book will be updated");
+        ioService.println("This book will be updated");
         Book bookToUpdate = bookUI.update(book);
         bookCrud.save(bookToUpdate);
     }
