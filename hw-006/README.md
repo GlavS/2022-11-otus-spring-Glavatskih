@@ -18,7 +18,7 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 Использование shell:
 ````
        01. Book CRUD
-       console: Show H2 console.
+       console: Show H2 console. (under Linux run web browser first)
        show: Show one book.
        update: Update book.
        create: Create new book.
