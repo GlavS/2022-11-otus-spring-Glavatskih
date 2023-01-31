@@ -20,8 +20,7 @@ import java.util.Objects;
 @Table(name = "books")
 @NamedEntityGraph(name = "book-graph", attributeNodes = {
         @NamedAttributeNode("author"),
-        @NamedAttributeNode("genre"),
-        @NamedAttributeNode("title")
+        @NamedAttributeNode("genre")
 })
 public class Book {
     @Id
