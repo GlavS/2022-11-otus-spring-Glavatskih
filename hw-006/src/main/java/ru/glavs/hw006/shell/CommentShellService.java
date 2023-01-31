@@ -27,7 +27,9 @@ public class CommentShellService {
         Book bookToComment = bookCRUDService.readBook(id);
         bookViewService.printOne(bookToComment);
         ioService.println("You are going to comment this book");
-        commentUI.createCommentFor(bookToComment);
+        String nickName = ioService.readStringWithPrompt("Please enter your nickname: ");
+        String commentText = commentUI.prepareCommentText();
+        commentUI.createCommentFor(bookToComment, commentText, nickName);
     }
 
     @ShellMethod("Delete existing book comment.")

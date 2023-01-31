@@ -24,15 +24,8 @@ public class CommentUserInterfaceImpl implements CommentUI {
     }
 
     @Override
-    public void createCommentFor(Book book) {
-        String nickName = ioService.readStringWithPrompt("Please enter your nickname");
-        ioService.println("Please enter comment text (type END to finish): ");
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while (!(line = ioService.readStringNoPrompt()).equals("END")) {
-            sb.append(line).append(" ");
-        }
-        Comment comment = commentCRUDService.save(new Comment(sb.toString(), nickName, new Date(), book));
+    public void createCommentFor(Book book, String commentText, String nickName) {
+        Comment comment = commentCRUDService.save(new Comment(commentText, nickName, new Date(), book));
         ioService.println("Comment added successfully");
         displayService.printOne(comment);
     }
@@ -49,4 +42,16 @@ public class CommentUserInterfaceImpl implements CommentUI {
             ioService.println("Delete cancelled");
         }
     }
+
+    @Override
+    public String prepareCommentText(){
+        ioService.println("Please enter comment text (type END to finish): ");
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while (!(line = ioService.readStringNoPrompt()).equals("END")) {
+            sb.append(line).append(" ");
+        }
+        return sb.toString();
+    }
+
 }
