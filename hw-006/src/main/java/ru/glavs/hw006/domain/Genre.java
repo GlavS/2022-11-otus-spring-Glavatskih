@@ -10,11 +10,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "genres")
 public class Genre {
     @Id

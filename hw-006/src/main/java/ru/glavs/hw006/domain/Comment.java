@@ -10,11 +10,12 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "comments")
 public class Comment {
     @Id
@@ -30,13 +31,13 @@ public class Comment {
     private Date date;
     @JoinColumn(name = "book_id")
     @ManyToOne
-    private Book book;
+    private Book commentedBook;
 
-    public Comment(String text, String authorNick, Date date, Book book) {
+    public Comment(String text, String authorNick, Date date, Book commentedBook) {
         this.text = text;
         this.authorNick = authorNick;
         this.date = date;
-        this.book = book;
+        this.commentedBook = commentedBook;
     }
 
 

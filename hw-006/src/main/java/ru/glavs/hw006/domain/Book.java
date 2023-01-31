@@ -12,11 +12,12 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "books")
 @NamedEntityGraph(name = "book-graph", attributeNodes = {
         @NamedAttributeNode("author"),
@@ -27,15 +28,15 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     private long id;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author")
     private Author author;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "genre")
     private Genre genre;
     @Column(name = "title", nullable = false)
     private String title;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book", orphanRemoval = true)
+    @OneToMany(mappedBy = "commentedBook", orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
     @ToString.Exclude
     private List<Comment> comments;
@@ -45,8 +46,6 @@ public class Book {
         this.genre = genre;
         this.title = title;
     }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

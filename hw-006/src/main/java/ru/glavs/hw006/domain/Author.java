@@ -9,11 +9,12 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "authors")
 public class Author {
     @Id
