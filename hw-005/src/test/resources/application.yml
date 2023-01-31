@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+  sql:
+    init:
+      mode: always
+      data-locations: testdata.sql
+
+
+  shell:
+    interactive:
+      enabled: false
+    command:
+      script:
+        enabled: false
