@@ -25,7 +25,6 @@ public class CommentCRUDImpl implements CommentCRUD {
         return dao.save(comment);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Comment findById(long commentId) {
         return dao.getById(commentId);

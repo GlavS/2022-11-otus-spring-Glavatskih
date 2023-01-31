@@ -15,13 +15,11 @@ public class GenreCRUDImpl implements GenreCRUD {
         this.dao = dao;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Genre searchByGenre(String genreName) {
         return dao.searchByGenre(genreName);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Genre> findAll() {
         return dao.getAll();
@@ -33,7 +31,6 @@ public class GenreCRUDImpl implements GenreCRUD {
         return dao.save(genre);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Genre findById(long id) {
         return dao.getById(id);

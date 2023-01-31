@@ -15,13 +15,11 @@ public class AuthorCRUDImpl implements AuthorCRUD {
         this.dao = dao;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Author> searchBySurname(String surname) {
         return dao.searchBySurname(surname);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Author> findAll() {
         return dao.getAll();
@@ -33,7 +31,6 @@ public class AuthorCRUDImpl implements AuthorCRUD {
         return dao.save(author);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Author findById(long id) {
         return dao.getById(id);
