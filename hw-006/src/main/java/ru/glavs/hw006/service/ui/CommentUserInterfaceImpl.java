@@ -23,7 +23,7 @@ public class CommentUserInterfaceImpl implements CommentUI {
         this.displayService = displayService;
     }
 
-
+    @Override
     public void createCommentFor(Book book) {
         String nickName = ioService.readStringWithPrompt("Please enter your nickname");
         ioService.println("Please enter comment text (type END to finish): ");
@@ -37,6 +37,7 @@ public class CommentUserInterfaceImpl implements CommentUI {
         displayService.printOne(comment);
     }
 
+    @Override
     public void deleteComment() {
         long commentId = ioService.readIntWithPrompt("Please enter comment id: ");
         Comment commentToDelete = commentCRUDService.findById(commentId);

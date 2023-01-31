@@ -6,6 +6,7 @@ import ru.glavs.hw006.io.IOService;
 import ru.glavs.hw006.service.CRUD.GenreCRUD;
 import ru.glavs.hw006.service.view.AbstractViewService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -41,9 +42,16 @@ public class GenreUserInterfaceImpl implements GenreUI {
     }
 
     public Genre pickGenreFrom(List<Genre> genreList) {
+        genreList.sort(new GenreSort());
         displayService.printList(genreList);
         long genreId = ioService.readIntWithPrompt("Please enter desired genre id: ");
         return genreCRUDService.findById(genreId);
     }
 
+    private static class GenreSort implements Comparator<Genre>{
+        @Override
+        public int compare(Genre o1, Genre o2) {
+            return o1.getGenre().compareTo(o2.getGenre());
+        }
+    }
 }

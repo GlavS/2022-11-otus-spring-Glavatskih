@@ -6,6 +6,8 @@ import ru.glavs.hw006.io.IOService;
 import ru.glavs.hw006.service.CRUD.AuthorCRUD;
 import ru.glavs.hw006.service.view.AbstractViewService;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -53,8 +55,15 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
 
     @Override
     public Author pickAuthorFrom(List<Author> authorList) {
+        authorList.sort(new AuthorSort());
         displayService.printList(authorList);
         long authorId = ioService.readIntWithPrompt("Please enter desired author id: ");
         return authorCRUDService.findById(authorId);
+    }
+    private static class AuthorSort implements Comparator<Author>{
+        @Override
+        public int compare(Author o1, Author o2) {
+            return o1.getSurname().compareTo(o2.getSurname());
+        }
     }
 }
