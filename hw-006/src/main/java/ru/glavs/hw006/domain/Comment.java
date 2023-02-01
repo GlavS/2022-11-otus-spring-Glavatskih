@@ -29,8 +29,9 @@ public class Comment {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
+    @ToString.Exclude
     @JoinColumn(name = "book_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book commentedBook;
 
     public Comment(String text, String authorNick, Date date, Book commentedBook) {
