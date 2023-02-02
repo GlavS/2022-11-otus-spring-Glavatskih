@@ -23,7 +23,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
 
     public Genre requestGenre(String genreName) {
         Genre genre = genreCRUDService.searchByGenre(genreName);
-        if (genre.getId() == 0) {
+        if (genre == null) {
             String answer = ioService.readStringWithPrompt("No such genre in database. Do you want to create one? (y/n): ");
             if (answer.equalsIgnoreCase("y")) {
                 genre = createGenre();

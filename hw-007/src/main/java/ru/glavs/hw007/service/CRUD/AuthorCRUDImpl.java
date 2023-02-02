@@ -17,12 +17,12 @@ public class AuthorCRUDImpl implements AuthorCRUD {
 
     @Override
     public List<Author> searchBySurname(String surname) {
-        return dao.searchBySurname(surname);
+        return dao.findBySurname(surname);
     }
 
     @Override
     public List<Author> findAll() {
-        return dao.getAll();
+        return dao.findAll();
     }
 
     @Transactional
@@ -33,6 +33,6 @@ public class AuthorCRUDImpl implements AuthorCRUD {
 
     @Override
     public Author findById(long id) {
-        return dao.getById(id);
+        return dao.getReferenceById(id);
     }
 }

@@ -67,7 +67,7 @@ public class BookShellService {
     public void create() {
         Book bookToCreate = bookUI.create();
         bookCrud.save(bookToCreate);
-        ioService.println("Book created");
+        ioService.println("Book created.");
     }
 
     @ShellMethod("Update book.")
@@ -78,5 +78,6 @@ public class BookShellService {
         ioService.println("This book will be updated");
         Book bookToUpdate = bookUI.update(book);
         bookCrud.save(bookToUpdate);
+        ioService.printf("Book %d updated.%n", id);
     }
 }

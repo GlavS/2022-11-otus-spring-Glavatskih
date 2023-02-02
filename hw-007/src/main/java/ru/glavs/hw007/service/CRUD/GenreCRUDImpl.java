@@ -17,12 +17,12 @@ public class GenreCRUDImpl implements GenreCRUD {
 
     @Override
     public Genre searchByGenre(String genreName) {
-        return dao.searchByGenre(genreName);
+        return dao.findByGenre(genreName);
     }
 
     @Override
     public List<Genre> findAll() {
-        return dao.getAll();
+        return dao.findAll();
     }
 
     @Transactional
@@ -33,6 +33,6 @@ public class GenreCRUDImpl implements GenreCRUD {
 
     @Override
     public Genre findById(long id) {
-        return dao.getById(id);
+        return dao.getReferenceById(id);
     }
 }

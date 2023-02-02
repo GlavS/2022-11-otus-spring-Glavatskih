@@ -38,7 +38,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Transactional(readOnly = true)
     @Override
     public List<Book> readAll() {
-        List<Book> bookList = bookDao.getAll();
+        List<Book> bookList = bookDao.findAll();
         for (Book b : bookList) {
             b.getComments().size();
         }

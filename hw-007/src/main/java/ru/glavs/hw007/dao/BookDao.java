@@ -17,6 +17,6 @@ public interface BookDao extends JpaRepository<Book, Long> {
     List<Book> getAllWithCommentsOnly();
 
 
-    @EntityGraph(value = "Book-graph")
+    @EntityGraph(value = "book-graph")
     List<Book> findAll();
 }
