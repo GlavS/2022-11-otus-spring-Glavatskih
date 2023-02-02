@@ -13,10 +13,11 @@ public interface BookDao extends JpaRepository<Book, Long> {
     List<Book> findByTitleContaining(String titlePattern);
 
     @Query("select b from Book b where b.comments is not empty ")
-    @EntityGraph(value = "Book-graph")
+    @EntityGraph(value = "book-graph")
     List<Book> getAllWithCommentsOnly();
 
 
     @EntityGraph(value = "book-graph")
     List<Book> findAll();
+
 }

@@ -48,7 +48,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Transactional(readOnly = true)
     @Override
     public Book readBook(long id) {
-        Book book = bookDao.getById(id);
+        Book book = bookDao.getReferenceById(id);
         book.getComments().size();
         return book;
     }
@@ -56,7 +56,7 @@ public class BookCRUDImpl implements BookCRUD {
     @Transactional
     @Override
     public void deleteById(long id) {
-        Book bookToDelete = bookDao.getById(id);
+        Book bookToDelete = bookDao.getReferenceById(id);
         bookDao.delete(bookToDelete);
     }
 

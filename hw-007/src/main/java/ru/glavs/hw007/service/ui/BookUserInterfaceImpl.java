@@ -19,7 +19,7 @@ public class BookUserInterfaceImpl implements BookUI {
         this.authorUI = authorUI;
         this.genreUI = genreUI;
     }
-
+    @Override
     public Book create() {
         String title = ioService.readStringWithPrompt("Enter title: ");
 
@@ -31,7 +31,7 @@ public class BookUserInterfaceImpl implements BookUI {
 
         return new Book(author, genre, title);
     }
-
+    @Override
     public Book update(Book book) {
         String title = ioService.readStringWithPrompt("Please enter new title, or enter to skip: ");
         if (title.equals("")) {

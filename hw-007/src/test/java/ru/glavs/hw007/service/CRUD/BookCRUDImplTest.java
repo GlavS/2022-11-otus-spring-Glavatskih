@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import ru.glavs.hw007.dao.AuthorDao;
+import ru.glavs.hw007.dao.BookDao;
+import ru.glavs.hw007.dao.GenreDao;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Comment;
 
@@ -25,20 +28,20 @@ class BookCRUDImplTest {
     private BookCRUDImpl bookCRUD;
 
     @MockBean
-    private BookDaoImpl bookDao;
+    private BookDao bookDao;
 
     @MockBean
-    private AuthorDaoImpl authorDao;
+    private AuthorDao authorDao;
 
     @MockBean
-    private GenreDaoImpl genreDao;
+    private GenreDao genreDao;
 
 
     private final Book mockBook = mock(Book.class);
     private final List<Book> bookList = new ArrayList<>();
 
     @BeforeEach
-    void prepare(){
+    void prepare() {
         when(mockBook.getComments()).thenReturn(List.of(new Comment()));
         bookList.add(mockBook);
     }
@@ -55,27 +58,27 @@ class BookCRUDImplTest {
     @Test
     @DisplayName("возвратить список книг и вызвать нужный метод DAO")
     void readAllShouldReturnExpectedBookListAndCallCorrectDaoMethod() {
-        when(bookDao.getAll()).thenReturn(bookList);
+        when(bookDao.findAll()).thenReturn(bookList);
         assertThat(bookCRUD.readAll()).isInstanceOf(List.class);
-        verify(bookDao, times(1)).getAll();
+        verify(bookDao, times(1)).findAll();
         assertThat(bookCRUD.readAll().get(0)).isInstanceOf(Book.class);
-        verify(bookDao, times(2)).getAll();
+        verify(bookDao, times(2)).findAll();
     }
 
     @Test
     @DisplayName("возвратить книгу и вызвать нужный метод DAO")
     void readBookShouldReturnExpectedBookAndCallCorrectDaoMethod() {
-        when(bookDao.getById(anyLong())).thenReturn(mockBook);
+        when(bookDao.getReferenceById(anyLong())).thenReturn(mockBook);
         assertThat(bookCRUD.readBook(anyLong())).isInstanceOf(Book.class);
-        verify(bookDao, times(1)).getById(anyLong());
+        verify(bookDao, times(1)).getReferenceById(anyLong());
     }
 
     @Test
     @DisplayName("удалить книгу и вызвать нужный метод DAO")
     void deleteByIdShouldDeleteExpectedBookAndCallCorrectDaoMethod() {
-        when(bookDao.getById(anyLong())).thenReturn(mockBook);
+        when(bookDao.getReferenceById(anyLong())).thenReturn(mockBook);
         bookCRUD.deleteById(anyLong());
-        verify(bookDao, times(1)).getById(anyLong());
+        verify(bookDao, times(1)).getReferenceById(anyLong());
         verify(bookDao, times(1)).delete(mockBook);
     }
 
@@ -91,9 +94,9 @@ class BookCRUDImplTest {
 
     @Configuration
     @Import({BookCRUDImpl.class,
-            BookDaoImpl.class,
-            AuthorDaoImpl.class,
-            GenreDaoImpl.class})
+            BookDao.class,
+            AuthorDao.class,
+            GenreDao.class})
     public static class ConfigForTest {
 
     }

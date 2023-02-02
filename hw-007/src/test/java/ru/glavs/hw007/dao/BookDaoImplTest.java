@@ -4,12 +4,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import ru.glavs.hw007.domain.Author;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Genre;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,60 +16,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @DisplayName("Класс BookDao должен")
-@Import(BookDaoImpl.class)
 class BookDaoImplTest {
     private static final int BOOK_LIST_SIZE = 4;
     private static final long FIRST_BOOK_INDEX = 1;
 
     @Autowired
-    EntityManager em;
+    TestEntityManager em;
 
     @Autowired
-    private BookDaoImpl dao;
+    private BookDao dao;
 
     @Test
     @DisplayName("возвращать список всех книг")
     void getAllMethodShouldReturnListOfAllBooks() {
-        List<Book> bookList = dao.getAll();
+        List<Book> bookList = dao.findAll();
         assertThat(bookList).hasSize(BOOK_LIST_SIZE);
     }
 
     @Test
     @DisplayName("возвращать книгу по её id")
     void getByIdMethodShouldReturnBookByItsID() {
-        Book book = dao.getById(FIRST_BOOK_INDEX);
+        Book book = dao.getReferenceById(FIRST_BOOK_INDEX);
         assertThat(book.getTitle()).isEqualTo("Книга1");
     }
 
     @Test
     @DisplayName("находить книгу или список книг по части названия")
     void findByTitlePatternMethodShouldReturnExpectedBookList() {
-        List<Book> foundBooks = dao.findByTitlePattern("Книга");
+        List<Book> foundBooks = dao.findByTitleContaining("Книга");
         assertThat(foundBooks)
                 .hasSize(4);
 
-        foundBooks = dao.findByTitlePattern("Книга4");
+        foundBooks = dao.findByTitleContaining("Книга4");
         assertThat(foundBooks)
                 .hasSize(1);
 
-    }
-
-    @Test
-    @DisplayName("возвращать список книг указанного автора")
-    void findByAuthorMethodShouldReturnExpectedBookList() {
-        Author authorToFind = em.find(Author.class, 1L);
-        List<Book> foundBooks = dao.findByAuthor(authorToFind);
-        assertThat(foundBooks)
-                .hasSize(2);
-    }
-
-    @Test
-    @DisplayName("возвращать список книг указанного жанра")
-    void findByGenreMethodShouldReturnExpectedBookList() {
-        Genre genreToFind = em.find(Genre.class, 1L);
-        List<Book> foundBooks = dao.findByGenre(genreToFind);
-        assertThat(foundBooks)
-                .hasSize(3);
     }
 
     @Test

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import ru.glavs.hw007.domain.Genre;
 
@@ -16,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
-@Import(GenreDaoImpl.class)
+@DisplayName("Класс GenreDao должен")
 class GenreDaoImplTest {
 
     private static final long ALL_GENRES_NUMBER = 2;
@@ -25,23 +26,23 @@ class GenreDaoImplTest {
     private static final Genre NEW_GENRE = new Genre("Жанр3");
     private static final String SECOND_GENRE_GENRE = "Жанр2";
     @Autowired
-    private GenreDaoImpl dao;
+    private GenreDao dao;
 
     @Autowired
-    private EntityManager em;
+    private TestEntityManager em;
 
 
     @Test
     @DisplayName("должен возвращать жанр по его id")
     void getByIdMethodShouldReturnGenreById() {
-        Genre genre = dao.getById(FIRST_GENRE_ID);
+        Genre genre = dao.getReferenceById(FIRST_GENRE_ID);
         assertThat(genre.getGenre()).isEqualTo("Жанр1");
     }
 
     @Test
     @DisplayName("должен возвращать список всех жанров")
     void getAllMethodShouldReturnCorrectGenresList() {
-        List<Genre> genreList = dao.getAll();
+        List<Genre> genreList = dao.findAll();
         assertThat(genreList.size()).isEqualTo(ALL_GENRES_NUMBER);
         assertThat(genreList.get(0).getGenre()).isEqualTo("Жанр1");
     }
@@ -80,9 +81,9 @@ class GenreDaoImplTest {
     @Test
     @DisplayName("должен искать и возвращать жанр по его названию, или пустой жанр при его отсутствии")
     void searchByGenreShouldFindGenreByItsNameOrReturnEmpty() {
-        Genre genre = dao.searchByGenre(SECOND_GENRE_GENRE);
-        Genre genre2 = dao.searchByGenre("SECOND_GENRE_GENRE");
+        Genre genre = dao.findByGenre(SECOND_GENRE_GENRE);
+        Genre genre2 = dao.findByGenre("SECOND_GENRE_GENRE");
         assertThat(genre).isNotNull();
-        assertThat(genre2.getId()).isEqualTo(0);
+        assertThat(genre2).isNull();
     }
 }

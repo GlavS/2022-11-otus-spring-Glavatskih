@@ -21,6 +21,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
         this.displayService = displayService;
     }
 
+    @Override
     public Genre requestGenre(String genreName) {
         Genre genre = genreCRUDService.searchByGenre(genreName);
         if (genre == null) {
@@ -34,13 +35,13 @@ public class GenreUserInterfaceImpl implements GenreUI {
         return genre;
     }
 
-
+    @Override
     public Genre createGenre() {
         Genre genre = new Genre();
         genre.setGenre(ioService.readStringWithPrompt("Please enter genre: "));
         return genre;
     }
-
+    @Override
     public Genre pickGenreFrom(List<Genre> genreList) {
         genreList.sort(new GenreSort());
         displayService.printList(genreList);

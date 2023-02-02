@@ -4,11 +4,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Comment;
 
-import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,8 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
-@Import({CommentDaoImpl.class, BookDaoImpl.class})
-@DisplayName("Класс CommentDaoImpl должен")
+@DisplayName("Класс CommentDao должен")
 class CommentDaoImplTest {
 
     private static final long FIRST_COMMENT_ID = 1;
@@ -34,10 +33,10 @@ class CommentDaoImplTest {
     }
 
     @Autowired
-    private CommentDaoImpl dao;
+    private CommentDao dao;
 
     @Autowired
-    private EntityManager em;
+    private TestEntityManager em;
 
     @Test
     @DisplayName("сохранять новый комментарий")
@@ -59,7 +58,7 @@ class CommentDaoImplTest {
     @Test
     @DisplayName("возвращать комментарий по его id")
     void getByIdMethodShouldReturnCommentByItsID() {
-        Comment comment = dao.getById(FIRST_COMMENT_ID);
+        Comment comment = dao.getReferenceById(FIRST_COMMENT_ID);
         assertThat(comment.getText()).isEqualTo("Comment1, comment1 comment1 comment1 comment1.");
 
     }
@@ -70,6 +69,6 @@ class CommentDaoImplTest {
         Comment commentToDelete = em.find(Comment.class, FIRST_COMMENT_ID);
         dao.delete(commentToDelete);
         em.flush();
-        assertThatThrownBy(() -> dao.getById(FIRST_COMMENT_ID)).isInstanceOf(NoSuchElementException.class);
+        assertThat(em.find(Comment.class, FIRST_COMMENT_ID)).isNull();
     }
 }
