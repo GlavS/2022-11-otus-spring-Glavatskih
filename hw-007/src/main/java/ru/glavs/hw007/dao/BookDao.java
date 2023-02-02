@@ -1,27 +1,22 @@
 package ru.glavs.hw007.dao;
 
-import ru.glavs.hw007.domain.Author;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.glavs.hw007.domain.Book;
-import ru.glavs.hw007.domain.Genre;
 
 import java.util.List;
 
-public interface BookDao {
-    List<Book> getAll();
+public interface BookDao extends JpaRepository<Book, Long> {
 
-    Book getById(long id);
+    @EntityGraph(value = "book-graph")
+    List<Book> findByTitleContaining(String titlePattern);
 
-    List<Book> findByTitlePattern(String titlePattern);
-
-    List<Book> findByAuthor(Author author);
-
-    List<Book> findByGenre(Genre genre);
-
-    Book save(Book book);
-
-    void delete(Book book);
-
-    long count();
-
+    @Query("select b from Book b where b.comments is not empty ")
+    @EntityGraph(value = "Book-graph")
     List<Book> getAllWithCommentsOnly();
+
+
+    @EntityGraph(value = "Book-graph")
+    List<Book> findAll();
 }

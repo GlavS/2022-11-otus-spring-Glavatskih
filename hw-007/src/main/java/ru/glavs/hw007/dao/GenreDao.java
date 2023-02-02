@@ -1,19 +1,8 @@
 package ru.glavs.hw007.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.glavs.hw007.domain.Genre;
 
-import java.util.List;
-
-public interface GenreDao {
-    Genre getById(long id);
-
-    List<Genre> getAll();
-
-    long count();
-
-    Genre save(Genre genre);
-
-    void delete(Genre genre);
-
-    Genre searchByGenre(String genreName);
+public interface GenreDao extends JpaRepository<Genre, Long> {
+    Genre findByGenre(String genreName);
 }

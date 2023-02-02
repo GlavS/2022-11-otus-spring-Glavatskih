@@ -8,9 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import ru.glavs.hw007.dao.AuthorDaoImpl;
-import ru.glavs.hw007.dao.BookDaoImpl;
-import ru.glavs.hw007.dao.GenreDaoImpl;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Comment;
 

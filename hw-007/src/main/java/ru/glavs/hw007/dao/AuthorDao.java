@@ -1,19 +1,10 @@
 package ru.glavs.hw007.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.glavs.hw007.domain.Author;
 
 import java.util.List;
 
-public interface AuthorDao {
-    Author getById(long id);
-
-    List<Author> getAll();
-
-    long count();
-
-    Author save(Author author);
-
-    void delete(Author author);
-
-    List<Author> searchBySurname(String surname);
+public interface AuthorDao extends JpaRepository<Author, Long> {
+    List<Author> findBySurname(String surname);
 }
