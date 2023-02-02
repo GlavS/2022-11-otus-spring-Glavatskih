@@ -28,6 +28,7 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
        02. Comment CRUD
        comment-delete: Delete existing book comment.
        comment-add: Add comment to book.
+       comments-show: Show comments by book.
        
        Обратить внимание, что в терминалах Windows наболюдаются проблемы с вводом кириллицы.
 ````
