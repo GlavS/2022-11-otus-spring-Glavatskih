@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Hw006Application {
+public class Hw007Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Hw006Application.class);
+        SpringApplication.run(Hw007Application.class);
     }
 
 }
