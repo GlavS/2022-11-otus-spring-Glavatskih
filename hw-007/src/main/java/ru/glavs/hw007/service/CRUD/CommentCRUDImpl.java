@@ -6,7 +6,9 @@ import ru.glavs.hw007.dao.BookDao;
 import ru.glavs.hw007.dao.CommentDao;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Comment;
-import ru.glavs.hw007.dto.BookWithCommentsDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentCRUDImpl implements CommentCRUD {
@@ -32,13 +34,13 @@ public class CommentCRUDImpl implements CommentCRUD {
 
     @Override
     public Comment findById(long commentId) {
-        return commentDao.getById(commentId);
+        return commentDao.getReferenceById(commentId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public BookWithCommentsDto findCommentsByBook(long bookId){
-        Book bookFromContext = bookDao.getById(bookId);
-        return BookWithCommentsDto.fromDomainObject(bookFromContext);
+    public List<Comment> findCommentsByBook(long bookId) {
+        Book bookWithComments = bookDao.findByIdWithComments(bookId);
+        return new ArrayList<>(bookWithComments.getComments());
     }
 }

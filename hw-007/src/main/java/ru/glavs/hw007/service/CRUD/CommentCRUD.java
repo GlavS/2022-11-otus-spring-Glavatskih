@@ -1,7 +1,8 @@
 package ru.glavs.hw007.service.CRUD;
 
 import ru.glavs.hw007.domain.Comment;
-import ru.glavs.hw007.dto.BookWithCommentsDto;
+
+import java.util.List;
 
 public interface CommentCRUD {
     void delete(Comment comment);
@@ -10,5 +11,5 @@ public interface CommentCRUD {
 
     Comment findById(long commentId);
 
-    BookWithCommentsDto findCommentsByBook(long bookId);
+    List<Comment> findCommentsByBook(long bookId);
 }

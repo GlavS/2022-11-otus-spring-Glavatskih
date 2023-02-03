@@ -6,12 +6,13 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ru.glavs.hw007.domain.Book;
 import ru.glavs.hw007.domain.Comment;
-import ru.glavs.hw007.dto.BookWithCommentsDto;
 import ru.glavs.hw007.io.IOService;
 import ru.glavs.hw007.service.CRUD.BookCRUD;
 import ru.glavs.hw007.service.CRUD.CommentCRUD;
 import ru.glavs.hw007.service.ui.CommentUI;
 import ru.glavs.hw007.service.view.AbstractViewService;
+
+import java.util.List;
 
 @ShellComponent
 @ShellCommandGroup("02. Comment CRUD")
@@ -45,11 +46,11 @@ public class CommentShellService {
     @ShellMethod("Show comments by book.")
     void commentsShow(){
         long bookId = ioService.readIntWithPrompt("Please enter book id: ");
-        BookWithCommentsDto bookWithComments = commentCRUDService.findCommentsByBook(bookId);
+        List<Comment> commentList = commentCRUDService.findCommentsByBook(bookId);
         ioService.println("These are comments for book:");
-        bookViewService.printOne(bookWithComments.getBook());
+        bookViewService.printOne(bookCRUDService.readBook(bookId));
         ioService.println("Comments:");
-        commentViewService.printList(bookWithComments.getCommentList());
+        commentViewService.printList(commentList);
     }
 
 }
