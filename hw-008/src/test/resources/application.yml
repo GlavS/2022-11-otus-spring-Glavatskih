@@ -1,18 +1,10 @@
 spring:
-  main:
-    banner-mode: off
-  datasource:
-    url: jdbc:h2:mem:test
-  sql:
-    init:
-      mode: always
-      data-locations: testdata.sql
-
-  jpa:
-    generate-ddl: false
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
+  data:
+    mongodb:
+      database: super
+  mongodb:
+    embedded:
+      version: 3.5.5
 
 
   shell:
