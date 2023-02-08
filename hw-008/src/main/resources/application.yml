@@ -6,13 +6,13 @@ spring:
     embedded:
       version: 3.5.5
 
-#mongock:
-#  #runner-type: "ApplicationRunner" # default
-#  runner-type: "InitializingBean"
-#  change-logs-scan-package:
-#    - com.example.mongockdemo.mongock.changelog
+mongock:
+  #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.glavs.hw008.mongock.changelog
 
 
 logging:
   level:
-    ROOT: ERROR
+    ROOT: info
