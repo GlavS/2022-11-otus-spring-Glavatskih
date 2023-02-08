@@ -4,44 +4,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.Objects;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@Entity
-@Table(name = "authors")
+@Document(collection = "authors")
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_id")
-    private long id;
-    @Column(name = "name", length = 30, nullable = false)
+    private ObjectId id;
     private String name;
-    @Column(name = "surname", length = 30, nullable = false)
     private String surname;
-    @Column(name = "initials", length = 4)
     private String initials;
 
     public Author(String name, String surname, String initials) {
         this.name = name;
         this.surname = surname;
         this.initials = initials;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Author author = (Author) o;
-        return id > 0 && Objects.equals(id, author.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

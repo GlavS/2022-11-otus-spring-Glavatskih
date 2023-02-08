@@ -1,8 +1,8 @@
 package ru.glavs.hw008.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.glavs.hw008.domain.Genre;
 
-public interface GenreDao extends JpaRepository<Genre, Long> {
+public interface GenreDao extends MongoRepository<Genre, String> {
     Genre findByGenre(String genreName);
 }
