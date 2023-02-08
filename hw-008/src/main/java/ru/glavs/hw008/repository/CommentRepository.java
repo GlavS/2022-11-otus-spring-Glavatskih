@@ -1,8 +1,8 @@
-package ru.glavs.hw008.dao;
+package ru.glavs.hw008.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.glavs.hw008.domain.Comment;
 
-public interface CommentDao extends MongoRepository<Comment, String> {
+public interface CommentRepository extends MongoRepository<Comment, String> {
 
 }

@@ -1,12 +1,11 @@
-package ru.glavs.hw008.dao;
+package ru.glavs.hw008.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.query.Param;
 import ru.glavs.hw008.domain.Book;
 
 import java.util.List;
 
-public interface BookDao extends MongoRepository<Book, String> {
+public interface BookRepository extends MongoRepository<Book, String>, BookRepositoryCustom {
 
 
     List<Book> findByTitleContaining(String titlePattern);

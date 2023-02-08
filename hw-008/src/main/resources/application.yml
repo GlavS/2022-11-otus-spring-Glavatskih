@@ -1,16 +1,27 @@
+### Embedded mongo ###
+
+#spring:
+#  data:
+#    mongodb:
+#      database: super
+#  mongodb:
+#    embedded:
+#      version: 3.5.5
+
+### Local mongoDB server ###
+
 spring:
   data:
     mongodb:
-      database: super
-  mongodb:
-    embedded:
-      version: 3.5.5
+      host: localhost
+      port: 27017
+      database: testbookhw008
 
-mongock:
-  #runner-type: "ApplicationRunner" # default
-  runner-type: "InitializingBean"
-  change-logs-scan-package:
-    - ru.glavs.hw008.mongock.changelog
+### mongock: ###
+#  #runner-type: "ApplicationRunner" # default
+#  runner-type: "InitializingBean"
+#  change-logs-scan-package:
+#    - ru.glavs.hw008.mongock.changelog
 
 
 logging:

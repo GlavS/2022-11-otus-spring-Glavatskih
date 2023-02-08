@@ -21,15 +21,16 @@ public class BookUserInterfaceImpl implements BookUI {
     }
     @Override
     public Book create() {
-        String title = ioService.readStringWithPrompt("Enter title: ");
-
-        String surname = ioService.readStringWithPrompt("Please, enter author's surname: ");
-        Author author = authorUI.requestAuthor(surname);
-
-        String genreName = ioService.readStringWithPrompt("Please enter genre");
-        Genre genre = genreUI.requestGenre(genreName);
-
-        return new Book(author, genre, title);
+//        String title = ioService.readStringWithPrompt("Enter title: ");
+//
+//        String surname = ioService.readStringWithPrompt("Please, enter author's surname: ");
+//        Author author = authorUI.requestAuthor(surname);
+//
+//        String genreName = ioService.readStringWithPrompt("Please enter genre");
+//        Genre genre = genreUI.requestGenre(genreName);
+//
+//        return new Book(author, genre, title);
+        return null;
     }
     @Override
     public Book update(Book book) {
@@ -45,8 +46,8 @@ public class BookUserInterfaceImpl implements BookUI {
         Genre genre = genreUI.requestGenre(genreName);
 
         book.setTitle(title);
-        book.setAuthor(author);
-        book.setGenre(genre);
+//        book.setAuthor(author);
+//        book.setGenre(genre);
         return book;
     }
 }
