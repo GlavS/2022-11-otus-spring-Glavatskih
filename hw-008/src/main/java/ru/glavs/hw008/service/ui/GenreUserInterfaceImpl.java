@@ -38,21 +38,16 @@ public class GenreUserInterfaceImpl implements GenreUI {
     @Override
     public Genre createGenre() {
         Genre genre = new Genre();
-        genre.setGenre(ioService.readStringWithPrompt("Please enter genre: "));
+        genre.setName(ioService.readStringWithPrompt("Please enter genre: "));
         return genre;
     }
     @Override
     public Genre pickGenreFrom(List<Genre> genreList) {
-        genreList.sort(new GenreSort());
+        //genreList.sort(new GenreSort());
         displayService.printList(genreList);
         long genreId = ioService.readIntWithPrompt("Please enter desired genre id: ");
         return genreCRUDService.findById(genreId);
     }
 
-    private static class GenreSort implements Comparator<Genre>{
-        @Override
-        public int compare(Genre o1, Genre o2) {
-            return o1.getGenre().compareTo(o2.getGenre());
-        }
-    }
+
 }

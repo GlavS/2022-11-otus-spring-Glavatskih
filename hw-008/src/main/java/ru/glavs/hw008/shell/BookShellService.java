@@ -1,7 +1,6 @@
 package ru.glavs.hw008.shell;
 
 import lombok.AllArgsConstructor;
-import org.h2.tools.Console;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -13,7 +12,6 @@ import ru.glavs.hw008.service.CRUD.BookCRUD;
 import ru.glavs.hw008.service.ui.BookUI;
 import ru.glavs.hw008.service.view.ViewService;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @ShellComponent
@@ -32,7 +30,7 @@ public class BookShellService {
             List<Book> bookListWithComments = bookCrud.readAllWithCommentsOnly();
             for (Book b : bookListWithComments) {
                 bookViewService.printOne(b);
-                commentViewService.printList(b.getComments());
+                //commentViewService.printList(b.getComments());
             }
         } else {
             List<Book> bookList = bookCrud.readAll();
@@ -47,14 +45,6 @@ public class BookShellService {
         bookViewService.printOne(bookToPrint);
     }
 
-    @ShellMethod("Show H2 console.")
-    public void console() {
-        try {
-            Console.main();
-        } catch (SQLException e) {
-            throw new RuntimeException("Unable to connect to H2 database: ", e);
-        }
-    }
 
     @ShellMethod("Delete book.")
     public void delete() {

@@ -21,14 +21,15 @@ public class BookViewService extends AbstractViewService<Book> implements ViewSe
 
     @Override
     protected void displayItem(Book book) {
-        String comments = formatComments(book.getComments());
+        //String comments = formatComments(book.getComments());
         ioService.printf(ITEM_FORMAT_STRING,
                 book.getId(),
                 book.getAuthor().getInitials(),
                 book.getAuthor().getSurname(),
                 book.getTitle(),
-                book.getGenre().getGenre(),
-                comments);
+                book.getGenre().getName()
+        //        comments
+        );
     }
     private String formatComments(List<Comment> commentList){
         StringBuilder comments = new StringBuilder();

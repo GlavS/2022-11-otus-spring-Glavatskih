@@ -19,7 +19,7 @@ public class GenreViewService extends AbstractViewService<Genre> implements View
     protected void displayItem(Genre genre) {
         ioService.printf(ITEM_FORMAT_STRING,
                 genre.getId(),
-                genre.getGenre()
+                genre.getName()
         );
     }
 }
