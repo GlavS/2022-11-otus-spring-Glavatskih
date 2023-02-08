@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -17,13 +19,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Book {
     @Id
     private ObjectId id;
-    private Author author;
-    private Genre genre;
+    private List<Author> authors;
+    private List<Genre> genres;
     private String title;
 
-    public Book(Author author, Genre genre, String title) {
-        this.author = author;
-        this.genre = genre;
+    public Book(List<Author> author, List<Genre> genre, String title) {
+        this.authors = author;
+        this.genres = genre;
         this.title = title;
     }
 }
