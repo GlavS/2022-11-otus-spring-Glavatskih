@@ -4,6 +4,7 @@ import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.glavs.hw008.domain.Author;
+import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.domain.Genre;
 
@@ -21,4 +22,11 @@ public class BookWithComments {
     private List<Author> authors;
     private List<Genre> genres;
     private List<Comment> comments;
+
+    public static Book toBook(BookWithComments bookWithComments){
+        return new Book(bookWithComments.getId(),
+                bookWithComments.getAuthors(),
+                bookWithComments.getGenres(),
+                bookWithComments.getTitle());
+    }
 }

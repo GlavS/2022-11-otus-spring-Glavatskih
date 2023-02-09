@@ -47,7 +47,9 @@ public class CommentViewService extends AbstractViewService<Comment> implements 
 
     private List<String> formatCommentText(String comment) {
 
-        String cleanComment = comment.replaceAll("\\r\\n", " ").replaceAll("\\r", " ").replaceAll("\\n", " ");
+        String cleanComment = comment.replaceAll("\\r\\n", " ")
+                .replaceAll("\\r", " ")
+                .replaceAll("\\n", " ");
 
         List<String> splittedComment = List.of(cleanComment.split(" "));
         List<String> result = new ArrayList<>();

@@ -3,7 +3,7 @@
     "$oid": "63decd35871fbfaca500e797"
   },
   "text": "Самая прекрасная книга про роботов!\nПросто слов нет!",
-  "nickname": "reader",
+  "authorNick": "reader",
   "date": {
     "$date": {
       "$numberLong": "1642194000000"

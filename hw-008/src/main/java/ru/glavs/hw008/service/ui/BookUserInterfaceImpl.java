@@ -1,31 +1,27 @@
 package ru.glavs.hw008.service.ui;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Genre;
 import ru.glavs.hw008.domain.projections.BookWithComments;
 import ru.glavs.hw008.io.IOService;
+import ru.glavs.hw008.service.CRUD.BookCommentsCRUD;
 import ru.glavs.hw008.service.view.AbstractViewService;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class BookUserInterfaceImpl implements BookUI {
     private final IOService ioService;
     private final AuthorUI authorUI;
     private final GenreUI genreUI;
+    private final BookCommentsCRUD bookWithCommentsCRUD;
     private final AbstractViewService<BookWithComments> bookDisplayService;
 
-    public BookUserInterfaceImpl(IOService ioService,
-                                 AuthorUI authorUI,
-                                 GenreUI genreUI,
-                                 AbstractViewService<BookWithComments> bookDisplayService) {
-        this.ioService = ioService;
-        this.authorUI = authorUI;
-        this.genreUI = genreUI;
-        this.bookDisplayService = bookDisplayService;
-    }
+
 
     @Override
     public Book create() {
@@ -59,4 +55,14 @@ public class BookUserInterfaceImpl implements BookUI {
         return book;
     }
 
+    @Override
+    public BookWithComments pickByTitlePart(String titlePart) {
+        List<BookWithComments> bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
+        while (bookList.size() > 1){
+            bookDisplayService.printList(bookList);
+            titlePart = ioService.readStringWithPrompt("Please, specify title more precicely");
+            bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
+        }
+        return bookList.get(0);
+    }
 }
