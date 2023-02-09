@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Document
-public class BookComments {
+public class BookWithComments {
     private ObjectId id;
     private String title;
     private List<Author> authors;

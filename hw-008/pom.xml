@@ -46,10 +46,10 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.shell</groupId>-->
-<!--            <artifactId>spring-shell-starter</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.shell</groupId>
+            <artifactId>spring-shell-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -57,15 +57,15 @@
         </dependency>
     </dependencies>
     <dependencyManagement>
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.shell</groupId>-->
-<!--                <artifactId>spring-shell-dependencies</artifactId>-->
-<!--                <version>${spring-shell.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.shell</groupId>
+                <artifactId>spring-shell-dependencies</artifactId>
+                <version>${spring-shell.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>

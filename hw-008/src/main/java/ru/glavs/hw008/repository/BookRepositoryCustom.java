@@ -1,10 +1,11 @@
 package ru.glavs.hw008.repository;
 
-import ru.glavs.hw008.domain.projections.BookComments;
+import ru.glavs.hw008.domain.projections.BookWithComments;
 
 import java.util.List;
 
 public interface BookRepositoryCustom {
-    List<BookComments> findAllWithComments();
-    List<BookComments> findAllWithCommentsOnly();
+    List<BookWithComments> findAllWithComments();
+    List<BookWithComments> findAllWithCommentsOnly();
+    List<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart);
 }

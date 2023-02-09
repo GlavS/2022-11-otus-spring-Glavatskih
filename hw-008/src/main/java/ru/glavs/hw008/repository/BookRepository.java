@@ -2,6 +2,7 @@ package ru.glavs.hw008.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.glavs.hw008.domain.Book;
+import ru.glavs.hw008.domain.projections.BookWithComments;
 
 import java.util.List;
 

@@ -12,15 +12,15 @@ import java.util.Locale;
 @Service
 public class CommentViewService extends AbstractViewService<Comment> implements ViewService<Comment> {
 
-    private static final String ITEM_FORMAT_STRING = "     | %-4d| %-50s| %-20s| %-12s|%n";
-    private static final String LIST_ITEM_FORMAT_STRING = "     | %-4s| %-50s| %-20s| %-12s|%n";
+    private static final String ITEM_FORMAT_STRING = "     | %-50s| %-20s| %-12s|%n";
+    private static final String LIST_ITEM_FORMAT_STRING = "     | %-50s| %-20s| %-12s|%n";
     private static final int COMMENT_COLUMN_WIDTH = 50;
 
     public CommentViewService(IOService ioService) {
         super(ioService);
-        super.delimiter = "     -----------------------------------------------------------------------------------------------";
-        super.formatString = "     | %-4s| %-50s| %-20s| %-12s|%n";
-        super.formatArgs = new Object[]{" ID ", "        КОММЕНТАРИЙ", "    НИК ", "   ДАТА"};
+        super.delimiter = "     -----------------------------------------------------------------------------------------";
+        super.formatString = "     | %-50s| %-20s| %-12s|%n";
+        super.formatArgs = new Object[]{"        КОММЕНТАРИЙ", "    НИК ", "   ДАТА"};
     }
 
     @Override
@@ -30,26 +30,26 @@ public class CommentViewService extends AbstractViewService<Comment> implements 
 
         if (formattedCommentText.size() == 1) {
             ioService.printf(ITEM_FORMAT_STRING,
-                    comment.getId(),
                     comment.getText(),
                     comment.getAuthorNick(),
                     commentDateFormat.format(comment.getDate()));
         } else {
             ioService.printf(ITEM_FORMAT_STRING,
-                    comment.getId(),
                     formattedCommentText.get(0),
                     comment.getAuthorNick(),
                     commentDateFormat.format(comment.getDate()));
             for (int i = 1; i < formattedCommentText.size(); i++) {
                 ioService.printf(LIST_ITEM_FORMAT_STRING,
-                        "", formattedCommentText.get(i), "", "");
+                        formattedCommentText.get(i), "", "");
             }
         }
     }
 
     private List<String> formatCommentText(String comment) {
 
-        List<String> splittedComment = List.of(comment.split(" "));
+        String cleanComment = comment.replaceAll("\\r\\n", " ").replaceAll("\\r", " ").replaceAll("\\n", " ");
+
+        List<String> splittedComment = List.of(cleanComment.split(" "));
         List<String> result = new ArrayList<>();
         int currentWidth = 0;
         StringBuilder sb = new StringBuilder();

@@ -4,21 +4,29 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Genre;
+import ru.glavs.hw008.domain.projections.BookWithComments;
 import ru.glavs.hw008.io.IOService;
+import ru.glavs.hw008.service.view.AbstractViewService;
+
+import java.util.List;
 
 @Service
 public class BookUserInterfaceImpl implements BookUI {
     private final IOService ioService;
     private final AuthorUI authorUI;
     private final GenreUI genreUI;
+    private final AbstractViewService<BookWithComments> bookDisplayService;
 
     public BookUserInterfaceImpl(IOService ioService,
                                  AuthorUI authorUI,
-                                 GenreUI genreUI) {
+                                 GenreUI genreUI,
+                                 AbstractViewService<BookWithComments> bookDisplayService) {
         this.ioService = ioService;
         this.authorUI = authorUI;
         this.genreUI = genreUI;
+        this.bookDisplayService = bookDisplayService;
     }
+
     @Override
     public Book create() {
 //        String title = ioService.readStringWithPrompt("Enter title: ");
@@ -50,4 +58,5 @@ public class BookUserInterfaceImpl implements BookUI {
 //        book.setGenre(genre);
         return book;
     }
+
 }
