@@ -3,7 +3,6 @@
     "$oid": "63decd35871fbfaca500e797"
   },
   "text": "Самая прекрасная книга про роботов!\nПросто слов нет!",
-  "authorNick": "reader",
   "date": {
     "$date": {
       "$numberLong": "1642194000000"
@@ -39,7 +38,8 @@
       }
     ]
   },
-  "_class": "ru.glavs.hw008.domain.Comment"
+  "_class": "ru.glavs.hw008.domain.Comment",
+  "authorNick": "reader"
 },{
   "_id": {
     "$oid": "63e404a10cf7cc6da6e189a3"
@@ -82,4 +82,46 @@
     "title": "Основания"
   },
   "_class": "ru.glavs.hw008.domain.Comment"
+},{
+  "_id": {
+    "$oid": "63e551b9952fa1ee95fdbfc4"
+  },
+  "text": "Превосходно раскрыта психология роботов. Для знатоков темы.",
+  "date": {
+    "$date": {
+      "$numberLong": "1642204000000"
+    }
+  },
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deae757901a39c59a726b6"
+    },
+    "title": "Я, робот",
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "surname": "Азимов",
+        "name": "Айзек",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ]
+  },
+  "_class": "ru.glavs.hw008.domain.Comment",
+  "authorNick": "robotFan"
 }]

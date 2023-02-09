@@ -11,6 +11,7 @@ import ru.glavs.hw008.domain.projections.BookWithComments;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @AllArgsConstructor
 public class BookRepositoryCustomImpl implements BookRepositoryCustom {
@@ -37,11 +38,10 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     }
 
     @Override
-    public List<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart){
-        MongoExpression titleRegex = MongoExpression.create("{ \"title\": {$regex: /^" + titlePart + "/}}");
+    public List<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart) {
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments"),
-                match(AggregationExpression.from(titleRegex))
+                match(where("title").regex("^" + titlePart))
         );
         return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getMappedResults();
     }

@@ -12,7 +12,7 @@ public interface BookCRUD {
 
     List<Book> readAllWithCommentsOnly();
 
-    Book readBook(long id);
+    Book readBook(ObjectId id);
 
     void deleteById(ObjectId id);
 }

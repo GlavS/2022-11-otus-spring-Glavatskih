@@ -32,8 +32,8 @@ public class BookCRUDImpl implements BookCRUD {
     }
 
     @Override
-    public Book readBook(long id) {
-        return null;
+    public Book readBook(ObjectId id) {
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
