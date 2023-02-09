@@ -1,6 +1,7 @@
 package ru.glavs.hw008.domain.projections;
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Comment;
@@ -15,6 +16,7 @@ import java.util.List;
 @ToString
 @Document
 public class BookComments {
+    private ObjectId id;
     private String title;
     private List<Author> authors;
     private List<Genre> genres;

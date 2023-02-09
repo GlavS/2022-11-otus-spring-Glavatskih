@@ -9,6 +9,8 @@ import ru.glavs.hw008.repository.BookRepository;
 import ru.glavs.hw008.repository.CommentRepository;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Comment;
+import ru.glavs.hw008.service.view.AbstractViewService;
+import ru.glavs.hw008.service.view.BookViewService;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,8 @@ public class Hw008Application {
         ConfigurableApplicationContext context = SpringApplication.run(Hw008Application.class);
         BookRepository bookRepository = context.getBean(BookRepository.class);
         CommentRepository commentRepository = context.getBean(CommentRepository.class);
+        AbstractViewService<BookComments> bookViewService = context.getBean(BookViewService.class);
+
         List<Book> bookList = bookRepository.findAll();
 
 //        Book bookToComment = bookList.get(1);
@@ -31,5 +35,7 @@ public class Hw008Application {
 
         List<Comment> commentList = commentRepository.findAll();
         List<BookComments> commentedBooks = bookRepository.findAllWithComments();
+        bookViewService.printList(commentedBooks);
+        List<Book> bookVoskr = bookRepository.findByTitleContaining("Воскр");
     }
 }

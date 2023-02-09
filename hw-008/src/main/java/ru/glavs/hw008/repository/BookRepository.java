@@ -10,10 +10,6 @@ public interface BookRepository extends MongoRepository<Book, String>, BookRepos
 
     List<Book> findByTitleContaining(String titlePattern);
 
-
-    //List<Book> getAllWithCommentsOnly();
-
-
     List<Book> findAll();
 
     //Book findByIdWithComments(@Param("id") long id);

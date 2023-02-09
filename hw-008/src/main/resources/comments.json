@@ -9,7 +9,77 @@
       "$numberLong": "1642194000000"
     }
   },
-  "bookref": {
-    "$oid": "63deae757901a39c59a726b6"
-  }
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deae757901a39c59a726b6"
+    },
+    "title": "Я, робот",
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "surname": "Азимов",
+        "name": "Айзек",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ]
+  },
+  "_class": "ru.glavs.hw008.domain.Comment"
+},{
+  "_id": {
+    "$oid": "63e404a10cf7cc6da6e189a3"
+  },
+  "text": "Это самое лучшее, что я читал в своей жизни об основаниях.",
+  "authorNick": "GlavS",
+  "date": {
+    "$date": {
+      "$numberLong": "1675887777893"
+    }
+  },
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deb42d7901a39c59a726b7"
+    },
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "name": "Айзек",
+        "surname": "Азимов",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ],
+    "title": "Основания"
+  },
+  "_class": "ru.glavs.hw008.domain.Comment"
 }]

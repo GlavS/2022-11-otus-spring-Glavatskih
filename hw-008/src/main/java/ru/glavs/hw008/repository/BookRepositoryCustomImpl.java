@@ -18,21 +18,21 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public List<BookComments> findAllWithComments() {
+    public List<BookComments> findAllWithCommentsOnly() {
+        MongoExpression commentsNotEmpty = MongoExpression.create("{ $expr:{ $ne: [0, { $size: \"$comments\" }]}}");
+
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments"),
-                match(AggregationExpression.from(MongoExpression.create("{ $expr:{ $ne: [0, { $size: \"$comments\" }]}}")))
+                match(AggregationExpression.from(commentsNotEmpty))
         );
-
         return mongoTemplate.aggregate(aggregation, Book.class, BookComments.class).getMappedResults();
     }
 
     @Override
-    public List<BookComments> findAllWithCommentsOnly() {
+    public List<BookComments> findAllWithComments() {
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments")
         );
-
         return mongoTemplate.aggregate(aggregation, Book.class, BookComments.class).getMappedResults();
     }
 }
