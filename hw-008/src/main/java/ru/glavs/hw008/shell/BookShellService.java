@@ -61,22 +61,23 @@ public class BookShellService {
             ioService.printf("Book \"%s\" deleted.%n", foundBook.getTitle());
         }
     }
-//
-//    @ShellMethod("Create new book.")
-//    public void create() {
-//        Book bookToCreate = bookUI.create();
-//        bookCrud.save(bookToCreate);
-//        ioService.println("Book created.");
-//    }
-//
-//    @ShellMethod("Update book.")
-//    public void update() {
-//        long id = ioService.readIntWithPrompt("Please enter id of book to update: ");
-//        Book book = bookCrud.readBook(id);
-//        bookViewService.printOne(book);
-//        ioService.println("This book will be updated");
-//        Book bookToUpdate = bookUI.update(book);
-//        bookCrud.save(bookToUpdate);
-//        ioService.printf("Book %d updated.%n", id);
-//    }
+
+    @ShellMethod("Create new book.")
+    public void create() {
+        Book bookToCreate = bookUI.create();
+        bookCRUD.save(bookToCreate);
+        ioService.println("Book created.");
+    }
+
+    @ShellMethod("Update book.")
+    public void update() {
+        String titlePart = ioService.readStringWithPrompt("Please enter title of book to update (you may type first few letters): ");
+        BookWithComments foundBook = bookUI.pickByTitlePart(titlePart);
+        bookViewService.printOne(foundBook);
+        ioService.println("This book will be updated");
+        Book bookToUpdate = BookWithComments.toBook(foundBook);
+        Book updatedBook = bookUI.update(bookToUpdate);
+        bookCRUD.save(updatedBook);
+        ioService.printf("Book \"%s\" updated.%n", foundBook.getTitle());
+    }
 }

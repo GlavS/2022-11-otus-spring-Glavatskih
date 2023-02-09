@@ -5,9 +5,9 @@ import ru.glavs.hw008.domain.Genre;
 import java.util.List;
 
 public interface GenreUI {
-    Genre requestGenre(String genreName);
+    List<Genre> requestGenres(String genreName);
 
-    Genre createGenre();
+    List<Genre> createGenres();
 
-    Genre pickGenreFrom(List<Genre> genreList);
+    List<Genre> pickGenresFrom(List<Genre> genreList);
 }

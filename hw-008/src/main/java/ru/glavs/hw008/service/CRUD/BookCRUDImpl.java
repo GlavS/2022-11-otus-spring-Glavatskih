@@ -17,7 +17,8 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Override
     public void save(Book book) {
-
+        repository.save(book);
+        //TODO: cascade save author and genre. Transactional!
     }
 
     @Override
@@ -38,6 +39,6 @@ public class BookCRUDImpl implements BookCRUD {
     @Override
     public void deleteById(ObjectId id) {
         repository.deleteById(id);
-        //TODO: cascade delete commnets. Transactional!!
+        //TODO: cascade delete comments. Transactional!!
     }
 }

@@ -5,9 +5,9 @@ import ru.glavs.hw008.domain.Author;
 import java.util.List;
 
 public interface AuthorUI {
-    Author requestAuthor(String surname);
+    List<Author> requestAuthors(String surname);
 
-    Author createAuthor();
+    List<Author> createAuthors();
 
-    Author pickAuthorFrom(List<Author> authorList);
+    List<Author> pickAuthorsFrom(List<Author> authorList);
 }
