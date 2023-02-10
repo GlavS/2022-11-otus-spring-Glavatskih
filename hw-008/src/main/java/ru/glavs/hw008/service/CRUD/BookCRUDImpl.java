@@ -1,7 +1,6 @@
 package ru.glavs.hw008.service.CRUD;
 
 import lombok.AllArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw008.domain.Author;
@@ -31,21 +30,6 @@ public class BookCRUDImpl implements BookCRUD {
         authorCRUD.saveAll(authorList);
         genreCRUD.saveAll(genreList);
         repository.save(book);
-    }
-
-    @Override
-    public List<Book> readAll() {
-        return null;
-    }
-
-    @Override
-    public List<Book> readAllWithCommentsOnly() {
-        return null;
-    }
-
-    @Override
-    public Book readBook(ObjectId id) {
-        return repository.findById(id).orElseThrow();
     }
 
     @Override

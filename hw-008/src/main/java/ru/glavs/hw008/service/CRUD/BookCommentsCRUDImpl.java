@@ -1,7 +1,6 @@
 package ru.glavs.hw008.service.CRUD;
 
 import org.springframework.stereotype.Service;
-import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.projections.BookWithComments;
 import ru.glavs.hw008.repository.BookRepository;
 

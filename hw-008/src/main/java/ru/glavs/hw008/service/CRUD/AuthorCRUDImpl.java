@@ -1,11 +1,11 @@
 package ru.glavs.hw008.service.CRUD;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.repository.AuthorRepository;
 
 import java.util.List;
+
 @Service
 public class AuthorCRUDImpl implements AuthorCRUD {
 
@@ -28,10 +28,5 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     @Override
     public List<Author> saveAll(List<Author> authorList) {
         return repository.saveAll(authorList);
-    }
-
-    @Override
-    public Author findById(long id) {
-        return null;
     }
 }

@@ -1,7 +1,6 @@
 package ru.glavs.hw008.service.ui;
 
 import org.springframework.stereotype.Service;
-import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Genre;
 import ru.glavs.hw008.io.IOService;
 import ru.glavs.hw008.service.CRUD.GenreCRUD;
@@ -51,9 +50,10 @@ public class GenreUserInterfaceImpl implements GenreUI {
             genre.setName(ioService.readStringWithPrompt("Please enter genre: "));
             result.add(genre);
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        }while(!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
+        } while (!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
+
     @Override
     public List<Genre> pickGenresFrom(List<Genre> genreList) {
         List<Genre> result = new ArrayList<>();
@@ -63,7 +63,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
             displayService.printList(genreList);
             result.add(selectGenre());
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        }while(!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
+        } while (!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
 
@@ -75,7 +75,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
             if (result.size() > 1) {
                 genreNamePart = ioService.readStringWithPrompt("Please, enter few more letters of genre name: ");
             }
-        }while (result.size()>1);
+        } while (result.size() > 1);
         displayService.printOne(result.get(0));
         ioService.println("Genre added");
         return result.get(0);

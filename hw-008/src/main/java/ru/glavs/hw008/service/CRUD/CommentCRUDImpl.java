@@ -6,6 +6,7 @@ import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.repository.CommentRepository;
 
 import java.util.List;
+
 @Service
 public class CommentCRUDImpl implements CommentCRUD {
 
@@ -28,11 +29,6 @@ public class CommentCRUDImpl implements CommentCRUD {
     @Override
     public Comment save(Comment comment) {
         return repository.save(comment);
-    }
-
-    @Override
-    public Comment findById(long commentId) {
-        return null;
     }
 
     @Override

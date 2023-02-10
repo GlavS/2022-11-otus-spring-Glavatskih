@@ -8,7 +8,6 @@ import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.domain.projections.BookWithComments;
 import ru.glavs.hw008.io.IOService;
-import ru.glavs.hw008.service.CRUD.BookCRUD;
 import ru.glavs.hw008.service.CRUD.CommentCRUD;
 import ru.glavs.hw008.service.ui.BookUI;
 import ru.glavs.hw008.service.ui.CommentUI;
@@ -21,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentShellService {
 
-    private final BookCRUD bookCRUDService;
     private final AbstractViewService<BookWithComments> bookViewService;
     private final AbstractViewService<Comment> commentViewService;
     private final CommentUI commentUI;
@@ -50,7 +48,7 @@ public class CommentShellService {
     }
 
     @ShellMethod("Show comments by book.")
-    void commentsShow(){
+    void commentsShow() {
         String titlePart = ioService.readStringWithPrompt("Please enter title of book to comment (you may type first few letters): ");
         BookWithComments foundBook = bookUI.pickByTitlePart(titlePart);
 

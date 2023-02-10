@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface CommentCRUD {
     void deleteAll(List<Comment> commentList);
+
     void delete(Comment comment);
 
     Comment save(Comment comment);
 
-    Comment findById(long commentId);
-
     List<Comment> findCommentsByBook(ObjectId bookId);
+
     List<Comment> findByCommentText(String partOfText);
 }
