@@ -30,7 +30,7 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
         List<Author> searchResultList = authorCRUDService.searchBySurname(surname);
         if (searchResultList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such author in database. Do you want to create one? (y/n): ");
-            if (answer.equalsIgnoreCase("y")) {
+            if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("н")) {
                 result.addAll(createAuthors());
             } else {
                 result.addAll(pickAuthorsFrom(authorCRUDService.findAll()));
@@ -55,7 +55,7 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
             author.setInitials(ioService.readStringWithPrompt("Enter initials: "));
             result.add(author);
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        } while (!answer.equalsIgnoreCase("n"));
+        } while (!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
 
@@ -68,22 +68,38 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
             displayService.printList(authorList);
             result.add(selectAuthor());
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        } while (!answer.equalsIgnoreCase("n"));
+        } while (!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
 
-    private Author selectAuthor(){
+    private Author selectAuthor() {
         List<Author> result;
         String surnamePart = ioService.readStringWithPrompt("Please enter author's surname (you may enter first few letters)");
         do {
             result = authorCRUDService.searchBySurname(surnamePart);
             if (result.size() > 1) {
-                ioService.println("Please, enter few more of authors surname: ");
+                displayService.printList(result);
+                surnamePart = ioService.readStringWithPrompt("Please, enter few more of authors surname, or specify number counting from top: ");
+                if (isNumber(surnamePart)) {
+                    int index = Integer.parseInt(surnamePart);
+                    Author resultAuthor = result.get(index - 1);
+                    result.clear();
+                    result.add(resultAuthor);
+                }
             }
-        }while (result.size()>1);
+        } while (result.size() > 1);
         displayService.printOne(result.get(0));
         ioService.println("Author added");
         return result.get(0);
+    }
+
+    private boolean isNumber(String inputString) {
+        try {
+            Integer.parseInt(inputString);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
     private static class AuthorSort implements Comparator<Author> {

@@ -26,10 +26,10 @@ public class BookUserInterfaceImpl implements BookUI {
     public Book create() {
         String title = ioService.readStringWithPrompt("Enter title: ");
 
-        String surname = ioService.readStringWithPrompt("Please, enter author's surname: ");
+        String surname = ioService.readStringWithPrompt("Please, enter author's surname (type a few letters or ENTER to pick from list): ");
         List<Author> authors = authorUI.requestAuthors(surname);
 
-        String genreName = ioService.readStringWithPrompt("Please enter genre");
+        String genreName = ioService.readStringWithPrompt("Please enter genre (type a few letters or ENTER to pick from list): ");
         List<Genre> genres = genreUI.requestGenres(genreName);
 
         return new Book(authors, genres, title);
@@ -41,12 +41,20 @@ public class BookUserInterfaceImpl implements BookUI {
         if (title.equals("")) {
             title = book.getTitle();
         }
-
+        List<Author> authors;
         String authorSurname = ioService.readStringWithPrompt("Please enter new author's surname, or enter to skip: ");
-        List<Author> authors = authorUI.requestAuthors(authorSurname);
-
+        if (authorSurname.equals("")) {
+            authors = book.getAuthors();
+        } else {
+            authors = authorUI.requestAuthors(authorSurname);
+        }
+        List<Genre> genres;
         String genreName = ioService.readStringWithPrompt("Please, enter genre or enter to skip: ");
-        List<Genre> genres = genreUI.requestGenres(genreName);
+        if (genreName.equals("")) {
+            genres = book.getGenres();
+        } else {
+            genres = genreUI.requestGenres(genreName);
+        }
 
         book.setTitle(title);
         book.setAuthors(authors);
@@ -59,7 +67,7 @@ public class BookUserInterfaceImpl implements BookUI {
         List<BookWithComments> bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
         while (bookList.size() > 1) {
             bookDisplayService.printList(bookList);
-            titlePart = ioService.readStringWithPrompt("Please, specify title more precicely");
+            titlePart = ioService.readStringWithPrompt("Please, specify title more precicely: ");
             bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
         }
         return bookList.get(0);

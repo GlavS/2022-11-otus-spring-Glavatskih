@@ -29,7 +29,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
         List<Genre> searchResultList = genreCRUDService.searchByGenre(genreName);
         if (searchResultList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such genre in database. Do you want to create one? (y/n): ");
-            if (answer.equalsIgnoreCase("y")) {
+            if (answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("н")) {
                 result.addAll(createGenres());
             } else {
                 result.addAll(pickGenresFrom(genreCRUDService.findAll()));
@@ -51,7 +51,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
             genre.setName(ioService.readStringWithPrompt("Please enter genre: "));
             result.add(genre);
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        }while(!answer.equalsIgnoreCase("n"));
+        }while(!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
     @Override
@@ -63,7 +63,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
             displayService.printList(genreList);
             result.add(selectGenre());
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
-        }while(!answer.equalsIgnoreCase("n"));
+        }while(!answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("т"));
         return result;
     }
 
@@ -73,7 +73,7 @@ public class GenreUserInterfaceImpl implements GenreUI {
         do {
             result = genreCRUDService.searchByGenre(genreNamePart);
             if (result.size() > 1) {
-                ioService.println("Please, enter few more letters of genre name: ");
+                genreNamePart = ioService.readStringWithPrompt("Please, enter few more letters of genre name: ");
             }
         }while (result.size()>1);
         displayService.printOne(result.get(0));
