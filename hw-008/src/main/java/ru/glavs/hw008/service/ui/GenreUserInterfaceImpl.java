@@ -1,6 +1,7 @@
 package ru.glavs.hw008.service.ui;
 
 import org.springframework.stereotype.Service;
+import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Genre;
 import ru.glavs.hw008.io.IOService;
 import ru.glavs.hw008.service.CRUD.GenreCRUD;
@@ -24,17 +25,21 @@ public class GenreUserInterfaceImpl implements GenreUI {
 
     @Override
     public List<Genre> requestGenres(String genreName) {
-        List<Genre> genreList = new ArrayList<>();
-        Genre genre = genreCRUDService.searchByGenre(genreName);
-        if (genre == null) {
+        List<Genre> result = new ArrayList<>();
+        List<Genre> searchResultList = genreCRUDService.searchByGenre(genreName);
+        if (searchResultList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such genre in database. Do you want to create one? (y/n): ");
             if (answer.equalsIgnoreCase("y")) {
-                genreList.addAll(createGenres());
+                result.addAll(createGenres());
             } else {
-                genreList.addAll(pickGenresFrom(genreCRUDService.findAll()));
+                result.addAll(pickGenresFrom(genreCRUDService.findAll()));
             }
+        } else if (searchResultList.size() > 1) {
+            result.addAll(pickGenresFrom(searchResultList));
+        } else {
+            result.add(searchResultList.get(0));
         }
-        return genreList;
+        return result;
     }
 
     @Override
@@ -56,12 +61,26 @@ public class GenreUserInterfaceImpl implements GenreUI {
         String answer;
         do {
             displayService.printList(genreList);
-            long genreId = ioService.readIntWithPrompt("Please enter desired genre id: ");
-            result.add(genreCRUDService.findById(genreId));
+            result.add(selectGenre());
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
         }while(!answer.equalsIgnoreCase("n"));
         return result;
     }
+
+    private Genre selectGenre() {
+        List<Genre> result;
+        String genreNamePart = ioService.readStringWithPrompt("Please enter genre (you may enter first few letters)");
+        do {
+            result = genreCRUDService.searchByGenre(genreNamePart);
+            if (result.size() > 1) {
+                ioService.println("Please, enter few more letters of genre name: ");
+            }
+        }while (result.size()>1);
+        displayService.printOne(result.get(0));
+        ioService.println("Genre added");
+        return result.get(0);
+    }
+
 
     private static class GenreSort implements Comparator<Genre> {
         @Override

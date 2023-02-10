@@ -5,7 +5,7 @@ import ru.glavs.hw008.domain.Genre;
 import java.util.List;
 
 public interface GenreCRUD {
-    Genre searchByGenre(String genreName);
+    List<Genre> searchByGenre(String genreNamePart);
 
     List<Genre> findAll();
 

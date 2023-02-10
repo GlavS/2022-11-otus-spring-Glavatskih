@@ -15,13 +15,13 @@ public class GenreCRUDImpl implements GenreCRUD {
     }
 
     @Override
-    public Genre searchByGenre(String genreName) {
-        return null;
+    public List<Genre> searchByGenre(String genreNamePart) {
+        return repository.findByNameContainingIgnoreCase(genreNamePart);
     }
 
     @Override
     public List<Genre> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

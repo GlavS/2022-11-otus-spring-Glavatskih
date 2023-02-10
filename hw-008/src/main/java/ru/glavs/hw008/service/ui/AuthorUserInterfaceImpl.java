@@ -26,22 +26,22 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
 
     @Override
     public List<Author> requestAuthors(String surname) {
-        List<Author> authorsList = new ArrayList<>();
+        List<Author> result = new ArrayList<>();
         List<Author> searchResultList = authorCRUDService.searchBySurname(surname);
-        if (searchResultList == null) {
+        if (searchResultList.size() == 0) {
             String answer = ioService.readStringWithPrompt("No such author in database. Do you want to create one? (y/n): ");
             if (answer.equalsIgnoreCase("y")) {
-                authorsList.addAll(createAuthors());
+                result.addAll(createAuthors());
             } else {
-                authorsList.addAll(pickAuthorsFrom(authorCRUDService.findAll()));
+                result.addAll(pickAuthorsFrom(authorCRUDService.findAll()));
             }
 
         } else if (searchResultList.size() > 1) {
-            authorsList.addAll(pickAuthorsFrom(searchResultList));
+            result.addAll(pickAuthorsFrom(searchResultList));
         } else {
-            authorsList.add(searchResultList.get(0));
+            result.add(searchResultList.get(0));
         }
-        return authorsList;
+        return result;
     }
 
     @Override
@@ -66,11 +66,24 @@ public class AuthorUserInterfaceImpl implements AuthorUI {
         String answer;
         do {
             displayService.printList(authorList);
-            long authorId = ioService.readIntWithPrompt("Please enter desired author id: ");
-            result.add(authorCRUDService.findById(authorId));
+            result.add(selectAuthor());
             answer = ioService.readStringWithPrompt("Do you want to create more(y/n)?");
         } while (!answer.equalsIgnoreCase("n"));
         return result;
+    }
+
+    private Author selectAuthor(){
+        List<Author> result;
+        String surnamePart = ioService.readStringWithPrompt("Please enter author's surname (you may enter first few letters)");
+        do {
+            result = authorCRUDService.searchBySurname(surnamePart);
+            if (result.size() > 1) {
+                ioService.println("Please, enter few more of authors surname: ");
+            }
+        }while (result.size()>1);
+        displayService.printOne(result.get(0));
+        ioService.println("Author added");
+        return result.get(0);
     }
 
     private static class AuthorSort implements Comparator<Author> {

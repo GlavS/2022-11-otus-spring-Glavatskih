@@ -16,13 +16,13 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     }
 
     @Override
-    public List<Author> searchBySurname(String surname) {
-        return null;
+    public List<Author> searchBySurname(String surnamePart) {
+        return repository.findBySurnameContainingIgnoreCase(surnamePart);
     }
 
     @Override
     public List<Author> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

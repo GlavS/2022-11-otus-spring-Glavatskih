@@ -1,8 +1,8 @@
 package ru.glavs.hw008.mongock.jsondata;
 
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class JsonFileParserImpl implements JsonFileParser {
     }
 
     @Override
-    public List<String> parseJson(String filename){
+    public List<String> parseJson(String filename) {
         List<String> result = new ArrayList<>();
 
         loader.setJsonFile(filename);
