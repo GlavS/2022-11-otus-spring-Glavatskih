@@ -17,11 +17,13 @@ spring:
       port: 27017
       database: testbookhw008
 
-### mongock: ###
-#  #runner-type: "ApplicationRunner" # default
-#  runner-type: "InitializingBean"
-#  change-logs-scan-package:
-#    - ru.glavs.hw008.mongock.changelog
+### Mongock ###
+
+mongock:
+  #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.glavs.hw008.mongock.changelog
 
 
 logging:

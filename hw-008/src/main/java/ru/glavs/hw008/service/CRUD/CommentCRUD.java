@@ -6,6 +6,7 @@ import ru.glavs.hw008.domain.Comment;
 import java.util.List;
 
 public interface CommentCRUD {
+    void deleteAll(List<Comment> commentList);
     void delete(Comment comment);
 
     Comment save(Comment comment);

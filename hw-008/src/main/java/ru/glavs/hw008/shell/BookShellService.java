@@ -56,8 +56,8 @@ public class BookShellService {
         bookViewService.printOne(foundBook);
         String answer = ioService.readStringWithPrompt("This book will be deleted. Are you sure(y/n)?");
         if(answer.equalsIgnoreCase("y")){
-            Book bookToDelete = BookWithComments.toBook(foundBook);
-            bookCRUD.deleteById(bookToDelete.getId());
+            //Book bookToDelete = BookWithComments.toBook(foundBook);
+            bookCRUD.delete(foundBook);
             ioService.printf("Book \"%s\" deleted.%n", foundBook.getTitle());
         }
     }

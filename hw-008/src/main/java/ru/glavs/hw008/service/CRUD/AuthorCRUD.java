@@ -9,7 +9,7 @@ public interface AuthorCRUD {
 
     List<Author> findAll();
 
-    Author save(Author author);
+    List<Author> saveAll(List<Author> authorList);
 
     Author findById(long id);
 }

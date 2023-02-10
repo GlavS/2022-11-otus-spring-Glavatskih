@@ -9,7 +9,7 @@ public interface GenreCRUD {
 
     List<Genre> findAll();
 
-    Genre save(Genre genre);
+    List<Genre> saveAll(List<Genre> genreList);
 
     Genre findById(long id);
 }

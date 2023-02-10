@@ -21,6 +21,11 @@ public class CommentCRUDImpl implements CommentCRUD {
     }
 
     @Override
+    public void deleteAll(List<Comment> commentList) {
+        repository.deleteAll(commentList);
+    }
+
+    @Override
     public Comment save(Comment comment) {
         return repository.save(comment);
     }
