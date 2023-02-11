@@ -28,4 +28,4 @@ mongock:
 
 logging:
   level:
-    ROOT: info
+    ROOT: error
