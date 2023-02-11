@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      database: super
+      database: testbookdb
   mongodb:
     embedded:
       version: 3.5.5
@@ -13,6 +13,12 @@ spring:
     command:
       script:
         enabled: false
+
+mongock:
+  #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.glavs.hw008.mongock.testchangelog
 
 
 logging:
