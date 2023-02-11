@@ -39,7 +39,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     public List<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart) {
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments"),
-                match(where("title").regex("^" + titlePart))
+                match(where("title").regex("^" + titlePart, "i"))
         );
         return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getMappedResults();
     }

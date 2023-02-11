@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.DirtiesContext;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Comment;
@@ -25,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DataMongoTest
 @DisplayName("Сервис книг должен")
 @ComponentScan("ru.glavs.hw008.service.CRUD")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 class BookCRUDImplTest {
     @Autowired
     private AuthorRepository authorRepository;
@@ -59,7 +62,8 @@ class BookCRUDImplTest {
 
     @Test
     @DisplayName("каскадно удалять комментарии, относящиеся к книге")
-    void souldDeleteCommentsReferringDeletedBook() {
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void shouldDeleteCommentsReferringDeletedBook() {
         List<BookWithComments> booksWithComments = bookRepository.findAllWithCommentsByTitleContaining("Title1");
         List<Comment> commentList = booksWithComments.get(0).getComments();
         Comment comment1 = commentRepository.findById(commentList.get(0).getId()).orElseThrow();
