@@ -20,11 +20,9 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
 
     @Override
     public List<BookWithComments> findAllWithCommentsOnly() {
-        MongoExpression commentsNotEmpty = MongoExpression.create("{ $expr:{ $ne: [0, { $size: \"$comments\" }]}}");
-
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments"),
-                match(AggregationExpression.from(commentsNotEmpty))
+                match(where("comments").not().size(0))
         );
         return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getMappedResults();
     }
