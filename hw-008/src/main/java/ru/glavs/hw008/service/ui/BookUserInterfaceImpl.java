@@ -67,7 +67,7 @@ public class BookUserInterfaceImpl implements BookUI {
         List<BookWithComments> bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
         while (bookList.size() > 1) {
             bookDisplayService.printList(bookList);
-            titlePart = ioService.readStringWithPrompt("Please, specify title more precicely: ");
+            titlePart = ioService.readStringWithPrompt("Please, specify title more precisely: ");
             bookList = bookWithCommentsCRUD.readBookByTitlePart(titlePart);
         }
         return bookList.get(0);

@@ -24,12 +24,12 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Override
     @Transactional
-    public void save(Book book) {
+    public Book save(Book book) {
         List<Author> authorList = book.getAuthors();
         List<Genre> genreList = book.getGenres();
         authorCRUD.saveAll(authorList);
         genreCRUD.saveAll(genreList);
-        repository.save(book);
+        return repository.save(book);
     }
 
     @Override
