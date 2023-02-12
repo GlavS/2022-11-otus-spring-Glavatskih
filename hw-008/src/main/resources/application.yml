@@ -16,7 +16,6 @@ spring:
 #      host: localhost
 #      port: 27017
 #      database: testbookhw008
-#TODO:переставить
 ### Mongock ###
 
 mongock:

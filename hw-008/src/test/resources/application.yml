@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      database: testbookdb
+      database: test
   mongodb:
     embedded:
       version: 3.5.5

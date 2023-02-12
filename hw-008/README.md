@@ -3,7 +3,7 @@
 
 Сборка:
 ````
-mvn -Dmaven.test.skip=true clean package
+mvn clean package
 ````
 
 Запуск из командной строки:
@@ -18,7 +18,6 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 Использование shell:
 ````
        01. Book CRUD
-       console: Show H2 console. (under Linux run web browser first)
        show: Show one book.
        update: Update book.
        create: Create new book.
@@ -30,5 +29,5 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
        comment-add: Add comment to book.
        comments-show: Show comments by book.
        
-       Обратить внимание, что в терминалах Windows наболюдаются проблемы с вводом кириллицы.
+       Обратить внимание, что в терминалах Windows (cmd, PowerShell) наболюдаются проблемы с вводом кириллицы.
 ````

@@ -22,7 +22,8 @@ public class CommentUserInterfaceImpl implements CommentUI {
 
 
     @Override
-    public void createCommentFor(Book book, String commentText, String nickName) {
+    public void createCommentFor(Book book, String nickName) {
+        String commentText = prepareCommentText();
         Comment comment = commentCRUDService.save(new Comment(commentText, nickName, new Date(), book));
         ioService.println("Comment added successfully");
         displayService.printOne(comment);
@@ -30,6 +31,7 @@ public class CommentUserInterfaceImpl implements CommentUI {
 
     @Override
     public void deleteComment() {
+        Comment commentToDelete = new Comment();
         String titlePart = ioService.readStringWithPrompt("Please enter title of book to comment (you may type first few letters): ");
         BookWithComments foundBook = bookUI.pickByTitlePart(titlePart);
         List<Comment> commentList = commentCRUDService.findCommentsByBook(foundBook.getId());
@@ -38,18 +40,8 @@ public class CommentUserInterfaceImpl implements CommentUI {
             return;
         }
         if(commentList.size() > 1){
-            do{
-                displayService.printList(commentList);
-                String partOfText = ioService.readStringWithPrompt("Please enter part of comment text of comment you want to delete: ");
-                commentList = commentCRUDService.findByCommentText(partOfText);
-                if(commentList.size() == 1){
-                    break;
-                } else {
-                    ioService.println("Please, enter bigger part of comment text: ");
-                }
-            }while(commentList.size() > 1);
+            commentToDelete = chooseCommentFrom(commentList);
         }
-        Comment commentToDelete = commentList.get(0);
         displayService.printOne(commentToDelete);
         String answer = ioService.readStringWithPrompt("This comment will be deleted. Are you sure(y/n)? ");
         if (answer.equalsIgnoreCase("y")) {
@@ -69,6 +61,19 @@ public class CommentUserInterfaceImpl implements CommentUI {
             sb.append(line).append(" ");
         }
         return sb.toString();
+    }
+    private Comment chooseCommentFrom(List<Comment> commentList ){
+        do{
+            displayService.printList(commentList);
+            String partOfText = ioService.readStringWithPrompt("Please enter part of comment text of comment you want to delete: ");
+            commentList = commentCRUDService.findByCommentText(partOfText);
+            if(commentList.size() == 1){
+                break;
+            } else {
+                ioService.println("Please, enter bigger part of comment text: ");
+            }
+        }while(commentList.size() > 1);
+        return commentList.get(0);
     }
 
 }

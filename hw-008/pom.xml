@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.glavs</groupId>
     <artifactId>hw-008</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>hw-008</name>
     <description>Homework 6 Spring JPA</description>
     <properties>

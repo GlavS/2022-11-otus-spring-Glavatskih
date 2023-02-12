@@ -4,7 +4,7 @@ import ru.glavs.hw008.domain.Book;
 
 public interface CommentUI {
 
-    void createCommentFor(Book book, String commentText, String nickName);
+    void createCommentFor(Book book, String nickName);
 
     void deleteComment();
 
