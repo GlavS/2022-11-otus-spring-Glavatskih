@@ -22,7 +22,6 @@ public class Comment {
     private String text;
     private String authorNick;
     private Date date;
-    //@DBRef
     private Book commentedBook;
 
     public Comment(String text, String authorNick, Date date, Book commentedBook) {

@@ -9,6 +9,7 @@ import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.domain.Genre;
 import ru.glavs.hw008.domain.projections.BookWithComments;
 import ru.glavs.hw008.repository.BookRepository;
+import ru.glavs.hw008.repository.CommentRepository;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class BookCRUDImpl implements BookCRUD {
 
     private final BookRepository repository;
+    private final CommentRepository commentRepository;
     private final AuthorCRUD authorCRUD;
     private final GenreCRUD genreCRUD;
     private final CommentCRUD commentCRUD;
@@ -27,6 +29,7 @@ public class BookCRUDImpl implements BookCRUD {
     public Book save(Book book) {
         List<Author> authorList = book.getAuthors();
         List<Genre> genreList = book.getGenres();
+        commentRepository.updateComments(book);
         authorCRUD.saveAll(authorList);
         genreCRUD.saveAll(genreList);
         return repository.save(book);

@@ -6,7 +6,7 @@ import ru.glavs.hw008.domain.Comment;
 
 import java.util.List;
 
-public interface CommentRepository extends MongoRepository<Comment, ObjectId> {
+public interface CommentRepository extends MongoRepository<Comment, ObjectId>, CommentRepositoryCustom {
     List<Comment> findAllByCommentedBookId(ObjectId id);
     List<Comment> findByTextContainingIgnoreCase(String partOfText);
 }
