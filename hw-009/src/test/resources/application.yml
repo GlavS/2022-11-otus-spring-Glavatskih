@@ -1,0 +1,28 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:test
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:testdata.sql
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+
+  shell:
+    interactive:
+      enabled: false
+    command:
+      script:
+        enabled: false
+
+
+logging:
+  level:
+    root: ERROR
