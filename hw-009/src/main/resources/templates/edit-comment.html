@@ -3,21 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit comment</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 150px 150px 350px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        textarea {
+            grid-column: 2 / 4;
+        }
+
+    </style>
 </head>
 <body>
-<form action="#" method="post" th:object="${comment}">
+<form class="comment-form" action="#" method="post" th:object="${comment}">
     <input type="text" name="id" hidden th:value="*{getId()}">
 
-    <div><label for="comm-txt">Comment text</label>
-        <textarea name="text" id="comm-txt" cols="100" rows="20" th:text="*{getText()}"></textarea>
-    </div>
-    <div><label for="comm-nick">Nickname</label>
-        <input type="text" name="authorNick" id="comm-nick" value="NickName" th:value="*{getAuthorNick()}">
-    </div>
-    <div>
-        <label for="comm-date">Date</label>
-        <input type="date" name="date" id="comm-date" value="2021-03-20" th:value="*{getDate()}">
-    </div>
+    <label for="comm-txt">Comment text</label>
+    <textarea name="text" id="comm-txt" cols="100" rows="20" th:text="*{getText()}"> </textarea>
+
+    <label for="comm-nick">Nickname</label>
+    <input type="text" name="authorNick" id="comm-nick" value="NickName" th:value="*{getAuthorNick()}">
+
+    <label for="comm-date">Date</label>
+    <input type="date" name="date" id="comm-date" value="2021-03-20" th:value="*{getDate()}">
     <input type="submit" value="Save">
 </form>
 </body>
