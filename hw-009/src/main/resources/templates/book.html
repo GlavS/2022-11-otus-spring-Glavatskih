@@ -2,11 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Book list</title>
+    <title th:text="${book.getTitle()}">Boris Godunov</title>
     <link href="../static/booklist.css" rel="stylesheet" th:href="@{booklist.css}"/>
 </head>
 <body>
-
 <table class="books">
     <thead>
     <tr>
@@ -18,21 +17,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="book: ${books}" th:object="${book}">
+    <tr th:object="${book}">
         <td th:text="|*{getId()}.|">12.</td>
-        <td>
-            <span th:text="*{getAuthor().getSurname()}">Pushkin</span>
-            <span th:text="*{getAuthor().getInitials()}">A.S.</span>
-        </td>
-        <td>
-            <a href="book.html" th:href="@{/edit(id=${book.id})}" th:text="*{getTitle()}">Boris Godunov</a>
-        </td>
+        <td><span th:text="*{getAuthor().getSurname()}">Pushkin</span> <span
+                th:text="*{getAuthor().getInitials()}">A.S.</span></td>
+        <td th:text="*{getTitle()}">Boris Godunov</td>
         <td th:text="*{getGenre().getGenre()}">Drama</td>
         <td>
             <ul th:each="comment: *{getComments()}">
-                <li>
-                    <span th:text="|[${comment.getAuthorNick()}]:|">[NickName]:</span>
-                    <span th:text="${comment.getText()}">Comment 1</span>
+                <li th:object="${comment}">
+                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span>
+                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}" th:text="${'Edit comment'}">EDIT COMMENT</a> </span>
                 </li>
             </ul>
         </td>

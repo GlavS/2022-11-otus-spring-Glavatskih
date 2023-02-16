@@ -33,8 +33,11 @@ public class CommentCRUDImpl implements CommentCRUD {
     }
 
     @Override
+    @Transactional
     public Comment findById(long commentId) {
-        return commentDao.getReferenceById(commentId);
+        Comment comment =  commentDao.getReferenceById(commentId);
+        comment.getCommentedBook();
+        return comment;
     }
 
     @Override
