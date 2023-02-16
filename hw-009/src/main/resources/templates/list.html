@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Book list</title>
@@ -36,12 +36,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>12.</td>
-        <td>Pushkin A.S.</td>
-        <td>Boris Godunov</td>
-        <td>Drama</td>
-        <td>Comments comments comments comments comments... </td>
+    <tr th:each="book: ${books}" th:object="${book}">
+        <td th:text="*{getId()}">12.</td>
+        <td th:text="|*{getAuthor().getSurname()} *{getAuthor().getInitials()}|">Pushkin A.S.</td>
+        <td th:text="*{getTitle()}">Boris Godunov</td>
+        <td th:text="*{getGenre().getGenre()}">Drama</td>
+        <td>
+        <ul th:each="comment: *{getComments()}">
+            <li th:text="${comment.getText()}">
+                Comment 1
+            </li>
+        </ul>
+
+        </td>
     </tr>
     </tbody>
 </table>
