@@ -27,8 +27,9 @@
     </style>
 </head>
 <body>
-<form class="comment-form" action="#" method="post" th:object="${comment}" th:method="POST" th:action="@{/comment/edit}">
-    <input  hidden th:field="*{id}">
+<form class="comment-form" action="#" method="post" th:object="${comment}" th:method="POST"
+      th:action="@{/comment/edit}">
+    <input type="hidden" hidden th:field="*{id}">
 
     <label for="text">Comment text</label>
     <textarea rows="15" id="text" th:field="*{text}"> </textarea>

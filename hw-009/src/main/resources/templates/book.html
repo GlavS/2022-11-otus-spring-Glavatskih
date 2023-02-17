@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${book.getTitle()}">Boris Godunov</title>
-    <link href="../static/booklist.css" rel="stylesheet" th:href="@{booklist.css}"/>
+    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
 </head>
 <body>
 <table class="books">
@@ -19,15 +19,23 @@
     <tbody>
     <tr th:object="${book}">
         <td th:text="|*{getId()}.|">12.</td>
-        <td><span th:text="*{getAuthor().getSurname()}">Pushkin</span> <span
-                th:text="*{getAuthor().getInitials()}">A.S.</span></td>
-        <td th:text="*{getTitle()}">Boris Godunov</td>
+        <td><span th:text="*{getAuthor().getSurname()}">Pushkin</span>
+            <span th:text="*{getAuthor().getInitials()}">A.S.</span></td>
+        <td>
+            <span th:text="*{getTitle()}">Boris Godunov</span>
+            <br>
+            <!--          TODO:add forms-->
+            <span><a href="edit-book.html" th:href="@{/book/edit(id=${book.id})}"  th:text="${'Edit book'}">EDIT BOOK</a></span>|
+            <span><a href="#">ADD COMMENT</a></span>
+        </td>
         <td th:text="*{getGenre().getGenre()}">Drama</td>
         <td>
             <ul th:each="comment: *{getComments()}">
                 <li th:object="${comment}">
-                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span><br>
-                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}" th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
+                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span>
+                    <br>
+                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}"
+                              th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
                     <span> <a href="#" th:href="@{/comment/delete(id=*{id})}" th:text="${'Delete comment'}">DELETE COMMENT</a></span>
                 </li>
             </ul>
@@ -35,5 +43,6 @@
     </tr>
     </tbody>
 </table>
+<a href="list.html" th:href="@{/}">Go to main page</a>
 </body>
 </html>

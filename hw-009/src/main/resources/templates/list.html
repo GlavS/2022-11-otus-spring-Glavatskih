@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Book list</title>
-    <link href="../static/booklist.css" rel="stylesheet" th:href="@{booklist.css}"/>
+    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
             <span th:text="*{getAuthor().getInitials()}">A.S.</span>
         </td>
         <td>
-            <a href="book.html" th:href="@{/edit(id=${book.id})}" th:text="*{getTitle()}">Boris Godunov</a>
+            <a href="book.html" th:href="@{/book/show(id=${book.id})}" th:text="*{getTitle()}">Boris Godunov</a>
         </td>
         <td th:text="*{getGenre().getGenre()}">Drama</td>
         <td>
