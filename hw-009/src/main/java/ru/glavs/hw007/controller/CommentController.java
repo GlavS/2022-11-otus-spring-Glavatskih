@@ -50,6 +50,14 @@ public class CommentController {
         comment.setDate(dateReceived);
         commentCRUDservice.save(comment);
         attributes.addAttribute("id", comment.getCommentedBook().getId());
-        return "redirect:/edit"; //TODO: redirect to book edit page
+        return "redirect:/edit";
     }
+    @GetMapping("/comment/delete")
+    public String deleteComment(@RequestParam long id, RedirectAttributes attributes){
+        Comment comment = commentCRUDservice.findById(id);
+        attributes.addAttribute("id",comment.getCommentedBook().getId());
+        commentCRUDservice.delete(comment);
+        return "redirect:/edit";
+    }
+
 }

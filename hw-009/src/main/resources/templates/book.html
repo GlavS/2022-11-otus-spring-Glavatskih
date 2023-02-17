@@ -26,8 +26,9 @@
         <td>
             <ul th:each="comment: *{getComments()}">
                 <li th:object="${comment}">
-                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span>
-                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}" th:text="${'Edit comment'}">EDIT COMMENT</a> </span>
+                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span><br>
+                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}" th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
+                    <span> <a href="#" th:href="@{/comment/delete(id=*{id})}" th:text="${'Delete comment'}">DELETE COMMENT</a></span>
                 </li>
             </ul>
         </td>

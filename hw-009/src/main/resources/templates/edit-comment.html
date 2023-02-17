@@ -6,7 +6,7 @@
     <style>
         form {
             display: grid;
-            grid-template-columns: 150px 150px 350px;
+            grid-template-columns: 110px 150px 350px;
             grid-gap: 10px;
             font-family: sans-serif;
 
@@ -27,17 +27,17 @@
     </style>
 </head>
 <body>
-<form class="comment-form" action="#" method="post" th:object="${comment}">
-    <input type="text" name="id" hidden th:value="*{getId()}">
+<form class="comment-form" action="#" method="post" th:object="${comment}" th:method="POST" th:action="@{/comment/edit}">
+    <input  hidden th:field="*{id}">
 
-    <label for="comm-txt">Comment text</label>
-    <textarea name="text" id="comm-txt" cols="100" rows="20" th:text="*{getText()}"> </textarea>
+    <label for="text">Comment text</label>
+    <textarea rows="15" id="text" th:field="*{text}"> </textarea>
 
-    <label for="comm-nick">Nickname</label>
-    <input type="text" name="authorNick" id="comm-nick" value="NickName" th:value="*{getAuthorNick()}">
+    <label for="authorNick">Nickname</label>
+    <input value="NickName" id="authorNick" th:field="*{authorNick}">
 
-    <label for="comm-date">Date</label>
-    <input type="date" name="date" id="comm-date" value="2021-03-20" th:value="*{getDate()}">
+    <label for="date">Date</label>
+    <input type="date" id="date" value="2021-03-20" th:field="*{date}">
     <input type="submit" value="Save">
 </form>
 </body>
