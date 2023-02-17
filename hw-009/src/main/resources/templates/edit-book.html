@@ -23,8 +23,11 @@
         fieldset {
             display: grid;
             grid-gap: 5px;
-            grid-column: 2/4;
+            grid-column: 2 / 4;
             margin: 0;
+        }
+        #title{
+            grid-column: 2 / 4;
         }
 
     </style>
@@ -35,25 +38,32 @@
 
     <label for="title">Title</label>
     <input id="title" th:field="*{title}" value="Title of book">
-    <!--TODO: implement select for author and genre-->
-    <fieldset th:object="${book.author}">
+    <!-- TODO: implement select for author and genre-->
+    <fieldset>
         <legend>Author</legend>
-        <input type="hidden" th:field="*{id}">
-        <label for="surname">Surname</label>
-        <input id="surname" th:field="*{surname}" value="Author_surname">
-
-        <label for="name">Name</label>
-        <input id="name" th:field="*{name}" value="Author_name">
-
-        <label for="initials">Initials</label>
-        <input id="initials" th:field="*{initials}" value="A.N.">
+        <label for="author">Select author</label>
+        <select name="author" id="author" >
+            <option value="1"
+                    th:each="author: ${authors}"
+                    th:value="${author.id}"
+                    th:text="|${author.name} ${author.surname}|"
+                    th:attr="selected=${author.id == book.getAuthor().id}? 'true': 'false'">Author_name1</option>
+        </select>
+        <span>or create new</span>
     </fieldset>
 
-    <fieldset th:object="${book.genre}">
-        <input type="hidden" th:field="*{id}">
+    <fieldset>
         <legend>Genre</legend>
-        <label for="genre">Genre</label>
-        <input id="genre" th:field="*{genre}" value="Genre name">
+        <label for="genre">Select genre</label>
+        <select name="genre" id="genre">
+            <option value="1"
+                    th:each="genre: ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.genre}"
+                    th:attr="selected=${genre.id == book.getGenre().id}? 'true': 'false'">Genre1</option>
+        </select>
+        <span>or create new</span>
+
     </fieldset>
 
     <input type="submit" value="Update">
