@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${book.getTitle()}">Boris Godunov</title>
+    <title th:text="${book.title}">Boris Godunov</title>
     <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
 </head>
 <body>
@@ -18,24 +18,25 @@
     </thead>
     <tbody>
     <tr th:object="${book}">
-        <td th:text="|*{getId()}.|">12.</td>
-        <td><span th:text="*{getAuthor().getSurname()}">Pushkin</span>
-            <span th:text="*{getAuthor().getInitials()}">A.S.</span></td>
+        <td th:text="|*{id}.|">12.</td>
+        <td><span th:text="*{author.surname}">Pushkin</span>
+            <span th:text="*{author.initials}">A.S.</span></td>
         <td>
-            <span th:text="*{getTitle()}">Boris Godunov</span>
+            <span th:text="*{title}">Boris Godunov</span>
             <br>
             <!--          TODO:add forms-->
-            <span><a href="edit-book.html" th:href="@{/book/edit(id=${book.id})}"  th:text="${'Edit book'}">EDIT BOOK</a></span>|
-            <span><a href="#">ADD COMMENT</a></span>
+            <span><a href="edit-book.html" th:href="@{/book/edit(id=${book.id})}" th:text="${'Edit book'}">EDIT BOOK</a></span>|
+            <span><a href="#">DELETE BOOK</a></span>
         </td>
-        <td th:text="*{getGenre().getGenre()}">Drama</td>
+        <td th:text="*{genre.name}">Drama</td>
         <td>
-            <ul th:each="comment: *{getComments()}">
+            <ul th:each="comment: *{comments}">
                 <li th:object="${comment}">
-                    <span th:text="|[*{getAuthorNick()}] on ${#dates.format(comment.getDate(), 'dd MMMM yyyy')}: *{getText()}|">[NickName] on 20-Mar-2021: Comment 1</span>
+                    <span th:text="|[*{authorNick}] on ${#dates.format(comment.date, 'dd MMMM yyyy')}: *{text}|">[NickName] on 20-Mar-2021: Comment 1</span>
                     <br>
-                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{getId()})}"
+                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{id})}"
                               th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
+                    <span><a href="#">ADD COMMENT</a></span> |
                     <span> <a href="#" th:href="@{/comment/delete(id=*{id})}" th:text="${'Delete comment'}">DELETE COMMENT</a></span>
                 </li>
             </ul>

@@ -21,11 +21,11 @@ public class Genre {
     @Column(name = "genre_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "genre", unique = true, nullable = false, length = 30)
-    private String genre;
+    @Column(name = "name", unique = true, nullable = false, length = 30)
+    private String name;
 
-    public Genre(String genre) {
-        this.genre = genre;
+    public Genre(String name) {
+        this.name = name;
     }
 
     @Override

@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 import ru.glavs.hw007.domain.Genre;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +34,7 @@ class GenreDaoImplTest {
     @DisplayName("должен возвращать жанр по его id")
     void getByIdMethodShouldReturnGenreById() {
         Genre genre = dao.getReferenceById(FIRST_GENRE_ID);
-        assertThat(genre.getGenre()).isEqualTo("Жанр1");
+        assertThat(genre.getName()).isEqualTo("Жанр1");
     }
 
     @Test
@@ -44,7 +42,7 @@ class GenreDaoImplTest {
     void getAllMethodShouldReturnCorrectGenresList() {
         List<Genre> genreList = dao.findAll();
         assertThat(genreList.size()).isEqualTo(ALL_GENRES_NUMBER);
-        assertThat(genreList.get(0).getGenre()).isEqualTo("Жанр1");
+        assertThat(genreList.get(0).getName()).isEqualTo("Жанр1");
     }
 
     @Test
@@ -64,7 +62,7 @@ class GenreDaoImplTest {
             currentGenreList.add(em.find(Genre.class, i));
         }
         assertThat(currentGenreList).hasSize(3);
-        assertThat(currentGenreList.get(2).getGenre()).isEqualTo("Жанр3");
+        assertThat(currentGenreList.get(2).getName()).isEqualTo("Жанр3");
 
     }
 
@@ -81,8 +79,8 @@ class GenreDaoImplTest {
     @Test
     @DisplayName("должен искать и возвращать жанр по его названию, или пустой жанр при его отсутствии")
     void searchByGenreShouldFindGenreByItsNameOrReturnEmpty() {
-        Genre genre = dao.findByGenre(SECOND_GENRE_GENRE);
-        Genre genre2 = dao.findByGenre("SECOND_GENRE_GENRE");
+        Genre genre = dao.findByName(SECOND_GENRE_GENRE);
+        Genre genre2 = dao.findByName("SECOND_GENRE_GENRE");
         assertThat(genre).isNotNull();
         assertThat(genre2).isNull();
     }

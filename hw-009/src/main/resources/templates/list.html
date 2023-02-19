@@ -26,20 +26,20 @@
     </thead>
     <tbody>
     <tr th:each="book: ${books}" th:object="${book}">
-        <td th:text="|*{getId()}.|">12.</td>
+        <td th:text="|*{id}.|">12.</td>
         <td>
-            <span th:text="*{getAuthor().getSurname()}">Pushkin</span>
-            <span th:text="*{getAuthor().getInitials()}">A.S.</span>
+            <span th:text="*{author.surname}">Pushkin</span>
+            <span th:text="*{author.initials}">A.S.</span>
         </td>
         <td>
-            <a href="book.html" th:href="@{/book/show(id=${book.id})}" th:text="*{getTitle()}">Boris Godunov</a>
+            <a href="book.html" th:href="@{/book/show(id=${book.id})}" th:text="*{title}">Boris Godunov</a>
         </td>
-        <td th:text="*{getGenre().getGenre()}">Drama</td>
+        <td th:text="*{genre.name}">Drama</td>
         <td>
-            <ul th:each="comment: *{getComments()}">
+            <ul th:each="comment: *{comments}">
                 <li>
-                    <span th:text="|[${comment.getAuthorNick()}]:|">[NickName]:</span>
-                    <span th:text="${comment.getText()}">Comment 1</span>
+                    <span th:text="|[${comment.authorNick}]:|">[NickName]:</span>
+                    <span th:text="${comment.text}">Comment 1</span>
                 </li>
             </ul>
         </td>

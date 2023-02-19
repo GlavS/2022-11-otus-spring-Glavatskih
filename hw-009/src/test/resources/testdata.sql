@@ -3,7 +3,7 @@ INSERT INTO AUTHORS (NAME, SURNAME, INITIALS)
 VALUES ('Имя1', 'Фамилия1', 'А.А.'),
        ('Имя2', 'Фамилия2', 'Б.Б.');
 
-INSERT INTO GENRES (GENRE)
+INSERT INTO GENRES (NAME)
 VALUES ('Жанр1'),
        ('Жанр2');
 

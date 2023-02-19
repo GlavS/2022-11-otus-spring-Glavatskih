@@ -24,7 +24,7 @@ CREATE TABLE authors
 CREATE TABLE genres
 (
     genre_id BIGINT AUTO_INCREMENT NOT NULL,
-    genre    VARCHAR(30)        NOT NULL,
+    name    VARCHAR(30)        NOT NULL,
     CONSTRAINT pk_genres PRIMARY KEY (genre_id)
 );
 
@@ -52,6 +52,6 @@ CREATE UNIQUE INDEX uq_authors
     ON authors (name, surname, initials);
 
 ALTER TABLE genres
-    ADD CONSTRAINT uc_genres_genre UNIQUE (genre);
+    ADD CONSTRAINT uc_genres_genre UNIQUE (name);
 
 

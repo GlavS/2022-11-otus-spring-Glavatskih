@@ -26,7 +26,8 @@
             grid-column: 2 / 4;
             margin: 0;
         }
-        #title{
+
+        #title {
             grid-column: 2 / 4;
         }
 
@@ -41,14 +42,14 @@
     <fieldset>
         <legend>Author</legend>
         <label for="author">Select author</label>
-        <select name="author" id="author" >
+        <select name="author" id="author">
             <option value="1"
                     th:each="author: ${authors}"
                     th:value="${author.id}"
                     th:text="|${author.name} ${author.surname}|"
-                    th:attr="selected=${author.id == book.getAuthor().id}? 'true': 'false'">Author_name1</option>
+                    th:attr="selected=${author.id == book.author.id}? 'true': 'false'">Author_name1
+            </option>
         </select>
-<!--        TODO: create entities-->
         <span>or <a href="edit-author.html" th:href="@{/author(id=${book.id})}">create new</a></span>
     </fieldset>
 
@@ -59,8 +60,9 @@
             <option value="1"
                     th:each="genre: ${genres}"
                     th:value="${genre.id}"
-                    th:text="${genre.genre}"
-                    th:attr="selected=${genre.id == book.getGenre().id}? 'true': 'false'">Genre1</option>
+                    th:text="${genre.name}"
+                    th:attr="selected=${genre.id == book.genre.id}? 'true': 'false'">Genre1
+            </option>
         </select>
         <span>or <a href="edit-genre.html" th:href="@{/genre(id=${book.id})}">create new</a></span>
     </fieldset>
