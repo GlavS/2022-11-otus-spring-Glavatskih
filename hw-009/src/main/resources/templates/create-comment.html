@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit comment</title>
+    <title>Create comment</title>
     <style>
         form {
             display: grid;
@@ -27,22 +27,17 @@
     </style>
 </head>
 <body>
-<form class="comment-form"
-      action="#" method="post"
-      th:object="${comment}"
-      th:method="POST"
-      th:action="@{/comment/edit}">
-    <input type="hidden"  th:field="*{id}">
+<form class="comment-form" action="#" method="post" th:action="@{/comment/create}" th:method="POST">
     <input type="hidden" id="bookId" name="bookId" th:value="${commentedBookId}">
 
     <label for="text">Comment text</label>
-    <textarea rows="15" id="text" th:field="*{text}"> </textarea>
+    <textarea rows="15" id="text" name="text"> </textarea>
 
     <label for="authorNick">Nickname</label>
-    <input value="NickName" id="authorNick" th:field="*{authorNick}">
+    <input value="NickName" id="authorNick" name="authorNick">
 
     <label for="date">Date</label>
-    <input type="date" id="date" value="2021-03-20" th:value="${#dates.format(#dates.createToday(), 'yyyy/MM/dd')}" th:field="*{date}">
+    <input type="date" id="date" value="2021-03-20" name="date" th:value="${#dates.createToday()}">
     <input type="submit" value="Save">
 </form>
 </body>

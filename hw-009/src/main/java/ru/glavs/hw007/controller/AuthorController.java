@@ -36,8 +36,8 @@ public class AuthorController {
         private String name;
         private String surname;
         private String initials;
-        private long bookId;
-        private Author toAuthor() {
+        private  long bookId;
+        private  Author toAuthor() {
             return new Author(name, surname, initials);
         }
     }
