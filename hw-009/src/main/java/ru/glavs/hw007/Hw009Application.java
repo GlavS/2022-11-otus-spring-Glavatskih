@@ -9,6 +9,7 @@ public class Hw009Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Hw009Application.class);
+        System.out.println("Main page: http://localhost:8080");
     }
 
 }

@@ -49,7 +49,7 @@
                     th:attr="selected=${author.id == book.getAuthor().id}? 'true': 'false'">Author_name1</option>
         </select>
 <!--        TODO: create entities-->
-        <span>or <a href="edit-author.html" th:href="@{/author}">create new</a></span>
+        <span>or <a href="edit-author.html" th:href="@{/author(id=${book.id})}">create new</a></span>
     </fieldset>
 
     <fieldset>
@@ -62,7 +62,7 @@
                     th:text="${genre.genre}"
                     th:attr="selected=${genre.id == book.getGenre().id}? 'true': 'false'">Genre1</option>
         </select>
-        <span>or <a href="edit-genre.html" th:href="@{/genre}">create new</a></span>
+        <span>or <a href="edit-genre.html" th:href="@{/genre(id=${book.id})}">create new</a></span>
     </fieldset>
 
     <input type="submit" value="Update">

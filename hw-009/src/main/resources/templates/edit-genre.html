@@ -31,13 +31,13 @@
     </style>
 </head>
 <body>
-<form action="#" class="genre-form" method="get" th:action="@{/genre/create}" th:method="POST">
+<form action="#" class="genre-form" method="post" th:action="@{/genre/create}" th:method="POST">
+    <input type="hidden" name="bookId" id="bookId" th:value="${editedBookId}">
     <fieldset>
         <legend>Genre</legend>
         <label for="genre">Genre name</label>
         <input type="text" name="genre" id="genre">
     </fieldset>
-
     <input type="submit" value="Create">
 </form>
 </body>
