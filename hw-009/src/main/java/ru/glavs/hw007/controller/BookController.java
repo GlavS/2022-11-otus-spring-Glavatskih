@@ -43,7 +43,7 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("authors", authorList);
         model.addAttribute("genres", genreList);
-        return "edit-book";
+        return "/edit/edit-book";
     }
 
     @PostMapping("/book/edit")
@@ -61,4 +61,20 @@ public class BookController {
         bookCRUDService.deleteById(id);
         return "redirect:/";
     }
+
+    @GetMapping("/book/create")
+    public String createBookPage(Model model){
+        List<Author> authorList = authorCRUDService.findAll();
+        List<Genre> genreList = genreCRUDService.findAll();
+        model.addAttribute("authors", authorList);
+        model.addAttribute("genres", genreList);
+        return "create/create-book";
+    }
+
+    @RequestMapping(value = "/book/create-new", method = {RequestMethod.POST, RequestMethod.GET})
+    public String createNewBook(Book book){
+        bookCRUDService.save(book);
+        return "redirect:/";
+    }
+
 }

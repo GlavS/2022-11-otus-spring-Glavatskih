@@ -24,10 +24,9 @@
         <td>
             <span th:text="*{title}">Boris Godunov</span>
             <br>
-            <!--          TODO:add forms-->
-            <span><a href="edit-book.html" th:href="@{/book/edit(id=${book.id})}" th:text="${'Edit book'}">EDIT BOOK</a></span>|
+            <span><a href="edit/edit-book.html" th:href="@{/book/edit(id=${book.id})}" th:text="${'Edit book'}">EDIT BOOK</a></span>|
             <span><a href="#" th:href="@{/book/delete(id=*{id})}" th:text="${'Delete book'}">DELETE BOOK</a></span> |
-            <span><a href="create-comment.html" th:href="@{/comment/create(id=${book.id})}" th:text="${'Add comment'}">ADD COMMENT</a></span>
+            <span><a href="create/create-comment.html" th:href="@{/comment/create(id=${book.id})}" th:text="${'Add comment'}">ADD COMMENT</a></span>
         </td>
         <td th:text="*{genre.name}">Drama</td>
         <td>
@@ -35,7 +34,7 @@
                 <li th:object="${comment}">
                     <span th:text="|[*{authorNick}] on ${#dates.format(comment.date, 'dd MMMM yyyy')}: *{text}|">[NickName] on 20-Mar-2021: Comment 1</span>
                     <br>
-                    <span> <a href="edit-comment.html" th:href="@{/comment/edit(id=*{id}, bookId=${book.id})}"
+                    <span> <a href="edit/edit-comment.html" th:href="@{/comment/edit(id=*{id}, bookId=${book.id})}"
                               th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
                     <span> <a href="#" th:href="@{/comment/delete(id=*{id})}" th:text="${'Delete comment'}">DELETE COMMENT</a></span>
                 </li>

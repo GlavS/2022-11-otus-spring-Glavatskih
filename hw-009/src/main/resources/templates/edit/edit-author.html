@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit author</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 40px 150px 200px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        fieldset {
+            display: grid;
+            grid-gap: 5px;
+            grid-column: 2 / 4;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<form action="#" class="author-form" method="post" th:action="@{/author/create-on-update}" th:method="POST">
+    <input type="hidden" name="bookId" id="bookId" th:value="${editedBookId}">
+    <fieldset>
+        <legend>Author</legend>
+        <label for="surname">Surname</label>
+        <input type="text" name="surname" id="surname">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <label for="initials">Initials</label>
+        <input type="text" name="initials" id="initials">
+    </fieldset>
+
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>
