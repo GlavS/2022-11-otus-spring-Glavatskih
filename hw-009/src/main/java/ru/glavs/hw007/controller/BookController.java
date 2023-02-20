@@ -3,9 +3,7 @@ package ru.glavs.hw007.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.glavs.hw007.domain.Author;
 import ru.glavs.hw007.domain.Book;
@@ -56,5 +54,11 @@ public class BookController {
         attributes.addAttribute("id", book.getId());
         bookCRUDService.save(bookUpdated);
         return "redirect:/book/show";
+    }
+
+    @RequestMapping(value = "/book/delete", method = {RequestMethod.POST, RequestMethod.GET})
+    public String deleteBook(@RequestParam long id){
+        bookCRUDService.deleteById(id);
+        return "redirect:/";
     }
 }

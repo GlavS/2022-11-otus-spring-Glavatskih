@@ -26,7 +26,7 @@
             <br>
             <!--          TODO:add forms-->
             <span><a href="edit-book.html" th:href="@{/book/edit(id=${book.id})}" th:text="${'Edit book'}">EDIT BOOK</a></span>|
-            <span><a href="#">DELETE BOOK</a></span> |
+            <span><a href="#" th:href="@{/book/delete(id=*{id})}" th:text="${'Delete book'}">DELETE BOOK</a></span> |
             <span><a href="create-comment.html" th:href="@{/comment/create(id=${book.id})}" th:text="${'Add comment'}">ADD COMMENT</a></span>
         </td>
         <td th:text="*{genre.name}">Drama</td>
