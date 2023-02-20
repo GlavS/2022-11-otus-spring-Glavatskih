@@ -16,11 +16,6 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     }
 
     @Override
-    public List<Author> searchBySurname(String surname) {
-        return dao.findBySurname(surname);
-    }
-
-    @Override
     public List<Author> findAll() {
         return dao.findAll();
     }

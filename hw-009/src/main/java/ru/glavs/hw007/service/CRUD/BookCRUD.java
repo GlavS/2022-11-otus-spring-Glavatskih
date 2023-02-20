@@ -9,8 +9,6 @@ public interface BookCRUD {
 
     List<Book> findAll();
 
-    List<Book> readAllWithCommentsOnly();
-
     Book findById(long id);
 
     void deleteById(long id);

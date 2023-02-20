@@ -5,7 +5,6 @@ import ru.glavs.hw007.domain.Author;
 import java.util.List;
 
 public interface AuthorCRUD {
-    List<Author> searchBySurname(String surname);
 
     List<Author> findAll();
 

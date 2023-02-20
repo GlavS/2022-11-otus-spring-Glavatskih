@@ -16,11 +16,6 @@ public class GenreCRUDImpl implements GenreCRUD {
     }
 
     @Override
-    public Genre searchByGenre(String genreName) {
-        return dao.findByName(genreName);
-    }
-
-    @Override
     public List<Genre> findAll() {
         return dao.findAll();
     }

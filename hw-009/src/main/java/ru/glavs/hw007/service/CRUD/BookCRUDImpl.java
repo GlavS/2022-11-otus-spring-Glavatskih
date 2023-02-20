@@ -59,14 +59,4 @@ public class BookCRUDImpl implements BookCRUD {
         Book bookToDelete = bookDao.getReferenceById(id);
         bookDao.delete(bookToDelete);
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Book> readAllWithCommentsOnly() {
-        List<Book> bookList = bookDao.getAllWithCommentsOnly();
-        for (Book b : bookList) {
-            b.getComments().size();
-        }
-        return bookList;
-    }
 }
