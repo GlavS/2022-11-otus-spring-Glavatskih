@@ -25,21 +25,21 @@ public class BookController {
 
     @GetMapping("/")
     public String bookListPage(Model model) {
-        List<Book> bookList = bookCRUDService.readAll();
+        List<Book> bookList = bookCRUDService.findAll();
         model.addAttribute("books", bookList);
         return "list";
     }
 
     @GetMapping("/book/show")
     public String showBookPage(@RequestParam long id, Model model) {
-        Book book = bookCRUDService.readBook(id);
+        Book book = bookCRUDService.findById(id);
         model.addAttribute("book", book);
         return "book";
     }
 
     @GetMapping("/book/edit")
     public String updateBookPage(@RequestParam long id, Model model) {
-        Book book = bookCRUDService.readBook(id);
+        Book book = bookCRUDService.findById(id);
         List<Author> authorList = authorCRUDService.findAll();
         List<Genre> genreList = genreCRUDService.findAll();
         model.addAttribute("book", book);
@@ -51,7 +51,7 @@ public class BookController {
     @PostMapping("/book/edit")
     public String updateBook(Book bookUpdated, RedirectAttributes attributes) {
         long id = bookUpdated.getId();
-        Book book = bookCRUDService.readBook(id);
+        Book book = bookCRUDService.findById(id);
         bookUpdated.setComments(book.getComments());
         attributes.addAttribute("id", book.getId());
         bookCRUDService.save(bookUpdated);

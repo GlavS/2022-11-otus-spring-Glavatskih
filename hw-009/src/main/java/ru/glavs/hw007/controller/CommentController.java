@@ -37,7 +37,7 @@ public class CommentController {
         Comment comment = dto.toComment();
         long bookId = dto.getBookId();
         attributes.addAttribute("id", bookId);
-        Book book = bookCRUDService.readBook(bookId);
+        Book book = bookCRUDService.findById(bookId);
         comment.setCommentedBook(book);
         commentCRUDService.save(comment);
         attributes.addAttribute("id", comment.getCommentedBook().getId());
@@ -55,7 +55,7 @@ public class CommentController {
         Comment comment = dto.toComment();
         long bookId = dto.getBookId();
         attributes.addAttribute("id", bookId);
-        Book book = bookCRUDService.readBook(bookId);
+        Book book = bookCRUDService.findById(bookId);
         comment.setCommentedBook(book);
         commentCRUDService.save(comment);
         return "redirect:/book/show";

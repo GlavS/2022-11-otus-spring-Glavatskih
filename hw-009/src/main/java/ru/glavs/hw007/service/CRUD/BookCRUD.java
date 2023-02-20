@@ -7,11 +7,11 @@ import java.util.List;
 public interface BookCRUD {
     void save(Book book);
 
-    List<Book> readAll();
+    List<Book> findAll();
 
     List<Book> readAllWithCommentsOnly();
 
-    Book readBook(long id);
+    Book findById(long id);
 
     void deleteById(long id);
 }
