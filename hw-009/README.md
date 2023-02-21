@@ -3,7 +3,7 @@
 
 Сборка:
 ````
-mvn -Dmaven.test.skip=true clean package
+mvn clean package
 ````
 
 Запуск из командной строки:
@@ -15,3 +15,4 @@ java -Dfile.encoding=UTF-8 -jar hw-009-1.0-SNAPSHOT.jar
 ````
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 ````
+В адресной строке браузера ввести: http://localhost:8080
