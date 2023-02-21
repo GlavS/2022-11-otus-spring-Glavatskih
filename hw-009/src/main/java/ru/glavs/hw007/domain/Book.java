@@ -1,9 +1,6 @@
 package ru.glavs.hw007.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -16,6 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "books")
@@ -46,6 +44,7 @@ public class Book {
         this.genre = genre;
         this.title = title;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
