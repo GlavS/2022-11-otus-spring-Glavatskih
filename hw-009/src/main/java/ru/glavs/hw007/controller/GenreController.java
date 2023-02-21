@@ -13,7 +13,7 @@ import ru.glavs.hw007.service.CRUD.GenreCRUD;
 @AllArgsConstructor
 public class GenreController {
 
-    private GenreCRUD genreCRUDService;
+    private final GenreCRUD genreCRUDService;
 
     @GetMapping("/genre")
     public String genreCreatePageOnBookUpdate(@RequestParam long id, Model model) {

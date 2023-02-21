@@ -14,15 +14,6 @@ spring:
       ddl-auto: validate
     show-sql: true
 
-
-  shell:
-    interactive:
-      enabled: false
-    command:
-      script:
-        enabled: false
-
-
 logging:
   level:
     root: ERROR

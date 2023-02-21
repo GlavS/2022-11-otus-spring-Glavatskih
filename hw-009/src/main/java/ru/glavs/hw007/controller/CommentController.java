@@ -21,8 +21,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class CommentController {
 
-    private CommentCRUD commentCRUDService;
-    private BookCRUD bookCRUDService;
+    private final CommentCRUD commentCRUDService;
+    private final BookCRUD bookCRUDService;
 
     @GetMapping("/comment/edit")
     public String editCommentPage(@RequestParam long id, @RequestParam long bookId, Model model) {

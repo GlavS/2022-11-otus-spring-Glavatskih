@@ -12,7 +12,7 @@ import ru.glavs.hw007.service.CRUD.AuthorCRUD;
 @AllArgsConstructor
 public class AuthorController {
 
-    AuthorCRUD authorCRUDService;
+    private final AuthorCRUD authorCRUDService;
 
     @GetMapping("/author")
     public String authorCreatePageOnBookUpdate(@RequestParam long id, Model model) {
