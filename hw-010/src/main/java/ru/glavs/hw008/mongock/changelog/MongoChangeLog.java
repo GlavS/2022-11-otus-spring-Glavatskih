@@ -13,10 +13,10 @@ import java.util.List;
 
 @ChangeLog
 public class MongoChangeLog {
-    private static final String BOOKS_JSON_RESOURCE = "books.json";
-    private static final String AUTHOR_JSON_RESOURCE = "authors.json";
-    private static final String GENRE_JSON_RESOURCE = "genres.json";
-    private static final String COMMENT_JSON_RESOURCE = "comments.json";
+    private static final String BOOKS_JSON_RESOURCE = "mongock/books.json";
+    private static final String AUTHOR_JSON_RESOURCE = "mongock/authors.json";
+    private static final String GENRE_JSON_RESOURCE = "mongock/genres.json";
+    private static final String COMMENT_JSON_RESOURCE = "mongock/comments.json";
 
 
     @ChangeSet(order = "001", id = "dropDB", author = "GlavS", runAlways = true)
