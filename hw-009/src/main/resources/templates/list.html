@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book list</title>
+    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
+</head>
+<body>
+
+<fieldset>
+    <legend>Book</legend>
+<!--     TODO: book creation-->
+    <a href="#" th:href="@{/book/create}">Create new book</a>
+</fieldset>
+<br>
+
+<table class="books">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Author</td>
+        <td>Title</td>
+        <td>Genre</td>
+        <td>Comments</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${books}" th:object="${book}">
+        <td th:text="|*{id}.|">12.</td>
+        <td>
+            <span th:text="*{author.surname}">Pushkin</span>
+            <span th:text="*{author.initials}">A.S.</span>
+        </td>
+        <td>
+            <a href="book.html" th:href="@{/book/show(id=${book.id})}" th:text="*{title}">Boris Godunov</a>
+        </td>
+        <td th:text="*{genre.name}">Drama</td>
+        <td>
+            <ul th:each="comment: *{comments}">
+                <li>
+                    <span th:text="|[${comment.authorNick}]:|">[NickName]:</span>
+                    <span th:text="${comment.text}">Comment 1</span>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

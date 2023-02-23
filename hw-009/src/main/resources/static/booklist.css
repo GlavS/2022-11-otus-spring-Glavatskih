@@ -1,0 +1,36 @@
+body {
+    padding: 15px;
+    font-family: sans-serif;
+}
+
+.books {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.books tr td {
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.books thead {
+    font-weight: bold;
+    text-align: center;
+}
+
+.books td:nth-child(1) {
+    width: 3rem;
+}
+
+.books td:nth-child(2) {
+    width: 15rem;
+}
+
+.books td:nth-child(3) {
+    width: 35rem;
+}
+
+.books td:nth-child(4) {
+    width: 10rem;
+}
