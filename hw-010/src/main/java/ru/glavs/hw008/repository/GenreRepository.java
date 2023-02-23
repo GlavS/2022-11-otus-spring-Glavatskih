@@ -6,6 +6,6 @@ import ru.glavs.hw008.domain.Genre;
 
 import java.util.List;
 
-public interface GenreRepository extends MongoRepository<Genre, ObjectId> {
+public interface GenreRepository extends MongoRepository<Genre, String> {
     List<Genre> findByNameContainingIgnoreCase(String genreNamePart);
 }

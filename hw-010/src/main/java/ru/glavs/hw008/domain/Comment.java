@@ -18,7 +18,7 @@ import java.util.Date;
 @Document(collection = "comments")
 public class Comment {
     @Id
-    private ObjectId id;
+    private String id;
     private String text;
     private String authorNick;
     private Date date;

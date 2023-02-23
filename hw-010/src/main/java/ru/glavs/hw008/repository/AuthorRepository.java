@@ -6,6 +6,6 @@ import ru.glavs.hw008.domain.Author;
 
 import java.util.List;
 
-public interface AuthorRepository extends MongoRepository<Author, ObjectId> {
+public interface AuthorRepository extends MongoRepository<Author, String> {
     List<Author> findBySurnameContainingIgnoreCase(String surnamePart);
 }

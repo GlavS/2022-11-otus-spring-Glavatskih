@@ -17,7 +17,7 @@ import java.util.List;
 @ToString
 @Document
 public class BookWithComments {
-    private ObjectId id;
+    private String id;
     private String title;
     private List<Author> authors;
     private List<Genre> genres;

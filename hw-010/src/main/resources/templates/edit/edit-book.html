@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 40px 130px 150px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        fieldset {
+            display: grid;
+            grid-gap: 5px;
+            grid-column: 2 / 4;
+            margin: 0;
+        }
+
+        #title {
+            grid-column: 2 / 4;
+        }
+
+    </style>
+</head>
+<body>
+<form action="#" class="book-form" method="post" th:method="POST">
+    <input type="hidden" id="bookId" name="bookId" th:value="${bookId}">
+
+    <label for="title">Title</label>
+    <input id="title" value="Title of book">
+    <fieldset>
+        <legend>Author</legend>
+        <label for="author">Select author</label>
+        <select name="author" id="author">
+            <option >Author_name1 </option>
+        </select>
+        <span>or <a href="edit-author.html" >create new</a></span>
+    </fieldset>
+
+    <fieldset>
+        <legend>Genre</legend>
+        <label for="genre">Select genre</label>
+        <select name="genre" id="genre">
+            <option >Genre1 </option>
+        </select>
+        <span>or <a href="edit-genre.html" >create new</a></span>
+    </fieldset>
+
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

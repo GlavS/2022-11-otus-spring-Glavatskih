@@ -32,7 +32,7 @@ public class CommentCRUDImpl implements CommentCRUD {
     }
 
     @Override
-    public List<Comment> findCommentsByBook(ObjectId bookId) {
+    public List<Comment> findCommentsByBook(String bookId) {
         return repository.findAllByCommentedBookId(bookId);
     }
 

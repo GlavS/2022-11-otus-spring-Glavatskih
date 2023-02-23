@@ -16,7 +16,7 @@ import java.util.List;
 @Document(collection = "books")
 public class Book {
     @Id
-    private ObjectId id;
+    private String id;
     private List<Author> authors;
     private List<Genre> genres;
     private String title;

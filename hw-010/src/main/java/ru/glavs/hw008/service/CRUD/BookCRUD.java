@@ -7,4 +7,6 @@ public interface BookCRUD {
     Book save(Book book);
 
     void delete(BookWithComments bookWithComments);
+
+  //  Book getById(String id);
 }

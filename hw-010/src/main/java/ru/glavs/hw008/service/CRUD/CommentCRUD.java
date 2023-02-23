@@ -12,7 +12,7 @@ public interface CommentCRUD {
 
     Comment save(Comment comment);
 
-    List<Comment> findCommentsByBook(ObjectId bookId);
+    List<Comment> findCommentsByBook(String bookId);
 
     List<Comment> findByCommentText(String partOfText);
 }

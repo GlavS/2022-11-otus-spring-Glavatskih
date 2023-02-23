@@ -15,10 +15,12 @@ public class BookRestController {
     private final BookCommentsCRUD bookCommentsCRUDService;
     @GetMapping("/api/book/all")
     public List<BookWithComments> listAllBooks(){
-        return bookCommentsCRUDService.readAll();
+        List<BookWithComments> bookList = bookCommentsCRUDService.readAll();
+        return bookList;
     }
 
+//    @GetMapping("/api/book")
+//    public
 
-//    readAll();
 
 }
