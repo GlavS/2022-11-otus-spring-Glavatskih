@@ -8,5 +8,5 @@ public interface BookCRUD {
 
     void delete(BookWithComments bookWithComments);
 
-  //  Book getById(String id);
+    Book getById(String id);
 }

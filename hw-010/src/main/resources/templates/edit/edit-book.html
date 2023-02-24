@@ -30,18 +30,28 @@
         #title {
             grid-column: 2 / 4;
         }
+        .innerTable tr td{
+            border: 1px solid gray;
+            padding: 5px;
+            border-collapse: collapse;
+        }
 
     </style>
 </head>
 <body>
 <form action="#" class="book-form" method="post" th:method="POST">
-    <input type="hidden" id="bookId" name="bookId" th:value="${bookId}">
+    <input type="hidden" id="bookId" name="bookId" value="42" th:value="${bookId}">
 
     <label for="title">Title</label>
     <input id="title" value="Title of book">
     <fieldset>
-        <legend>Author</legend>
-        <label for="author">Select author</label>
+        <legend>Authors</legend>
+        <table class="innerTable">
+            <tbody id="authorsTable">
+
+            </tbody>
+        </table>
+        <label for="author">Select new author from list</label>
         <select name="author" id="author">
             <option >Author_name1 </option>
         </select>
@@ -49,8 +59,13 @@
     </fieldset>
 
     <fieldset>
-        <legend>Genre</legend>
-        <label for="genre">Select genre</label>
+        <legend>Genres</legend>
+        <table class="innerTable">
+            <tbody id="genresTable">
+
+            </tbody>
+        </table>
+        <label for="genre">Select new genre from list</label>
         <select name="genre" id="genre">
             <option >Genre1 </option>
         </select>
@@ -59,5 +74,7 @@
 
     <input type="submit" value="Update">
 </form>
+
+<script type="module" src="../../static/book-edit.js" th:src="@{/book-edit.js}"></script>
 </body>
 </html>

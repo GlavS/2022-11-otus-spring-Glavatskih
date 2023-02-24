@@ -42,4 +42,9 @@ public class BookCRUDImpl implements BookCRUD {
         commentCRUD.deleteAll(commentList);
         repository.delete(BookWithComments.toBook(bookWithComments));
     }
+
+    @Override
+    public Book getById(String id) {
+        return repository.findById(id).orElseThrow(); //TODO: exception??
+    }
 }
