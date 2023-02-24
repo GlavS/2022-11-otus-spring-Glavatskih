@@ -29,4 +29,9 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     public List<Author> saveAll(List<Author> authorList) {
         return repository.saveAll(authorList);
     }
+
+    @Override
+    public Author save(Author author) {
+        return repository.save(author);
+    }
 }

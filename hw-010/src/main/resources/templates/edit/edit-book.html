@@ -51,11 +51,11 @@
 
             </tbody>
         </table>
-        <label for="author">Select new author from list</label>
-        <select name="author" id="author">
+        <label for="authors">Select new author from list</label>
+        <select name="authors" id="authors">
             <option >Author_name1 </option>
         </select>
-        <span>or <a href="edit-author.html" >create new</a></span>
+        <span>or <a href="edit-author.html" th:href="@{/edit-author(bookId=${bookId})}" id="createAuthor">create new</a></span>
     </fieldset>
 
     <fieldset>
@@ -65,11 +65,11 @@
 
             </tbody>
         </table>
-        <label for="genre">Select new genre from list</label>
-        <select name="genre" id="genre">
+        <label for="genres">Select new genre from list</label>
+        <select name="genres" id="genres">
             <option >Genre1 </option>
         </select>
-        <span>or <a href="edit-genre.html" >create new</a></span>
+        <span>or <a href="#" >create new</a></span>
     </fieldset>
 
     <input type="submit" value="Update">

@@ -10,4 +10,6 @@ public interface AuthorCRUD {
     List<Author> findAll();
 
     List<Author> saveAll(List<Author> authorList);
+
+    Author save(Author author);
 }
