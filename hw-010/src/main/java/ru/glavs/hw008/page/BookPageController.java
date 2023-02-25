@@ -17,6 +17,6 @@ public class BookPageController {
     @GetMapping("/book-edit")
     public String editBookPage(@RequestParam String id, Model model){
         model.addAttribute("bookId", id);
-        return "edit/edit-book";
+        return "edit/book-edit";
     }
 }

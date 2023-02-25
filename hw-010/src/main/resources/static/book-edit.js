@@ -12,7 +12,7 @@ const listGenres = document.getElementById('genres');
 
 
 //get('http://localhost:8080/api/book', {'id': '63deae757901a39c59a726b6'})
-get('/api/book', {'id': bookId})
+get('/api/books', {'id': bookId})
     .then(book => {
         formTitle.value = book.title;
         tableAuthors.innerHTML = authorsTableFormatter(book.authors);
@@ -24,7 +24,7 @@ get('/api/authors')
         listAuthors.innerHTML = authorsSelectFormatter(authors);
     })
 
-get('/api/genre/all')
+get('/api/genres')
     .then(genres=>{
         listGenres.innerHTML = genresSelectFormatter(genres);
     })

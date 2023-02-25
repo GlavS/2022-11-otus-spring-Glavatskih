@@ -18,12 +18,12 @@ public class BookRestController {
     private final BookCommentsCRUD bookCommentsCRUDService;
     private final BookCRUD bookCRUDService;
 
-    @GetMapping("/api/book/all")  //TODO: api path name?
+    @GetMapping("/api/books")  //TODO: api path name?
     public List<BookWithComments> listAllBooks() {
         return bookCommentsCRUDService.readAll();
     }
 
-    @GetMapping("/api/book")
+    @GetMapping(value = "/api/books", params = "id")
     public Book getBookById(@RequestParam String id) {
         return bookCRUDService.getById(id);
     }

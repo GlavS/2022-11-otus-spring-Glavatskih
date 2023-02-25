@@ -14,7 +14,7 @@ public class GenreRestController {
 
     private final GenreCRUD genreCRUDService;
 
-    @GetMapping("/api/genre/all")
+    @GetMapping("/api/genres")
     public List<Genre> getAllGenres(){
         return genreCRUDService.findAll();
     }

@@ -1,5 +1,4 @@
-fetch('http://localhost:8080/api/book/all')
-    //fetch('/api/book/all')
+fetch('/api/books')
     .then(data => {
         return data.json()
     })

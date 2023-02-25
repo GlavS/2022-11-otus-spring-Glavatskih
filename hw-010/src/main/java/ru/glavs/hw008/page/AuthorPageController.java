@@ -10,7 +10,7 @@ public class AuthorPageController {
     @GetMapping("/edit-author")
     public String showAuthorEditPage(@RequestParam String bookId, Model model){
         model.addAttribute("bookId", bookId);
-        return "/edit/edit-author";
+        return "edit/author-edit";
     }
 
 }
