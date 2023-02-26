@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit genre</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: 40px 150px 200px;
+      grid-gap: 10px;
+      font-family: sans-serif;
+
+    }
+
+    label {
+      grid-column: 1 / 2;
+    }
+
+    input {
+      grid-column: 2 / 3;
+    }
+
+    fieldset {
+      display: grid;
+      grid-gap: 5px;
+      grid-column: 2 / 4;
+      margin: 0;
+    }
+  </style>
+  <script type="module" src="../../static/genre-edit.js" th:src="@{/genre-edit.js}"></script>
+</head>
+<body>
+
+<div class="container">
+  <fieldset id="fieldset">
+    <input type="hidden" name="bookId" th:value="${bookId}">
+    <legend>Genre</legend>
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name">
+    <button id="saveButton" >Save</button>
+    <a href="book-edit.html" th:href="@{/book-edit(id=${bookId})}"><button type="button">Go back</button></a>
+  </fieldset>
+  <div id="info"></div>
+</div>
+</body>
+</html>

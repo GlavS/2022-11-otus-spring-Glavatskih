@@ -11,4 +11,6 @@ public interface GenreCRUD {
 
     List<Genre> saveAll(List<Genre> genreList);
 
+    Genre save(Genre genre);
+
 }

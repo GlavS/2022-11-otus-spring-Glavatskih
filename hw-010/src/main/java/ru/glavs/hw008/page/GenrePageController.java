@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AuthorPageController {
-    @GetMapping("/author-edit")
-    public String showAuthorEditPage(@RequestParam String bookId, Model model){
+public class GenrePageController {
+    @GetMapping("/genre-edit")
+    public String showGenreEditPage(@RequestParam String bookId, Model model){
         model.addAttribute("bookId", bookId);
-        return "edit/author-edit";
+        return "edit/genre-edit";
     }
-
 }

@@ -28,4 +28,9 @@ public class GenreCRUDImpl implements GenreCRUD {
     public List<Genre> saveAll(List<Genre> genreList) {
         return repository.saveAll(genreList);
     }
+
+    @Override
+    public Genre save(Genre genre) {
+        return repository.save(genre);
+    }
 }

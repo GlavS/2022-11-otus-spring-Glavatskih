@@ -44,7 +44,7 @@
 <body>
 
 <div>
-    <form action="#" class="book-form" method="post" th:method="POST">
+    <form action="#" class="book-form" >
         <input type="hidden" id="bookId" name="bookId" value="42" th:value="${bookId}">
 
         <label for="title">Title</label>
@@ -57,10 +57,10 @@
                 </tbody>
             </table>
             <label for="authors">Select new author from list</label>
-            <select name="authors" id="authors">
+            <select name="authors" id="authors" multiple>
                 <option>Author_name1</option>
             </select>
-            <span>or <a href="author-edit.html" th:href="@{/edit-author(bookId=${bookId})}"
+            <span>or <a href="author-edit.html" th:href="@{/author-edit(bookId=${bookId})}"
                         id="createAuthor">create new</a></span>
         </fieldset>
 
@@ -72,13 +72,13 @@
                 </tbody>
             </table>
             <label for="genres">Select new genre from list</label>
-            <select name="genres" id="genres">
+            <select name="genres" id="genres" multiple>
                 <option>Genre1</option>
             </select>
-            <span>or <a href="#">create new</a></span>
+            <span>or <a href="genre-edit.html" th:href="@{/genre-edit(bookId=${bookId})}">create new</a></span>
         </fieldset>
 
-        <input type="submit" value="Update">
+        <input id="updateBook" type="button" value="Update">
         <a href="../list.html" th:href="@{/}" id="back">
                     <button type="button"> Go back</button>
                 </a>
