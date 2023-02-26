@@ -3,31 +3,43 @@ import {get} from "./fetchFunctions.js";
 
 const bookId = document.getElementById('bookId').value;
 
-const formTitle = document.getElementById('title');
+const titleField = document.getElementById('title');
 const tableAuthors = document.getElementById('authorsTable');
 const tableGenres = document.getElementById('genresTable');
 
-const listAuthors = document.getElementById('authors');
-const listGenres = document.getElementById('genres');
+const listAuthorsField = document.getElementById('authors');
+const listGenresField = document.getElementById('genres');
+
+document.getElementById('updateBookButton').addEventListener('click', updateBook, false);
 
 
-//get('http://localhost:8080/api/book', {'id': '63deae757901a39c59a726b6'})
 get('/api/books', {'id': bookId})
     .then(book => {
-        formTitle.value = book.title;
+        titleField.value = book.title;
         tableAuthors.innerHTML = authorsTableFormatter(book.authors);
         tableGenres.innerHTML = genresTableFormatter(book.genres);
     })
 
 get('/api/authors')
     .then(authors=>{
-        listAuthors.innerHTML = authorsSelectFormatter(authors);
+        listAuthorsField.innerHTML = authorsSelectFormatter(authors);
     })
 
 get('/api/genres')
     .then(genres=>{
-        listGenres.innerHTML = genresSelectFormatter(genres);
+        listGenresField.innerHTML = genresSelectFormatter(genres);
     })
+
+function updateBook(){
+    let params = {
+        title: titleField.value,
+        authorsIds: getSelectedOptionsArray(listAuthorsField),
+        genresIds: getSelectedOptionsArray(listGenresField)
+    }
+
+    alert(JSON.stringify(params));
+}
+
 
 function authorsTableFormatter(authorsArray) {
     return `${authorsArray.map((elem) =>
@@ -43,12 +55,25 @@ function genresTableFormatter(genresArray) {
 
 function authorsSelectFormatter(authorsArray) {
     return `${authorsArray.map((elem) =>
-        `<option>${elem.name} ${elem.surname}</option>`
+        `<option value="${elem.id}">${elem.name} ${elem.surname}</option>`
     ).join('')}`;
 }
 
 function genresSelectFormatter(genresArray) {
     return `${genresArray.map((elem) =>
-        `<option>${elem.name}</option>`
+        `<option value="${elem.id}">${elem.name}</option>`
     ).join('')}`;
+}
+
+function getSelectedOptionsArray(optionList){
+
+    let result = [];
+    let options = optionList.options;
+
+    Array.prototype.map.call(options, (opt)=>{
+        if(opt.selected){
+            result.push(opt.value);
+        }
+    });
+    return result;
 }

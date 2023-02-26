@@ -2,7 +2,7 @@ const request = function (url = '', params = {}, method = 'GET') {
     let options = {
         method
     };
-    if (method === 'GET') {
+    if ((method === 'GET') || (method === 'DELETE')) {
         url += '?' + (new URLSearchParams(params)).toString();
     } else {
         options.body = JSON.stringify(params);
@@ -23,6 +23,14 @@ const post = function (url, params) {
     return request(url, params, 'POST');
 };
 
-export {get, post};
+const patch = function (url, params) {
+  return request(url, params, 'PATCH')
+};
+
+const del = function (url, params){
+    return request(url, params, 'DELETE')
+}
+
+export {get, post, patch, del};
 
 
