@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw008.domain.Genre;
 import ru.glavs.hw008.repository.GenreRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -32,5 +33,10 @@ public class GenreCRUDImpl implements GenreCRUD {
     @Override
     public Genre save(Genre genre) {
         return repository.save(genre);
+    }
+
+    @Override
+    public List<Genre> findAllByIdArray(String[] ids) {
+        return repository.findAllByIdIn(Arrays.asList(ids));
     }
 }

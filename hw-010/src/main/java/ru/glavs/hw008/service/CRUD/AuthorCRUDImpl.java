@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.repository.AuthorRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,5 +34,10 @@ public class AuthorCRUDImpl implements AuthorCRUD {
     @Override
     public Author save(Author author) {
         return repository.save(author);
+    }
+
+    @Override
+    public List<Author> findAllByIdArray(String[] ids) {
+        return repository.findAllByIdIn(Arrays.asList(ids));
     }
 }

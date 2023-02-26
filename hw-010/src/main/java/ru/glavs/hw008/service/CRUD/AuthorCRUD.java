@@ -8,6 +8,7 @@ public interface AuthorCRUD {
     List<Author> searchBySurname(String surname);
 
     List<Author> findAll();
+    List<Author> findAllByIdArray(String[] ids);
 
     List<Author> saveAll(List<Author> authorList);
 

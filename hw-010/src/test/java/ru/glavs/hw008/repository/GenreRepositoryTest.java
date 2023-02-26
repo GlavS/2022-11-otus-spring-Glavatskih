@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.glavs.hw008.domain.Genre;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,4 +25,14 @@ class GenreRepositoryTest {
         genreList = repository.findByNameContainingIgnoreCase("genre");
         assertThat(genreList).hasSize(2);
     }
+
+    @Test
+    @DisplayName("находить список жанов по списку Id")
+    void shouldFindListOfGenresByListOfId(){
+        List<Genre> genreList = repository.findAll();
+        List<String> ids = genreList.stream().map(Genre::getId).collect(Collectors.toList());
+        List<Genre> genreListByIds = repository.findAllByIdIn(ids);
+        assertThat(genreListByIds).usingRecursiveComparison().isEqualTo(genreList);
+    }
+
 }

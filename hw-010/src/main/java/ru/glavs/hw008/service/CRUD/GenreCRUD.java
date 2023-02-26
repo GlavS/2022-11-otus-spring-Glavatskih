@@ -12,5 +12,6 @@ public interface GenreCRUD {
     List<Genre> saveAll(List<Genre> genreList);
 
     Genre save(Genre genre);
+    List<Genre> findAllByIdArray(String[] ids);
 
 }
