@@ -1,3 +1,5 @@
+import {authorsListFormatter, genresListFormatter} from './displayFunctions.js';
+
 fetch('/api/books')
     .then(data => {
         return data.json()
@@ -18,21 +20,9 @@ function insertData(id, data) {
     document.getElementById(id).innerHTML = data;
 }
 
-function authorsListFormatter(authorsArray) {
-    return `${authorsArray.map((elem) =>
-        `<li>${elem.name} ${elem.surname}</li>`
-    ).join('')}`;
-}
-
-function genresListFormatter(genresArray) {
-    return `${genresArray.map((elem) =>
-        `<li>${elem.name}</li>`
-    ).join('')}`;
-}
-
 function commentsListFormatter(commentsArray) {
-    return `${commentsArray.map((elem) => 
-        `<li>[${elem.authorNick}] on ${new Date(elem.date).toLocaleDateString("ru-RU")}: ${elem.text}</li>`
+    return `${commentsArray.map((elem) =>
+        `<li><span>[${elem.authorNick}] on ${new Date(elem.date).toLocaleDateString("ru-RU")}: ${elem.text}</span></li>`
     ).join('')}`;
 }
 
@@ -51,7 +41,7 @@ function tableFormatTemplateString(rowOfData) {
             </ul>
         </td>
         <td>
-            <a href="/book-edit?id=${rowOfData.id}">${rowOfData.title}</a>
+            <a href="/book-show?id=${rowOfData.id}">${rowOfData.title}</a>
         </td>
         <td>
             <ul>

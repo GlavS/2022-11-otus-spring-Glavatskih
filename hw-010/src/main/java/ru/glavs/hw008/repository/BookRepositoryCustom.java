@@ -8,4 +8,5 @@ public interface BookRepositoryCustom {
     List<BookWithComments> findAllWithComments();
     List<BookWithComments> findAllWithCommentsOnly();
     List<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart);
+    BookWithComments findBookWithCommentsById(String id);
 }

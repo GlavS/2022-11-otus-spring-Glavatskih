@@ -41,4 +41,12 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
         );
         return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getMappedResults();
     }
+
+    public BookWithComments findBookWithCommentsById(String id) {
+        Aggregation aggregation = newAggregation(
+                lookup("comments", "_id", "commentedBook._id", "comments"),
+                match(where("_id").is(id))
+        );
+        return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getUniqueMappedResult();
+    }
 }

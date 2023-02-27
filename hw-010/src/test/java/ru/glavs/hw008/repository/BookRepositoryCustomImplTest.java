@@ -31,11 +31,21 @@ class BookRepositoryCustomImplTest {
     }
 
     @Test
-    void findAllWithCommentsByTitleContaining() {
+    @DisplayName("возвращать список книг с комментариями по подстроке заглавия")
+    void repositoryShouldFindAllBooksWithCommentsByTitleContainingGivenSubstring() {
         List<BookWithComments> bookList = repository.findAllWithCommentsByTitleContaining("Title1");
         assertThat(bookList).isNotNull().hasSize(1);
 
         bookList = repository.findAllWithCommentsByTitleContaining("Title");
         assertThat(bookList).isNotNull().hasSize(3);
+    }
+
+    @Test
+    @DisplayName("возвращать книгу с комментарием по id")
+    void repositoryShouldReturnBookWithCommentByItsId(){
+        List<BookWithComments> bookList = repository.findAllWithComments();
+        String id = bookList.get(0).getId();
+        BookWithComments bookFound = repository.findBookWithCommentsById(id);
+        assertThat(bookFound).usingRecursiveComparison().isEqualTo(bookList.get(0));
     }
 }

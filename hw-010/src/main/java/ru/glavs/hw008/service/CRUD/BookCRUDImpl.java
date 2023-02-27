@@ -45,6 +45,6 @@ public class BookCRUDImpl implements BookCRUD {
 
     @Override
     public Book getById(String id) {
-        return repository.findById(id).orElseThrow(); //TODO: exception??
+        return repository.findById(id).orElseThrow();
     }
 }

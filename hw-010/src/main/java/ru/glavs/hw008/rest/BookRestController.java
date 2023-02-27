@@ -24,14 +24,14 @@ public class BookRestController {
     private final AuthorCRUD authorCRUDService;
     private final GenreCRUD genreCRUDService;
 
-    @GetMapping("/api/books")  //TODO: api path name?
+    @GetMapping("/api/books")
     public List<BookWithComments> listAllBooks() {
         return bookCommentsCRUDService.readAll();
     }
 
     @GetMapping(value = "/api/books", params = "id")
-    public Book getBookById(@RequestParam String id) {
-        return bookCRUDService.getById(id);
+    public BookWithComments getBookById(@RequestParam String id) {
+        return bookCommentsCRUDService.readBookById(id);
     }
 
     @PatchMapping("/api/books")

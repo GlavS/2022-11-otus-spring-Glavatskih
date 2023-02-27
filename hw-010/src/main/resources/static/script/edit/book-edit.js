@@ -1,4 +1,4 @@
-import {get, patch} from "./fetchFunctions.js";
+import {get, patch} from "../fetchFunctions.js";
 
 
 const bookId = document.getElementById('bookId').value;

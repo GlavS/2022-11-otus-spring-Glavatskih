@@ -19,4 +19,9 @@ public class BookPageController {
         model.addAttribute("bookId", id);
         return "edit/book-edit";
     }
+    @GetMapping("/book-show")
+    public String showBookPage(@RequestParam String id, Model model){
+        model.addAttribute("bookId", id);
+        return "/show";
+    }
 }

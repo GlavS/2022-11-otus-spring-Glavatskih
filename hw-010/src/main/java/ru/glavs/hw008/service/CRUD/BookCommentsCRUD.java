@@ -8,4 +8,5 @@ public interface BookCommentsCRUD {
     List<BookWithComments> readAllWithCommentsOnly();
     List<BookWithComments> readAll();
     List<BookWithComments> readBookByTitlePart(String titlePart);
+    BookWithComments readBookById(String id);
 }

@@ -29,4 +29,9 @@ public class BookCommentsCRUDImpl implements BookCommentsCRUD {
     public List<BookWithComments> readBookByTitlePart(String titlePart) {
         return bookRepository.findAllWithCommentsByTitleContaining(titlePart);
     }
+
+    @Override
+    public BookWithComments readBookById(String id) {
+        return bookRepository.findBookWithCommentsById(id);
+    }
 }

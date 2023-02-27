@@ -1,5 +1,5 @@
 export {saveGenre};
-import {post} from "./fetchFunctions.js";
+import {post} from "../fetchFunctions.js";
 
 console.log('working');
 
