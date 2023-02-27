@@ -38,7 +38,8 @@
     <label for="name">Name</label>
     <input type="text" name="name" id="name">
     <button id="saveButton" >Save</button>
-    <a href="book-edit.html" th:href="@{/book-edit(id=${bookId})}"><button type="button">Go back</button></a>
+    <a href="book-edit.html" th:href="@{/book-edit(id=${bookId})}" th:unless="${bookId == null}"><button type="button">Go back</button></a>
+    <a href="../create/book-create.html" th:href="@{/book-create}" th:if="${bookId == null}"><button type="button">Go back</button></a>
   </fieldset>
   <div id="info"></div>
 </div>

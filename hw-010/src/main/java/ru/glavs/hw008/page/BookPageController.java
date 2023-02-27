@@ -15,13 +15,17 @@ public class BookPageController {
     }
 
     @GetMapping("/book-edit")
-    public String editBookPage(@RequestParam String id, Model model){
+    public String bookEditPage(@RequestParam String id, Model model){
         model.addAttribute("bookId", id);
         return "edit/book-edit";
     }
     @GetMapping("/book-show")
-    public String showBookPage(@RequestParam String id, Model model){
+    public String bookShowPage(@RequestParam String id, Model model){
         model.addAttribute("bookId", id);
         return "/show";
+    }
+    @GetMapping("/book-create")
+    public String bookCreatePage(){
+        return "create/book-create";
     }
 }

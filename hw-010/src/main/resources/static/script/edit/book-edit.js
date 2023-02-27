@@ -1,4 +1,10 @@
 import {get, patch} from "../fetchFunctions.js";
+import{authorsSelectFormatter,
+    genresSelectFormatter,
+    displaySavedBookInfo,
+    authorsTableFormatter,
+    genresTableFormatter} from '../displayFunctions.js';
+import{getSelectedOptionsArray} from '../utilityFunctions.js';
 
 
 const bookId = document.getElementById('bookId').value;
@@ -38,62 +44,11 @@ function updateBook() {
         genresIds: getSelectedOptionsArray(listGenresField)
     }
     patch('/api/books', params)
-        .then(bookUpdated => {
-            document.getElementById('savedBookInfo').innerHTML =
-                `
-<fieldset>
-<legend>Updated book</legend>
-<p><strong>Book Id: </strong>${bookUpdated.id}</p>
-<p><strong>Book title: </strong>${bookUpdated.title}</p>
-<p><strong>Book authors: </strong></p>
-<table>
-${authorsTableFormatter(bookUpdated.authors)}
-</table>
-<p><strong>Book genres: </strong></p>
-<table>
-${genresTableFormatter(bookUpdated.genres)}
-</table>
-</fieldset>
-                `;
-        })
-
-
+        .then(bookSaved => displaySavedBookInfo(bookSaved))
 }
 
 
-function authorsTableFormatter(authorsArray) {
-    return `${authorsArray.map((elem) =>
-        `<tr><td>${elem.name} ${elem.surname}</td></tr>`
-    ).join('')}`;
-}
 
-function genresTableFormatter(genresArray) {
-    return `${genresArray.map((elem) =>
-        `<tr><td>${elem.name}</td></tr>`
-    ).join('')}`;
-}
 
-function authorsSelectFormatter(authorsArray) {
-    return `${authorsArray.map((elem) =>
-        `<option value="${elem.id}">${elem.name} ${elem.surname}</option>`
-    ).join('')}`;
-}
 
-function genresSelectFormatter(genresArray) {
-    return `${genresArray.map((elem) =>
-        `<option value="${elem.id}">${elem.name}</option>`
-    ).join('')}`;
-}
 
-function getSelectedOptionsArray(optionList) {
-
-    let result = [];
-    let options = optionList.options;
-
-    Array.prototype.map.call(options, (opt) => {
-        if (opt.selected) {
-            result.push(opt.value);
-        }
-    });
-    return result;
-}

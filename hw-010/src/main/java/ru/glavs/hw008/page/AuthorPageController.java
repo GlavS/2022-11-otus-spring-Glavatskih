@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthorPageController {
-    @GetMapping("/author-edit")
+    @GetMapping(value = "/author-edit", params = "bookId")
     public String showAuthorEditPage(@RequestParam String bookId, Model model){
         model.addAttribute("bookId", bookId);
+        return "edit/author-edit";
+    }
+
+    @GetMapping("/author-edit")
+    public String showAuthorCreatePage(){
         return "edit/author-edit";
     }
 

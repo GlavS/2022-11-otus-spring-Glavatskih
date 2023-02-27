@@ -1,18 +1,15 @@
 package ru.glavs.hw008.rest;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.projections.BookWithComments;
-import ru.glavs.hw008.rest.dto.UpdateBookDto;
+import ru.glavs.hw008.rest.dto.BookDto;
 import ru.glavs.hw008.service.CRUD.AuthorCRUD;
 import ru.glavs.hw008.service.CRUD.BookCRUD;
 import ru.glavs.hw008.service.CRUD.BookCommentsCRUD;
 import ru.glavs.hw008.service.CRUD.GenreCRUD;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -35,9 +32,17 @@ public class BookRestController {
     }
 
     @PatchMapping("/api/books")
-    public Book updateBook(@RequestBody UpdateBookDto dto){
+    public Book updateBook(@RequestBody BookDto dto){
        return bookCRUDService.save(new Book(
                 dto.getId(),
+                authorCRUDService.findAllByIdArray(dto.getAuthorsIds()),
+                genreCRUDService.findAllByIdArray(dto.getGenresIds()),
+                dto.getTitle()
+        ));
+    }
+    @PostMapping("/api/books")
+    public Book createBook(@RequestBody BookDto dto){
+        return bookCRUDService.save(new Book(
                 authorCRUDService.findAllByIdArray(dto.getAuthorsIds()),
                 genreCRUDService.findAllByIdArray(dto.getGenresIds()),
                 dto.getTitle()
