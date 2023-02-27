@@ -48,4 +48,8 @@ public class BookRestController {
                 dto.getTitle()
         ));
     }
+    @DeleteMapping("/api/books")
+    public void deleteBook(@RequestParam String id){
+        bookCRUDService.deleteById(id);
+    }
 }

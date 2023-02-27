@@ -47,4 +47,12 @@ public class BookCRUDImpl implements BookCRUD {
     public Book getById(String id) {
         return repository.findById(id).orElseThrow();
     }
+
+    @Override
+    @Transactional
+    public void deleteById(String id) {
+        List<Comment> commentList = commentCRUD.findCommentsByBook(id);
+        commentCRUD.deleteAll(commentList);
+        repository.deleteById(id);
+    }
 }

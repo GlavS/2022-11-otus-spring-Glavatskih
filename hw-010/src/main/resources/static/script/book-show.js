@@ -1,4 +1,4 @@
-import {get} from './fetchFunctions.js';
+import {get, del} from './fetchFunctions.js';
 import {authorsListFormatter, genresListFormatter} from './displayFunctions.js';
 
 const bookId = document.getElementById('bookId').value;
@@ -7,7 +7,9 @@ const id = document.getElementById('id');
 const authors = document.getElementById('authors');
 const title = document.getElementById('title');
 const genres = document.getElementById('genres');
-const comments = document.getElementById('comments'); // TODO: make comments
+const comments = document.getElementById('comments');
+
+document.getElementById('delete-book').addEventListener('click', deleteBook, false);
 
 
 function commentsListFormatter(commentsArray) {
@@ -28,3 +30,11 @@ get('/api/books', {id: bookId})
         genres.innerHTML = genresListFormatter(book.genres);
         comments.innerHTML = commentsListFormatter(book.comments);
     })
+
+function deleteBook(event){
+        event.preventDefault();
+        event.returnValue = false;
+        del('/api/books', {id: bookId});
+        document.body.setAttribute('style', 'color:red;text-decoration: line-through');
+        alert('Book deleted');
+}
