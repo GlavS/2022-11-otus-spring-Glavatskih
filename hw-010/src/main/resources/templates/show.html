@@ -29,7 +29,7 @@
             <br>
             <span><a href="./edit/book-edit.html" th:href="@{/book-edit(id=${bookId})}">EDIT BOOK</a></span>|
             <span><a href="list.html" th:href="@{#}" id="delete-book">DELETE BOOK</a></span> |
-            <span><a href="#" >ADD COMMENT</a></span>
+            <span><a href="./edit/comment-edit.html"  th:href="@{/comment-add(bookId=${bookId})}">ADD COMMENT</a></span>
         </td>
         <td>
             <ul id="genres">Drama

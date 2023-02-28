@@ -14,4 +14,9 @@ public class CommentPageController {
         model.addAttribute("commentId", commentId);
         return "edit/comment-edit";
     }
+    @GetMapping("/comment-add")
+    public String commentAddPage(@RequestParam String bookId, Model model){
+        model.addAttribute("commentedBookId", bookId);
+        return "edit/comment-edit";
+    }
 }

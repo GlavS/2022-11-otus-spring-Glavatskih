@@ -38,6 +38,18 @@ public class CommentRestController {
         ));
     }
 
+    @PostMapping("/api/comments")
+    public Comment createComment(@RequestBody CommentDto dto) {
+        Date commentDate = stringToDate(dto.getDate());
+        Book commentedBook = bookCRUDService.getById(dto.getCommentedBookId());
+        return commentCRUDService.save(new Comment(
+                dto.getText(),
+                dto.getAuthorNick(),
+                commentDate,
+                commentedBook
+        ));
+    }
+
     private Date stringToDate(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate;
