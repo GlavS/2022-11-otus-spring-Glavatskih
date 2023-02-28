@@ -12,5 +12,6 @@ public class Hw010Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Hw010Application.class);
+        System.out.println("Main page: http://localhost:8080");
     }
 }

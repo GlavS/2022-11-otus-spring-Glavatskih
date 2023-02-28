@@ -16,7 +16,7 @@ function commentsListFormatter(commentsArray) {
         return `${commentsArray.map((elem) => 
 `<li><span>[${elem.authorNick}] on ${new Date(elem.date).toLocaleDateString("ru-RU")}: ${elem.text}</span>
 <br>
-<span> <a href="#" >EDIT COMMENT</a> </span> |
+<span> <a href="/comment-edit?commentId=${elem.id}&bookId=${bookId}" >EDIT COMMENT</a> </span> |
 <span> <a href="#" >DELETE COMMENT</a></span></li>`
         ).join('')}`;
 }

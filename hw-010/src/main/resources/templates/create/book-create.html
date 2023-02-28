@@ -45,12 +45,9 @@
   </style>
 </head>
 <body>
-
+<h2>Create new book:</h2>
 <div>
   <form action="#" class="book-form">
-
-    <label for="title">Title</label>
-    <input id="title" value="Enter title">
     <fieldset>
       <legend>Authors</legend>
 
@@ -71,7 +68,7 @@
       </select>
       <span>or <a href="../edit/genre-edit.html" th:href="@{/genre-edit}">create new</a></span>
     </fieldset>
-
+    <input id="title" value="Enter title">
     <input id="createBookButton" type="button" value="Create">
     <a href="../list.html" th:href="@{/}" id="back">
       <button type="button"> Go to main page</button>

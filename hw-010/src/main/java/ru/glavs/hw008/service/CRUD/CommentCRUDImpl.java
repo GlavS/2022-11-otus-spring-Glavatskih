@@ -40,4 +40,9 @@ public class CommentCRUDImpl implements CommentCRUD {
     public List<Comment> findByCommentText(String partOfText) {
         return repository.findByTextContainingIgnoreCase(partOfText);
     }
+
+    @Override
+    public Comment findById(String id) {
+        return repository.findById(id).orElseThrow();
+    }
 }

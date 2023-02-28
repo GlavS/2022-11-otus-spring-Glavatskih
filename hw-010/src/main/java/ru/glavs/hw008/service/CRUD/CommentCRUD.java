@@ -15,4 +15,5 @@ public interface CommentCRUD {
     List<Comment> findCommentsByBook(String bookId);
 
     List<Comment> findByCommentText(String partOfText);
+    Comment findById(String id);
 }
