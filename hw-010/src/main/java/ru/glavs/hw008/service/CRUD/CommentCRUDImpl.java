@@ -45,4 +45,9 @@ public class CommentCRUDImpl implements CommentCRUD {
     public Comment findById(String id) {
         return repository.findById(id).orElseThrow();
     }
+
+    @Override
+    public void deleteById(String id) {
+        repository.deleteById(id);
+    }
 }

@@ -16,4 +16,5 @@ public interface CommentCRUD {
 
     List<Comment> findByCommentText(String partOfText);
     Comment findById(String id);
+    void deleteById(String id);
 }

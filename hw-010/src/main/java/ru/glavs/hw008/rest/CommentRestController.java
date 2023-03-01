@@ -50,6 +50,11 @@ public class CommentRestController {
         ));
     }
 
+    @DeleteMapping("/api/comments")
+    public void deleteComment(@RequestParam String id){
+        commentCRUDService.deleteById(id);
+    }
+
     private Date stringToDate(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate;
