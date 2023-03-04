@@ -17,11 +17,12 @@ public class GenreRestController {
     private final GenreCRUD genreCRUDService;
 
     @GetMapping("/api/genres")
-    public List<Genre> getAllGenres(){
+    public List<Genre> getAllGenres() {
         return genreCRUDService.findAll();
     }
+
     @PostMapping("/api/genres")
-    public Genre createGenre(@RequestBody Genre genre){
+    public Genre createGenre(@RequestBody Genre genre) {
         return genreCRUDService.save(genre);
     }
 }
