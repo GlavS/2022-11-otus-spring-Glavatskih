@@ -22,7 +22,7 @@ public class BookPageController {
     @GetMapping("/book-show")
     public String bookShowPage(@RequestParam String id, Model model){
         model.addAttribute("bookId", id);
-        return "/show";
+        return "show";
     }
     @GetMapping("/book-create")
     public String bookCreatePage(){

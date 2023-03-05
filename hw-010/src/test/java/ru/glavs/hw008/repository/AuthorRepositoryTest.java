@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
-@DisplayName("репозиторий авторов должен")
+@DisplayName("Репозиторий авторов должен")
 class AuthorRepositoryTest {
 
     @Autowired

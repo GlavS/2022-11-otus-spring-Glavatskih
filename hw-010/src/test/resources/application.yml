@@ -7,13 +7,6 @@ spring:
       version: 3.5.5
 
 
-  shell:
-    interactive:
-      enabled: false
-    command:
-      script:
-        enabled: false
-
 mongock:
   #runner-type: "ApplicationRunner" # default
   runner-type: "InitializingBean"
