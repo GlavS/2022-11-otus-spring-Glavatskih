@@ -1,6 +1,5 @@
 package ru.glavs.hw008.service.CRUD;
 
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.repository.CommentRepository;
