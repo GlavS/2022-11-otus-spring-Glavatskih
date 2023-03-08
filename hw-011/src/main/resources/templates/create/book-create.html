@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create book</title>
+  <style>
+    form {
+      display: grid;
+      grid-template-columns: 40px 130px 150px;
+      grid-gap: 10px;
+      font-family: sans-serif;
+
+    }
+
+
+    label {
+      grid-column: 1 / 2;
+    }
+
+    input {
+      grid-column: 2 / 3;
+    }
+
+    fieldset {
+      display: grid;
+      grid-gap: 5px;
+      grid-column: 2 / 4;
+      margin: 0;
+    }
+
+    #title {
+      grid-column: 2 / 4;
+    }
+    #sbi{
+      grid-column: 2 / 4;
+    }
+
+    .innerTable tr td {
+      border: 1px solid gray;
+      padding: 5px;
+      border-collapse: collapse;
+    }
+
+
+  </style>
+</head>
+<body>
+<h2>Create new book:</h2>
+<div>
+  <form action="#" class="book-form">
+    <fieldset>
+      <legend>Authors</legend>
+
+      <label for="authors">Select new author from list</label>
+      <select name="authors" id="authors" multiple>
+        <option>Author_name1</option>
+      </select>
+      <span>or <a href="../edit/author-edit.html" th:href="@{/author-edit}"
+                  id="createAuthor">create new</a></span>
+    </fieldset>
+
+    <fieldset>
+      <legend>Genres</legend>
+
+      <label for="genres">Select new genre from list</label>
+      <select name="genres" id="genres" multiple>
+        <option>Genre1</option>
+      </select>
+      <span>or <a href="../edit/genre-edit.html" th:href="@{/genre-edit}">create new</a></span>
+    </fieldset>
+    <input id="title" value="Enter title">
+    <input id="createBookButton" type="button" value="Create">
+    <a href="../list.html" th:href="@{/}" id="back">
+      <button type="button"> Go to main page</button>
+    </a>
+    <div id="sbi"><p id="savedBookInfo"></p></div>
+  </form>
+</div>
+<script type="module" src="../../static/script/edit/book-edit.js" th:src="@{/script/create/book-create.js}"></script>
+
+</body>
+</html>

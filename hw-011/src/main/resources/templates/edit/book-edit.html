@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 40px 130px 150px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        fieldset {
+            display: grid;
+            grid-gap: 5px;
+            grid-column: 2 / 4;
+            margin: 0;
+        }
+
+        #title {
+            grid-column: 2 / 4;
+        }
+        #sbi{
+            grid-column: 2 / 4;
+        }
+
+        .innerTable tr td {
+            border: 1px solid gray;
+            padding: 5px;
+            border-collapse: collapse;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div>
+    <form action="#" class="book-form">
+        <input type="hidden" id="bookId" name="bookId" value="42" th:value="${bookId}">
+
+        <label for="title">Title</label>
+        <input id="title" value="Title of book">
+        <fieldset>
+            <legend>Authors</legend>
+            <table class="innerTable">
+                <tbody id="authorsTable">
+
+                </tbody>
+            </table>
+            <label for="authors">Select new author from list</label>
+            <select name="authors" id="authors" multiple>
+                <option>Author_name1</option>
+            </select>
+            <span>or <a href="author-edit.html" th:href="@{/author-edit(bookId=${bookId})}"
+                        id="createAuthor">create new</a></span>
+        </fieldset>
+
+        <fieldset>
+            <legend>Genres</legend>
+            <table class="innerTable">
+                <tbody id="genresTable">
+
+                </tbody>
+            </table>
+            <label for="genres">Select new genre from list</label>
+            <select name="genres" id="genres" multiple>
+                <option>Genre1</option>
+            </select>
+            <span>or <a href="genre-edit.html" th:href="@{/genre-edit(bookId=${bookId})}">create new</a></span>
+        </fieldset>
+
+        <input id="updateBookButton" type="button" value="Update">
+        <a href="../list.html" th:href="@{/book-show(id=${bookId})}" id="back">
+            <button type="button"> Go back</button>
+        </a>
+        <div id="sbi"><p id="savedBookInfo"></p></div>
+    </form>
+</div>
+<script type="module" src="../../static/script/edit/book-edit.js" th:src="@{/script/edit/book-edit.js}"></script>
+
+</body>
+</html>
