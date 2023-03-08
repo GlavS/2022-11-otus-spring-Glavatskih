@@ -1,0 +1,43 @@
+package ru.glavs.hw008.service.CRUD;
+
+import org.springframework.stereotype.Service;
+import ru.glavs.hw008.domain.Author;
+import ru.glavs.hw008.repository.AuthorRepository;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class AuthorCRUDImpl implements AuthorCRUD {
+
+    private final AuthorRepository repository;
+
+    public AuthorCRUDImpl(AuthorRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public List<Author> searchBySurname(String surnamePart) {
+        return repository.findBySurnameContainingIgnoreCase(surnamePart);
+    }
+
+    @Override
+    public List<Author> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<Author> saveAll(List<Author> authorList) {
+        return repository.saveAll(authorList);
+    }
+
+    @Override
+    public Author save(Author author) {
+        return repository.save(author);
+    }
+
+    @Override
+    public List<Author> findAllByIdArray(String[] ids) {
+        return repository.findAllByIdIn(Arrays.asList(ids));
+    }
+}

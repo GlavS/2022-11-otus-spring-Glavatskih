@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book list</title>
+    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
+</head>
+<body>
+
+<div id="create-book"><a href="./create/book-create.html" th:href="@{/book-create}">Create new book</a></div>
+<br>
+<table class="books">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Author</td>
+        <td>Title</td>
+        <td>Genre</td>
+        <td>Comments</td>
+    </tr>
+    </thead>
+    <tbody id="table-body">
+
+    </tbody>
+</table>
+
+<script type="module" src="../static/script/book-list.js" th:src="@{/script/book-list.js}"></script>
+</body>
+</html>

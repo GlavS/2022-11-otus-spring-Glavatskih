@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      database: test
+  mongodb:
+    embedded:
+      version: 3.5.5
+
+
+mongock:
+  #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.glavs.hw008.mongock.testchangelog
+
+
+logging:
+  level:
+    root: ERROR
