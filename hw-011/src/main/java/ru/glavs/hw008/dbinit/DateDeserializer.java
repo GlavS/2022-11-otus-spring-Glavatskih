@@ -16,11 +16,10 @@ public class DateDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException, JacksonException {
         JsonNode date = (JsonNode)jsonParser.readValueAsTree().get("$date");
-        String textDate = date.asText();
         try {
-            return formatter.parse(textDate);
+            return formatter.parse(date.asText());
         } catch (ParseException e) {
-            throw new RuntimeException("Cannot parse json date field" + e.getMessage());
+            throw new RuntimeException("Cannot parse json date field: " + e.getMessage());
         }
     }
 }

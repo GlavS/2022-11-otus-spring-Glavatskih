@@ -17,7 +17,7 @@ import ru.glavs.hw008.domain.Author;
 import ru.glavs.hw008.domain.Book;
 import ru.glavs.hw008.domain.Comment;
 import ru.glavs.hw008.domain.Genre;
-import ru.glavs.hw008.mongock.jsondata.JsonFileLoader;
+import ru.glavs.hw008.dbinit.loader.JsonFileLoader;
 import ru.glavs.hw008.repository.AuthorRepository;
 import ru.glavs.hw008.repository.BookRepository;
 import ru.glavs.hw008.repository.CommentRepository;
@@ -36,10 +36,10 @@ public class DatabaseInitializer implements ApplicationRunner {
     private final ObjectMapper mapper;
     private final JsonFileLoader loader;
 
-    private static final String BOOKS_JSON_RESOURCE = "mongock/books.json";
-    private static final String AUTHOR_JSON_RESOURCE = "mongock/authors.json";
-    private static final String GENRE_JSON_RESOURCE = "mongock/genres.json";
-    private static final String COMMENT_JSON_RESOURCE = "mongock/comments.json";
+    private static final String BOOKS_JSON_RESOURCE = "dbinit/books.json";
+    private static final String AUTHOR_JSON_RESOURCE = "dbinit/authors.json";
+    private static final String GENRE_JSON_RESOURCE = "dbinit/genres.json";
+    private static final String COMMENT_JSON_RESOURCE = "dbinit/comments.json";
 
 
     public DatabaseInitializer(AuthorRepository authorRepository,

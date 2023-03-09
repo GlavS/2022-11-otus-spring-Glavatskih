@@ -1,4 +1,4 @@
-package ru.glavs.hw008.mongock.jsondata;
+package ru.glavs.hw008.dbinit.loader;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;

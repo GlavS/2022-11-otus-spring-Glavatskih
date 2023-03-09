@@ -14,7 +14,6 @@ import ru.glavs.hw008.repository.BookRepository;
 import ru.glavs.hw008.repository.CommentRepository;
 import ru.glavs.hw008.repository.GenreRepository;
 
-//@EnableMongock
 @EnableWebFlux
 @EnableReactiveMongoRepositories
 @SpringBootApplication

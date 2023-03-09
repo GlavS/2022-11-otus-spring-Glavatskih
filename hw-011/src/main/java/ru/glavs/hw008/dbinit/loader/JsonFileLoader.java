@@ -1,4 +1,4 @@
-package ru.glavs.hw008.mongock.jsondata;
+package ru.glavs.hw008.dbinit.loader;
 
 public interface JsonFileLoader {
     void setJsonFile(String filename);
