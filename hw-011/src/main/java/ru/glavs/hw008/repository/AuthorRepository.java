@@ -5,7 +5,6 @@ import reactor.core.publisher.Flux;
 import ru.glavs.hw008.domain.Author;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface AuthorRepository extends ReactiveMongoRepository<Author, String> {
     Flux<Author> findBySurnameContainingIgnoreCase(String surnamePart);
