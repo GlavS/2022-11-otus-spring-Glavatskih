@@ -3,10 +3,11 @@
 spring:
   data:
     mongodb:
-      database: testbookhw008
+      database: bookhw011
   mongodb:
     embedded:
-      version: 3.5.5
+      version: 4.4.6
+
 
 ### Local mongoDB server ###
 
@@ -15,14 +16,8 @@ spring:
 #    mongodb:
 #      host: localhost
 #      port: 27017
-#      database: testbookhw008
-### Mongock ###
+#      database: testbookhw011
 
-mongock:
-  runner-type: "ApplicationRunner" # default
-  #runner-type: "InitializingBean"
-  change-logs-scan-package:
-    - ru.glavs.hw008.mongock.changelog
 
 
 logging:
