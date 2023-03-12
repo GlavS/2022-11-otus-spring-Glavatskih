@@ -8,7 +8,7 @@ function getSelectedOptionsArray(optionList) {
             result.push(opt.value);
         }
     });
-    return result;
+    return result; // TODO: вернуть список сущностей
 }
 
 export {getSelectedOptionsArray};

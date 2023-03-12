@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Edit comment</title>
@@ -25,13 +25,13 @@
     }
 
   </style>
-  <script type="module" src="../../static/script/edit/comment-edit.js" th:src="@{/script/edit/comment-edit.js}"></script>
+  <script type="module" src="script/edit/comment-edit.js"></script>
 </head>
 <body>
 <form class="comment-form"
       action="#" method="post">
-  <input type="hidden" id="bookId" name="bookId" th:value="${commentedBookId}">
-  <input type="hidden" id="commentId" name="commentId" th:value="${commentId}">
+  <input type="hidden" id="bookId" name="bookId">
+  <input type="hidden" id="commentId" name="commentId">
 
 
   <label for="text">Comment text</label>
@@ -43,7 +43,7 @@
   <label for="date">Date</label>
   <input type="date" id="date" value="2021-03-20">
   <input type="button" id="saveCommentButton" value="Save">
-  <a href="../list.html" th:href="@{/book-show(id=${commentedBookId})}"><button type="button">Go back</button></a>
+  <a href="list.html"><button type="button">Go back</button></a>
   <div id="info"></div>
 </form>
 </body>

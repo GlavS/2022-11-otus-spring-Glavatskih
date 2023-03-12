@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title id="pageTitle">Boris Godunov</title>
-    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
+    <link href="booklist.css" rel="stylesheet"/>
 </head>
 <body>
-<input type="hidden" name="bookId" id="bookId" th:value="${bookId}">
+<input type="hidden" name="bookId" id="bookId">
 <table class="books">
     <thead>
     <tr>
@@ -27,9 +27,9 @@
         <td>
             <span id="title">Boris Godunov</span>
             <br>
-            <span><a href="./edit/book-edit.html" th:href="@{/book-edit(id=${bookId})}">EDIT BOOK</a></span>|
-            <span><a href="list.html" th:href="@{#}" id="delete-book">DELETE BOOK</a></span> |
-            <span><a href="./edit/comment-edit.html"  th:href="@{/comment-add(bookId=${bookId})}">ADD COMMENT</a></span>
+            <span><a href="./edit/book-edit.html">EDIT BOOK</a></span>|
+            <span><a href="list.html" id="delete-book">DELETE BOOK</a></span> |
+            <span><a href="./edit/comment-edit.html" >ADD COMMENT</a></span>
         </td>
         <td>
             <ul id="genres">Drama
@@ -48,7 +48,7 @@
     </tr>
     </tbody>
 </table>
-<a href="./list.html" th:href="@{/}">Go to main page</a>
-<script type="module" src="/script/book-show.js" th:src="@{/script/book-show.js}"></script>
+<a href="./list.html">Go to main page</a>
+<script type="module" src="script/book-show.js"></script>
 </body>
 </html>

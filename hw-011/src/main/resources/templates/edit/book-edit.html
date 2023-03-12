@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Edit book</title>
@@ -48,7 +48,7 @@
 
 <div>
     <form action="#" class="book-form">
-        <input type="hidden" id="bookId" name="bookId" value="42" th:value="${bookId}">
+        <input type="hidden" id="bookId" name="bookId" value="42">
 
         <label for="title">Title</label>
         <input id="title" value="Title of book">
@@ -63,7 +63,7 @@
             <select name="authors" id="authors" multiple>
                 <option>Author_name1</option>
             </select>
-            <span>or <a href="author-edit.html" th:href="@{/author-edit(bookId=${bookId})}"
+            <span>or <a href="author-edit.html"
                         id="createAuthor">create new</a></span>
         </fieldset>
 
@@ -78,17 +78,17 @@
             <select name="genres" id="genres" multiple>
                 <option>Genre1</option>
             </select>
-            <span>or <a href="genre-edit.html" th:href="@{/genre-edit(bookId=${bookId})}">create new</a></span>
+            <span>or <a href="genre-edit.html">create new</a></span>
         </fieldset>
 
         <input id="updateBookButton" type="button" value="Update">
-        <a href="../list.html" th:href="@{/book-show(id=${bookId})}" id="back">
+        <a href="../list.html" id="back">
             <button type="button"> Go back</button>
         </a>
         <div id="sbi"><p id="savedBookInfo"></p></div>
     </form>
 </div>
-<script type="module" src="../../static/script/edit/book-edit.js" th:src="@{/script/edit/book-edit.js}"></script>
+<script type="module" src="script/edit/book-edit.js"></script>
 
 </body>
 </html>

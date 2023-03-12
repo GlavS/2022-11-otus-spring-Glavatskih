@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Create book</title>
@@ -55,7 +55,7 @@
       <select name="authors" id="authors" multiple>
         <option>Author_name1</option>
       </select>
-      <span>or <a href="../edit/author-edit.html" th:href="@{/author-edit}"
+      <span>or <a href="edit/author-edit.html"
                   id="createAuthor">create new</a></span>
     </fieldset>
 
@@ -66,17 +66,17 @@
       <select name="genres" id="genres" multiple>
         <option>Genre1</option>
       </select>
-      <span>or <a href="../edit/genre-edit.html" th:href="@{/genre-edit}">create new</a></span>
+      <span>or <a href="edit/genre-edit.html">create new</a></span>
     </fieldset>
     <input id="title" value="Enter title">
     <input id="createBookButton" type="button" value="Create">
-    <a href="../list.html" th:href="@{/}" id="back">
+    <a href="../list.html" id="back">
       <button type="button"> Go to main page</button>
     </a>
     <div id="sbi"><p id="savedBookInfo"></p></div>
   </form>
 </div>
-<script type="module" src="../../static/script/edit/book-edit.js" th:src="@{/script/create/book-create.js}"></script>
+<script type="module" src="script/edit/book-edit.js"></script>
 
 </body>
 </html>

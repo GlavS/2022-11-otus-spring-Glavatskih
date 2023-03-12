@@ -39,8 +39,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 lookup("comments", "_id", "commentedBook._id", "comments"),
                 match(where("title").regex("^" + titlePart, "i"))
         );
-        //return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getMappedResults();
-        return null;
+        return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class);
     }
 
     public Mono<BookWithComments> findBookWithCommentsById(String id) {
@@ -48,7 +47,7 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
                 lookup("comments", "_id", "commentedBook._id", "comments"),
                 match(where("_id").is(id))
         );
-        // return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class).getUniqueMappedResult();
-        return null;
+        return mongoTemplate.aggregate
+                (aggregation, Book.class, BookWithComments.class).last();
     }
 }

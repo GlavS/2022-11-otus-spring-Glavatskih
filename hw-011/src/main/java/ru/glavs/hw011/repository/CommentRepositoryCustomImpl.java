@@ -16,7 +16,6 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
     private final ReactiveMongoTemplate mongoTemplate;
     public Flux<Comment> updateComments(Book book){
-        List<Comment> result = new ArrayList<>();
         Aggregation aggregation = newAggregation(
                 match(Criteria.where("_id").is(book.getId())),
                 lookup("comments", "_id", "commentedBook._id", "comments"),
@@ -24,13 +23,9 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
                 unwind("comments"),
                 project("comments._id", "comments.text", "comments.authorNick", "comments.date", "comments.commentedBook")
         );
-        //Flux<Comment> commentList = mongoTemplate.aggregate(aggregation, "books", Comment.class).getMappedResults();
-//        commentList.forEach(comment -> comment.setCommentedBook(book));
-//        for (Comment c : commentList) {
-//            result.add(mongoTemplate.save(c));
-//        }
-//
-//        return result;
-        return null;
+        return mongoTemplate
+                .aggregate(aggregation, "books", Comment.class)
+                .doOnNext(comment -> comment.setCommentedBook(book))
+                .doOnNext(mongoTemplate::save);
     }
 }

@@ -27,19 +27,19 @@
       margin: 0;
     }
   </style>
-  <script type="module" src="../../static/script/edit/genre-edit.js" th:src="@{/script/edit/genre-edit.js}"></script>
+  <script type="module" src="script/edit/genre-edit.js"></script>
 </head>
 <body>
 
 <div class="container">
   <fieldset id="fieldset">
-    <input type="hidden" name="bookId" th:value="${bookId}">
+    <input type="hidden" name="bookId">
     <legend>Genre</legend>
     <label for="name">Name</label>
     <input type="text" name="name" id="name">
     <button id="saveButton" >Save</button>
-    <a href="book-edit.html" th:href="@{/book-edit(id=${bookId})}" th:unless="${bookId == null}"><button type="button">Go back</button></a>
-    <a href="../create/book-create.html" th:href="@{/book-create}" th:if="${bookId == null}"><button type="button">Go back</button></a>
+    <a href="book-edit.html"><button type="button">Go back</button></a>
+    <a href="create/book-create.html"><button type="button">Go back</button></a>
   </fieldset>
   <div id="info"></div>
 </div>
