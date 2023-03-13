@@ -46,12 +46,7 @@ public class BookRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .body(bookRepository.findAllWithComments(), BookWithComments.class))
                 .PATCH("/api/books",
-                        request -> request.bodyToMono(BookDto.class)
-                                .publishOn(Schedulers.boundedElastic())
-                                .map(bookDto -> new Book(bookDto.getId(),
-                                        authorRepository.findAllByIdIn(Arrays.asList(bookDto.getAuthorsIds())).collectList().block(), //TODO: block()
-                                        genreRepository.findAllByIdIn(Arrays.asList(bookDto.getAuthorsIds())).collectList().block(), //TODO: block()
-                                        bookDto.getTitle()))
+                        request -> request.bodyToMono(Book.class)
                                 .flatMap(book -> ok().body(bookRepository.save(book), Book.class)).switchIfEmpty(badRequest().build()))
                 .POST("/api/books",
                         request -> request.bodyToMono(BookDto.class)

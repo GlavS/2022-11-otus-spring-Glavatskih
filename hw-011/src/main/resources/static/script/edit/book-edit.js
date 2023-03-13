@@ -1,10 +1,12 @@
 import {get, patch} from "../fetchFunctions.js";
-import{authorsSelectFormatter,
-    genresSelectFormatter,
-    displaySavedBookInfo,
+import {
+    authorsSelectFormatter,
     authorsTableFormatter,
-    genresTableFormatter} from '../displayFunctions.js';
-import{getSelectedOptionsArray, getUrlParameterValue} from '../utilityFunctions.js';
+    displaySavedBookInfo,
+    genresSelectFormatter,
+    genresTableFormatter
+} from '../displayFunctions.js';
+import {getSelectedOptionsArray, getUrlParameterValue} from '../utilityFunctions.js';
 
 
 const bookId = getUrlParameterValue('id');
@@ -40,12 +42,36 @@ function updateBook() {
     let params = {
         id: bookId,
         title: titleField.value,
-        authorsIds: getSelectedOptionsArray(listAuthorsField),
-        genresIds: getSelectedOptionsArray(listGenresField)
+        authors: [],
+        genres: []
     }
-    patch('/api/books', params)
-        .then(bookSaved => displaySavedBookInfo(bookSaved))
+    let authorIdsArray = getSelectedOptionsArray(listAuthorsField);
+    let genreIdsArray = getSelectedOptionsArray(listGenresField);
+
+    let authorPromiseArray = [];
+    let genrePromiseArray = [];
+    for (let i = 0; i < authorIdsArray.length; i++) {
+        authorPromiseArray.push(get('/api/authors/' + authorIdsArray[i]));
+    }
+    for (let i = 0; i < genreIdsArray.length; i++) {
+        genrePromiseArray.push(get('/api/genres/' + genreIdsArray[i]));
+    }
+
+    Promise.all(authorPromiseArray).then(
+        authors => {
+            params.authors = authors;
+            Promise.all(genrePromiseArray).then(
+                genres => {
+                    params.genres = genres;
+                    patch('/api/books', params)
+                        .then(bookSaved => displaySavedBookInfo(bookSaved));
+                }
+            )
+        }
+    )
 }
+
+
 
 
 
