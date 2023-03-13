@@ -17,9 +17,9 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @Configuration
 public class AuthorRouter {
     @Bean
-    public RouterFunction<ServerResponse> routes(AuthorRepository repository) {
+    public RouterFunction<ServerResponse> authorRoutes(AuthorRepository repository) {
         return route()
-                .POST("/authors", request -> request.bodyToMono(Author.class)
+                .POST("/api/authors", request -> request.bodyToMono(Author.class)
                         .flatMap(repository::save)
                         .flatMap(savedAuthor -> created(URI.create("/authors/" + savedAuthor.getId()))
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -27,7 +27,7 @@ public class AuthorRouter {
                 )
 
 
-                .GET("/authors", a ->
+                .GET("/api/authors", a ->
                         ok().body(repository.findAll(), Author.class)).build();
     }
 }

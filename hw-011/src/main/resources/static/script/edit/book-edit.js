@@ -4,10 +4,10 @@ import{authorsSelectFormatter,
     displaySavedBookInfo,
     authorsTableFormatter,
     genresTableFormatter} from '../displayFunctions.js';
-import{getSelectedOptionsArray} from '../utilityFunctions.js';
+import{getSelectedOptionsArray, getUrlParameterValue} from '../utilityFunctions.js';
 
 
-const bookId = document.getElementById('bookId').value;
+const bookId = getUrlParameterValue('id');
 
 const titleField = document.getElementById('title');
 const tableAuthors = document.getElementById('authorsTable');
@@ -46,7 +46,6 @@ function updateBook() {
     patch('/api/books', params)
         .then(bookSaved => displaySavedBookInfo(bookSaved))
 }
-
 
 
 

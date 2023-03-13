@@ -27,9 +27,10 @@
         <td>
             <span id="title">Boris Godunov</span>
             <br>
-            <span><a href="./edit/book-edit.html">EDIT BOOK</a></span>|
+<!--           TODO: edit boot , implement id param-->
+            <span><a id="edit-book-link" href="edit/book-edit.html">EDIT BOOK</a></span>|
             <span><a href="list.html" id="delete-book">DELETE BOOK</a></span> |
-            <span><a href="./edit/comment-edit.html" >ADD COMMENT</a></span>
+            <span><a href="edit/comment-edit.html" >ADD COMMENT</a></span>
         </td>
         <td>
             <ul id="genres">Drama
@@ -49,6 +50,10 @@
     </tbody>
 </table>
 <a href="./list.html">Go to main page</a>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
 <script type="module" src="script/book-show.js"></script>
 </body>
 </html>

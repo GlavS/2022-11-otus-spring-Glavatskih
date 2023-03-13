@@ -1,5 +1,6 @@
 import {del, get} from './fetchFunctions.js';
 import {authorsListFormatter, genresListFormatter} from './displayFunctions.js';
+import {getUrlParameterValue} from './utilityFunctions.js';
 
 const bookId = getUrlParameterValue('id');
 const pageTitle = document.getElementById('pageTitle');
@@ -26,6 +27,7 @@ function commentsListFormatter(commentsArray) {
 
 
 function loadPage() {
+    $('#edit-book-link').attr('href', 'edit/book-edit.html?id=' + bookId);
     get('/api/books', {id: bookId})
         .then(book => {
             pageTitle.innerHTML = book.title;
@@ -46,18 +48,4 @@ function deleteBook(event) {
     alert('Book deleted');
 }
 
-function getUrlParameterValue(paramName) {
-    let paramString = window.location.search.substring(1),
-        urlVariablesArray = paramString.split('&'),
-        paramValueTuple,
-        i;
 
-    for (i = 0; i < urlVariablesArray.length; i++) {
-        paramValueTuple = urlVariablesArray[i].split('=');
-
-        if (paramValueTuple[0] === paramName) {
-            return paramValueTuple[1] === undefined ? true : decodeURIComponent(paramValueTuple[1]);
-        }
-    }
-    return false;
-}

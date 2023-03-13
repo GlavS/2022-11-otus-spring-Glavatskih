@@ -11,4 +11,20 @@ function getSelectedOptionsArray(optionList) {
     return result; // TODO: вернуть список сущностей
 }
 
-export {getSelectedOptionsArray};
+function getUrlParameterValue(paramName) {
+    let paramString = window.location.search.substring(1),
+        urlVariablesArray = paramString.split('&'),
+        paramValueTuple,
+        i;
+
+    for (i = 0; i < urlVariablesArray.length; i++) {
+        paramValueTuple = urlVariablesArray[i].split('=');
+
+        if (paramValueTuple[0] === paramName) {
+            return paramValueTuple[1] === undefined ? true : decodeURIComponent(paramValueTuple[1]);
+        }
+    }
+    return false;
+}
+
+export {getSelectedOptionsArray, getUrlParameterValue};
