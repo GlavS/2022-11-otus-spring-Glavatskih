@@ -21,12 +21,32 @@ get('/api/genres')
 
 function createBook(){
     let params = {
-        id: '',
+        id: undefined,
         title: titleField.value,
-        authorsIds: getSelectedOptionsArray(listAuthorsField),
-        genresIds: getSelectedOptionsArray(listGenresField)
+        authors:[],
+        genres:[]
     }
+    let authorIdsArray = getSelectedOptionsArray(listAuthorsField);
+    let genreIdsArray = getSelectedOptionsArray(listGenresField);
 
-    post('/api/books', params)
-        .then(bookSaved=>displaySavedBookInfo(bookSaved));
+    let authorPromiseArray = [];
+    let genrePromiseArray = [];
+    for (let i = 0; i < authorIdsArray.length; i++) {
+        authorPromiseArray.push(get('/api/authors/' + authorIdsArray[i]));
+    }
+    for (let i = 0; i < genreIdsArray.length; i++) {
+        genrePromiseArray.push(get('/api/genres/' + genreIdsArray[i]));
+    }
+    Promise.all(authorPromiseArray).then(
+        authors => {
+            params.authors = authors;
+            Promise.all(genrePromiseArray).then(
+                genres => {
+                    params.genres = genres;
+                    post('/api/books', params)
+                        .then(bookSaved=>displaySavedBookInfo(bookSaved));
+                }
+            )
+        }
+    )
 }
