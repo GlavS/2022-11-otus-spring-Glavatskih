@@ -18,7 +18,7 @@ function commentsListFormatter(commentsArray) {
     return `${commentsArray.map((elem) =>
         `<li><span>[${elem.authorNick}] on ${new Date(elem.date).toLocaleDateString("ru-RU")}: ${elem.text}</span>
 <br>
-<span> <a href="/comment-edit?commentId=${elem.id}&bookId=${bookId}" >EDIT COMMENT</a> </span> |
+<span> <a href="edit/comment-edit.html?commentId=${elem.id}&bookId=${bookId}" >EDIT COMMENT</a> </span> |
 <span> <a href="#" id="delete-comment" onclick="{
      fetch('/api/comments?id=${elem.id}', {method: 'DELETE'}) ; alert('Comment deleted, refresh page') 
 }return false;">DELETE COMMENT</a></span></li>`
@@ -28,6 +28,7 @@ function commentsListFormatter(commentsArray) {
 
 function loadPage() {
     $('#edit-book-link').attr('href', 'edit/book-edit.html?id=' + bookId);
+    $('#comment-edit-link').attr('href', 'edit/comment-edit.html?id=' + bookId);
     get('/api/books', {id: bookId})
         .then(book => {
             pageTitle.innerHTML = book[0].title;
