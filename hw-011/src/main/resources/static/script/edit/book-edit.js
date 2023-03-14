@@ -23,9 +23,9 @@ document.getElementById('updateBookButton').addEventListener('click', updateBook
 
 get('/api/books', {'id': bookId})
     .then(book => {
-        titleField.value = book.title;
-        tableAuthors.innerHTML = authorsTableFormatter(book.authors);
-        tableGenres.innerHTML = genresTableFormatter(book.genres);
+        titleField.value = book[0].title;
+        tableAuthors.innerHTML = authorsTableFormatter(book[0].authors);
+        tableGenres.innerHTML = genresTableFormatter(book[0].genres);
     })
 
 get('/api/authors')

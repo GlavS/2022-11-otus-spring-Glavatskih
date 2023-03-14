@@ -11,5 +11,5 @@ public interface BookRepositoryCustom {
 
     Flux<BookWithComments> findAllWithCommentsByTitleContaining(String titlePart);
 
-    Mono<BookWithComments> findBookWithCommentsById(String id);
+    Flux<BookWithComments> findBookWithCommentsById(String id);
 }

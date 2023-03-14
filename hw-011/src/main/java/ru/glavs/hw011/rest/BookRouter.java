@@ -13,6 +13,9 @@ import ru.glavs.hw011.repository.BookRepository;
 
 import java.util.Optional;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.queryParam;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.badRequest;
@@ -35,7 +38,7 @@ public class BookRouter {
                                 .orElse(badRequest().build()))
                 .GET("/api/books",
                         books -> ok()
-                                .contentType(MediaType.APPLICATION_JSON)
+                                .contentType(APPLICATION_JSON)
                                 .body(bookRepository.findAllWithComments(), BookWithComments.class))
                 .PATCH("/api/books",
                         request -> request.bodyToMono(Book.class)
@@ -47,12 +50,9 @@ public class BookRouter {
                                 .flatMap(book -> ok()
                                         .body(bookRepository.save(book), Book.class))
                                 .switchIfEmpty(badRequest().build()))
-                .DELETE("/api/books",
-                        request -> request.queryParam("id")
-                                .map(bookRepository::deleteById)
-                                .map(voidMono -> ok()
-                                        .bodyValue(Optional.empty()))
-                                .orElse(badRequest().build())
+                .DELETE("/api/books/{id}", accept(APPLICATION_JSON),
+                        request ->  bookRepository.deleteById(request.pathVariable("id"))
+                                .flatMap(resp-> ok().build())
                 ).build();
     }
 }

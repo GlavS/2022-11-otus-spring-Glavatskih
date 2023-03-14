@@ -30,12 +30,12 @@ function loadPage() {
     $('#edit-book-link').attr('href', 'edit/book-edit.html?id=' + bookId);
     get('/api/books', {id: bookId})
         .then(book => {
-            pageTitle.innerHTML = book.title;
-            title.innerHTML = book.title;
-            id.innerHTML = book.id;
-            authors.innerHTML = authorsListFormatter(book.authors);
-            genres.innerHTML = genresListFormatter(book.genres);
-            comments.innerHTML = commentsListFormatter(book.comments);
+            pageTitle.innerHTML = book[0].title;
+            title.innerHTML = book[0].title;
+            id.innerHTML = book[0].id;
+            authors.innerHTML = authorsListFormatter(book[0].authors);
+            genres.innerHTML = genresListFormatter(book[0].genres);
+            comments.innerHTML = commentsListFormatter(book[0].comments);
         })
 }
 
@@ -43,7 +43,7 @@ function loadPage() {
 function deleteBook(event) {
     event.preventDefault();
     event.returnValue = false;
-    del('/api/books', {id: bookId});
+    del('/api/books/' + bookId);
     document.body.setAttribute('style', 'color:red;text-decoration: line-through');
     alert('Book deleted');
 }

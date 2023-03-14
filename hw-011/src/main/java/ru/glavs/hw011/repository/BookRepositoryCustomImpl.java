@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import ru.glavs.hw011.domain.Book;
 import ru.glavs.hw011.domain.projections.BookWithComments;
 
@@ -42,12 +41,12 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
         return mongoTemplate.aggregate(aggregation, Book.class, BookWithComments.class);
     }
 
-    public Mono<BookWithComments> findBookWithCommentsById(String id) {
+    public Flux<BookWithComments> findBookWithCommentsById(String id) {
         Aggregation aggregation = newAggregation(
                 lookup("comments", "_id", "commentedBook._id", "comments"),
                 match(where("_id").is(id))
         );
         return mongoTemplate.aggregate
-                (aggregation, Book.class, BookWithComments.class).last();
+                (aggregation, Book.class, BookWithComments.class);
     }
 }
