@@ -32,10 +32,29 @@ public class CommentRouter {
     @Bean
     public RouterFunction<ServerResponse> commentRoutes() {
         return route()
+                .GET("/api/comments",
+                        queryParam("commentId", StringUtils::isNotEmpty),
+                        request -> request.queryParam("commentId")
+                                .map(commentRepository::findById)
+                                .map(comment-> ok().body(comment, Comment.class))
+                                .orElse(badRequest().build())
+                        )
                 .POST("/api/comments",
                         request -> request.bodyToMono(CommentDto.class)
                                 .flatMap(commentDto -> Mono.just(new Comment(
                                         null,
+                                        commentDto.getText(),
+                                        commentDto.getAuthorNick(),
+                                        stringToDate(commentDto.getDate()),
+                                        commentDto.getCommentedBook())
+                                ))
+                                .flatMap(commentRepository::save)
+                                .flatMap(c -> created(URI.create("/api/comments/" + c.getId())).body(fromValue(c)))
+                )
+                .PATCH("/api/comments",
+                        request -> request.bodyToMono(CommentDto.class)
+                                .flatMap(commentDto -> Mono.just(new Comment(
+                                        commentDto.getId(),
                                         commentDto.getText(),
                                         commentDto.getAuthorNick(),
                                         stringToDate(commentDto.getDate()),

@@ -1,7 +1,7 @@
 import {get, patch, post} from '../fetchFunctions.js';
 import {getUrlParameterValue} from '../utilityFunctions.js';
 
-const commentId = document.getElementById('commentId').value;
+const commentId = getUrlParameterValue('commentId');
 const commentedBookId = getUrlParameterValue('id');
 
 const commentTextField = document.getElementById('text');
@@ -39,15 +39,19 @@ function saveComment() {
 
 
 function updateComment() {
-    let params = {
-        id: commentId,
-        text: commentTextField.value,
-        authorNick: commentAuthorNickField.value,
-        date: commentDateField.value,
-        commentedBookId: commentedBookId
-    }
-    patch('/api/comments', params)
-        .then(comment => commentInfoFormatter(comment));
+    get('/api/books', {'id': commentedBookId})
+        .then(book => {
+            let params = {
+                id: commentId,
+                text: commentTextField.value,
+                authorNick: commentAuthorNickField.value,
+                date: commentDateField.value,
+                commentedBook: book[0]
+            }
+            patch('/api/comments', params)
+                .then(comment => commentInfoFormatter(comment)
+                )
+        })
 }
 
 function createComment() {
