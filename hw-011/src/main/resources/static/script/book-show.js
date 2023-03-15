@@ -20,7 +20,7 @@ function commentsListFormatter(commentsArray) {
 <br>
 <span> <a href="edit/comment-edit.html?commentId=${elem.id}&bookId=${bookId}" >EDIT COMMENT</a> </span> |
 <span> <a href="#" id="delete-comment" onclick="{
-     fetch('/api/comments?id=${elem.id}', {method: 'DELETE'}) ; alert('Comment deleted, refresh page') 
+     fetch('/api/comments/${elem.id}', {method: 'DELETE'}) ; alert('Comment deleted, refresh page') 
 }return false;">DELETE COMMENT</a></span></li>`
     ).join('')}`
 }

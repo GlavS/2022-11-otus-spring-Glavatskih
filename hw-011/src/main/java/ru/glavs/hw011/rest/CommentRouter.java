@@ -1,8 +1,10 @@
 package ru.glavs.hw011.rest;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
@@ -16,8 +18,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.queryParam;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
-import static org.springframework.web.reactive.function.server.ServerResponse.created;
+import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
 @Configuration
 @RequiredArgsConstructor
@@ -39,7 +43,13 @@ public class CommentRouter {
                                 ))
                                 .flatMap(commentRepository::save)
                                 .flatMap(c -> created(URI.create("/api/comments/" + c.getId())).body(fromValue(c)))
-                ).build();
+                )
+                .DELETE("/api/comments/{id}",
+                        accept(MediaType.APPLICATION_JSON),
+                        request -> commentRepository.deleteById(request.pathVariable("id"))
+                                .flatMap(resp-> ok().build())
+                )
+                .build();
 
     }
 
