@@ -9,7 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static org.springframework.web.reactive.function.server.RouterFunctions.*;
+import static org.springframework.web.reactive.function.server.RouterFunctions.resources;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.badRequest;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
@@ -25,17 +26,28 @@ public class StaticRouter {
 
     @Bean
     public RouterFunction<ServerResponse> staticPages() {
-        return route().GET("/", request -> ok().contentType(MediaType.TEXT_HTML).bodyValue(list))
-                .GET("/book-show", request -> request.queryParam("id").map(p -> ok().contentType(MediaType.TEXT_HTML).bodyValue(bookShow)).orElse(badRequest().build()))
+        return route()
+                .GET("/",
+                        request -> ok()
+                                .contentType(MediaType.TEXT_HTML)
+                                .bodyValue(list))
+                .GET("/book-show",
+                        request -> request.queryParam("id")
+                                .map(p -> ok()
+                                        .contentType(MediaType.TEXT_HTML)
+                                        .bodyValue(bookShow))
+                                .orElse(badRequest()
+                                        .build()))
                 .build();
     }
 
     @Bean
-    RouterFunction<ServerResponse> staticResourcePath(){
+    RouterFunction<ServerResponse> staticResourcePath() {
         return resources("/**", new ClassPathResource("static/"));
     }
+
     @Bean
-    RouterFunction<ServerResponse> templatesResourcePath(){
+    RouterFunction<ServerResponse> templatesResourcePath() {
         return resources("/**", new ClassPathResource("templates/"));
     }
 

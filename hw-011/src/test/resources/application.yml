@@ -7,13 +7,13 @@ spring:
       version: 3.5.5
 
 
-mongock:
-  #runner-type: "ApplicationRunner" # default
-  runner-type: "InitializingBean"
-  change-logs-scan-package:
-    - ru.glavs.hw008.mongock.testchangelog
-
-
 logging:
   level:
     root: ERROR
+
+database:
+  init:
+    books: "testDbInit/testBooks.json"
+    authors: "testDbInit/testAuthors.json"
+    genres: "testDbInit/testGenres.json"
+    comments: "testDbInit/testComments.json"

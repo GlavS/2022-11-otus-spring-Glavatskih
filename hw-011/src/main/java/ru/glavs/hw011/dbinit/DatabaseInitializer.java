@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ import ru.glavs.hw011.dbinit.dto.AuthorOid;
 import ru.glavs.hw011.dbinit.dto.BookOid;
 import ru.glavs.hw011.dbinit.dto.CommentOid;
 import ru.glavs.hw011.dbinit.dto.GenreOid;
+import ru.glavs.hw011.dbinit.loader.JsonFileLoader;
 import ru.glavs.hw011.domain.Author;
 import ru.glavs.hw011.domain.Book;
 import ru.glavs.hw011.domain.Comment;
 import ru.glavs.hw011.domain.Genre;
-import ru.glavs.hw011.dbinit.loader.JsonFileLoader;
 import ru.glavs.hw011.repository.AuthorRepository;
 import ru.glavs.hw011.repository.BookRepository;
 import ru.glavs.hw011.repository.CommentRepository;
@@ -36,10 +37,17 @@ public class DatabaseInitializer implements ApplicationRunner {
     private final ObjectMapper mapper;
     private final JsonFileLoader loader;
 
-    private static final String BOOKS_JSON_RESOURCE = "dbinit/books.json";
-    private static final String AUTHOR_JSON_RESOURCE = "dbinit/authors.json";
-    private static final String GENRE_JSON_RESOURCE = "dbinit/genres.json";
-    private static final String COMMENT_JSON_RESOURCE = "dbinit/comments.json";
+    @Value("${database.init.books}")
+    private String BOOKS_JSON_RESOURCE;
+
+    @Value("${database.init.authors}")
+    private String AUTHOR_JSON_RESOURCE;
+
+    @Value("${database.init.genres}")
+    private String GENRE_JSON_RESOURCE;
+
+    @Value("${database.init.comments}")
+    private String COMMENT_JSON_RESOURCE;
 
 
     public DatabaseInitializer(AuthorRepository authorRepository,
