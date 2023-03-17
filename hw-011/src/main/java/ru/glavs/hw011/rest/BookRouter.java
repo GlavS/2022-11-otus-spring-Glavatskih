@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import ru.glavs.hw011.domain.Book;
@@ -12,10 +11,8 @@ import ru.glavs.hw011.domain.projections.BookWithComments;
 import ru.glavs.hw011.repository.BookRepository;
 
 import java.net.URI;
-import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RequestPredicates.queryParam;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
@@ -51,8 +48,8 @@ public class BookRouter {
                                         .body(bookRepository.save(book), Book.class))
                                 .switchIfEmpty(badRequest().build()))
                 .DELETE("/api/books/{id}", accept(APPLICATION_JSON),
-                        request ->  bookRepository.deleteById(request.pathVariable("id"))
-                                .flatMap(resp-> ok().build())
+                        request -> bookRepository.deleteById(request.pathVariable("id"))
+                                .flatMap(resp -> ok().build())
                 ).build();
     }
 }
