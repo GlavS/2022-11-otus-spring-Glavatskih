@@ -81,6 +81,8 @@ public class DatabaseInitializer implements ApplicationRunner {
         insertGenres();
         insertBooks();
         insertComments();
+        Thread.sleep(4000L);
+        System.out.println("Main page: http://localhost:8080");
     }
 
     private void insertAuthors() throws Exception {
