@@ -1,0 +1,121 @@
+[{
+  "_id": {
+    "$oid": "63decd35871fbfaca500e797"
+  },
+  "text": "Самая прекрасная книга про роботов!\nПросто слов нет!",
+  "date": {
+    "$date": "2021-03-22T14:56:59.301Z"
+  },
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deae757901a39c59a726b6"
+    },
+    "title": "Я, робот",
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "surname": "Азимов",
+        "name": "Айзек",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ]
+  },
+  "_class": "ru.glavs.hw008.domain.Comment",
+  "authorNick": "reader"
+},{
+  "_id": {
+    "$oid": "63e404a10cf7cc6da6e189a3"
+  },
+  "text": "Это самое лучшее, что я читал в своей жизни об основаниях.",
+  "authorNick": "GlavS",
+  "date": {
+    "$date": "2023-01-08T14:56:59.301Z"
+  },
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deb42d7901a39c59a726b7"
+    },
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "name": "Айзек",
+        "surname": "Азимов",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ],
+    "title": "Основания"
+  },
+  "_class": "ru.glavs.hw008.domain.Comment"
+},{
+  "_id": {
+    "$oid": "63e551b9952fa1ee95fdbfc4"
+  },
+  "text": "Превосходно раскрыта психология роботов. Для знатоков темы.",
+  "date": {
+    "$date": "2021-01-22T14:56:59.301Z"
+  },
+  "commentedBook": {
+    "_id": {
+      "$oid": "63deae757901a39c59a726b6"
+    },
+    "title": "Я, робот",
+    "authors": [
+      {
+        "_id": {
+          "$oid": "63e3921e8c99762b8e14135e"
+        },
+        "surname": "Азимов",
+        "name": "Айзек",
+        "initials": "А."
+      }
+    ],
+    "genres": [
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4652"
+        },
+        "name": "Фантастика"
+      },
+      {
+        "_id": {
+          "$oid": "63e14ab44835fd7e2d6a4654"
+        },
+        "name": "Научная фантастика"
+      }
+    ]
+  },
+  "_class": "ru.glavs.hw008.domain.Comment",
+  "authorNick": "robotFan"
+}]

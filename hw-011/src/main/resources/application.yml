@@ -1,0 +1,32 @@
+### Embedded mongo ###
+
+spring:
+  data:
+    mongodb:
+      database: bookhw011
+  mongodb:
+    embedded:
+      version: 4.4.6
+
+
+### Local mongoDB server ###
+
+#spring:
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: testbookhw011
+
+
+
+logging:
+  level:
+    ROOT: info
+
+database:
+  init:
+    books: "dbinit/books.json"
+    authors: "dbinit/authors.json"
+    genres: "dbinit/genres.json"
+    comments: "dbinit/comments.json"

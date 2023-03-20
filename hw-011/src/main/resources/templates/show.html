@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="pageTitle">Boris Godunov</title>
+    <link href="booklist.css" rel="stylesheet"/>
+</head>
+<body>
+<input type="hidden" name="bookId" id="bookId">
+<table class="books">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Authors</td>
+        <td>Title</td>
+        <td>Genres</td>
+        <td>Comments</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+        <td id="id">12.</td>
+        <td >
+            <ul id="authors">Pushkin A.S.
+            </ul>
+        </td>
+        <td>
+            <span id="title">Boris Godunov</span>
+            <br>
+<!--           TODO: edit boot , implement id param-->
+            <span><a id="edit-book-link" href="edit/book-edit.html">EDIT BOOK</a></span>|
+            <span><a href="list.html" id="delete-book">DELETE BOOK</a></span> |
+            <span><a id="comment-edit-link" href="edit/comment-edit.html" >ADD COMMENT</a></span>
+        </td>
+        <td>
+            <ul id="genres">Drama
+            </ul>
+        </td>
+        <td>
+            <ul id="comments">
+                <li>
+                    <span >[NickName] on 20-Mar-2021: Comment 1</span>
+                    <br>
+                    <span> <a href="#" >EDIT COMMENT</a> </span> |
+                    <span> <a href="#" >DELETE COMMENT</a></span>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="./list.html">Go to main page</a>
+<script src="jquery-3.6.4.min.js"></script>
+<script type="module" src="script/book-show.js"></script>
+</body>
+</html>

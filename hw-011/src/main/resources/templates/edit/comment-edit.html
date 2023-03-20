@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit comment</title>
+  <style>
+    form {
+      display: grid;
+      grid-template-columns: 110px 150px 350px;
+      grid-gap: 10px;
+      font-family: sans-serif;
+
+    }
+
+    label {
+      grid-column: 1 / 2;
+    }
+
+    input {
+      grid-column: 2 / 3;
+    }
+
+    textarea {
+      grid-column: 2 / 4;
+    }
+
+  </style>
+  <script type="module" src="../script/edit/comment-edit.js"></script>
+</head>
+<body>
+<form class="comment-form"
+      action="#" method="post">
+  <input type="hidden" id="bookId" name="bookId">
+  <input type="hidden" id="commentId" name="commentId">
+
+
+  <label for="text">Comment text</label>
+  <textarea rows="15" id="text"> </textarea>
+
+  <label for="authorNick">Nickname</label>
+  <input type="text" value="NickName" id="authorNick">
+
+  <label for="date">Date</label>
+  <input type="date" id="date" value="2021-03-20">
+  <input type="button" id="saveCommentButton" value="Save">
+  <a href="../list.html"><button type="button">Go back</button></a>
+  <div id="info"></div>
+</form>
+</body>
+</html>

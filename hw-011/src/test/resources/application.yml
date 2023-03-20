@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      database: test
+  mongodb:
+    embedded:
+      version: 3.5.5
+
+
+logging:
+  level:
+    root: ERROR
+
+database:
+  init:
+    books: "testDbInit/testBooks.json"
+    authors: "testDbInit/testAuthors.json"
+    genres: "testDbInit/testGenres.json"
+    comments: "testDbInit/testComments.json"
