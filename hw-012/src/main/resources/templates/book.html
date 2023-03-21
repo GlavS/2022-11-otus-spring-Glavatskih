@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.title}">Boris Godunov</title>
+    <link href="../static/booklist.css" rel="stylesheet" th:href="@{/booklist.css}"/>
+</head>
+<body>
+<table class="books">
+    <thead>
+    <tr>
+        <td>ID</td>
+        <td>Author</td>
+        <td>Title</td>
+        <td>Genre</td>
+        <td>Comments</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:object="${book}">
+        <td th:text="|*{id}.|">12.</td>
+        <td><span th:text="*{author.surname}">Pushkin</span>
+            <span th:text="*{author.initials}">A.S.</span></td>
+        <td>
+            <span th:text="*{title}">Boris Godunov</span>
+            <br>
+            <span><a href="edit/edit-book.html" th:href="@{/book/edit(id=${book.id})}" th:text="${'Edit book'}">EDIT BOOK</a></span>|
+            <span><a href="#" th:href="@{/book/delete(id=*{id})}" th:text="${'Delete book'}">DELETE BOOK</a></span> |
+            <span><a href="create/create-comment.html" th:href="@{/comment/create(id=${book.id})}" th:text="${'Add comment'}">ADD COMMENT</a></span>
+        </td>
+        <td th:text="*{genre.name}">Drama</td>
+        <td>
+            <ul th:each="comment: *{comments}">
+                <li th:object="${comment}">
+                    <span th:text="|[*{authorNick}] on ${#dates.format(comment.date, 'dd MMMM yyyy')}: *{text}|">[NickName] on 20-Mar-2021: Comment 1</span>
+                    <br>
+                    <span> <a href="edit/edit-comment.html" th:href="@{/comment/edit(id=*{id}, bookId=${book.id})}"
+                              th:text="${'Edit comment'}">EDIT COMMENT</a> </span> |
+                    <span> <a href="#" th:href="@{/comment/delete(id=*{id})}" th:text="${'Delete comment'}">DELETE COMMENT</a></span>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="list.html" th:href="@{/}">Go to main page</a>
+</body>
+</html>

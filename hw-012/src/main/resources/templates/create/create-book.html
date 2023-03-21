@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create book</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 40px 200px 200px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        #create {
+            grid-column: 2 / 3;
+        }
+
+        fieldset {
+            display: grid;
+            grid-gap: 5px;
+            grid-column: 2 / 4;
+            margin: 0;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<form action="#" class="book-form" method="post" th:action="@{/book/create-new}" th:method="POST">
+  <fieldset>
+    <legend>New book</legend>
+    <fieldset>
+        <legend>Author</legend>
+        <span><a href="../edit/edit-author.html" th:href="@{/author/new}">Create new author</a></span>
+        <br>
+        <label for="author">Or select from list below:</label>
+        <select name="author" id="author">
+            <option value="1"
+                    th:each="author: ${authors}"
+                    th:value="${author.id}"
+                    th:text="|${author.name} ${author.surname}|">Author_name1
+            </option>
+        </select>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Genre</legend>
+        <span><a href="../edit/edit-genre.html" th:href="@{/genre/new}">Create new genre</a></span>
+        <br>
+        <label for="genre">Or select from list below:</label>
+        <select name="genre" id="genre">
+            <option value="1"
+                    th:each="genre: ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.name}">Genre1
+            </option>
+        </select>
+
+    </fieldset>
+    <br>
+    <fieldset>
+      <legend>Title</legend>
+    <input id="title" name="title" value="Title of book" th:value="${'Enter title'}">
+    </fieldset>
+  </fieldset>
+    <input type="submit" id="create" value="Create">
+</form>
+</body>
+</html>
