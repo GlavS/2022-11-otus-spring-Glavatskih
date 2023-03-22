@@ -34,3 +34,7 @@ body {
 .books td:nth-child(4) {
     width: 10rem;
 }
+
+#login-info{
+    float: right;
+}

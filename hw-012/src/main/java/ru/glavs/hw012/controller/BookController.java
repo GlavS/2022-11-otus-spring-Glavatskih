@@ -1,6 +1,7 @@
 package ru.glavs.hw012.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,10 @@ public class BookController {
     private final GenreCRUD genreCRUDService;
 
     @GetMapping("/")
-    public String bookListPage(Model model) {
+    public String bookListPage(Model model, Authentication authentication) {
         List<Book> bookList = bookCRUDService.findAll();
         model.addAttribute("books", bookList);
+        model.addAttribute("username", authentication.getName());
         return "list";
     }
 

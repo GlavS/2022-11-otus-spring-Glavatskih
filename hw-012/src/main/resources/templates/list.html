@@ -9,8 +9,13 @@
 
 <fieldset>
     <legend>Book</legend>
-<!--     TODO: book creation-->
     <a href="#" th:href="@{/book/create}">Create new book</a>
+    <span id="login-info">User:
+        <span th:text="${username}"><strong>username</strong></span>
+        <span>
+            <a href = "#" th:href="@{/logout}"> Logout</a>
+        </span>
+    </span>
 </fieldset>
 <br>
 
