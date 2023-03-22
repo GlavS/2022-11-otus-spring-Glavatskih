@@ -83,7 +83,8 @@ class BookControllerTest {
     void updateBook() throws Exception {
         when(bookCRUDService.findById(anyLong()))
                 .thenReturn(new Book(1L, null, null, null, null));
-        mvc.perform(post("/book/edit").with(csrf()))
+        mvc.perform(post("/book/edit")
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/book/show?id=1"));
         verify(bookCRUDService, times(1)).findById(anyLong());
@@ -95,7 +96,8 @@ class BookControllerTest {
     @DisplayName("удалять книгу и делать редирект на страницу со списком всех книг")
     void deleteBook() throws Exception {
         mvc.perform(post("/book/delete")
-                        .param("id", "1").with(csrf()))
+                        .param("id", "1")
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
         verify(bookCRUDService, times(1)).deleteById(anyLong());
@@ -116,7 +118,8 @@ class BookControllerTest {
     @WithMockUser
     @DisplayName("сохранять новую книгу и делать редирект на страницу со списком всех книг")
     void createNewBook() throws Exception {
-        mvc.perform(post("/book/create-new").with(csrf()))
+        mvc.perform(post("/book/create-new")
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
         verify(bookCRUDService, times(1)).save(any(Book.class));

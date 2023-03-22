@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -17,6 +18,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,6 +36,7 @@ class CommentControllerTest {
     private BookCRUD bookCRUDService;
 
     @Test
+    @WithMockUser
     @DisplayName("отображать страницу редактирования комментария")
     void shouldDisplayCommentEditingPage() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -49,6 +52,7 @@ class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser
     @DisplayName("сохранять отредактированный комментарий и делать редирект на страницу показа одной книги")
     void shouldSaveUpdatedCommentAndPerformExpectedRedirect() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -60,7 +64,8 @@ class CommentControllerTest {
 
         when(bookCRUDService.findById(anyLong())).thenReturn(new Book(1L, null, null, null, null));
         mvc.perform(post("/comment/edit")
-                        .params(params))
+                        .params(params)
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/book/show?id=1"));
         verify(bookCRUDService, times(1)).findById(anyLong());
@@ -68,6 +73,7 @@ class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser
     @DisplayName("отображать страницу создания нового комментария")
     void shouldDisplayCommentCreationPage() throws Exception {
         mvc.perform(get("/comment/create")
@@ -77,6 +83,7 @@ class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser
     @DisplayName("сохранять новый комментарий и делать редирект на страницу показа одной книги")
     void shouldSaveNewCommentAndPerformExpectedRedirect() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -88,7 +95,8 @@ class CommentControllerTest {
 
         when(bookCRUDService.findById(anyLong())).thenReturn(new Book(1L, null, null, null, null));
         mvc.perform(post("/comment/create")
-                        .params(params))
+                        .params(params)
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/book/show?id=1"));
         verify(bookCRUDService, times(1)).findById(anyLong());
@@ -96,6 +104,7 @@ class CommentControllerTest {
     }
 
     @Test
+    @WithMockUser
     @DisplayName("удалять комментарий и делать редирект на страницу показа одной книги")
     void shouldDeleteCommentAndPerformExpectedRedirect() throws Exception {
         when(commentCRUDService.findById(anyLong()))
@@ -107,5 +116,17 @@ class CommentControllerTest {
         verify(commentCRUDService, times(1)).findById(anyLong());
         verify(commentCRUDService, times(1)).delete(any(Comment.class));
 
+    }
+    @Test
+    @DisplayName("запрещать переход по ссылке для незарегистрированных пользователей")
+    void shouldDenyAccessForUnauthorizedUsersToDisplayCommentEditingPage() throws Exception {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("id", "1");
+        params.add("bookId", "2");
+        int unauthorized = 401;
+
+        mvc.perform(get("/comment/edit")
+                        .params(params))
+                .andExpect(status().is(unauthorized));
     }
 }
