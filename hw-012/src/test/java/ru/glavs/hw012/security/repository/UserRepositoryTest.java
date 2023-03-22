@@ -1,14 +1,17 @@
 package ru.glavs.hw012.security.repository;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.glavs.hw012.security.entities.User;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@DisplayName("Репозиторий пользователей должен")
 class UserRepositoryTest {
 
     @Autowired
@@ -16,11 +19,12 @@ class UserRepositoryTest {
 
 
     @Test
-    void findByUsername() {
+    @DisplayName("находить пользователя по имени")
+    void findByUsernameMethodShouldReturnExpectedUser() {
         String username = "test";
-        User user = repository
-                .findByUsername(username)
-                .orElseThrow(()-> new UsernameNotFoundException("No such user: " + username));
-        System.out.println(user);
+        Optional<User> user = repository
+                .findByUsername(username);
+        assertThat(user).isNotEmpty();
+        assertThat(user.get()).usingRecursiveComparison().isInstanceOf(User.class);
     }
 }
