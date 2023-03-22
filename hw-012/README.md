@@ -1,5 +1,5 @@
 ## Домашнее задание 12
-#### Аутентификация Spring Security
+#### Аутентификация на Spring Security
 
 Сборка:
 ````
@@ -15,4 +15,5 @@ java -Dfile.encoding=UTF-8 -jar hw-012-1.0-SNAPSHOT.jar
 ````
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 ````
-В адресной строке браузера ввести: http://localhost:8080
+- В адресной строке браузера ввести: http://localhost:8080
+- В системе один пользователь: admin, пароль: password
