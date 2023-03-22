@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>ru.glavs</groupId>
-    <artifactId>hw-012</artifactId>
+    <artifactId>hw-013</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>hw-012</name>
+    <name>hw-013</name>
     <description>Homework 9 Spring MVC</description>
 
     <properties>

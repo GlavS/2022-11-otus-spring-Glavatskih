@@ -1,5 +1,5 @@
-## Домашнее задание 12
-#### Аутентификация на Spring Security
+## Домашнее задание 13
+#### Авторизация на Spring Security
 
 Сборка:
 ````
@@ -9,7 +9,7 @@ mvn clean package
 Запуск из командной строки:
 ````
 cd target
-java -Dfile.encoding=UTF-8 -jar hw-012-1.0-SNAPSHOT.jar
+java -Dfile.encoding=UTF-8 -jar hw-013-1.0-SNAPSHOT.jar
 ````
 или
 ````
