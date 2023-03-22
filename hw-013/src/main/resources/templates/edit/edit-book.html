@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 40px 130px 150px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        fieldset {
+            display: grid;
+            grid-gap: 5px;
+            grid-column: 2 / 4;
+            margin: 0;
+        }
+
+        #title {
+            grid-column: 2 / 4;
+        }
+
+    </style>
+</head>
+<body>
+<form action="#" class="book-form" method="post" th:action="@{/book/edit}" th:method="POST" th:object="${book}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="title">Title</label>
+    <input id="title" th:field="*{title}" value="Title of book">
+    <fieldset>
+        <legend>Author</legend>
+        <label for="author">Select author</label>
+        <select name="author" id="author">
+            <option value="1"
+                    th:each="author: ${authors}"
+                    th:value="${author.id}"
+                    th:text="|${author.name} ${author.surname}|"
+                    th:attr="selected=${author.id == book.author.id}? 'true': 'false'">Author_name1
+            </option>
+        </select>
+        <span>or <a href="edit-author.html" th:href="@{/author(id=${book.id})}">create new</a></span>
+    </fieldset>
+
+    <fieldset>
+        <legend>Genre</legend>
+        <label for="genre">Select genre</label>
+        <select name="genre" id="genre">
+            <option value="1"
+                    th:each="genre: ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.name}"
+                    th:attr="selected=${genre.id == book.genre.id}? 'true': 'false'">Genre1
+            </option>
+        </select>
+        <span>or <a href="edit-genre.html" th:href="@{/genre(id=${book.id})}">create new</a></span>
+    </fieldset>
+
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>
