@@ -12,6 +12,10 @@ spring:
       ddl-auto: validate
     show-sql: false
 
+
 logging:
   level:
     ROOT: info
+server:
+  error:
+    path: "/err"
