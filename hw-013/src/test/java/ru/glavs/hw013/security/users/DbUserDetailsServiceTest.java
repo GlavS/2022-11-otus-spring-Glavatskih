@@ -29,7 +29,7 @@ class DbUserDetailsServiceTest {
     @Test
     @DisplayName("метод loadUserByUsername должен возвращать объект типа UserDetails")
     void loadUserByUsernameShouldReturnExpectedUserDetailsObject() {
-        User user = new User(1L, "username", "password");
+        User user = new User(1L, "username", "password", "ROLE_TEST");
         when(repository.findByUsername("test")).thenReturn(Optional.of(user));
         assertThat(service.loadUserByUsername("test")).isNotNull().isInstanceOf(SecurityUser.class);
     }

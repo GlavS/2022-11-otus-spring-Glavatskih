@@ -20,4 +20,4 @@ VALUES ('Comment1, comment1 comment1 comment1 comment1.', 'commentator1', '2023-
        ('Comment4, comment4 comment4 comment4 comment4.', 'commentator4', '2023-01-17', 1);
 
 INSERT INTO USERS (USERNAME, PASSWORD)
-values ('test', '{bcrypt}$2a$10$JZLu6DH0T/r.IWf7X5fkS.zlC8rsRF818YFQfMcX8uXObfMUtVyE.'); --"test"
+values ('test', '{bcrypt}$2a$10$JZLu6DH0T/r.IWf7X5fkS.zlC8rsRF818YFQfMcX8uXObfMUtVyE.', 'ROLE_TEST'); --"test"

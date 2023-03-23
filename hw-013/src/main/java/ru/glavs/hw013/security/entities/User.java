@@ -20,5 +20,6 @@ public class User {
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
-
+    @Column(name = "role", nullable = false)
+    private String role;
 }
