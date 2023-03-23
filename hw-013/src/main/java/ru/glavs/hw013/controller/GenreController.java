@@ -41,11 +41,11 @@ public class GenreController {
 
     @Data
     private static class GenreBookIdDto {
-        private String genre;
+        private String name;
         private long bookId;
 
         private Genre toGenre() {
-            return new Genre(genre);
+            return new Genre(name);
         }
     }
 }

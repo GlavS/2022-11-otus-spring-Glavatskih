@@ -13,18 +13,32 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String[] adminEndpoints = {
+                "/book/edit",
+                "/book/create",
+                "/book/delete",
+                "/book/create-new",
+                "/author/**",
+                "/genre/**"
+        };
+
+        String[] userEndpoints = {
+                "/comment/**"
+        };
+
         http
-                .httpBasic()
+                .authorizeHttpRequests()
+                    .mvcMatchers(adminEndpoints).hasRole("ADMIN")
+                    .mvcMatchers(userEndpoints).hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .httpBasic()
                 .and()
                 .formLogin();
         return http.build();
