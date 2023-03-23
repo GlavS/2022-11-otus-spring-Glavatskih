@@ -34,7 +34,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests()
-                    .mvcMatchers(adminEndpoints).hasRole("ADMIN")
+                    .mvcMatchers(adminEndpoints).hasRole("ADMIN") // TODO: error page
                     .mvcMatchers(userEndpoints).hasRole("USER")
                 .anyRequest().authenticated()
                 .and()

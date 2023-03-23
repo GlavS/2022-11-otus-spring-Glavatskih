@@ -1,21 +1,17 @@
 package ru.glavs.hw013.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.glavs.hw013.controller.dto.CommentBookIdDto;
 import ru.glavs.hw013.domain.Book;
 import ru.glavs.hw013.domain.Comment;
 import ru.glavs.hw013.service.CRUD.BookCRUD;
 import ru.glavs.hw013.service.CRUD.CommentCRUD;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @AllArgsConstructor
@@ -68,31 +64,4 @@ public class CommentController {
         commentCRUDService.delete(comment);
         return "redirect:/book/show";
     }
-
-
-    @Data
-    private static class CommentBookIdDto {
-        private long id;
-        private String text;
-        private String authorNick;
-        private String date;
-        private long bookId;
-
-        private Comment toComment() {
-            Date dateParsed = parseDate(date);
-            return new Comment(id, text, authorNick, dateParsed, null);
-        }
-    }
-
-    private static Date parseDate(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateReceived;
-        try {
-            dateReceived = format.parse(date);
-        } catch (ParseException e) {
-            throw new RuntimeException("Cannot parse comment date: " + e.getMessage(), e);
-        }
-        return dateReceived;
-    }
-
 }

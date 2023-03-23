@@ -78,5 +78,4 @@ public class BookController {
         bookCRUDService.save(book);
         return "redirect:/";
     }
-
 }

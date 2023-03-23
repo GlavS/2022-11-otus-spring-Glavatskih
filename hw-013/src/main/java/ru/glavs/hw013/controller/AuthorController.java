@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.glavs.hw013.controller.dto.AuthorBookIdDto;
 import ru.glavs.hw013.domain.Author;
 import ru.glavs.hw013.service.CRUD.AuthorCRUD;
 
@@ -37,17 +38,5 @@ public class AuthorController {
     public String createNewAuthor(Author author){
         authorCRUDService.save(author);
         return "redirect:/book/create";
-    }
-
-
-    @Data
-    private static class AuthorBookIdDto {
-        private String name;
-        private String surname;
-        private String initials;
-        private  long bookId;
-        private  Author toAuthor() {
-            return new Author(name, surname, initials);
-        }
     }
 }
