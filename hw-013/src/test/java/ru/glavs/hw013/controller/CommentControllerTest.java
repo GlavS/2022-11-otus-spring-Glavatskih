@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import ru.glavs.hw013.domain.Book;
 import ru.glavs.hw013.domain.Comment;
+import ru.glavs.hw013.security.config.SecurityConfig;
 import ru.glavs.hw013.service.CRUD.BookCRUD;
 import ru.glavs.hw013.service.CRUD.CommentCRUD;
 
@@ -24,19 +26,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CommentController.class)
+@Import(SecurityConfig.class) //https://github.com/spring-projects/spring-boot/issues/31162
 @DisplayName("Класс CommentController должен")
 class CommentControllerTest {
 
     @Autowired
     private MockMvc mvc;
-
     @MockBean
     private CommentCRUD commentCRUDService;
     @MockBean
     private BookCRUD bookCRUDService;
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("отображать страницу редактирования комментария")
     void shouldDisplayCommentEditingPage() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -52,7 +54,7 @@ class CommentControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("сохранять отредактированный комментарий и делать редирект на страницу показа одной книги")
     void shouldSaveUpdatedCommentAndPerformExpectedRedirect() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -73,7 +75,7 @@ class CommentControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("отображать страницу создания нового комментария")
     void shouldDisplayCommentCreationPage() throws Exception {
         mvc.perform(get("/comment/create")
@@ -83,7 +85,7 @@ class CommentControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("сохранять новый комментарий и делать редирект на страницу показа одной книги")
     void shouldSaveNewCommentAndPerformExpectedRedirect() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -104,7 +106,7 @@ class CommentControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "USER")
     @DisplayName("удалять комментарий и делать редирект на страницу показа одной книги")
     void shouldDeleteCommentAndPerformExpectedRedirect() throws Exception {
         when(commentCRUDService.findById(anyLong()))
@@ -117,9 +119,10 @@ class CommentControllerTest {
         verify(commentCRUDService, times(1)).delete(any(Comment.class));
 
     }
+
     @Test
     @DisplayName("запрещать переход по ссылке для незарегистрированных пользователей")
-    void shouldDenyAccessForUnauthorizedUsersToDisplayCommentEditingPage() throws Exception {
+    void shouldDenyAccessForUnauthenticatedUsersToDisplayCommentEditingPage() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("id", "1");
         params.add("bookId", "2");
@@ -128,5 +131,18 @@ class CommentControllerTest {
         mvc.perform(get("/comment/edit")
                         .params(params))
                 .andExpect(status().is(unauthorized));
+    }
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("запрещать переход на страницу редактирования комментария без роли 'USER'")
+    void shouldDenyAccessForUnauthorizedUsersToCommentEditingPage() throws Exception {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("id", "1");
+        params.add("bookId", "2");
+
+        when(commentCRUDService.findById(anyLong())).thenReturn(new Comment());
+        mvc.perform(get("/comment/edit")
+                        .params(params))
+                .andExpect(status().isForbidden());
     }
 }

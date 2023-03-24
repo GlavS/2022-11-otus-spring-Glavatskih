@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.glavs.hw013.domain.Author;
+import ru.glavs.hw013.security.config.SecurityConfig;
 import ru.glavs.hw013.service.CRUD.AuthorCRUDImpl;
 
 import static org.hamcrest.Matchers.containsString;
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthorController.class)
+@Import(SecurityConfig.class) //https://github.com/spring-projects/spring-boot/issues/31162
 @DisplayName("Класс AuthorController должен")
 class AuthorControllerTest {
 
@@ -33,7 +36,7 @@ class AuthorControllerTest {
 
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("отображать страницу редактирования автора при обновлении книги")
     void shouldDisplayAuthorCreationPageOnBookUpdate() throws Exception {
         mvc.perform(get("/author")
@@ -43,7 +46,7 @@ class AuthorControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("сохранять автора при обновлении книги и перенаправлять на форму редактирования")
     void shouldSaveAuthorOnBookUpdateAndRedirectToBookEditView() throws Exception {
 
@@ -57,7 +60,7 @@ class AuthorControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("отображать страницу создания автора")
     void shouldDisplayNewAuthorCreationPage() throws Exception {
         mvc.perform(get("/author/new"))
@@ -66,7 +69,7 @@ class AuthorControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("сохранять автора при создании книги и перенаправлять на форму создания")
     void shouldSaveAuthorOnCreationNewBookAndRedirectToBookCreationView() throws Exception {
         mvc.perform(post("/author/create-new")
@@ -75,12 +78,22 @@ class AuthorControllerTest {
                 .andExpect(redirectedUrl("/book/create"));
         verify(authorCRUDService, times(1)).save(any(Author.class));
     }
+
     @Test
     @DisplayName("запрещать переход по ссылке для незарегистрированных пользователей")
-    void shouldDenyAccessForUnauthorizedUsersToDisplayAuthorCreationPageOnBookUpdate() throws Exception {
+    void shouldDenyAccessForUnauthenticatedUsersToDisplayAuthorCreationPageOnBookUpdate() throws Exception {
         int unauthorized = 401;
         mvc.perform(get("/author")
                         .param("id", TEST_ID))
                 .andExpect(status().is(unauthorized));
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    @DisplayName("запрещать переход на страницу редактирования без роли \"ADMIN\"")
+    void shouldDenyAccessForUnauthorizedUsersToDisplayAuthorCreationPageOnBookUpdate() throws Exception {
+        mvc.perform(get("/author")
+                        .param("id", TEST_ID))
+                .andExpect(status().isForbidden());
     }
 }

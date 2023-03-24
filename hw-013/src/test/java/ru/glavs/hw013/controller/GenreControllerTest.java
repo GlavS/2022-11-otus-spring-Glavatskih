@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.glavs.hw013.domain.Genre;
+import ru.glavs.hw013.security.config.SecurityConfig;
 import ru.glavs.hw013.service.CRUD.GenreCRUDImpl;
 
 import static org.hamcrest.Matchers.containsString;
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(GenreController.class)
+@Import(SecurityConfig.class) //https://github.com/spring-projects/spring-boot/issues/31162
 @DisplayName("Класс GenreController должен")
 class GenreControllerTest {
 
@@ -31,7 +34,7 @@ class GenreControllerTest {
     private GenreCRUDImpl genreCRUDService;
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("отображать страницу редактирования жанра при обновлении книги")
     void shouldDisplayGenreEditPageOnBookUpdate() throws Exception {
         mvc.perform(get("/genre")
@@ -41,7 +44,7 @@ class GenreControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("сохранять новый жанр при обновлении книги и делать редирект на страницу обновления книги")
     void shouldSaveNewGenreOnBookUpdateAndPerformExpectedRedirect() throws Exception {
         mvc.perform(post("/genre/create-on-update")
@@ -53,7 +56,7 @@ class GenreControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("отображать страницу создания нового жанра при создании новой книги")
     void shouldDisplayNewGenreCreationPageOnNewBookCreation() throws Exception {
         mvc.perform(get("/genre/new"))
@@ -62,7 +65,7 @@ class GenreControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("сохранять новый жанр при создании новой книги и делать редирект на страницу создания книги")
     void shouldSaveNewGenreOnBookCreationAndPerformExpectedRedirect() throws Exception {
         mvc.perform(post("/genre/create-new")
@@ -74,10 +77,18 @@ class GenreControllerTest {
 
     @Test
     @DisplayName("запрещать переход по ссылке для незарегистрированных пользователей")
-    void shouldDenyAccessForUnauthorizedUsersToDisplayGenreEditPageOnBookUpdate() throws Exception {
+    void shouldDenyAccessForUnauthenticatedUsersToDisplayGenreEditPageOnBookUpdate() throws Exception {
         int unauthorized = 401;
         mvc.perform(get("/genre")
                         .param("id", "1"))
                 .andExpect(status().is(unauthorized));
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    @DisplayName("запрещать отображение страницы создания нового жанра без роли 'ADMIN'")
+    void shouldDenyAccessForUnauthorizedUsersToNewGenreCreationPageOnNewBookCreation() throws Exception {
+        mvc.perform(get("/genre/new"))
+                .andExpect(status().isForbidden());
     }
 }
