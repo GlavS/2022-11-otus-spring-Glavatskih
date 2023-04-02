@@ -1,4 +1,4 @@
-package ru.glavs.hw012.security.config;
+package ru.glavs.hw013.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,20 +8,37 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String[] adminEndpoints = {
+                "/book/edit",
+                "/book/create",
+                "/book/delete",
+                "/book/create-new",
+                "/author/**",
+                "/genre/**"
+        };
+
+        String[] userEndpoints = {
+                "/comment/**"
+        };
+
         http
-                .httpBasic()
+                .authorizeHttpRequests()
+                    .mvcMatchers(adminEndpoints).hasRole("ADMIN")
+                    .mvcMatchers(userEndpoints).hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .httpBasic()
                 .and()
                 .formLogin();
         return http.build();

@@ -1,13 +1,13 @@
-package ru.glavs.hw012.controller;
+package ru.glavs.hw013.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.glavs.hw012.domain.Genre;
-import ru.glavs.hw012.service.CRUD.GenreCRUD;
+import ru.glavs.hw013.controller.dto.GenreBookIdDto;
+import ru.glavs.hw013.domain.Genre;
+import ru.glavs.hw013.service.CRUD.GenreCRUD;
 
 @Controller
 @AllArgsConstructor
@@ -37,15 +37,5 @@ public class GenreController {
     public String createNewGenre(Genre genre){
         genreCRUDService.save(genre);
         return "redirect:/book/create";
-    }
-
-    @Data
-    private static class GenreBookIdDto {
-        private String name;
-        private long bookId;
-
-        private Genre toGenre() {
-            return new Genre(name);
-        }
     }
 }
