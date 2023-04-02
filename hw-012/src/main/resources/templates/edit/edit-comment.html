@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit comment</title>
+    <style>
+        form {
+            display: grid;
+            grid-template-columns: 110px 150px 350px;
+            grid-gap: 10px;
+            font-family: sans-serif;
+
+        }
+
+        label {
+            grid-column: 1 / 2;
+        }
+
+        input {
+            grid-column: 2 / 3;
+        }
+
+        textarea {
+            grid-column: 2 / 4;
+        }
+
+    </style>
+</head>
+<body>
+<form class="comment-form"
+      action="#" method="post"
+      th:object="${comment}"
+      th:method="POST"
+      th:action="@{/comment/edit}">
+    <input type="hidden"  th:field="*{id}">
+    <input type="hidden" id="bookId" name="bookId" th:value="${commentedBookId}">
+
+    <label for="text">Comment text</label>
+    <textarea rows="15" id="text" th:field="*{text}"> </textarea>
+
+    <label for="authorNick">Nickname</label>
+    <input value="NickName" id="authorNick" th:field="*{authorNick}">
+
+    <label for="date">Date</label>
+    <input type="date" id="date" value="2021-03-20" th:value="${#dates.format(#dates.createToday(), 'yyyy/MM/dd')}" th:field="*{date}">
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>
