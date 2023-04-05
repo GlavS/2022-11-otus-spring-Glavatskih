@@ -1,7 +1,6 @@
 package ru.glavs.hw014.batch;
 
 import org.bson.types.ObjectId;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 import ru.glavs.hw014.batch.mongo.MongoBook;

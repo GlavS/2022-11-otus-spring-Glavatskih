@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.transaction.PlatformTransactionManager;
-import ru.glavs.hw014.batch.mongo.ConsoleItemWriter;
 import ru.glavs.hw014.batch.mongo.MongoBook;
 import ru.glavs.hw014.dao.BookDao;
 import ru.glavs.hw014.domain.Book;
@@ -38,7 +37,8 @@ public class BatchConfig {
     private final MongoOperations mongoTemplate;
     private final BookDao bookDao;
     private final BookProcessor processor;
-    private final ConsoleItemWriter<MongoBook> consoleWriter;
+
+    //private final ConsoleItemWriter<MongoBook> consoleWriter; // For testing purposes
 
     public static final String JOB_NAME = "saveBooksToMongoDBJob";
 
@@ -94,7 +94,7 @@ public class BatchConfig {
 
     @Bean
     public Job booksToMongoJob() {
-        return new JobBuilder("saveBooksToMongoDBJob")
+        return new JobBuilder(JOB_NAME)
                 .incrementer(new RunIdIncrementer())
                 .start(bookSaveToMongoStep())
                 .repository(jobRepository)
@@ -102,8 +102,8 @@ public class BatchConfig {
     }
 
     @Bean
-    public JobRegistryBeanPostProcessor jobRegistryBPP(){
-        JobRegistryBeanPostProcessor processor =  new JobRegistryBeanPostProcessor();
+    public JobRegistryBeanPostProcessor jobRegistryBPP() {
+        JobRegistryBeanPostProcessor processor = new JobRegistryBeanPostProcessor();
         processor.setJobRegistry(jobRegistry);
         return processor;
     }

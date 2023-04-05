@@ -9,6 +9,8 @@ import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import static ru.glavs.hw014.batch.BatchConfig.JOB_NAME;
+
 import java.util.Date;
 
 @ShellComponent
@@ -28,7 +30,7 @@ public class BatchJobShellService {
 
     @ShellMethod(value = "Copy books to MongoDB using JobOperator", key = "books-copy-jo")
     public void launchBooksCopyToMongoJobJO() throws Exception {
-        Long execID = jobOperator.start("saveBooksToMongoDBJob", "date" + new Date());
+        Long execID = jobOperator.start(JOB_NAME, "date" + new Date());
         System.out.println(jobOperator.getSummary(execID));
     }
 }

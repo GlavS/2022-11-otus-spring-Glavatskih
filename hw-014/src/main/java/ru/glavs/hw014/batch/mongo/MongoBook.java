@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.glavs.hw014.domain.Author;
-import ru.glavs.hw014.domain.Comment;
 import ru.glavs.hw014.domain.Genre;
 
 import javax.persistence.Id;
