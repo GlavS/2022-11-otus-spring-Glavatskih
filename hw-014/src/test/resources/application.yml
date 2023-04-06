@@ -7,6 +7,12 @@ spring:
     init:
       mode: always
       data-locations: testdata.sql
+  data:
+    mongodb:
+      database: testbookhw008
+  mongodb:
+    embedded:
+      version: 3.5.5
 
   jpa:
     generate-ddl: false
@@ -21,6 +27,10 @@ spring:
     command:
       script:
         enabled: false
+
+  batch:
+    job:
+      enabled: false
 
 
 logging:

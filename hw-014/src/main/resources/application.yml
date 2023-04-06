@@ -3,7 +3,7 @@ spring:
      url: jdbc:h2:mem:bookdb
   data:
     mongodb:
-      database: testbookhw008
+      database: bookhw008
   mongodb:
       embedded:
         version: 3.5.5
@@ -22,4 +22,4 @@ spring:
       enabled: false
 logging:
   level:
-    ROOT: info
+    ROOT: error
