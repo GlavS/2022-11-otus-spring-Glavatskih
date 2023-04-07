@@ -1,0 +1,38 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:test
+  sql:
+    init:
+      mode: always
+      data-locations: testdata.sql
+  data:
+    mongodb:
+      database: testbookhw008
+  mongodb:
+    embedded:
+      version: 3.5.5
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+
+  shell:
+    interactive:
+      enabled: false
+    command:
+      script:
+        enabled: false
+
+  batch:
+    job:
+      enabled: false
+
+
+logging:
+  level:
+    root: ERROR
