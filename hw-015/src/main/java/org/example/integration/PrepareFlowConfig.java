@@ -1,7 +1,10 @@
 package org.example.integration;
 
 import lombok.AllArgsConstructor;
-import org.example.ingredient.*;
+import org.example.ingredient.Carrots;
+import org.example.ingredient.Ingredient;
+import org.example.ingredient.Onions;
+import org.example.ingredient.Roast;
 import org.example.service.BoilingService;
 import org.example.service.RoastService;
 import org.example.utensil.FryingPan;
@@ -23,7 +26,6 @@ public class PrepareFlowConfig {
     private final BoilingService boilingService;
 
     private final RoastService roastService;
-
 
 
     @Bean
