@@ -1,6 +1,8 @@
 ## Домашнее задание 15
 #### Spring Integration
 
+В приложении реализована интеграция независимых сервисов эндпойнтами типа ServiceActivator. 
+
 Сборка:
 ````
 mvn -Dmaven.test.skip=true clean package
