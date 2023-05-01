@@ -1,0 +1,4 @@
+logging:
+  level:
+    org.example.bridge: error
+    org.springframework.integration: error
