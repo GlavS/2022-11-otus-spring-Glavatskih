@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 mvnw
 mvnw.cmd
+lib-log.txt
 
 .sdkmanrc
 spring-shell.log
