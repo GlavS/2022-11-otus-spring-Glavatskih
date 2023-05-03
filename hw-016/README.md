@@ -9,7 +9,7 @@ mvn -Dmaven.test.skip=true clean package
 Запуск из командной строки:
 ````
 cd target
-java -Dfile.encoding=UTF-8 -jar hw-007-1.0-SNAPSHOT.jar
+java -Dfile.encoding=UTF-8 -jar hw-016-1.0-SNAPSHOT.jar
 ````
 или
 ````
