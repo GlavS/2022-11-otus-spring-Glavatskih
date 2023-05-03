@@ -15,6 +15,12 @@ java -Dfile.encoding=UTF-8 -jar hw-007-1.0-SNAPSHOT.jar
 ````
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dfile.encoding=UTF-8"
 ````
+Перейти по адресу: http://localhost:8080/actuator
+
+Пользовательский healthcheck проверяет наличие в библиотеке сочинений Достоевского в достаточном количестве, и находится по адресу: http://localhost:8080/actuator/health/dostoevskyHealthCheck
+
+
+
 Использование shell:
 ````
        01. Book CRUD

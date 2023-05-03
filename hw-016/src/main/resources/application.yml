@@ -15,7 +15,12 @@ spring:
     enabled: true
 logging:
   level:
-    ROOT: ERROR
+    ROOT: INFO
+# Logfile
+  file:
+    name: "lib-log.txt"
+
+# Actuator setup
 management:
   endpoints:
     web:
@@ -29,4 +34,5 @@ management:
       enabled: true
   server:
     port: "8080"
+
 
