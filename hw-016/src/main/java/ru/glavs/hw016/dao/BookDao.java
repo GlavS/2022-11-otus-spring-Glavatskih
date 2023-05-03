@@ -24,4 +24,6 @@ public interface BookDao extends JpaRepository<Book, Long> {
     @Query("select b from Book b where b.id = :id and b.comments is not empty ")
     @EntityGraph(value = "book-graph")
     Book findByIdWithComments(@Param("id") long id);
+
+    List<Book> findByAuthorSurname(String surname);
 }
