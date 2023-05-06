@@ -1,0 +1,38 @@
+spring:
+  datasource:
+     url: jdbc:h2:mem:bookdb
+  sql:
+    init:
+      mode: always
+      schema-locations: "classpath:schema.sql"
+      data-locations: "classpath:data.sql"
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  jmx:
+    enabled: true
+logging:
+  level:
+    ROOT: INFO
+# Logfile
+  file:
+    name: "lib-log.txt"
+
+# Actuator setup
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+  server:
+    port: "8080"
+
+
