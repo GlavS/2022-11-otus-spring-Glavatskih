@@ -7,6 +7,7 @@ spring:
     init:
       mode: always
       data-locations: classpath:testdata.sql
+      schema-locations: classpath:testschema.sql
 
   jpa:
     generate-ddl: false
