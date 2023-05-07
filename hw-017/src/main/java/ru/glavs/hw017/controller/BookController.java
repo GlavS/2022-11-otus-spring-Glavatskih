@@ -43,7 +43,7 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("authors", authorList);
         model.addAttribute("genres", genreList);
-        return "/edit/edit-book";
+        return "edit/edit-book";
     }
 
     @PostMapping("/book/edit")

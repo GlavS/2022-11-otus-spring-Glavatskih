@@ -29,7 +29,7 @@ public class CommentController {
         Comment comment = commentCRUDService.findById(id);
         model.addAttribute("comment", comment);
         model.addAttribute("commentedBookId", bookId);
-        return "/edit/edit-comment";
+        return "edit/edit-comment";
     }
 
     @PostMapping("/comment/edit")
@@ -47,7 +47,7 @@ public class CommentController {
     @GetMapping("/comment/create")
     public String commentCreatePage(@RequestParam long id, Model model) {
         model.addAttribute("commentedBookId", id);
-        return "/create/create-comment";
+        return "create/create-comment";
     }
 
     @PostMapping("/comment/create")

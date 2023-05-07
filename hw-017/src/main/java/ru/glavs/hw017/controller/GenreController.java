@@ -18,7 +18,7 @@ public class GenreController {
     @GetMapping("/genre")
     public String genreCreatePageOnBookUpdate(@RequestParam long id, Model model) {
         model.addAttribute("editedBookId", id);
-        return "/edit/edit-genre";
+        return "edit/edit-genre";
     }
 
     @PostMapping("/genre/create-on-update")

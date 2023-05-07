@@ -17,7 +17,7 @@ public class AuthorController {
     @GetMapping("/author")
     public String authorCreatePageOnBookUpdate(@RequestParam long id, Model model) {
         model.addAttribute("editedBookId", id);
-        return "/edit/edit-author";
+        return "edit/edit-author";
     }
 
 
