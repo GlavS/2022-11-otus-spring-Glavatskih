@@ -9,6 +9,7 @@ import ru.glavs.hw017.domain.Author;
 import ru.glavs.hw017.domain.Book;
 import ru.glavs.hw017.domain.Genre;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,6 +43,7 @@ public class BookCRUDImpl implements BookCRUD {
         for (Book b : bookList) {
             b.getComments().size();
         }
+        bookList.sort(Comparator.comparingLong(Book::getId));
         return bookList;
     }
 
