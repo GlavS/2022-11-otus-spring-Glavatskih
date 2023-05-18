@@ -15,9 +15,7 @@ import ru.glavs.composerervice.repository.ComposerRepository;
 public class ComposersServiceApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(ComposersServiceApplication.class, args);
-		ComposerRepository repository = context.getBean(ComposerRepository.class);
-		System.out.println(repository.findFirstByFamilyName("Bach"));
+		SpringApplication.run(ComposersServiceApplication.class, args);
 	}
 
 }
